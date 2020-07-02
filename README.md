@@ -2,7 +2,7 @@
 ## Installation
 Copy the repository
 ```
-git clone
+git clone git@github.com:mikkojamG/ui-component-library-proto.git
 ```
 Install development dependencies and Pattern Lab.
 ```
