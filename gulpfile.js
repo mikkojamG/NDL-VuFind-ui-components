@@ -75,7 +75,10 @@ const watchTask = () => {
       baseDir: config.paths.public.root
     },
     ghostMode: true,
-    open: 'external'
+    open: 'external',
+    snippetOptions: {
+      blacklist: ['/index.html', '/']
+    }
   });
 
   gulp.watch(`${config.paths.source.styles}/**/*.less`, styles);
