@@ -1,0 +1,20 @@
+{
+  "head": ["#", "First Name", "Last Name", "User Name"],
+  "body": [
+    {
+      "firstName": "Mark",
+      "lastName": "Otto",
+      "userName": "@mdo"
+    },
+    {
+      "firstName": "Jacob",
+      "lastName": "Thornton",
+      "userName": "@fat"
+    },
+    {
+      "firstName": "Larry",
+      "lastName": "the Bird",
+      "userName": "@twitter"
+    }
+  ]
+}
