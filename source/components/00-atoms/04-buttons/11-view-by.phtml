@@ -1,5 +1,5 @@
-<div class="view-button">
-  <a href="#" title="View by property" aria-label="View by property">
-    <i class="fa fa-list"></i>
+<div class="view-button <?= isset($selected) && $selected ? 'selected' : ''; ?>">
+  <a href="<?= $linkHref; ?>" title="<?= $linkLabel; ?>" aria-label="<?= $linkLabel; ?>">
+    <i class="fa <?= $icon; ?>"></i>
   </a>
 </div>
