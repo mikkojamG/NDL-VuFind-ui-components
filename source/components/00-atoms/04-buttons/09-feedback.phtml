@@ -1,5 +1,5 @@
 <div style="position: relative; min-height: 8rem;">
-  <a class="btn btn-primary btn-uppercase floating-feedback-btn" href="#">
-    Feedback
+  <a class="btn floating-feedback-btn <?= isset($linkClass) ? $linkClass : 'btn-primary'; ?>" href="<?= $linkHref ?>">
+    <?= $linkText; ?>
   </a>
 </div>
