@@ -1,0 +1,5 @@
+{
+  "icon": "fa-user fa-lg",
+  "buttonClass": "btn-primary btn-uppercase",
+  "buttonText": "Button with icon"
+}

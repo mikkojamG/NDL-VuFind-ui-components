@@ -1,4 +1,4 @@
-<button class="btn btn-primary btn-uppercase">
-  <i class="fa fa-user fa-lg" aria-hidden="true"></i>
-  <span>Button with icon</span>
+<button class="btn <?= isset($buttonClass) ? $buttonClass : 'btn-primary btn-uppercase'; ?>">
+  <i class="fa <?= $icon; ?>" aria-hidden="true"></i>
+  <span><?= $buttonText; ?></span>
 </button>
