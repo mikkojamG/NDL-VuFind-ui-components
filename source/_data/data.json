@@ -2,11 +2,12 @@
   "title": "UI Component Library Proto",
   "htmlClass": "pl",
   "bodyClass": "body",
-  "form": {
-    "label": "This is a label",
-    "inputPlaceholder":"This is an input",
-    "inputPlaceholderInvalid":"This is an invalid input",
-    "submit": "Submit",
-    "error": "This is an error"
-  }
+  "alert": "This feature is still in testing",
+  "label": "This is a label",
+  "labelRequired": "This is a label <span>(required)</span>",
+  "inputPlaceholder": "This is an input",
+  "inputError": "Please fill out this field",
+  "inputCheckboxError": "Please check this field",
+  "submit": "Submit",
+  "error": "This is an error"
 }
