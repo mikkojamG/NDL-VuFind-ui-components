@@ -6,6 +6,8 @@ const gulp = require('gulp');
 const less = require('gulp-less');
 const shell = require('gulp-shell');
 const browserSync = require('browser-sync');
+const fs = require('fs');
+const chalk = require('chalk');
 
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
@@ -53,7 +55,8 @@ const scripts = () => {
     .src([
       `${source}/js/finna.js`,
       `!${source}/js/vendor/*.js`,
-      `${source}/components/**/*.js`
+      `${source}/components/**/*.js`,
+      `${source}/js/patternlab/*.js`,
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(dest))
@@ -105,20 +108,67 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const componentImports = () => {
-  const less = `${process.env.THEME_DIRECTORY}/less`
+const validateImportTargetFile = (file) => {
+  return fs.readFile(file, (error, data) => {
+    if (error) {
+      throw error;
+    }
 
-  return gulp.src(`${less}/custom.less`)
-    .pipe(inject(
-      gulp.src(`${less}/components/**/*.less`, { read: false }),
-      {
-        starttag: '/* All custom less-code here */',
-        endtag: '/* Custom less-code ends */',
-        ignorePath: `/${process.env.THEME_DIRECTORY}/less/`,
-        addRootSlash: false,
-        transform: (filePath) => `@import "${filePath}";`
-      }))
-    .pipe(gulp.dest(less))
+    if (data.indexOf('Component imports start here') == -1 && data.indexOf('Component imports end here') == -1) {
+      const errorMessage = `Not able to import to target file: ${file}. Make sure that file has required starting comment /* Component imports start here */ and ending comment /* Component imports end here */`;
+
+      console.log(chalk.red(errorMessage));
+
+      throw Error(errorMessage);
+    }
+  });
+};
+
+const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
+  return fs.access(file, (error) => {
+    if (error) {
+      console.log(chalk.yellow(`${file} does not exist. Trying to create.`));
+
+      const componentsFileContent = '/* Component imports start here */ \r\n/* Component imports end here */';
+
+      return fs.writeFile(file, componentsFileContent, (err) => {
+        if (err) {
+          reject(err);
+        }
+
+        console.log(chalk.green(`${file} created successfully. Proceeding..`));
+
+        resolve(validateImportTargetFile(file));
+      });
+    } else {
+      resolve(validateImportTargetFile(file));
+    }
+  });
+});
+;
+
+
+const componentImports = async () => {
+  const less = `${process.env.THEME_DIRECTORY}/less`;
+
+  try {
+    await checkImportTargetFile(`${less}/components.less`);
+
+    return gulp.src(`${less}/components.less`)
+      .pipe(inject(
+        gulp.src(`${less}/components/**/*.less`, { read: false }),
+        {
+          starttag: '/* Component imports start here */',
+          endtag: '/* Component imports end here */',
+          ignorePath: `/${process.env.THEME_DIRECTORY}/less/`,
+          addRootSlash: false,
+          transform: (filepath) => `@import "${filepath}";`
+        }))
+      .pipe(gulp.dest(less));
+  }
+  catch (err) {
+    throw err;
+  }
 };
 gulp.task(componentImports);
 
