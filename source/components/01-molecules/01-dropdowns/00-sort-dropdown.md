@@ -4,9 +4,12 @@ A dropdown element, which is particularly used for menus and filters. Can be set
 
 #### Properties
 
-| Prop    | Type       | Required |
-| ------- | ---------- | -------- |
-| outline | `Boolean`  | No       |
-| label   | `String`   | Yes      |
-| items   | `Object[]` | Yes      |
-| submit  | `String`   | Yes      |
+| Prop          | Type       | Required |
+| ------------- | ---------- | -------- |
+| outline       | `Boolean`  | No       |
+| dropdownClass | `String`   | No       |
+| labelClass    | `String`   | No       |
+| label         | `String`   | Yes      |
+| iconLabel     | `String`   | No       |
+| items         | `Object[]` | Yes      |
+| submit        | `String`   | Yes      |
