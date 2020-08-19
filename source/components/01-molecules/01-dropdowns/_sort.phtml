@@ -1,11 +1,20 @@
 <div class="dropdown">
-  <button href="#" class="btn dropdown-toggle <?= isset($outline) && $outline ? 'btn-outline-primary' : 'btn-primary'; ?>" data-toggle="dropdown">
-    <span><?= $label; ?></span> <i class="fa fa-arrow-down"></i>
+  <button class="btn dropdown-toggle <?= isset($outline) && $outline ? 'btn-outline-primary' : 'btn-primary'; ?>" data-toggle="dropdown">
+    <span class="<?= isset($labelClass) ? $labelClass : '' ?>">
+      <?= $label; ?>
+    </span>
+    <?php if (isset($iconLabel)) : ?>
+      <span class="more">
+        <?= $iconLabel; ?> <i class="fa fa-arrow-down"></i>
+      </span>
+    <?php else : ?>
+      <i class="fa fa-arrow-down"></i>
+    <?php endif; ?>
   </button>
   <ul class="dropdown-menu" role="menu">
     <?php foreach ($items as $item) : ?>
       <li role="menuitem">
-        <a href="<?= $item['href']; ?>"><?= $item['value']; ?></a>
+        <a href="<?= $item['href']; ?>" class="<?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?>"><?= $item['name']; ?></a>
       </li>
     <?php endforeach; ?>
   </ul>
