@@ -1,7 +1,18 @@
-<ul class="nav nav-tabs <?= isset($tablistClass) ? $tablistClass : ''; ?>" role="tablist" aria-label="<?= $label; ?>">
-  <?php foreach ($tabs as $tab) : ?>
-    <li role="tab" id="<?= $tab['id']; ?>-tab" class="<?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>">
-      <a href="<?= $tab['href']; ?>"><?= $tab['name']; ?></a>
-    </li>
-  <?php endforeach; ?>
-</ul>
+<?= $this->render('components/01-molecules/06-tabs/_tabs.phtml', ['label' => $label, 'tabs' => $tabs]) ?>
+<script type="text/javascript">
+  $(document).ready(function onReady() {
+    $tablist = $('ul[role="tablist"]');
+
+    $tabs = $tablist.find('li[role="tab"]');
+
+    $tabs.on('click', function onClickTab() {
+      var $this = $(this);
+
+      $tabs.removeClass('active');
+      $tabs.attr('aria-selected', false);
+
+      $this.addClass('active');
+      $this.attr('aria-selected', true);
+    });
+  });
+</script>
