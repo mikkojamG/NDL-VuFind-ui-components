@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <button class="btn dropdown-toggle <?= isset($outline) && $outline ? 'btn-outline-primary' : 'btn-primary'; ?>" data-toggle="dropdown">
+  <button class="btn dropdown-toggle <?= isset($outline) && $outline ? 'btn-outline-primary' : 'btn-primary'; ?> <?= isset($dropdownClass) ? $dropdownClass : ''; ?>" data-toggle="dropdown">
     <span class="<?= isset($labelClass) ? $labelClass : '' ?>">
       <?= $label; ?>
     </span>
