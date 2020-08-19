@@ -1,4 +1,5 @@
 {
+  "menuClass": "js-pl-example-tabs",
   "tablistLabel": "Finna main tabs",
   "tabs": [
     {

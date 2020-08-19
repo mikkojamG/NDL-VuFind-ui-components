@@ -1,5 +1,9 @@
-<div>
-  <?= $this->render('components/01-molecules/06-tabs/_nav-tabs.phtml', ['label' => $tablistLabel, 'tabs' => $tabs, 'tablistClass' => 'js-pl-example-tabs']) ?>
+<div class="finna-main-tabs <?= isset($menuClass) ? $menuClass : ''; ?>">
+  <?= $this->render('components/01-molecules/06-tabs/00-tabs.phtml', ['tablistClass' => 'hidden-xs', 'label' => $label, 'tabs' => $tabs]) ?>
+
+  <div class="mobile-main-tabs visible-xs">
+    <?= $this->render('components/01-molecules/01-dropdowns/_sort.phtml', ['labelClass' => 'tab-title', 'label' => $label, 'iconLabel' => $more, 'items' => $tabs]) ?>
+  </div>
 </div>
 <script type="text/javascript">
   $(document).ready(function onReady() {
