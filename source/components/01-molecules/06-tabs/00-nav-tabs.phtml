@@ -1,9 +1,19 @@
-<div class="finna-main-tabs">
-  <ul class="nav nav-tabs" role="tablist" aria-label="<?= $tablistLabel; ?>">
-    <?php foreach ($tabs as $tab) : ?>
-      <li role="tab" id="<?= $tab['id']; ?>-tab" class="<?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>">
-        <a href="<?= $tab['href']; ?>"><?= $tab['name']; ?></a>
-      </li>
-    <?php endforeach; ?>
-  </ul>
+<div>
+  <?= $this->render('components/01-molecules/06-tabs/_nav-tabs.phtml', ['label' => $tablistLabel, 'tabs' => $tabs, 'tablistClass' => 'hidden-xs js-pl-example-tabs']) ?>
 </div>
+<script type="text/javascript">
+  $(document).ready(function onReady() {
+    $tablist = $('.js-pl-example-tabs');
+    $tabs = $tablist.find('li[role="tab"]');
+
+    $tabs.on('click', function onClickTab() {
+      var $this = $(this);
+
+      $tabs.removeClass('active');
+      $tabs.attr('aria-selected', false);
+
+      $this.addClass('active');
+      $this.attr('aria-selected', true);
+    });
+  });
+</script>
