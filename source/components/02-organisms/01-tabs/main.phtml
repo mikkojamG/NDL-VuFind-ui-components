@@ -2,6 +2,6 @@
   <?= $this->render('components/01-molecules/06-tabs/_tabs.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
 
   <div class="mobile-main-tabs visible-xs">
-    <?= $this->render('components/01-molecules/01-dropdowns/_sort.phtml', ['labelClass' => 'text-left tab-title', 'label' => $tablistLabel, 'iconLabel' => $more, 'items' => $tabs, 'dropdownClass' => 'btn-block']) ?>
+    <?= $this->render('components/01-molecules/01-dropdowns/_sort.phtml', ['labelClass' => 'text-left tab-title', 'label' => $tablistLabel, 'iconLabel' => $more, 'items' => $tabs, 'dropdownClass' => 'btn-block', 'submit' => $submit]) ?>
   </div>
 </div>
