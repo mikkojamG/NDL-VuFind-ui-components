@@ -1,10 +1,12 @@
 <div>
-  <?= $this->render('components/01-molecules/06-tabs/_nav-tabs.phtml', ['label' => $tablistLabel, 'tabs' => $tabs, 'tablistClass' => 'hidden-xs js-pl-example-tabs']) ?>
+  <?= $this->render('components/01-molecules/06-tabs/_nav-tabs.phtml', ['label' => $tablistLabel, 'tabs' => $tabs, 'tablistClass' => 'js-pl-example-tabs']) ?>
 </div>
 <script type="text/javascript">
   $(document).ready(function onReady() {
     $tablist = $('.js-pl-example-tabs');
+
     $tabs = $tablist.find('li[role="tab"]');
+    $menuitems = $tablist.find('li[role="menuitem"]');
 
     $tabs.on('click', function onClickTab() {
       var $this = $(this);
@@ -15,5 +17,13 @@
       $this.addClass('active');
       $this.attr('aria-selected', true);
     });
+
+    $menuitems.on('click', function onClickMenuitem() {
+      var $this = $(this);
+
+      $menuitems.removeClass('active');
+
+      $this.addClass('active');
+    })
   });
 </script>
