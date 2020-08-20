@@ -4,14 +4,15 @@ Finna main tabs component. Can be used for navigations and for showing/hiding co
 
 #### Properties
 
-| Prop       | Type      | Required |
-| ---------- | --------- | -------- |
-| menuClass  | `String`  | No       |
-| label      | `String`  | Yes      |
-| tabs       | `Object[]`| Yes      |
-| iconLabel  | `String`  | Yes      |
+| Prop         | Type      | Required |
+| ------------ | --------- | -------- |
+| menuClass    | `String`  | No       |
+| tablistLabel | `String`  | Yes      |
+| tabs         | `Object[]`| Yes      |
+| iconLabel    | `String`  | Yes      |
+| submit       | `String`  | Yes      |
 
 #### Child components
 
-- `01-molecules/06-tabs/_tabs.phtml`
-- `01-molecules/01-dropdowns/_sort.phtml`
+- `01-molecules/01-navigation/_tabs.phtml`
+- `01-molecules/01-navigation/_sort.phtml`
