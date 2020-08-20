@@ -4,18 +4,18 @@
     {
       "name": "Example tab 1",
       "id": "tab1",
-      "href": "#tab1",
+      "href": "#",
       "active": true
     },
     {
       "name": "Example tab 2",
       "id": "tab2",
-      "href": "#tab2"
+      "href": "#"
     },
     {
       "name": "Example tab 3",
       "id": "tab3",
-      "href": "#tab3"
+      "href": "#"
     }
   ]
 }

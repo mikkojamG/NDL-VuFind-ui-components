@@ -2,6 +2,6 @@
 $buttonClassString = implode(" ", $buttonClasses)
 ?>
 
-<button type="button" class="<?= $buttonClassString; ?>" data-toggle="tooltip" data-placement="<?= isset($position) ? $position : 'auto'; ?>" data-original-title="<?= $content; ?>" data-html="true">
+<button type="button" class="<?= $buttonClassString; ?>" data-toggle="tooltip" data-placement="<?= isset($position) ? $position : 'auto'; ?>" data-original-title="<?= $content; ?>" data-html="true" <?= isset($label) ? 'aria-label="'.$label.'"' : ''; ?>>
   <?= $buttonText ?>
 </button>
