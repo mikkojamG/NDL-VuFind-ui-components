@@ -1,0 +1,25 @@
+{
+  "menuClass": "js-pl-example-tabs",
+  "tablistLabel": "Finna main tabs",
+  "tabs": [
+    {
+      "name": "Example tab 1",
+      "id": "tab1",
+      "href": "#tab1",
+      "active": true,
+      "tooltip": "<h4>Tab 1 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>"
+    },
+    {
+      "name": "Example tab 2",
+      "id": "tab2",
+      "href": "#tab2",
+      "tooltip": "<h4>Tab 2 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>"
+    },
+    {
+      "name": "Example tab 3",
+      "id": "tab3",
+      "href": "#tab3",
+      "tooltip": "<h4>Tab 3 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>"
+    }
+  ]
+}
