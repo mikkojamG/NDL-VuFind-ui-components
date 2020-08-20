@@ -1,10 +1,10 @@
 <div class="finna-main-tabs">
-  <?= $this->render('components/01-molecules/06-tabs/_tabs.phtml', ['label' => $label, 'tabs' => $tabs, 'tablistClass' => 'js-tablist-example']) ?>
+  <?= $this->render('components/01-molecules/01-navigation/_tabs-tooltip.phtml', ['label' => $label, 'tabs' => $tabs, 'tablistClass' => 'js-tablist-tooltip-example']) ?>
 </div>
 <script type="text/javascript">
-  $(document).ready(function onTabsReady() {
-    var initExampleTooltipTabs = function() {
-      var $tablist = $('.js-tablist-example');
+  $(document).ready(function onTooltipTabsReady() {
+    var initExampleTabs = function() {
+      var $tablist = $('.js-tablist-tooltip-example');
       var $tabs = $tablist.find('li[role="tab"]');
 
       $tabs.on('click', function onClickTab() {
@@ -16,6 +16,6 @@
       });
     }
 
-    initExampleTooltipTabs();
+    initExampleTabs();
   });
 </script>
