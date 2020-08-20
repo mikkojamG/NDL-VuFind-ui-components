@@ -1,6 +1,7 @@
 {
   "menuClass": "js-pl-example-tabs",
   "tablistLabel": "Finna main tabs",
+  "fallbackLabel": "Submit",
   "tabs": [
     {
       "name": "Example tab 1",

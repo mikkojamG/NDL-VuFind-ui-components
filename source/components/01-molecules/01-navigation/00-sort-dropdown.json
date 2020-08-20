@@ -5,5 +5,5 @@
     { "name": "Item 2", "href": "#" },
     { "name": "Item 3", "href": "#" }
   ],
-  "submit": "Submit"
+  "fallbackLabel": "Submit"
 }

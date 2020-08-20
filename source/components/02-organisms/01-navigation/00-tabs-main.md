@@ -4,13 +4,13 @@ Finna main tabs component. Can be used for navigations and for showing/hiding co
 
 #### Properties
 
-| Prop         | Type      | Required |
-| ------------ | --------- | -------- |
-| menuClass    | `String`  | No       |
-| tablistLabel | `String`  | Yes      |
-| tabs         | `Object[]`| Yes      |
-| iconLabel    | `String`  | Yes      |
-| submit       | `String`  | Yes      |
+| Prop          | Type      | Required |
+| ------------- | --------- | -------- |
+| menuClass     | `String`  | No       |
+| tablistLabel  | `String`  | Yes      |
+| tabs          | `Object[]`| Yes      |
+| iconLabel     | `String`  | Yes      |
+| fallbackLabel | `String`  | Yes      |
 
 #### Child components
 

@@ -12,4 +12,4 @@ A dropdown element, which is particularly used for menus and filters. Can be set
 | label         | `String`   | Yes      |
 | iconLabel     | `String`   | No       |
 | items         | `Object[]` | Yes      |
-| submit        | `String`   | Yes      |
+| fallbackLabel | `String`   | Yes      |
