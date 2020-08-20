@@ -1,4 +1,6 @@
-<?= $this->render('components/01-molecules/06-tabs/_tabs.phtml', ['label' => $label, 'tabs' => $tabs]) ?>
+<div class="finna-main-tabs container">
+  <?= $this->render('components/01-molecules/06-tabs/_tabs.phtml', ['label' => $label, 'tabs' => $tabs]) ?>
+</div>
 <script type="text/javascript">
   $(document).ready(function onReady() {
     $tablist = $('ul[role="tablist"]');
