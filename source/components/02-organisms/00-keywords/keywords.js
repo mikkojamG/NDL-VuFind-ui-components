@@ -19,9 +19,9 @@ finna.keywords = (function keywords() {
         var $newKeyword = $(
           '<button data-tag-id="' +
             tag.id +
-            '" class="btn keyword js-keyword"><span class="keyword__button-text">' +
+            '" class="btn keyword js-keyword"><span class="keyword-button-text">' +
             tag.value +
-            '</span><i class="fa fa-times keyword__button-icon" aria-hidden="true"></i></button>'
+            '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i></button>'
         );
 
         $('.js-keywords-list').append($newKeyword);

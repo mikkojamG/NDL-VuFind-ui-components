@@ -24,7 +24,7 @@
   }
 
   &-toggle {
-    &__button {
+    &-button {
       float: right;
       border: none;
       color: @gray-light;
@@ -44,24 +44,24 @@
         padding: 0.25rem 0.5rem;
 
         .keywords-toggle {
-          &__label {
+          &-label {
             display: inline-block;
           }
 
-          &__icon {
+          &-icon {
             margin-left: 0.5rem;
           }
         }
       }
     }
 
-    &__label {
+    &-label {
       display: none;
       font-size: 1.3rem;
       color: @gray-light;
     }
 
-    &__icon {
+    &-icon {
       color: @gray-mid-light;
     }
   }
@@ -70,7 +70,7 @@
     padding: 1rem;
 
     &.open {
-      .keywords-current__text {
+      .keywords-current-text {
         display: block;
       }
 
@@ -85,20 +85,20 @@
           color: @brand-primary;
         }
 
-        &__button-icon {
+        &-button-icon {
           display: block;
         }
       }
     }
 
-    &__text {
+    &-text {
       display: none;
       color: @gray-light;
       margin-bottom: 0.5rem;
       font-size: 1.3rem;
     }
 
-    &__list {
+    &-list {
       display: flex;
       flex-wrap: wrap;
     }
@@ -129,7 +129,7 @@
     box-shadow: none;
   }
 
-  &__button {
+  &-button {
     &-text {
       font-size: 1.25rem;
     }

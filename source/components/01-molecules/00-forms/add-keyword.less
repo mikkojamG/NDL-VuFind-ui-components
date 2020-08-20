@@ -1,5 +1,5 @@
 .add-keyword-form {
-  &__input {
+  &-input {
     width: 100%;
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -26,14 +26,14 @@
     }
   }
 
-  &__label {
+  &-label {
     color: @gray-light;
     margin-bottom: 0.5rem;
     font-size: 1.3rem;
     font-weight: normal;
   }
 
-  &__button {
+  &-button {
     padding: 0.6rem;
 
     @media (max-width: @screen-sm) {
@@ -42,12 +42,12 @@
   }
 
   &.invalid {
-    .add-keyword-form__error {
+    .add-keyword-form-error {
       display: block;
     }
   }
 
-  &__error {
+  &-error {
     display: none;
     color: @brand-danger;
     margin-top: 0.5rem;
