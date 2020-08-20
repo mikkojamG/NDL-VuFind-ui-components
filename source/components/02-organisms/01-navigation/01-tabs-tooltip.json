@@ -6,7 +6,7 @@
     {
       "name": "Example tab 1",
       "id": "tab1",
-      "href": "#tab1",
+      "href": "#",
       "active": true,
       "tooltip": "<h4>Tab 1 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>",
       "tooltipLabel": "Help - Example tab 1"
@@ -14,14 +14,14 @@
     {
       "name": "Example tab 2",
       "id": "tab2",
-      "href": "#tab2",
+      "href": "#",
       "tooltip": "<h4>Tab 2 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>",
       "tooltipLabel": "Help - Example tab 2"
     },
     {
       "name": "Example tab 3",
       "id": "tab3",
-      "href": "#tab3",
+      "href": "#",
       "tooltip": "<h4>Tab 3 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>",
       "tooltipLabel": "Help - Example tab 3"
     }
