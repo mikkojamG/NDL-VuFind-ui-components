@@ -37,9 +37,9 @@ finna.keywords = (function keywords() {
     if (editMode) {
       var keywordId = $this.data('keyword-id');
       var listParams = {};
-      var currentKeyword = getKeywordsArray();
+      var currentKeywords = getKeywordsArray();
 
-      var modifyKeywords = currentKeyword.filter(function filterKeyword(keyword) {
+      var modifyKeywords = currentKeywords.filter(function filterKeyword(keyword) {
         return $(keyword).data('keyword-id') !== keywordId;
       }).map(function mapKeywords(keyword) {
         return $(keyword).find('.keyword-button-text').text().trim();
