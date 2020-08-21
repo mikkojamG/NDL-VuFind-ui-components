@@ -1,4 +1,4 @@
-/* global finna */
+/*global VuFind, finna */
 finna.keywords = (function keywords() {
   var updateCounter = function updateCounter() {
     var $keywords = $('.js-keyword');
@@ -6,52 +6,67 @@ finna.keywords = (function keywords() {
     $('.js-keywords-counter').text($keywords.length);
   };
 
-  var getTags = function getTags() {
-    $('.js-spinner').show();
 
-    $.ajax({
-      url: '/finna/tags',
-      method: 'GET'
-    }).done(function onRequestDone(response) {
-      $('.js-keywords-list').empty();
-
-      $.each(response.tags, function appendKeyword(index, tag) {
-        var $newKeyword = $(
-          '<button data-tag-id="' +
-            tag.id +
-            '" class="btn keyword js-keyword"><span class="keyword-button-text">' +
-            tag.value +
-            '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i></button>'
-        );
-
-        $('.js-keywords-list').append($newKeyword);
-        $newKeyword.on('click', deleteKeyword);
-      });
-
-      updateCounter();
-
-      $('.js-spinner').hide();
-    });
+  var getCurrentTags = function getCurrentTags() {
+    return $('.js-keyword').toArray().map(function mapTags(keyword) {
+      return $(keyword);
+    })
   };
 
-  var deleteKeyword = function deleteKeyword() {
+  var updateTags = function updateTags(data) {
+    var $keywords = $('.js-keywords-list');
+
+    $keywords.empty();
+
+    data.forEach(function forEachTag(tag) {
+      var $keyword = $('<button></button>');
+      $keyword.attr('data-tag-id', encodeURIComponent(tag));
+      $keyword.attr('class', 'btn keyword js-keyword');
+
+      $keyword.html('<span class="keyword-button-text">' + tag + '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i>');
+
+      $keyword.on('click', deleteItem);
+
+      $keywords.append($keyword);
+      updateCounter();
+    });
+  }
+
+  var deleteItem = function onDeleteItem() {
+    var $this = $(this);
+    var tagId = $this.data('tag-id');
+
     var editMode = $('.js-keywords-wrapper').hasClass('open');
 
     if (editMode) {
-      $('.js-spinner').show();
+      var listParams = {};
+      var currentTags = getCurrentTags();
 
-      var data = {
-        id: $(this).data('tag-id').toString()
-      };
+      var modifyTags = currentTags.filter(function filterTags(tag) {
+        return tag.data('tag-id') !== tagId;
+      }).map(function mapTags(tag) {
+        return $(tag).find('.keyword-button-text').text().trim();
+      })
+
+      listParams.tags = modifyTags;
 
       $.ajax({
-        url: '/finna/tags',
-        method: 'DELETE',
-        data: JSON.stringify(data)
-      }).done(function onRequestDone() {
-        getTags();
+        url: VuFind.path + '/AJAX/JSON?method=editList',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: { 'params': listParams }
+      }).done(function onRequestDone(response) {
+        updateTags(response.data);
       });
     }
+  };
+
+  var initDeleteKeyword = function deleteKeyword() {
+    var $keywords = $('.js-keyword');
+
+    $keywords.on('click', deleteItem);
   };
 
   var initAddKeyword = function initAddKeyword() {
@@ -70,12 +85,26 @@ finna.keywords = (function keywords() {
       if ($form[0].checkValidity()) {
         $('.js-spinner').show();
 
+        var listParams = {};
+
+        var currentTags = getCurrentTags().filter(function filterTags(tag) {
+          return $(tag).find('.keyword-button-text').text().trim();
+        });
+
+        currentTags.push($input.val());
+        listParams.tags = currentTags;
+
         $.ajax({
-          url: '/finna/tags',
+          url: VuFind.path + '/AJAX/JSON?method=editList',
           method: 'POST',
-          data: JSON.stringify({tag: $input.val()})
-        }).done(function onRequestDone() {
-          getTags();
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: { 'params': listParams }
+        }).done(function onRequestDone(response) {
+
+
+          updateTags(response.data);
         });
       } else {
         $form.addClass('invalid');
@@ -94,12 +123,8 @@ finna.keywords = (function keywords() {
     });
   };
 
-  var initKeywords = function initKeywords() {
-    getTags();
-  };
-
   var init = function init() {
-    initKeywords();
+    initDeleteKeyword();
     initToggle();
     initAddKeyword();
   };

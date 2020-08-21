@@ -7,5 +7,6 @@
     "label": "Type a keyword and click \"Enter\"",
     "button": "Enter",
     "error": "Please provide a keyword"
-  }
+  },
+  "tags": ["Testing 1", "Testing 2"]
 }

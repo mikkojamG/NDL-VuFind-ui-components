@@ -1,5 +1,5 @@
 <div class="keywords">
-  <div class="keywords-spinner js-spinner">
+  <div class="keywords-spinner js-spinner hidden">
     <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
   </div>
   <div class="keywords-wrapper js-keywords-wrapper">
@@ -20,10 +20,19 @@
       <?php if (isset($editable) && $editable) : ?>
         <p class="keywords-current-text">
           <?= $currentKeywords ?>
-          (<span class="js-keywords-counter">0</span>):
+          (<span class="js-keywords-counter"><?= count($tags) ?></span>):
         </p>
       <?php endif; ?>
-      <div class="keywords-current-list js-keywords-list"></div>
+      <div class="keywords-current-list js-keywords-list">
+        <?php foreach ($tags as $tag) : ?>
+          <button data-tag-id="<?= urlencode($tag); ?>" class="btn keyword js-keyword">
+            <span class="keyword-button-text">
+              <?= $tag; ?>
+            </span>
+            <i class="fa fa-times keyword-button-icon" aria-hidden="true"></i>
+          </button>
+        <?php endforeach; ?>
+      </div>
     </div>
   </div>
 </div>
