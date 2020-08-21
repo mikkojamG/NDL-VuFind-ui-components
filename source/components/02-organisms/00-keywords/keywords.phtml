@@ -25,7 +25,7 @@
       <?php endif; ?>
       <div class="keywords-current-list js-keywords-list">
         <?php foreach ($tags as $tag) : ?>
-          <button data-tag-id="<?= urlencode($tag); ?>" class="btn keyword js-keyword">
+          <button data-keyword-id="<?= urlencode($tag); ?>" class="btn keyword js-keyword">
             <span class="keyword-button-text">
               <?= $tag; ?>
             </span>

@@ -7,48 +7,45 @@ finna.keywords = (function keywords() {
   };
 
 
-  var getCurrentTags = function getCurrentTags() {
-    return $('.js-keyword').toArray().map(function mapTags(keyword) {
-      return $(keyword);
-    })
+  var getKeywordsArray = function getKeywordsArray() {
+    return $('.js-keyword').toArray();
   };
 
-  var updateTags = function updateTags(data) {
+  var updateKeywords = function updateKeywords(keywordsArray) {
     var $keywords = $('.js-keywords-list');
 
     $keywords.empty();
 
-    data.forEach(function forEachTag(tag) {
+    keywordsArray.forEach(function forEachKeyword(keyword) {
       var $keyword = $('<button></button>');
-      $keyword.attr('data-tag-id', encodeURIComponent(tag));
+      $keyword.attr('data-keyword-id', encodeURIComponent(keyword));
       $keyword.attr('class', 'btn keyword js-keyword');
 
-      $keyword.html('<span class="keyword-button-text">' + tag + '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i>');
+      $keyword.html('<span class="keyword-button-text">' + keyword + '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i>');
 
-      $keyword.on('click', deleteItem);
+      $keyword.on('click', deleteKeyword);
 
       $keywords.append($keyword);
       updateCounter();
     });
   }
 
-  var deleteItem = function onDeleteItem() {
+  var deleteKeyword = function deleteKeyword() {
     var $this = $(this);
-    var tagId = $this.data('tag-id');
-
     var editMode = $('.js-keywords-wrapper').hasClass('open');
 
     if (editMode) {
+      var keywordId = $this.data('keyword-id');
       var listParams = {};
-      var currentTags = getCurrentTags();
+      var currentKeyword = getKeywordsArray();
 
-      var modifyTags = currentTags.filter(function filterTags(tag) {
-        return tag.data('tag-id') !== tagId;
-      }).map(function mapTags(tag) {
-        return $(tag).find('.keyword-button-text').text().trim();
+      var modifyKeywords = currentKeyword.filter(function filterKeyword(keyword) {
+        return $(keyword).data('keyword-id') !== keywordId;
+      }).map(function mapKeywords(keyword) {
+        return $(keyword).find('.keyword-button-text').text().trim();
       })
 
-      listParams.tags = modifyTags;
+      listParams.tags = modifyKeywords;
 
       $.ajax({
         url: VuFind.path + '/AJAX/JSON?method=editList',
@@ -58,15 +55,15 @@ finna.keywords = (function keywords() {
         },
         data: { 'params': listParams }
       }).done(function onRequestDone(response) {
-        updateTags(response.data);
+        updateKeywords(response.data);
       });
     }
   };
 
-  var initDeleteKeyword = function deleteKeyword() {
+  var initDeleteKeyword = function initDeleteKeyword() {
     var $keywords = $('.js-keyword');
 
-    $keywords.on('click', deleteItem);
+    $keywords.on('click', deleteKeyword);
   };
 
   var initAddKeyword = function initAddKeyword() {
@@ -87,12 +84,12 @@ finna.keywords = (function keywords() {
 
         var listParams = {};
 
-        var currentTags = getCurrentTags().filter(function filterTags(tag) {
-          return $(tag).find('.keyword-button-text').text().trim();
+        var currentKeywords = getKeywordsArray().map(function filterKeywords(keyword) {
+          return $(keyword).find('.keyword-button-text').text().trim();
         });
 
-        currentTags.push($input.val());
-        listParams.tags = currentTags;
+        currentKeywords.push($input.val());
+        listParams.tags = currentKeywords;
 
         $.ajax({
           url: VuFind.path + '/AJAX/JSON?method=editList',
@@ -104,7 +101,7 @@ finna.keywords = (function keywords() {
         }).done(function onRequestDone(response) {
 
 
-          updateTags(response.data);
+          updateKeywords(response.data);
         });
       } else {
         $form.addClass('invalid');
