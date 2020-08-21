@@ -58,8 +58,7 @@ finna.keywords = (function keywords() {
       }).done(function onRequestDone(response) {
         updateKeywords(response.data);
         $('.js-spinner').addClass('hidden');
-      }).fail(function onRequestFail(error) {
-        console.log(error);
+      }).fail(function onRequestFail() {
         $('.js-spinner').addClass('hidden');
       });
     }
@@ -106,8 +105,7 @@ finna.keywords = (function keywords() {
         }).done(function onRequestDone(response) {
           updateKeywords(response.data);
           $('.js-spinner').addClass('hidden');
-        }).fail(function onRequestFail(error) {
-          console.log(error);
+        }).fail(function onRequestFail() {
           $('.js-spinner').addClass('hidden');
         });
       } else {
