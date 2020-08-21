@@ -6,7 +6,6 @@ finna.keywords = (function keywords() {
     $('.js-keywords-counter').text($keywords.length);
   };
 
-
   var getKeywordsArray = function getKeywordsArray() {
     return $('.js-keyword').toArray();
   };
