@@ -17,7 +17,7 @@ var mockKeywords = {
 
 $.mockjax([
   {
-    url: '/vufind/AJAX/JSON?method=editList',
+    url: VuFind.path + '/AJAX/JSON?method=editList',
     type: 'POST',
     responseTime: 2000,
     response: function (settings) {
