@@ -86,7 +86,12 @@ finna.keywords = (function keywords() {
       if ($form[0].checkValidity()) {
         $('.js-spinner').removeClass('hidden');
 
-        var listParams = {};
+        var listParams = {
+          id: $('input[name="listID"]').val(),
+          title: $('.list-title span').text(),
+          description: $('.list-description .editable').data('markdown'),
+          public: $(".list-visibility input[type='radio']:checked").val()
+        };
 
         var currentKeywords = getKeywordsArray().map(function filterKeywords(keyword) {
           return $(keyword).find('.keyword-button-text').text().trim();
@@ -101,6 +106,7 @@ finna.keywords = (function keywords() {
           headers: {
             'Content-Type': 'application/json'
           },
+          dataType: 'json',
           data: { 'params': listParams }
         }).done(function onRequestDone(response) {
           updateKeywords(response.data);
