@@ -34,6 +34,8 @@ finna.keywords = (function keywords() {
     var editMode = $('.js-keywords-wrapper').hasClass('open');
 
     if (editMode) {
+      $('.js-spinner').removeClass('hidden');
+
       var keywordId = $this.data('keyword-id');
       var listParams = {};
       var currentKeywords = getKeywordsArray();
@@ -55,6 +57,7 @@ finna.keywords = (function keywords() {
         data: { 'params': listParams }
       }).done(function onRequestDone(response) {
         updateKeywords(response.data);
+        $('.js-spinner').addClass('hidden');
       });
     }
   };
@@ -79,7 +82,7 @@ finna.keywords = (function keywords() {
       $form.removeClass('invalid');
 
       if ($form[0].checkValidity()) {
-        $('.js-spinner').show();
+        $('.js-spinner').removeClass('hidden');
 
         var listParams = {};
 
@@ -98,9 +101,8 @@ finna.keywords = (function keywords() {
           },
           data: { 'params': listParams }
         }).done(function onRequestDone(response) {
-
-
           updateKeywords(response.data);
+          $('.js-spinner').addClass('hidden');
         });
       } else {
         $form.addClass('invalid');
