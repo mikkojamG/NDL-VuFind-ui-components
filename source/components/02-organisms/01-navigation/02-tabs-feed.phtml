@@ -3,7 +3,14 @@
     <div class="visible-md visible-lg">
       <div class="feed-tabs-container">
         <h2 class="feed-tabs-title"><?= $tablistLabel; ?></h2>
-        <?= $this->render('components/01-molecules/01-navigation/_tabs.phtml', ['label' => $tablistLabel, 'tabs' => $tabs]); ?>
+        <ul class="nav nav-tabs" role="tablist" aria-label="<?= $tablistLabel; ?>">
+          <?php foreach ($tabs as $tab) : ?>
+            <li role="tab" id="<?= $tab['id']; ?>" data-tab="<?= $tab['id']; ?>" class="nav-item feed-tab <?= isset($tab['active']) && $tab['active'] ? 'active initial-active' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>">
+              <?= $tab['name']; ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+
       </div>
     </div>
   </div>

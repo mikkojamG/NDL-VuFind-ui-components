@@ -14,5 +14,5 @@ Finna main tabs component. Can be used for navigations and for showing/hiding co
 
 #### Child components
 
-- `01-molecules/01-navigation/_tabs-link.phtml`
+- `01-molecules/01-navigation/_tabs.phtml`
 - `01-molecules/01-navigation/_sort.phtml`
