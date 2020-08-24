@@ -2,12 +2,6 @@
 
 Tabs component with content loaded dynamically from feed.
 
-**Rendering with a helper function should be preferred:**
-
-```
-<?= $this->feedTabs(['title' => 'Otsikko', 'ids' => ['Tapahtumat' => 'news', 'Uutiset' => 'carousel', 'Muuta' => 'carousel-small']]) ?>
-```
-
 #### Properties
 
 | Prop         | Type       | Required |
@@ -19,3 +13,11 @@ Tabs component with content loaded dynamically from feed.
 #### Child components
 
 - `01-molecules/01-navigation/_tabs.phtml`
+
+#### Rendering
+
+**Rendering with a helper function is supported:**
+
+```
+<?= $this->feedTabs(['title' => 'Tabs feed with heading', 'ids' => ['Feed tab 1' => 'tab1', 'Feed tab 2' => 'tab2', 'Feed tab 3' => 'tab3']]) ?>
+```
