@@ -53,45 +53,16 @@ $.mockjax([
     }
   },
   {
-    url: VuFind.path + '/AJAX/JSON?method=getFeed&id=tab1&touch-device=0',
+    url: VuFind.path + '/AJAX/JSON?method=getFeed&id=*&touch-device=*',
     type: 'GET',
     responseTime: 1000,
-    response: function (settings) {
-
+    response: function () {
       this.responseText = {
         data: {
-          html: "<div><p>Content 1</p><div>",
+          html: "<div><p>Feed Content</p><div>",
           settings: { type: "grid", modal: false }
         }
       }
     }
   },
-  {
-    url: VuFind.path + '/AJAX/JSON?method=getFeed&id=tab2&touch-device=0',
-    type: 'GET',
-    responseTime: 1000,
-    response: function (settings) {
-
-      this.responseText = {
-        data: {
-          html: "<div><p>Content 2</p><div>",
-          settings: { type: "grid", modal: false }
-        }
-      }
-    }
-  },
-  {
-    url: VuFind.path + '/AJAX/JSON?method=getFeed&id=tab3&touch-device=0',
-    type: 'GET',
-    responseTime: 1000,
-    response: function (settings) {
-
-      this.responseText = {
-        data: {
-          html: "<div><p>Content 3</p><div>",
-          settings: { type: "grid", modal: false }
-        }
-      }
-    }
-  }
 ]);
