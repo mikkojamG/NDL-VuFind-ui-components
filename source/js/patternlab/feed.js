@@ -18,26 +18,6 @@ finna.feed = (function finnaFeed() {
             settings.height = 300;
           }
         }
-
-        if (holder.find('.grid-item.truncate').length > 0) {
-          holder.find('.show-more-feeds').removeClass('hidden');
-        }
-        holder.find('.show-more-feeds').click(function moreFeedsButton() {
-          holder.find('.grid-item.truncate').removeClass('hidden');
-          holder.find('.show-less-feeds').removeClass('hidden');
-          $(this).addClass('hidden');
-        });
-        holder.find('.show-less-feeds').click(function lessFeedsButton() {
-          holder.find('.grid-item.truncate').addClass('hidden');
-          holder.find('.show-more-feeds').removeClass('hidden');
-          $(this).addClass('hidden');
-        });
-        var feedGrid = holder.find('.feed-grid:not(.news-feed .feed-grid, .events-feed .feed-grid)');
-        if (feedGrid.width() <= 500) {
-          feedGrid.find('.grid-item').css('flex-basis', '100%');
-        } else if (feedGrid.width() <= 800) {
-          feedGrid.find('.grid-item').css('flex-basis', '50%');
-        }
       })
       .fail(function loadFeedFail(response/*, textStatus, err*/) {
         var err = '<!-- Feed could not be loaded';

@@ -6,7 +6,6 @@ finna.layout = (function finnaLayout() {
       || (navigator.msMaxTouchPoints > 0)); // IE10, IE11, Edge
   }
 
-
   var my = {
     isTouchDevice: isTouchDevice,
   };
