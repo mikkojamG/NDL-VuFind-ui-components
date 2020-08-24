@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs <?= isset($tablistClass) ? $tablistClass : ''; ?>" role="tablist" aria-label="<?= $label; ?>">
   <?php foreach ($tabs as $tab) : ?>
-    <li role="tab" id="<?= $tab['id']; ?>" class="<?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>">
-      <a href="<?= $tab['href']; ?>"><?= $tab['name']; ?></a>
+    <li role="tab" id="<?= $tab['id']; ?>" data-tab="<?= $tab['id']; ?>" class="nav-item feed-tab <?= isset($tab['active']) && $tab['active'] ? 'active initial-active' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>">
+      <?= $tab['name']; ?>
     </li>
   <?php endforeach; ?>
 </ul>

@@ -1,5 +1,5 @@
 <div class="finna-main-tabs <?= isset($menuClass) ? $menuClass : ''; ?>">
-  <?= $this->render('components/01-molecules/01-navigation/_tabs.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
+  <?= $this->render('components/01-molecules/01-navigation/_tabs-link.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
 
   <div class="mobile-main-tabs visible-xs">
     <?= $this->render('components/01-molecules/01-navigation/_sort.phtml', ['labelClass' => 'text-left tab-title', 'label' => $tablistLabel, 'iconLabel' => $more, 'items' => $tabs, 'dropdownClass' => 'btn-block', 'fallbackLabel' => $fallbackLabel]) ?>
