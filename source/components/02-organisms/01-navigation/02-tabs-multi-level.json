@@ -3,19 +3,29 @@
   "fallbackLabel": "Submit",
   "tabs": [
     {
-      "name": "Example tab 1",
+      "name": "Primary tab 1",
       "id": "tab1",
       "href": "#",
       "active": true
     },
     {
-      "name": "Example tab 2",
+      "name": "Primary tab 2",
       "id": "tab2",
       "href": "#"
     },
     {
-      "name": "Example tab 3",
+      "name": "Primary tab 3",
       "id": "tab3",
+      "href": "#"
+    },
+    {
+      "name": "Primary tab 4",
+      "id": "tab4",
+      "href": "#"
+    },
+    {
+      "name": "Primary tab 5",
+      "id": "tab5",
       "href": "#"
     }
   ],
