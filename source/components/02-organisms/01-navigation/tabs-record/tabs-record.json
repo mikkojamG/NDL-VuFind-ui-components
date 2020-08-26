@@ -1,4 +1,5 @@
 {
+  "menuClass": "js-records-tablist",
   "tablistLabel": "Finna record tabs",
   "tabs": [
     {

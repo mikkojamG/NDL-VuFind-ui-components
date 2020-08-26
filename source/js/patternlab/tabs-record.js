@@ -70,7 +70,7 @@ $(document).ready(function onDocumentReady() {
     })
   };
 
-  if ($('.record-accordions .accordion-toggle').length || $('.recordTabs .record-tab').length) {
+  if ($('.js-records-tablist').find('.record-accordions .accordion-toggle').length && $('.js-records-tablist').find('.recordTabs .record-tab').length) {
     initRecordAccordion();
   }
 });

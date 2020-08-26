@@ -1,4 +1,4 @@
-<div class="record-accordions record-tabs">
+<div class="record-accordions record-tabs <?= $menuClass ?? ''; ?>">
   <a id="tabnav"></a>
   <div class="tabs-responsive">
     <?= $this->render('components/01-molecules/01-navigation/tabs/_tabs-record.phtml', ['label' => $tablistLabel, 'tabs' => $tabs, 'tablistClass' => 'visible-md visible-lg']) ?>
