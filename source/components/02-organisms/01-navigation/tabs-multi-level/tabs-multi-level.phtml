@@ -1,4 +1,4 @@
-<div class="finna-multi-level-tabs <?= isset($menuClass) ? $menuClass : ''; ?>">
+<div class="finna-multi-level-tabs <?= $menuClass ?? ''; ?>">
   <div class="finna-main-tabs">
     <?= $this->render('components/01-molecules/01-navigation/tabs/_tabs.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
 
