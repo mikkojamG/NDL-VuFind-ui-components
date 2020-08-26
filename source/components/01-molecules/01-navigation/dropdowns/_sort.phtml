@@ -1,6 +1,6 @@
 <div class="dropdown">
-  <button class="btn dropdown-toggle <?= isset($outline) && $outline ? 'btn-outline-primary' : 'btn-primary'; ?> <?= isset($dropdownClass) ? $dropdownClass : ''; ?>" data-toggle="dropdown">
-    <span class="<?= isset($labelClass) ? $labelClass : '' ?>">
+  <button class="btn dropdown-toggle <?= (isset($outline) && $outline) ? 'btn-outline-primary' : 'btn-primary'; ?> <?= $dropdownClass ?? ''; ?>" data-toggle="dropdown">
+    <span class="<?= $labelClass ?? '' ?>">
       <?= $label; ?>
     </span>
     <?php if (isset($iconLabel)) : ?>
@@ -14,7 +14,7 @@
   <ul class="dropdown-menu" role="menu">
     <?php foreach ($items as $item) : ?>
       <li role="menuitem">
-        <a href="<?= $item['href']; ?>" class="<?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?>"><?= $item['name']; ?></a>
+        <a href="<?= $item['href']; ?>" class="<?= (isset($item['active']) && $item['active']) ? 'active' : ''; ?>"><?= $item['name']; ?></a>
       </li>
     <?php endforeach; ?>
   </ul>
