@@ -1,4 +1,4 @@
-<ul class="recordTabs nav nav-tabs <?= isset($tablistClass) ? $tablistClass : ''; ?>" role="tablist" aria-label="<?= $label; ?>">
+<ul class="recordTabs nav nav-tabs <?= $tablistClass ?? ''; ?>" role="tablist" aria-label="<?= $label; ?>">
   <?php foreach ($tabs as $index => $tab) : ?>
     <li role="tab" id="<?= $tab['id']; ?>" class="record-tab <?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?> <?= $index === array_key_last($tabs) ? 'tab-right' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>" data-tab="<?= $tab['id']; ?>">
       <a aria-label="<?= $tab['label']; ?>" href="<?= $tab['href']; ?>"><?= $tab['name']; ?></a>
