@@ -1,4 +1,4 @@
-<div class="finna-main-tabs <?= isset($menuClass) ? $menuClass : ''; ?>">
+<div class="finna-main-tabs <?= $menuClass ?? ''; ?>">
   <?= $this->render('components/01-molecules/01-navigation/_tabs-tooltip.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
 
   <div class="mobile-main-tabs visible-xs">
