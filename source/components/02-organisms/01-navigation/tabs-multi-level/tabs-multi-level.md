@@ -17,6 +17,6 @@ Multi level tabs navigation, containing primary and secondary navigations.
 
 #### Child components
 
-- `01-molecules/01-navigation/_tabs.phtml`
-- `01-molecules/01-navigation/_sort.phtml`
-- `01-molecules/01-navigation/_tabs-secondary.phtml`
+- `01-molecules/01-navigation/tabs/_tabs.phtml`
+- `01-molecules/01-navigation/dropdowns/_sort.phtml`
+- `01-molecules/01-navigation/tabs/_tabs-secondary.phtml`
