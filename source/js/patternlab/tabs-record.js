@@ -25,12 +25,12 @@ $(document).ready(function onDocumentReady() {
       });
   };
 
-  var toggleAccordion = function toggleAccordion($accordion) {
+  var toggleAccordion = function toggleAccordion($accordion, initialLoad) {
     var tabid = $accordion.find('.accordion-toggle a').data('tab');
     var $recordTabs = $('.record-tabs');
     var $tabContent = $recordTabs.find('.tab-content');
 
-    if (!$accordion.hasClass('active')) {
+    if (initialLoad || !$accordion.hasClass('active')) {
       $tabContent.insertAfter($accordion);
 
       var $recordAccordions = $menu.find('.record-accordions');
@@ -40,7 +40,7 @@ $(document).ready(function onDocumentReady() {
       $accordion.addClass('active');
       $recordTabs.find('.tab-pane.active').removeClass('active');
 
-      if ($recordAccordions.is(':visible')) {
+      if (!initialLoad && $recordAccordions.is(':visible')) {
         $('html, body').animate({
           scrollTop: $accordion.offset().top - accordionTitleHeight
         }, 150);
@@ -73,7 +73,28 @@ $(document).ready(function onDocumentReady() {
       })[0];
 
       toggleAccordion($(accordion));
-    })
+    });
+
+    var initallyActiveTab = $tabs.toArray().filter(function filterTabs(tab) {
+      return $(tab).hasClass('initiallyActive');
+    })[0];
+
+    if (initallyActiveTab) {
+
+      console.log($(initallyActiveTab));
+
+      var tabId = $(initallyActiveTab).data('tab');
+
+      $tabs.removeClass('active').attr('aria-selected', false);
+
+      $(initallyActiveTab).addClass('active').attr('aria-selected', true);
+
+      var accordion = $('.accordion').toArray().filter(function filterAccordion(acc) {
+        return $(acc).find('.accordion-toggle a').data('tab') === tabId;
+      })[0];
+
+      toggleAccordion($(accordion), true);
+    }
   };
 
   if ($accordions.length && $tabs.length) {

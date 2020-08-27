@@ -1,6 +1,6 @@
 <ul class="recordTabs nav nav-tabs <?= $tablistClass ?? ''; ?>" role="tablist" aria-label="<?= $label; ?>">
   <?php foreach ($tabs as $index => $tab) : ?>
-    <li role="tab" id="<?= $tab['id']; ?>" class="record-tab <?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?> <?= $index === array_key_last($tabs) ? 'tab-right' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>" data-tab="<?= $tab['id']; ?>">
+    <li role="tab" id="<?= $tab['id']; ?>" class="record-tab <?= isset($tab['active']) && $tab['active'] ? 'initiallyActive' : ''; ?> <?= $index === array_key_last($tabs) ? 'tab-right' : ''; ?>" aria-selected="<?= isset($tab['active']) && $tab['active'] ? 'true' : 'false'; ?>" data-tab="<?= $tab['id']; ?>">
       <a href="<?= $tab['href']; ?>"><?= $tab['name']; ?></a>
     </li>
   <?php endforeach; ?>
