@@ -2,7 +2,6 @@
   <a id="tabnav"></a>
   <div class="tabs-responsive">
     <?= $this->render('components/01-molecules/01-navigation/tabs/_tabs-record.phtml', ['label' => $tablistLabel, 'tabs' => $tabs, 'tablistClass' => 'visible-md visible-lg']) ?>
-    <div class="tab-content"></div>
     <div class="record-accordions">
       <?php foreach ($tabs as $tab) : ?>
         <div class="accordion <?= isset($tab['active']) && $tab['active'] ? 'active' : ''; ?>">
@@ -15,5 +14,6 @@
         </div>
       <?php endforeach; ?>
     </div>
+    <div class="tab-content"></div>
   </div>
 </div>

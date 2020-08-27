@@ -25,24 +25,24 @@ $(document).ready(function onDocumentReady() {
       });
   };
 
-  var toggleAccordion = function toggleAccordion(accordion) {
-    var tabid = accordion.find('.accordion-toggle a').data('tab');
+  var toggleAccordion = function toggleAccordion($accordion) {
+    var tabid = $accordion.find('.accordion-toggle a').data('tab');
     var $recordTabs = $('.record-tabs');
     var $tabContent = $recordTabs.find('.tab-content');
 
-    if (!accordion.hasClass('active')) {
-      $tabContent.insertAfter(accordion);
+    if (!$accordion.hasClass('active')) {
+      $tabContent.insertAfter($accordion);
 
       var $recordAccordions = $menu.find('.record-accordions');
 
       $recordAccordions.find('.accordion.active').removeClass('active');
 
-      accordion.addClass('active');
+      $accordion.addClass('active');
       $recordTabs.find('.tab-pane.active').removeClass('active');
 
       if ($recordAccordions.is(':visible')) {
         $('html, body').animate({
-          scrollTop: accordion.offset().top - accordionTitleHeight
+          scrollTop: $accordion.offset().top - accordionTitleHeight
         }, 150);
       }
 

@@ -4,22 +4,19 @@
   "tabs": [
     {
       "name": "Example tab 1",
-      "label": "See example tab 1",
       "id": "tab1",
-      "href": "#tabnav",
+      "href": "#",
       "active": true
     },
     {
       "name": "Example tab 2",
-      "label": "See example tab 2",
       "id": "tab2",
-      "href": "#tabnav"
+      "href": "#"
     },
     {
       "name": "Details",
-      "label": "See record details",
       "id": "tabDetails",
-      "href": "#tabnav"
+      "href": "#"
     }
   ]
 }
