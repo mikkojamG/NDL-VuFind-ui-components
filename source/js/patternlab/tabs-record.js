@@ -80,9 +80,6 @@ $(document).ready(function onDocumentReady() {
     })[0];
 
     if (initallyActiveTab) {
-
-      console.log($(initallyActiveTab));
-
       var tabId = $(initallyActiveTab).data('tab');
 
       $tabs.removeClass('active').attr('aria-selected', false);
