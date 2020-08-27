@@ -1,7 +1,17 @@
 .nav-tabs {
-  li:not(.active) {
-    a {
-      background-color: inherit !important;
+  li {
+    &:not(.active) {
+      a {
+        background-color: inherit !important;
+      }
+    }
+
+    &.active {
+      a {
+        &:focus {
+          border: none;
+        }
+      }
     }
   }
 }
