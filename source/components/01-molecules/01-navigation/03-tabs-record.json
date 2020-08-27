@@ -3,20 +3,17 @@
   "tabs": [
     {
       "name": "Example tab 1",
-      "label": "See example tab 1",
       "id": "tab1",
       "href": "#",
       "active": true
     },
     {
       "name": "Example tab 2",
-      "label": "See example tab 2",
       "id": "tab2",
       "href": "#"
     },
     {
       "name": "Details",
-      "label": "See record details",
       "id": "tabDetails",
       "href": "#"
     }
