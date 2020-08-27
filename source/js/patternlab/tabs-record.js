@@ -2,6 +2,10 @@
 $(document).ready(function onDocumentReady() {
   var accordionTitleHeight = 64;
 
+  var $menu = $('.js-records-tablist');
+  var $accordions = $menu.find('.record-accordions .accordion-toggle');
+  var $tabs = $menu.find('.recordTabs .record-tab');
+
   var getNewRecordTab = function getNewRecordTab(tabid) {
     return $('<div class="tab-pane ' + tabid + '-tab"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> ' + VuFind.translate('loading') + '...</div>');
   };
@@ -29,12 +33,14 @@ $(document).ready(function onDocumentReady() {
     if (!accordion.hasClass('active')) {
       $tabContent.insertAfter(accordion);
 
-      $('.record-accordions').find('.accordion.active').removeClass('active');
+      var $recordAccordions = $menu.find('.record-accordions');
+
+      $recordAccordions.find('.accordion.active').removeClass('active');
 
       accordion.addClass('active');
       $recordTabs.find('.tab-pane.active').removeClass('active');
 
-      if ($('.record-accordions').is(':visible')) {
+      if ($recordAccordions.is(':visible')) {
         $('html, body').animate({
           scrollTop: accordion.offset().top - accordionTitleHeight
         }, 150);
@@ -43,22 +49,22 @@ $(document).ready(function onDocumentReady() {
       var newTab = getNewRecordTab(tabid).addClass('active');
       $recordTabs.find('.tab-content').append(newTab);
 
-      return ajaxLoadTab(newTab, tabid, !$(this).parent().hasClass('initiallyActive'));
+      return ajaxLoadTab(newTab, tabid);
     }
 
     return false;
   };
 
   var initRecordAccordion = function initRecordAccordion() {
-    $('.record-accordions .accordion-toggle').click(function accordionClicked(event) {
-      return toggleAccordion($(event.target).closest('.accordion'));
+    $accordions.on('click', function accordionClicked(event) {
+      toggleAccordion($(event.target).closest('.accordion'));
     });
 
-    $('.recordTabs .record-tab').on('click', function tabClicked() {
+    $tabs.on('click', function tabClicked() {
       var $this = $(this);
       var tabId = $this.data('tab');
 
-      $('.recordTabs .record-tab').removeClass('active').attr('aria-selected', false);
+      $tabs.removeClass('active').attr('aria-selected', false);
 
       $this.addClass('active').attr('aria-selected', true);
 
@@ -66,11 +72,11 @@ $(document).ready(function onDocumentReady() {
         return $(acc).find('.accordion-toggle a').data('tab') === tabId;
       })[0];
 
-      return toggleAccordion($(accordion));
+      toggleAccordion($(accordion));
     })
   };
 
-  if ($('.js-records-tablist').find('.record-accordions .accordion-toggle').length && $('.js-records-tablist').find('.recordTabs .record-tab').length) {
+  if ($accordions.length && $tabs.length) {
     initRecordAccordion();
   }
 });
