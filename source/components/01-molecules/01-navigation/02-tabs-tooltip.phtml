@@ -5,7 +5,7 @@
   $(document).ready(function onTooltipTabsReady() {
     var initExampleTabs = function() {
       var $tablist = $('.js-tablist-tooltip-example');
-      var $tabs = $tablist.find('li[role="tab"]');
+      var $tabs = $tablist.find('li[role="tab"] a');
 
       $tabs.on('click', function onClickTab() {
         $tabs.removeClass('active');
