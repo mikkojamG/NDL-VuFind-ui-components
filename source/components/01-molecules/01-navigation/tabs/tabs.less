@@ -1,7 +1,19 @@
-.nav-tabs {
-  li:not(.active) {
-    a {
-      background-color: inherit !important;
+.finna-main-tabs {
+  .nav-tabs {
+    li {
+      &:not(.active) {
+        a {
+          background-color: inherit !important;
+        }
+      }
+
+      &.active {
+        a {
+          &:focus {
+            border: none;
+          }
+        }
+      }
     }
   }
 }

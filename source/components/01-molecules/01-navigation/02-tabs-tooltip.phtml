@@ -6,13 +6,14 @@
     var initExampleTabs = function() {
       var $tablist = $('.js-tablist-tooltip-example');
       var $tabs = $tablist.find('li[role="tab"]');
+      var $tabLinks = $tabs.find('a');
 
-      $tabs.on('click', function onClickTab() {
+      $tabLinks.on('click', function onClickTab() {
         $tabs.removeClass('active');
         $tabs.attr('aria-selected', false);
 
-        $(this).addClass('active');
-        $(this).attr('aria-selected', true);
+        $(this).parent().addClass('active');
+        $(this).parent().attr('aria-selected', true);
       });
     }
 
