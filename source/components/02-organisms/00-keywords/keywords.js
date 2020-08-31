@@ -89,7 +89,6 @@ finna.keywords = (function keywords() {
         var listParams = {
           id: $('input[name="listID"]').val(),
           title: $('.list-title span').text(),
-          description: $('.list-description .editable').data('markdown'),
           public: $(".list-visibility input[type='radio']:checked").val()
         };
 
@@ -103,9 +102,6 @@ finna.keywords = (function keywords() {
         $.ajax({
           url: VuFind.path + '/AJAX/JSON?method=editList',
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           dataType: 'json',
           data: { 'params': listParams }
         }).done(function onRequestDone(response) {
