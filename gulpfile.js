@@ -4,10 +4,14 @@ const helpers = require('./gulp-helpers');
 
 const gulp = require('gulp');
 const less = require('gulp-less');
-const shell = require('gulp-shell');
 const browserSync = require('browser-sync');
 const fs = require('fs');
 const chalk = require('chalk');
+const exec = require('child_process').exec;
+const util = require('util');
+const asyncExec = util.promisify(require('child_process').exec);
+const pipeExec = require('gulp-exec');
+const tap = require('gulp-tap');
 
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
@@ -24,8 +28,9 @@ gulp.task(cleanPublic);
 const patternLab = () => {
   return gulp
     .src('.', { allowEmpty: true })
-    .pipe(shell(['patternlab build --config ./patternlab-config.json']))
+    .pipe(pipeExec('patternlab build --config ./patternlab-config.json'))
     .pipe(browserSync.stream());
+
 };
 gulp.task(patternLab);
 
@@ -60,6 +65,34 @@ const styles = () => {
     .pipe(browserSync.stream());
 };
 gulp.task(styles);
+
+const themeScripImports = async (file, t) => {
+  const jsonConfig = await asyncExec(`php -r \'$config = include "${process.env.THEME_DIRECTORY}/theme.config.php"; echo json_encode($config);\'`);
+
+  const config = JSON.parse(jsonConfig.stdout);
+  let configJs = config.js;
+
+  configJs.push(file.path);
+
+  const newConfig = Object.assign({}, config);
+  newConfig['js'] = configJs;
+
+  console.log(JSON.stringify(newConfig));
+}
+
+const themeScripts = async () => {
+  try {
+    const source = `${config.paths.source.root}/components/**/*.js`;
+
+    return gulp
+      .src(source)
+      .pipe(tap(themeScripImports));
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+gulp.task(themeScripts);
 
 const scripts = () => {
   const source = config.paths.source.root;
@@ -183,48 +216,58 @@ const componentImports = async () => {
 gulp.task(componentImports);
 
 const unlinkPatterns = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`rm -rf ${process.env.THEME_DIRECTORY}/templates/components`]))
+  return exec(`rm -rf ${process.env.THEME_DIRECTORY}/templates/components`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 gulp.task(unlinkPatterns);
 
 const unlinkStyles = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`rm -rf ${process.env.THEME_DIRECTORY}/less/components`]))
+  return exec(`rm -rf ${process.env.THEME_DIRECTORY}/less/components`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 gulp.task(unlinkStyles);
 
 const unlinkScripts = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`rm -rf ${process.env.THEME_DIRECTORY}/js/components`]))
+  return exec(`rm -rf ${process.env.THEME_DIRECTORY}/js/components`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 gulp.task(unlinkScripts);
 
 const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 
 const symLinkPatterns = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([
-      `cd ${process.env.THEME_DIRECTORY}/templates && ln -fs ../../../../ui-component-library-proto/source/components`
-    ]));
+  return exec(`cd ${process.env.THEME_DIRECTORY}/templates && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 gulp.task(symLinkPatterns);
 
 const symLinkStyles = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`cd ${process.env.THEME_DIRECTORY}/less && ln -fs ../../../../ui-component-library-proto/source/components`]));
+  return exec(`cd ${process.env.THEME_DIRECTORY}/less && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 gulp.task(symLinkStyles);
 
 const symLinkScripts = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`cd ${process.env.THEME_DIRECTORY}/js && ln -fs ../../../../ui-component-library-proto/source/components`]));
+  return exec(`cd ${process.env.THEME_DIRECTORY}/js && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 gulp.task(symLinkScripts);
 
