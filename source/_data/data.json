@@ -18,5 +18,6 @@
   "inputError": "Please fill out this field",
   "inputCheckboxError": "Please check this field",
   "submit": "Submit",
-  "error": "This is an error"
+  "error": "This is an error",
+  "more": "More"
 }

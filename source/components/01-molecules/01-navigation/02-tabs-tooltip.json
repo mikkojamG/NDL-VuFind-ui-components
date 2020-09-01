@@ -1,0 +1,27 @@
+{
+  "label": "Finna main tabs",
+  "tabs": [
+    {
+      "name": "Example tab 1 with tooltip",
+      "id": "tab-tooltip-1",
+      "href": "#",
+      "active": true,
+      "tooltip": "<h4>Tab 1 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>",
+      "tooltipLabel": "Help - Example tab 1"
+    },
+    {
+      "name": "Example tab 2 with tooltip",
+      "id": "tab-tooltip-2",
+      "href": "#",
+      "tooltip": "<h4>Tab 2 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>",
+      "tooltipLabel": "Help - Example tab 2"
+    },
+    {
+      "name": "Example tab 3 with tooltip",
+      "id": "tab-tooltip-3",
+      "href": "#",
+      "tooltip": "<h4>Tab 3 tooltip</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra erat sit amet ligula bibendum sodales.</p><p><a href='#'>Etiam eget est justo</a></p>",
+      "tooltipLabel": "Help - Example tab 3"
+    }
+  ]
+}
