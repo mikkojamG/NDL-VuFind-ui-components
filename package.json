@@ -19,7 +19,7 @@
     "unlink:theme": "gulp unlinkTheme",
     "copy:theme": "gulp copyTheme",
     "list:tasks": "gulp --tasks",
-    "track:issues": "npm run build && node accessibility-track.js"
+    "track:issues": "node --inspect ./pa11y/index.js"
   },
   "keywords": [],
   "author": "",
