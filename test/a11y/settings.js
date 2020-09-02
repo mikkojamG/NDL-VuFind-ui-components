@@ -1,6 +1,7 @@
+// Familiarize yourself with Pa11y configuration options: https://github.com/pa11y/pa11y#configuration
+
 module.exports = {
   runners: ['htmlcs', 'axe'],
-  rootElement: '.pl-c-main',
   ignore: [
     'page-has-heading-one',
     'html-has-lang',
