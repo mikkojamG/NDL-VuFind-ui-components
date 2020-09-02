@@ -4,7 +4,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const cliProgress = require('cli-progress');
 
-const patternlab = require('../patternlab-config.json');
+const patternlab = require('../../patternlab-config.json');
 const config = require('./settings');
 
 const progress = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
@@ -21,7 +21,7 @@ const getPatterns = (directory) => {
     .filter((file) => {
       const name = path.join(directory, file);
 
-      const isMarkupOnly = name.indexOf('.markup-only') > 0;
+      const isMarkupOnly = name.indexOf('.rendered') > 0;
       const isHelperPattern = name.indexOf('-_') > 0;
 
       return isMarkupOnly && !isHelperPattern;
@@ -61,7 +61,9 @@ const getPatternIssues = async (files) => {
 
     const resultsIssues = results.issues;
 
-    issues.push({ pattern: path.basename(file), issues: resultsIssues })
+    if (resultsIssues.length) {
+      issues.push({ pattern: path.basename(file), issues: resultsIssues })
+    }
 
     progress.increment();
   });
@@ -71,21 +73,25 @@ const getPatternIssues = async (files) => {
   return issues;
 }
 
-const trackIssues = async () => {
+const testForA11y = async () => {
   try {
-    console.log(chalk.yellow('Starting accessiblity testing for patterns. Please wait..'))
+    console.log(chalk.yellow('Starting a11y testing for patterns. Please wait..'))
 
     const files = getPatterns(path.resolve(patternlab.paths.public.patterns));
 
     const issues = await getPatternIssues(files);
 
-    console.dir(issues, { depth: null });
-    console.log(chalk.green('Accessibility testing finished successfully!'));
+    if (issues.length) {
+      console.dir(issues, { depth: null });
+    }
+
+    console.log(chalk.green(`A11y testing finished successfully with ${issues.length} issues found.`));
+
   } catch (error) {
     console.log(error);
 
-    console.log(chalk.red('Something went wrong! Error: ' + error));
+    console.log(chalk.red(`Something went wrong: ${error}`));
   }
 };
 
-trackIssues();
+testForA11y();

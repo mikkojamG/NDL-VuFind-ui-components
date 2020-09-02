@@ -1,5 +1,5 @@
 gulpfile.js
 gulp-helpers.js
-pa11y/
+test/
 public/
 source/js/vendor/

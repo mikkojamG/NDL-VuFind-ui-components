@@ -19,7 +19,7 @@
     "unlink:theme": "gulp unlinkTheme",
     "copy:theme": "gulp copyTheme",
     "list:tasks": "gulp --tasks",
-    "track:issues": "node ./pa11y/index.js"
+    "test:a11y": "node ./test/a11y/index.js"
   },
   "keywords": [],
   "author": "",
