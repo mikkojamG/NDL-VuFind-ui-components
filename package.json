@@ -19,7 +19,7 @@
     "unlink:theme": "gulp unlinkTheme",
     "copy:theme": "gulp copyTheme",
     "list:tasks": "gulp --tasks",
-    "track:issues": "node --inspect ./pa11y/index.js"
+    "track:issues": "node ./pa11y/index.js"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +31,7 @@
     "@pattern-lab/starterkit-twig-demo": "^5.10.1",
     "@pattern-lab/uikit-workshop": "^5.10.2",
     "chalk": "^4.1.0",
+    "cli-progress": "^3.8.2",
     "dotenv": "^8.2.0",
     "pa11y": "^5.3.0"
   },
