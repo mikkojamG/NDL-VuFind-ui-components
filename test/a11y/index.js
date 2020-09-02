@@ -7,7 +7,7 @@ const cliProgress = require('cli-progress');
 const patternlab = require('../../patternlab-config.json');
 const config = require('./settings');
 
-const progress = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+const progress = new cliProgress.SingleBar({ clearOnComplete: true }, cliProgress.Presets.shades_classic);
 
 const getPatterns = (directory) => {
   return fs.readdirSync(directory)
@@ -73,6 +73,12 @@ const getPatternIssues = async (files) => {
   return issues;
 }
 
+const getIssuesAmount = (issues) => {
+  return issues.map((item) => {
+    return item.issues.length;
+  }).reduce((a, b) => a + b, 0);
+}
+
 const testForA11y = async () => {
   try {
     console.log(chalk.yellow('Starting a11y testing for patterns. Please wait..'))
@@ -80,12 +86,13 @@ const testForA11y = async () => {
     const files = getPatterns(path.resolve(patternlab.paths.public.patterns));
 
     const issues = await getPatternIssues(files);
+    const issuesAmount = getIssuesAmount(issues);
 
     if (issues.length) {
       console.dir(issues, { depth: null });
     }
 
-    console.log(chalk.green(`A11y testing finished successfully with ${issues.length} issues found.`));
+    console.log(chalk.green(`A11y testing finished successfully with ${issuesAmount} issues found.`));
 
   } catch (error) {
     console.log(error);
