@@ -38,8 +38,6 @@ const getPatternIssuesPromise = (files) => {
   return Promise.all(files.map(async (file) => {
     const results = await pa11y(file, config);
 
-    progress.increment();
-
     const issues = results.issues;
 
     if (issues.length) {
