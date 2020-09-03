@@ -111,7 +111,7 @@ const importScripts = async (files) => {
 };
 
 
-const themeScriptImport = async () => {
+const themeScriptImports = async () => {
   try {
     const source = `${config.paths.source.root}/components/**/*.js`
 
@@ -128,7 +128,7 @@ const themeScriptImport = async () => {
     console.log(error);
   }
 };
-gulp.task(themeScriptImport);
+gulp.task(themeScriptImports);
 
 const scripts = () => {
   const source = config.paths.source.root;
@@ -187,7 +187,7 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const validateImportTargetFile = (file) => {
+const validateStyleImportFile = (file) => {
   return fs.readFile(file, (error, data) => {
     if (error) {
       throw error;
@@ -217,17 +217,17 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
 
         console.log(chalk.green(`${file} created successfully.Proceeding..`));
 
-        resolve(validateImportTargetFile(file));
+        resolve(validateStyleImportFile(file));
       });
     } else {
-      resolve(validateImportTargetFile(file));
+      resolve(validateStyleImportFile(file));
     }
   });
 });
 ;
 
 
-const componentImports = async () => {
+const themeStyleImports = async () => {
   const less = `${process.env.THEME_DIRECTORY}/less`;
 
   try {
@@ -249,7 +249,7 @@ const componentImports = async () => {
     throw err;
   }
 };
-gulp.task(componentImports);
+gulp.task(themeStyleImports);
 
 const unlinkPatterns = () => {
   return exec(`rm -rf ${process.env.THEME_DIRECTORY}/templates/components`, (err) => {
@@ -323,7 +323,7 @@ const symLinkTheme = gulp.series(
   symLinkPatterns,
   symLinkStyles,
   symLinkScripts,
-  componentImports,
+  themeStyleImports,
   themeScriptImport
 );
 
@@ -370,8 +370,8 @@ const copyTheme = gulp.series(
   copyPatterns,
   copyStyles,
   copyScripts,
-  componentImports,
-  themeScriptImport
+  themeStyleImports,
+  themeScriptImports
 );
 
 const defaultTask = gulp.series(
@@ -396,7 +396,9 @@ vendorScripts.description = "Build and uglify vendor Javascript";
 
 watchTask.description = "Initialize BrowserSync instance and watch for changes";
 
-componentImports.description = "Inject component imports to dedicated files";
+themeStyleImports.description = "Inject component Less imports to dedicated files";
+
+themeScriptImports.description = "Inject component JS imports to working theme config";
 
 shouldUnlinkTheme.description = "Ask if linked components should be unlinked";
 
