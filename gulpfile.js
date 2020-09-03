@@ -138,7 +138,7 @@ const scripts = () => {
       `${source}/js/finna.js`,
       `!${source}/js/vendor/*.js`,
       `${source}/components/**/*.js`,
-      `${source} /js/patternlab/*.js`,
+      `${source}/js/patternlab/*.js`,
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(dest))
@@ -205,7 +205,7 @@ const validateStyleImportFile = (file) => {
 const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
   return fs.access(file, (error) => {
     if (error) {
-      console.log(chalk.yellow(`${file} does not exist.Trying to create.`));
+      console.log(chalk.yellow(`${file} does not exist. Trying to create.`));
 
       const componentsFileContent = '/* Component imports start here */ \r\n/* Component imports end here */';
 
@@ -214,7 +214,7 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
           reject(err);
         }
 
-        console.log(chalk.green(`${file} created successfully.Proceeding..`));
+        console.log(chalk.green(`${file} created successfully. Proceeding..`));
 
         resolve(validateStyleImportFile(file));
       });
