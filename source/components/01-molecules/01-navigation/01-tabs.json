@@ -1,0 +1,21 @@
+{
+  "label": "Finna main tabs",
+  "tabs": [
+    {
+      "name": "Example tab 1",
+      "id": "tab1",
+      "href": "#",
+      "active": true
+    },
+    {
+      "name": "Example tab 2",
+      "id": "tab2",
+      "href": "#"
+    },
+    {
+      "name": "Example tab 3",
+      "id": "tab3",
+      "href": "#"
+    }
+  ]
+}

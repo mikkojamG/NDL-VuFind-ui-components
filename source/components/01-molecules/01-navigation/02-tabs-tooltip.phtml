@@ -1,0 +1,22 @@
+<div class="finna-main-tabs">
+  <?= $this->render('components/01-molecules/01-navigation/tabs/_tabs-tooltip.phtml', ['label' => $label, 'tabs' => $tabs, 'tablistClass' => 'js-tablist-tooltip-example']) ?>
+</div>
+<script type="text/javascript">
+  $(document).ready(function onTooltipTabsReady() {
+    var initExampleTabs = function() {
+      var $tablist = $('.js-tablist-tooltip-example');
+      var $tabs = $tablist.find('li[role="tab"]');
+      var $tabLinks = $tabs.find('a');
+
+      $tabLinks.on('click', function onClickTab() {
+        $tabs.removeClass('active');
+        $tabs.attr('aria-selected', false);
+
+        $(this).parent().addClass('active');
+        $(this).parent().attr('aria-selected', true);
+      });
+    }
+
+    initExampleTabs();
+  });
+</script>

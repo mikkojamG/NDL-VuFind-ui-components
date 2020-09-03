@@ -19,7 +19,8 @@
     "unlink:theme": "gulp unlinkTheme",
     "copy:theme": "gulp copyTheme",
     "list:tasks": "gulp --tasks",
-    "themeScripts": "gulp themeScripts"
+    "themeScripts": "gulp themeScripts",
+    "track:issues": "npm run build && node accessibility-track.js"
   },
   "keywords": [],
   "author": "",
@@ -31,7 +32,8 @@
     "@pattern-lab/starterkit-twig-demo": "^5.10.1",
     "@pattern-lab/uikit-workshop": "^5.10.2",
     "chalk": "^4.1.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "pa11y": "^5.3.0"
   },
   "devDependencies": {
     "browser-sync": "^2.26.7",

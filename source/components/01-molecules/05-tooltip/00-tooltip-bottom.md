@@ -9,3 +9,4 @@ A tooltip element which can be used to show information when user hovers/clicks 
 | buttonText    | `String`   | Yes      |
 | position      | `String`   | No       |
 | content       | `String`   | Yes      |
+| label         | `String`   | No       |
