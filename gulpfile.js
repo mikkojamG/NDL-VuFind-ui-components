@@ -90,7 +90,7 @@ const importScripts = async (files) => {
       jsonString
         .replace(/\{/g, '[')
         .replace(/\}/g, ']')
-        .replace(/:/g, ' => ')
+        .replace(/":/g, '" => ')
         .replace(/"/g, "'")
         .replace(/\\\\/g, "\\")
         .replace(/\[/g, '[\n')
@@ -110,7 +110,6 @@ const importScripts = async (files) => {
   }
 };
 
-
 const themeScriptImports = async () => {
   try {
     const source = `${config.paths.source.root}/components/**/*.js`
@@ -125,7 +124,7 @@ const themeScriptImports = async () => {
 
 
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 gulp.task(themeScriptImports);

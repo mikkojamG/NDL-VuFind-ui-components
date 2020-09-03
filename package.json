@@ -19,7 +19,7 @@
     "unlink:theme": "gulp unlinkTheme",
     "copy:theme": "gulp copyTheme",
     "list:tasks": "gulp --tasks",
-    "themeScripts": "gulp themeScripts",
+    "themeScripts": "gulp themeScriptImports",
     "track:issues": "npm run build && node accessibility-track.js"
   },
   "keywords": [],
