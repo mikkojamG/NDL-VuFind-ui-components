@@ -15,18 +15,22 @@ finna.keywords = (function keywords() {
 
     $keywords.empty();
 
-    keywordsArray.forEach(function forEachKeyword(keyword) {
-      var $keyword = $('<button></button>');
-      $keyword.attr('data-keyword-id', encodeURIComponent(keyword));
-      $keyword.attr('class', 'btn keyword js-keyword');
+    if (keywordsArray) {
+      keywordsArray.forEach(function forEachKeyword(keyword) {
+        var $keyword = $('<button></button>');
+        $keyword.attr('data-keyword-id', encodeURIComponent(keyword));
+        $keyword.attr('class', 'btn keyword js-keyword');
 
-      $keyword.html('<span class="keyword-button-text">' + keyword + '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i>');
+        $keyword.html('<span class="keyword-button-text">' + keyword + '</span><i class="fa fa-times keyword-button-icon" aria-hidden="true"></i>');
 
-      $keyword.on('click', deleteKeyword);
+        $keyword.on('click', deleteKeyword);
 
-      $keywords.append($keyword);
+        $keywords.append($keyword);
+        updateCounter();
+      });
+    } else {
       updateCounter();
-    });
+    }
   }
 
   var deleteKeyword = function deleteKeyword() {
@@ -109,6 +113,8 @@ finna.keywords = (function keywords() {
           data: { 'params': listParams }
         }).done(function onRequestDone(response) {
           updateKeywords(response.data.tags);
+
+          $input.val('');
           $('.js-spinner').addClass('hidden');
         }).fail(function onRequestFail() {
           $('.js-spinner').addClass('hidden');
