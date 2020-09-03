@@ -1,13 +1,3 @@
-var mockTags = [{
-  id: '1',
-  value: 'Testing 1'
-},
-{
-  id: '2',
-  value: 'Testing 2'
-}
-];
-
 var mockKeywords = {
   data: [
     'Testing 1',
