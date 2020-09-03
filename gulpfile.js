@@ -253,7 +253,7 @@ gulp.task(themeStyleImports);
 const unlinkPatterns = () => {
   return exec(`rm -rf ${process.env.THEME_DIRECTORY}/templates/components`, (err) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
   });
 };
@@ -262,7 +262,7 @@ gulp.task(unlinkPatterns);
 const unlinkStyles = () => {
   return exec(`rm -rf ${process.env.THEME_DIRECTORY}/less/components`, (err) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
   });
 };
@@ -271,7 +271,7 @@ gulp.task(unlinkStyles);
 const unlinkScripts = () => {
   return exec(`rm -rf ${process.env.THEME_DIRECTORY}/js/components`, (err) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
   });
 };
@@ -282,7 +282,7 @@ const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 const symLinkPatterns = () => {
   return exec(`cd ${process.env.THEME_DIRECTORY}/templates && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
   });
 };
@@ -291,7 +291,7 @@ gulp.task(symLinkPatterns);
 const symLinkStyles = () => {
   return exec(`cd ${process.env.THEME_DIRECTORY}/less && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
   });
 };
@@ -300,7 +300,7 @@ gulp.task(symLinkStyles);
 const symLinkScripts = () => {
   return exec(`cd ${process.env.THEME_DIRECTORY}/js && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
   });
 };
