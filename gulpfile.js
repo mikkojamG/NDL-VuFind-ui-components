@@ -8,10 +8,12 @@ const browserSync = require('browser-sync');
 const fs = require('fs');
 const chalk = require('chalk');
 const exec = require('child_process').exec;
-const util = require('util');
-const asyncExec = util.promisify(require('child_process').exec);
 const pipeExec = require('gulp-exec');
-const tap = require('gulp-tap');
+const util = require('util');
+const asyncExec = util.promisify(exec);
+
+const path = require('path');
+const glob = require('glob');
 
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
@@ -67,26 +69,80 @@ const styles = () => {
 gulp.task(styles);
 
 const themeScripImports = async (file, t) => {
-  const jsonConfig = await asyncExec(`php -r \'$config = include "${process.env.THEME_DIRECTORY}/theme.config.php"; echo json_encode($config);\'`);
+  // fs.readFile(`${process.env.THEME_DIRECTORY}/theme.config.php`, (error, data) => {
+  //   if (error) {
+  //     throw error;
+  //   }
 
-  const config = JSON.parse(jsonConfig.stdout);
-  let configJs = config.js;
+  //   const dataString = data.toString();
+  //   let cleanDataString = dataString
+  //     .replace('<?php\nreturn', '')
+  //     .replace('[', '{')
+  //     .replace('];', '};')
+  //     .replace('factories: [', 'factories: {')
+  //     .replace('],\n"aliases": [', '},\n"aliases": {')
+  //     .replace(/ =>/g, ':')
+  //     .replace(/'/g, '"');
 
-  configJs.push(file.path);
+  //   console.log(cleanDataString);
 
-  const newConfig = Object.assign({}, config);
-  newConfig['js'] = configJs;
+  // const config = JSON.parse(JSON.parse(JSON.stringify(cleanDataString)));
 
-  console.log(JSON.stringify(newConfig));
-}
+  // console.log(config);
+  // });
+
+};
+
+const themeImports = async (files) => {
+  const themeConfigCopy = await asyncExec(`php -r \'$config = include "${process.env.THEME_DIRECTORY}/theme.config.php"; echo json_encode($config);\'`);
+
+  const themeConfigObject = JSON.parse(themeConfigCopy.stdout);
+
+  const themeJsConfig = themeConfigObject.js;
+
+  const clearImports = themeJsConfig.filter((item) => item.indexOf('components/') < 0);
+
+  const cleanPaths = files.map((file) => file.replace('./source/', ''));
+
+  const newThemeJsConfig = clearImports.concat(cleanPaths);
+
+  const newThemeConfig = Object.assign({}, themeConfigObject);
+  newThemeConfig['js'] = newThemeJsConfig;
+
+  const jsonString = JSON.stringify(newThemeConfig);
+
+  const phpString =
+    `<?php\nreturn ${
+    jsonString
+      .replace(/\{/g, '[')
+      .replace(/\}/g, ']')
+      .replace(/:/g, ' => ')
+      .replace(/=> \[/, '=> [\n')
+      .replace(/"/g, "'")
+      .replace(/,/g, ',\n')
+      .replace(/\\\\/g, "\\")
+    }; `;
+
+  fs.writeFile(`${process.env.THEME_DIRECTORY}/theme.config.php`, phpString, (err) => {
+    if (err) {
+      throw err;
+    }
+  })
+};
+
 
 const themeScripts = async () => {
   try {
-    const source = `${config.paths.source.root}/components/**/*.js`;
+    const source = `${config.paths.source.root}/components/**/*.js`
 
-    return gulp
-      .src(source)
-      .pipe(tap(themeScripImports));
+    glob(source, async (err, files) => {
+      if (err) {
+        throw err;
+      }
+
+      await themeImports(files)
+    });
+
 
   } catch (error) {
     console.log(error);
@@ -103,7 +159,7 @@ const scripts = () => {
       `${source}/js/finna.js`,
       `!${source}/js/vendor/*.js`,
       `${source}/components/**/*.js`,
-      `${source}/js/patternlab/*.js`,
+      `${source} /js/patternlab/*.js`,
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(dest))
@@ -170,7 +226,7 @@ const validateImportTargetFile = (file) => {
 const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
   return fs.access(file, (error) => {
     if (error) {
-      console.log(chalk.yellow(`${file} does not exist. Trying to create.`));
+      console.log(chalk.yellow(`${file} does not exist.Trying to create.`));
 
       const componentsFileContent = '/* Component imports start here */ \r\n/* Component imports end here */';
 
@@ -179,7 +235,7 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
           reject(err);
         }
 
-        console.log(chalk.green(`${file} created successfully. Proceeding..`));
+        console.log(chalk.green(`${file} created successfully.Proceeding..`));
 
         resolve(validateImportTargetFile(file));
       });
