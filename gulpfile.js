@@ -9,10 +9,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const exec = require('child_process').exec;
 const pipeExec = require('gulp-exec');
-const util = require('util');
-const asyncExec = util.promisify(exec);
-
-const path = require('path');
+const asyncExec = require('util').promisify(exec);
 const glob = require('glob');
 
 const autoprefixer = require('gulp-autoprefixer');
@@ -68,70 +65,53 @@ const styles = () => {
 };
 gulp.task(styles);
 
-const themeScripImports = async (file, t) => {
-  // fs.readFile(`${process.env.THEME_DIRECTORY}/theme.config.php`, (error, data) => {
-  //   if (error) {
-  //     throw error;
-  //   }
+const importScripts = async (files) => {
+  try {
+    const themeConfigCopy = await asyncExec(
+      `php -r \'$config = include "${process.env.THEME_DIRECTORY}/theme.config.php"; echo json_encode($config);\'`
+    );
 
-  //   const dataString = data.toString();
-  //   let cleanDataString = dataString
-  //     .replace('<?php\nreturn', '')
-  //     .replace('[', '{')
-  //     .replace('];', '};')
-  //     .replace('factories: [', 'factories: {')
-  //     .replace('],\n"aliases": [', '},\n"aliases": {')
-  //     .replace(/ =>/g, ':')
-  //     .replace(/'/g, '"');
+    const themeConfigObject = JSON.parse(themeConfigCopy.stdout);
+    const themeJsConfig = themeConfigObject.js;
 
-  //   console.log(cleanDataString);
+    const clearImports = themeJsConfig.filter((item) => item.indexOf('components/') < 0);
 
-  // const config = JSON.parse(JSON.parse(JSON.stringify(cleanDataString)));
+    const cleanPaths = files.map((file) => file.replace('./source/', ''));
 
-  // console.log(config);
-  // });
+    const newThemeJsConfig = clearImports.concat(cleanPaths);
 
-};
+    const newThemeConfig = Object.assign({}, themeConfigObject);
+    newThemeConfig['js'] = newThemeJsConfig;
 
-const themeImports = async (files) => {
-  const themeConfigCopy = await asyncExec(`php -r \'$config = include "${process.env.THEME_DIRECTORY}/theme.config.php"; echo json_encode($config);\'`);
+    const jsonString = JSON.stringify(newThemeConfig);
 
-  const themeConfigObject = JSON.parse(themeConfigCopy.stdout);
+    const phpString =
+      `<?php\nreturn ${
+      jsonString
+        .replace(/\{/g, '[')
+        .replace(/\}/g, ']')
+        .replace(/:/g, ' => ')
+        .replace(/"/g, "'")
+        .replace(/\\\\/g, "\\")
+        .replace(/\[/g, '[\n')
+        .replace(/,/g, ',\n')
+      }; `;
 
-  const themeJsConfig = themeConfigObject.js;
+    return fs.writeFile(`${process.env.THEME_DIRECTORY}/theme.config.php`,
+      phpString, (err) => {
+        if (err) {
+          throw err;
+        }
 
-  const clearImports = themeJsConfig.filter((item) => item.indexOf('components/') < 0);
-
-  const cleanPaths = files.map((file) => file.replace('./source/', ''));
-
-  const newThemeJsConfig = clearImports.concat(cleanPaths);
-
-  const newThemeConfig = Object.assign({}, themeConfigObject);
-  newThemeConfig['js'] = newThemeJsConfig;
-
-  const jsonString = JSON.stringify(newThemeConfig);
-
-  const phpString =
-    `<?php\nreturn ${
-    jsonString
-      .replace(/\{/g, '[')
-      .replace(/\}/g, ']')
-      .replace(/:/g, ' => ')
-      .replace(/=> \[/, '=> [\n')
-      .replace(/"/g, "'")
-      .replace(/,/g, ',\n')
-      .replace(/\\\\/g, "\\")
-    }; `;
-
-  fs.writeFile(`${process.env.THEME_DIRECTORY}/theme.config.php`, phpString, (err) => {
-    if (err) {
-      throw err;
-    }
-  })
+        return;
+      })
+  } catch (error) {
+    return error;
+  }
 };
 
 
-const themeScripts = async () => {
+const themeScriptImport = async () => {
   try {
     const source = `${config.paths.source.root}/components/**/*.js`
 
@@ -140,7 +120,7 @@ const themeScripts = async () => {
         throw err;
       }
 
-      await themeImports(files)
+      await importScripts(files);
     });
 
 
@@ -148,7 +128,7 @@ const themeScripts = async () => {
     console.log(error);
   }
 };
-gulp.task(themeScripts);
+gulp.task(themeScriptImport);
 
 const scripts = () => {
   const source = config.paths.source.root;
@@ -343,7 +323,8 @@ const symLinkTheme = gulp.series(
   symLinkPatterns,
   symLinkStyles,
   symLinkScripts,
-  componentImports
+  componentImports,
+  themeScriptImport
 );
 
 const copyPatterns = () => {
@@ -389,7 +370,8 @@ const copyTheme = gulp.series(
   copyPatterns,
   copyStyles,
   copyScripts,
-  componentImports
+  componentImports,
+  themeScriptImport
 );
 
 const defaultTask = gulp.series(
