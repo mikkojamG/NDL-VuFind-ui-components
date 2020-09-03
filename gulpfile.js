@@ -324,7 +324,7 @@ const symLinkTheme = gulp.series(
   symLinkStyles,
   symLinkScripts,
   themeStyleImports,
-  themeScriptImport
+  themeScriptImports
 );
 
 const copyPatterns = () => {

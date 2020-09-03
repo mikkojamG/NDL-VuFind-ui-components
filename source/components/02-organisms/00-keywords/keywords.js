@@ -36,8 +36,13 @@ finna.keywords = (function keywords() {
     if (editMode) {
       $('.js-spinner').removeClass('hidden');
 
+      var listParams = {
+        id: $('input[name="listID"]').val(),
+        title: $('.list-title span').text(),
+        public: $(".list-visibility input[type='radio']:checked").val()
+      };
+
       var keywordId = $this.data('keyword-id');
-      var listParams = {};
       var currentKeywords = getKeywordsArray();
 
       var modifyKeywords = currentKeywords.filter(function filterKeyword(keyword) {
@@ -51,12 +56,10 @@ finna.keywords = (function keywords() {
       $.ajax({
         url: VuFind.path + '/AJAX/JSON?method=editList',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        dataType: 'json',
         data: { 'params': listParams }
       }).done(function onRequestDone(response) {
-        updateKeywords(response.data);
+        updateKeywords(response.data.tags);
         $('.js-spinner').addClass('hidden');
       }).fail(function onRequestFail() {
         $('.js-spinner').addClass('hidden');
@@ -105,7 +108,7 @@ finna.keywords = (function keywords() {
           dataType: 'json',
           data: { 'params': listParams }
         }).done(function onRequestDone(response) {
-          updateKeywords(response.data);
+          updateKeywords(response.data.tags);
           $('.js-spinner').addClass('hidden');
         }).fail(function onRequestFail() {
           $('.js-spinner').addClass('hidden');

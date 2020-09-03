@@ -4,15 +4,9 @@
   </div>
   <div class="keywords-wrapper js-keywords-wrapper">
     <?php if (isset($editable) && $editable) : ?>
-<<<<<<< HEAD
-      <button class="keywords-toggle-button btn js-toggle-keywords">
+      <button class="keywords-toggle-button btn js-toggle-keywords" aria-label="<?= $toggleButtonLabel; ?>">
         <span class="keywords-toggle-label"><?= $addKeyword ?></span>
         <i class="fa fa-tag keywords-toggle-icon" aria-hidden="true"></i>
-=======
-      <button class="keywords-toggle__button btn js-toggle-keywords" aria-label="<?= $toggleButtonLabel; ?>">
-        <span class="keywords-toggle__label"><?= $addKeyword ?></span>
-        <i class="fa fa-tag keywords-toggle__icon" aria-hidden="true"></i>
->>>>>>> master
       </button>
       <div class="keywords-controls js-controls">
         <?= $this->render(
