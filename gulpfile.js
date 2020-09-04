@@ -95,7 +95,7 @@ const importScripts = async (files) => {
         .replace(/\\\\/g, "\\")
         .replace(/\[/g, '[\n')
         .replace(/,/g, ',\n')
-      }; `;
+      };`;
 
     return fs.writeFile(`${process.env.THEME_DIRECTORY}/theme.config.php`,
       phpString, (err) => {

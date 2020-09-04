@@ -38,7 +38,11 @@ finna.keywords = (function keywords() {
     var editMode = $('.js-keywords-wrapper').hasClass('open');
 
     if (editMode) {
-      $('.js-spinner').removeClass('hidden');
+      var $spinner = $('.js-spinner');
+      var $error = $('.js-keywords-error');
+
+      $spinner.removeClass('hidden');
+      $error.addClass('hidden');
 
       var listParams = {
         id: $('input[name="listID"]').val(),
@@ -47,14 +51,14 @@ finna.keywords = (function keywords() {
       };
 
       var keywordId = $this.data('keyword-id');
-      var $error = $('.js-keywords-error');
       var currentKeywords = getKeywordsArray();
 
-      var modifyKeywords = currentKeywords.filter(function filterKeyword(keyword) {
-        return $(keyword).data('keyword-id') !== keywordId;
-      }).map(function mapKeywords(keyword) {
-        return $(keyword).find('.keyword-button-text').text().trim();
-      })
+      var modifyKeywords = currentKeywords
+        .filter(function filterKeyword(keyword) {
+          return $(keyword).data('keyword-id') !== keywordId;
+        }).map(function mapKeywords(keyword) {
+          return $(keyword).find('.keyword-button-text').text().trim();
+        })
 
       listParams.tags = modifyKeywords;
 
@@ -65,9 +69,9 @@ finna.keywords = (function keywords() {
         data: { 'params': listParams }
       }).done(function onRequestDone(response) {
         updateKeywords(response.data.tags);
-        $('.js-spinner').addClass('hidden');
+        $spinner.addClass('hidden');
       }).fail(function onRequestFail() {
-        $('.js-spinner').addClass('hidden');
+        $spinner.addClass('hidden');
 
         $error.removeClass('hidden');
         $error.focus();
@@ -84,7 +88,6 @@ finna.keywords = (function keywords() {
   var initAddKeyword = function initAddKeyword() {
     var $input = $('.js-keywords-wrapper').find('input[id="keyword"]');
     var $form = $('.js-add-keyword');
-    var $error = $('.js-keywords-error');
 
     $input.one('blur keydown', function onInputTouched() {
       $(this).addClass('touched');
@@ -93,10 +96,15 @@ finna.keywords = (function keywords() {
     $form.on('submit', function onSubmit(event) {
       event.preventDefault();
 
+      var $error = $('.js-keywords-error');
+
       $form.removeClass('invalid');
+      $error.addClass('hidden');
 
       if ($form[0].checkValidity()) {
-        $('.js-spinner').removeClass('hidden');
+        var $spinner = $('.js-spinner');
+
+        $spinner.removeClass('hidden');
 
         var listParams = {
           id: $('input[name="listID"]').val(),
@@ -104,9 +112,10 @@ finna.keywords = (function keywords() {
           public: $(".list-visibility input[type='radio']:checked").val()
         };
 
-        var currentKeywords = getKeywordsArray().map(function filterKeywords(keyword) {
-          return $(keyword).find('.keyword-button-text').text().trim();
-        });
+        var currentKeywords = getKeywordsArray()
+          .map(function filterKeywords(keyword) {
+            return $(keyword).find('.keyword-button-text').text().trim();
+          });
 
         currentKeywords.push($input.val());
         listParams.tags = currentKeywords;
@@ -120,9 +129,9 @@ finna.keywords = (function keywords() {
           updateKeywords(response.data.tags);
 
           $input.val('');
-          $('.js-spinner').addClass('hidden');
+          $spinner.addClass('hidden');
         }).fail(function onRequestFail() {
-          $('.js-spinner').addClass('hidden');
+          $spinner.addClass('hidden');
 
           $error.removeClass('hidden');
           $error.focus();
