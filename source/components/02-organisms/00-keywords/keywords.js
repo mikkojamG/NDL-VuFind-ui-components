@@ -47,6 +47,7 @@ finna.keywords = (function keywords() {
       };
 
       var keywordId = $this.data('keyword-id');
+      var $error = $('.js-keywords-error');
       var currentKeywords = getKeywordsArray();
 
       var modifyKeywords = currentKeywords.filter(function filterKeyword(keyword) {
@@ -67,6 +68,9 @@ finna.keywords = (function keywords() {
         $('.js-spinner').addClass('hidden');
       }).fail(function onRequestFail() {
         $('.js-spinner').addClass('hidden');
+
+        $error.removeClass('hidden');
+        $error.focus();
       });
     }
   };
@@ -80,6 +84,7 @@ finna.keywords = (function keywords() {
   var initAddKeyword = function initAddKeyword() {
     var $input = $('.js-keywords-wrapper').find('input[id="keyword"]');
     var $form = $('.js-add-keyword');
+    var $error = $('.js-keywords-error');
 
     $input.one('blur keydown', function onInputTouched() {
       $(this).addClass('touched');
@@ -118,6 +123,9 @@ finna.keywords = (function keywords() {
           $('.js-spinner').addClass('hidden');
         }).fail(function onRequestFail() {
           $('.js-spinner').addClass('hidden');
+
+          $error.removeClass('hidden');
+          $error.focus();
         });
       } else {
         $form.addClass('invalid');
