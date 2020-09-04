@@ -165,6 +165,7 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
 
 const componentImports = async () => {
   const less = `${themeDirectoryPath}/less`;
+  const lessBase = `${path.parse(themeDirectoryPath).base}/less/`
 
   try {
     await checkImportTargetFile(`${less}/components.less`);
@@ -175,9 +176,12 @@ const componentImports = async () => {
         {
           starttag: '/* Component imports start here */',
           endtag: '/* Component imports end here */',
-          ignorePath: `/${themeDirectoryPath}/less/`,
           addRootSlash: false,
-          transform: (filepath) => `@import "${filepath}";`
+          transform: (filepath) => {
+            const componentPath = filepath.split(lessBase)[1];
+
+            return `@import "${componentPath}";`
+          }
         }))
       .pipe(gulp.dest(less));
   }
