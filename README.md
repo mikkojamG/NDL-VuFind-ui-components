@@ -12,8 +12,6 @@ git clone git@github.com:mikkojamG/ui-component-library-proto.git
 
 Create `.env` file from the provided `.env.example` file. Fill in paths for environment variables `THEMES_ROOT` and `THEME_DIRECTORY` if they differ from the defaults.
 
-_Make sure that paths are relative to working theme._
-
 ### Imports
 
 Component library imports components to `components.less` file under the working theme directory. If the file does not exist, it will be created on install.
