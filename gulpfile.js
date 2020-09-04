@@ -54,7 +54,7 @@ const styles = () => {
     .src(`${source}/*.less`)
     .pipe(less({
       modifyVars: {
-        '@themePath': `${themesRootPath}`
+        '@themePath': themesRootPath
       }
     }))
     .pipe(autoprefixer())
