@@ -165,7 +165,6 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
 
 const componentImports = async () => {
   const less = `${themeDirectoryPath}/less`;
-  const lessBase = `${path.parse(themeDirectoryPath).base}/less/`
 
   try {
     await checkImportTargetFile(`${less}/components.less`);
@@ -178,7 +177,7 @@ const componentImports = async () => {
           endtag: '/* Component imports end here */',
           addRootSlash: false,
           transform: (filepath) => {
-            const componentPath = filepath.split(lessBase)[1];
+            const componentPath = filepath.split('/less/')[1];
 
             return `@import "${componentPath}";`
           }
