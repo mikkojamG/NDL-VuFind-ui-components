@@ -1,0 +1,10 @@
+<div class="icon-grid">
+  <?php foreach ($fontAwesomeIcons as $icon) : ?>
+    <div class="icon-grid__item">
+      <div class="icon-grid__item-wrapper">
+        <i class="fa <?= $icon; ?>" aria-hidden="true"></i>
+      </div>
+      <p class="icon-grid__label"><?= $icon; ?></p>
+    </div>
+  <?php endforeach; ?>
+</div>
