@@ -1,7 +1,7 @@
 <div class="finna-main-tabs <?= $menuClass ?? ''; ?>">
-  <?= $this->render('components/01-molecules/01-navigation/tabs/_tabs.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
+  <?= $this->render('components/molecules/navigation/tabs/_tabs.phtml', ['tablistClass' => 'hidden-xs', 'label' => $tablistLabel, 'tabs' => $tabs]) ?>
 
   <div class="mobile-main-tabs visible-xs">
-    <?= $this->render('components/01-molecules/01-navigation/dropdowns/_sort.phtml', ['labelClass' => 'text-left tab-title', 'label' => $tablistLabel, 'iconLabel' => $more, 'items' => $tabs, 'dropdownClass' => 'btn-block', 'fallbackLabel' => $fallbackLabel]) ?>
+    <?= $this->render('components/molecules/navigation/dropdowns/_sort.phtml', ['labelClass' => 'text-left tab-title', 'label' => $tablistLabel, 'iconLabel' => $more, 'items' => $tabs, 'dropdownClass' => 'btn-block', 'fallbackLabel' => $fallbackLabel]) ?>
   </div>
 </div>

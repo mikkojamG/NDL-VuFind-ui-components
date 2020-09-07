@@ -10,10 +10,10 @@
       </button>
       <div class="keywords-controls js-controls">
         <?= $this->render(
-          'components/01-molecules/02-messaging/in-testing-alert/in-testing-alert.phtml',
+          'components/molecules/messaging/in-testing-alert/in-testing-alert.phtml',
           ['alert' => $alert]
         ); ?>
-        <?= $this->render('components/01-molecules/00-forms/add-keyword.phtml', ['label' => $form['label'], 'submit' => $submit, 'errorMessage' => $form['error']]); ?>
+        <?= $this->render('components/molecules/forms/add-keyword/add-keyword.phtml', ['label' => $form['label'], 'submit' => $submit, 'errorMessage' => $form['error']]); ?>
       </div>
     <?php endif; ?>
     <div class="keywords-current js-current">
