@@ -1,16 +1,16 @@
 ---
-title: Alert Error Demo
+title: Alert Error
 ---
 
 #### Description
 
 An alert implying that something went wrong. Can be used e.g. in forms.
 
-#### Demo property values
+#### Properties
 
-| Prop          | Value          |
-| ------------- | -------------- |
-| alertClass    | `alert-danger` |
-| dismissable   |                |
-| alert         | `String`       |
-| closeLabel    |                |
+| Prop        | Type      | Value          | Required |
+| ----------- | --------- | -------------- | -------- |
+| alert       | `String`  | -              | Yes      |
+| alertClass  | `String`  | `alert-danger` | Yes      |
+| closeLabel  | `String`  | -              | No       |
+| dismissable | `Boolean` | -              | No       |

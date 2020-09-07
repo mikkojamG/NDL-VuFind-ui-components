@@ -1,16 +1,16 @@
 ---
-title: Alert Success Demo
+title: Alert Success
 ---
 
 #### Description
 
 An alert implying that users request was successful. Can be used e.g. in forms.
 
-#### Demo property values
+#### Properties
 
-| Prop          | Value           |
-| ------------- | --------------- |
-| alertClass    | `alert-success` |
-| dismissable   |                 |
-| alert         | `String`        |
-| closeLabel    |                 |
+| Prop        | Type      | Value           | Required |
+| ----------- | --------- | --------------- | -------- |
+| alert       | `String`  | -               | Yes      |
+| alertClass  | `String`  | `alert-success` | Yes      |
+| closeLabel  | `String`  | -               | No       |
+| dismissable | `Boolean` | -               | No       |

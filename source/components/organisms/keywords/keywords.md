@@ -13,5 +13,5 @@ A keywords component, used for both displaying and editing keywords/tags related
 
 #### Child components
 
-- `00-atoms/02-alerts/in-testing-alert.phtml`
-- `01-molecules/00-forms/add-keyword.phtml`
+- `molecules/messaging/in-testing-alert/in-testing-alert.phtml`
+- `molecules/forms/add-keyword/add-keyword.phtml`

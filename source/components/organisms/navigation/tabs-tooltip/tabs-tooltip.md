@@ -14,5 +14,5 @@ Finna main tabs component with tooltips. Can be used for navigations and for sho
 
 #### Child components
 
-- `01-molecules/01-navigation/tabs/_tabs-tooltip.phtml`
-- `01-molecules/01-navigation/dropdowns/_sort.phtml`
+- `molecules/navigation/tabs/_tabs-tooltip.phtml`
+- `molecules/navigation/dropdowns/sort.phtml`

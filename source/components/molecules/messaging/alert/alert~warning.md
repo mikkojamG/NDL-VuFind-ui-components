@@ -1,16 +1,16 @@
 ---
-title: Alert Warning Demo
+title: Alert Warning
 ---
 
 #### Description
 
 An alert used for warning users that certain actions can cause unexpected behaviour.
 
-#### Demo property values
+#### Properties
 
-| Prop          | Value           |
-| ------------- | --------------- |
-| alertClass    | `alert-warning` |
-| dismissable   | `true`          |
-| alert         | `String`        |
-| closeLabel    | `String`        |
+| Prop        | Type      | Value           | Required |
+| ----------- | --------- | --------------- | -------- |
+| alert       | `String`  | -               | Yes      |
+| alertClass  | `String`  | `alert-warning` | Yes      |
+| closeLabel  | `String`  | -               | No       |
+| dismissable | `Boolean` | `true`          | No       |
