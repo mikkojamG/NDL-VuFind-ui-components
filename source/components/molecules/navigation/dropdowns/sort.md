@@ -1,3 +1,6 @@
+---
+title: Sort dropdown
+---
 #### Description
 
 A dropdown element, which is particularly used for menus and filters. Can be set to outlined styling with `outline` property.
