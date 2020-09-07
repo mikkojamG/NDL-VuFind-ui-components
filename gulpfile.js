@@ -3,15 +3,16 @@ const config = require('./patternlab-config.json');
 const helpers = require('./gulp-helpers');
 
 const gulp = require('gulp');
-const less = require('gulp-less');
 const browserSync = require('browser-sync');
 const fs = require('fs');
 const chalk = require('chalk');
 const exec = require('child_process').exec;
-const pipeExec = require('gulp-exec');
 const asyncExec = require('util').promisify(exec);
 const glob = require('glob');
+const path = require('path');
 
+const pipeExec = require('gulp-exec');
+const less = require('gulp-less');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
@@ -19,6 +20,10 @@ const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const inject = require('gulp-inject');
 const replace = require('gulp-replace');
+
+const themesRootPath = path.resolve(process.env.THEMES_ROOT);
+const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
+const componentsSourcePath = path.resolve(config.paths.source.patterns);
 
 // Tasks
 const cleanPublic = () => helpers.cleanDir(config.paths.public.root);
@@ -34,8 +39,8 @@ const patternLab = () => {
 gulp.task(patternLab);
 
 const fonts = () => {
-  const bootstrapFonts = `${process.env.THEMES_ROOT}/bootstrap3/css/fonts`;
-  const finnaFonts = `${process.env.THEME_DIRECTORY}/css/fonts`;
+  const bootstrapFonts = `${themesRootPath}/bootstrap3/css/fonts`;
+  const finnaFonts = `${themeDirectoryPath}/css/fonts`;
 
   const dest = config.paths.public.fonts;
 
@@ -53,7 +58,7 @@ const styles = () => {
     .src(`${source}/*.less`)
     .pipe(less({
       modifyVars: {
-        '@themePath': `../../../${process.env.THEMES_ROOT}`
+        '@themePath': themesRootPath
       }
     }))
     .pipe(autoprefixer())
@@ -68,7 +73,7 @@ gulp.task(styles);
 const importScripts = async (files) => {
   try {
     const themeConfigCopy = await asyncExec(
-      `php -r \'$config = include "${process.env.THEME_DIRECTORY}/theme.config.php"; echo json_encode($config);\'`
+      `php -r \'$config = include "${themeDirectoryPath}/theme.config.php"; echo json_encode($config);\'`
     );
 
     const themeConfigObject = JSON.parse(themeConfigCopy.stdout);
@@ -97,7 +102,7 @@ const importScripts = async (files) => {
         .replace(/,/g, ',\n')
       };`;
 
-    return fs.writeFile(`${process.env.THEME_DIRECTORY}/theme.config.php`,
+    return fs.writeFile(`${themeDirectoryPath}/theme.config.php`,
       phpString, (err) => {
         if (err) {
           throw err;
@@ -227,7 +232,7 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
 
 
 const themeStyleImports = async () => {
-  const less = `${process.env.THEME_DIRECTORY}/less`;
+  const less = `${themeDirectoryPath}/less`;
 
   try {
     await checkImportTargetFile(`${less}/components.less`);
@@ -238,9 +243,12 @@ const themeStyleImports = async () => {
         {
           starttag: '/* Component imports start here */',
           endtag: '/* Component imports end here */',
-          ignorePath: `/${process.env.THEME_DIRECTORY}/less/`,
           addRootSlash: false,
-          transform: (filepath) => `@import "${filepath}";`
+          transform: (filepath) => {
+            const componentPath = filepath.split('/less/')[1];
+
+            return `@import "${componentPath}";`
+          }
         }))
       .pipe(gulp.dest(less));
   }
@@ -251,7 +259,7 @@ const themeStyleImports = async () => {
 gulp.task(themeStyleImports);
 
 const unlinkPatterns = () => {
-  return exec(`rm -rf ${process.env.THEME_DIRECTORY}/templates/components`, (err) => {
+  return exec(`rm -rf ${themeDirectoryPath}/templates/components`, (err) => {
     if (err) {
       throw err;
     }
@@ -260,7 +268,7 @@ const unlinkPatterns = () => {
 gulp.task(unlinkPatterns);
 
 const unlinkStyles = () => {
-  return exec(`rm -rf ${process.env.THEME_DIRECTORY}/less/components`, (err) => {
+  return exec(`rm -rf ${themeDirectoryPath}/less/components`, (err) => {
     if (err) {
       throw err;
     }
@@ -269,7 +277,7 @@ const unlinkStyles = () => {
 gulp.task(unlinkStyles);
 
 const unlinkScripts = () => {
-  return exec(`rm -rf ${process.env.THEME_DIRECTORY}/js/components`, (err) => {
+  return exec(`rm -rf ${themeDirectoryPath}/js/components`, (err) => {
     if (err) {
       throw err;
     }
@@ -280,7 +288,7 @@ gulp.task(unlinkScripts);
 const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 
 const symLinkPatterns = () => {
-  return exec(`cd ${process.env.THEME_DIRECTORY}/templates && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
+  return exec(`cd ${themeDirectoryPath}/templates && ln -fs ${componentsSourcePath}`, (err) => {
     if (err) {
       throw err;
     }
@@ -289,7 +297,7 @@ const symLinkPatterns = () => {
 gulp.task(symLinkPatterns);
 
 const symLinkStyles = () => {
-  return exec(`cd ${process.env.THEME_DIRECTORY}/less && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
+  return exec(`cd ${themeDirectoryPath}/less && ln -fs ${componentsSourcePath}`, (err) => {
     if (err) {
       throw err;
     }
@@ -298,7 +306,7 @@ const symLinkStyles = () => {
 gulp.task(symLinkStyles);
 
 const symLinkScripts = () => {
-  return exec(`cd ${process.env.THEME_DIRECTORY}/js && ln -fs ../../../../ui-component-library-proto/source/components`, (err) => {
+  return exec(`cd ${themeDirectoryPath}/js && ln -fs ${componentsSourcePath}`, (err) => {
     if (err) {
       throw err;
     }
@@ -331,7 +339,7 @@ const copyPatterns = () => {
 
   return gulp
     .src(`${source}**/*.phtml`)
-    .pipe(gulp.dest(`${process.env.THEME_DIRECTORY}/templates/components`));
+    .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
 };
 gulp.task(copyPatterns);
 
@@ -340,7 +348,7 @@ const copyStyles = () => {
 
   return gulp
     .src(`${source}**/*.less`)
-    .pipe(gulp.dest(`${process.env.THEME_DIRECTORY}/less/components`));
+    .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
 };
 gulp.task(copyStyles);
 
@@ -349,7 +357,7 @@ const copyScripts = () => {
 
   return gulp
     .src(`${source}**/*.js`)
-    .pipe(gulp.dest(`${process.env.THEME_DIRECTORY}/js/components`));
+    .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
 };
 gulp.task(copyScripts);
 
