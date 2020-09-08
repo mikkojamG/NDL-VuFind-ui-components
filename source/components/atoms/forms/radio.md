@@ -3,11 +3,12 @@
 A general radio button.
 
 #### Properties
-| Prop          | Type       | Required |
-| ------------- | ---------- | -------- |
-| inputName     | `String`   | Yes      |
-| labelClass    | `String`   | No       |
-| inputClass    | `String`   | No       |
-| groupName     | `String`   | Yes      |
-| value         | `String`   | Yes      |
-| checked       | `String`   | No       |
+
+| Prop       | Type      | Value (example)    | Required |
+| ---------- | --------- | ------------------ | -------- |
+| groupName  | `String`  | `pl-input-radio`   | Yes      |
+| inputName  | `String`  | `pl-input-radio-1` | Yes      |
+| value      | `String`  | `This is option 1` | Yes      |
+| checked    | `Boolean` | `true`             | No       |
+| inputClass | `String`  | -                  | No       |
+| labelClass | `String`  | -                  | No       |
