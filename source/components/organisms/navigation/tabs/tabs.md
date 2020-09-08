@@ -1,3 +1,7 @@
+---
+title: Tabs Main
+---
+
 #### Description
 
 Finna main tabs component. Can be used for navigations and for showing/hiding content on a page. Turns into a dropdown menu on mobile devices.

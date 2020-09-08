@@ -1,3 +1,7 @@
+---
+title: Tabs Tooltip
+---
+
 #### Description
 
 Finna main tabs component with tooltips. Can be used for navigations and for showing/hiding content on a page. Turns into a dropdown menu on mobile devices.
