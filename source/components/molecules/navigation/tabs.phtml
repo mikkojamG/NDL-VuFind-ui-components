@@ -1,20 +1,34 @@
 <div class="finna-main-tabs">
-  <?= $this->render('components/molecules/navigation/tabs/_tabs.phtml', ['label' => $label, 'tabs' => $tabs, 'tablistClass' => 'js-tablist-example']) ?>
+  <?= $this->render('components/molecules/navigation/tabs/_tabs.phtml', ['label' => $label, 'tabs' => $tabs, 'tablistClass' => $tablistClass]) ?>
 </div>
 <script type="text/javascript">
   $(document).ready(function onTabsReady() {
     var initExampleTooltipTabs = function() {
-      var $tablist = $('.js-tablist-example');
+      var isTooltip = <?= json_encode($tooltip); ?>;
+
+      var $tablist = $('.<?= $tablistClass; ?>');
       var $tabs = $tablist.find('li[role="tab"]');
 
-      $tabs.on('click', function onClickTab() {
-        $tabs.removeClass('active');
-        $tabs.attr('aria-selected', false);
+      if (isTooltip) {
+        var $tabLinks = $tabs.find('a');
 
-        $(this).addClass('active');
-        $(this).attr('aria-selected', true);
-      });
-    }
+        $tabLinks.on('click', function onClickTab() {
+          $tabs.removeClass('active');
+          $tabs.attr('aria-selected', false);
+
+          $(this).parent().addClass('active');
+          $(this).parent().attr('aria-selected', true);
+        });
+      } else {
+        $tabs.on('click', function onClickTab() {
+          $tabs.removeClass('active');
+          $tabs.attr('aria-selected', false);
+
+          $(this).addClass('active');
+          $(this).attr('aria-selected', true);
+        });
+      }
+    };
 
     initExampleTooltipTabs();
   });

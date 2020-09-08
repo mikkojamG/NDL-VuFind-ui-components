@@ -1,4 +1,6 @@
 {
+  "tablistClass": "js-tablist-tooltip-example",
+  "tooltip": true,
   "label": "Finna main tabs",
   "tabs": [
     {
