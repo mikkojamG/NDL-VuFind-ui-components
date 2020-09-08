@@ -4,12 +4,12 @@ A keywords component, used for both displaying and editing keywords/tags related
 
 #### Properties
 
-| Prop       | Type      | Required |
-| ---------- | --------- | -------- |
-| editable   | `Boolean` | No       |
-| addKeyword | `String`  | Yes      |
-| alert      | `String`  | Yes      |
-| form       | `Object`  | Yes      |
+| Prop       | Type      | Value (example)                                                                                       | Required |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| addKeyword | `String`  | `Add keyword`                                                                                         | Yes      |
+| alert      | `String`  | `Adding keywords is in testing feature`                                                               | Yes      |
+| form       | `Object`  | `{"label": "Type a keyword and click Enter", "button": "Enter", "error": "Please provide a keyword"}` | Yes      |
+| editable   | `Boolean` | `true`                                                                                                | No       |
 
 #### Child components
 
