@@ -3,7 +3,7 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function onTabsReady() {
-    var initExampleTooltipTabs = function() {
+    var initExampleTabs = function() {
       var isTooltip = <?= json_encode($tooltip); ?>;
 
       var $tablist = $('.<?= $tablistClass; ?>');
@@ -30,6 +30,6 @@
       }
     };
 
-    initExampleTooltipTabs();
+    initExampleTabs();
   });
 </script>
