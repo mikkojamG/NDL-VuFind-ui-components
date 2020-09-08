@@ -21,18 +21,9 @@
     "tools-docs": false
   },
   "ishViewportRange": {
-    "s": [
-      320,
-      320
-    ],
-    "m": [
-      768,
-      992
-    ],
-    "l": [
-      1200,
-      2600
-    ]
+    "s": [320, 320],
+    "m": [768, 992],
+    "l": [1200, 2600]
   },
   "logLevel": "info",
   "outputFileSuffixes": {
@@ -73,11 +64,7 @@
     }
   },
   "patternExtension": "phtml",
-  "patternStateCascade": [
-    "inprogress",
-    "inreview",
-    "complete"
-  ],
+  "patternStateCascade": ["inprogress", "inreview", "complete"],
   "patternExportAll": false,
   "patternExportDirectory": "pattern_exports",
   "patternExportPatternPartials": [],
@@ -101,5 +88,6 @@
       "excludedPatternStates": [],
       "excludedTags": []
     }
-  ]
+  ],
+  "patternMergeVariantArrays": false
 }
