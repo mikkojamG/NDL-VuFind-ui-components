@@ -17,7 +17,7 @@ $(document).ready(function onReady() {
     .on('hidden.bs.tooltip', function onHideTooltip(event) {
       $(event.target).data('bs.tooltip').inState.click = false;
     })
-    .tooltip({ trigger: 'click', viewport: '.container' });
+    .tooltip({ trigger: 'click', viewport: '.pl-js-pattern-example' });
 
   $holder.find('[data-toggle="tooltip"] > i').on('click', function onClickTooltip(event) {
     event.preventDefault();

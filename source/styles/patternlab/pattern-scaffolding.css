@@ -324,3 +324,7 @@
 .pl-c-pattern-info__description.pl-c-text-passage code {
   font-size: 1rem;
 }
+
+.pl-js-pattern-example {
+  position: relative;
+}
