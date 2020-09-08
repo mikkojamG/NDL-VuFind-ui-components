@@ -10,9 +10,9 @@
     <?php foreach ($body as $index => $item) : ?>
       <tr>
         <th scope="row"><?= $index + 1; ?></th>
-        <td><?= $item['firstName']; ?></td>
-        <td><?= $item['lastName']; ?></td>
-        <td><?= $item['userName']; ?></td>
+        <?php foreach ($item as $key => $value) : ?>
+          <td><?= $value; ?></td>
+        <?php endforeach; ?>
       </tr>
     <?php endforeach; ?>
   </tbody>
