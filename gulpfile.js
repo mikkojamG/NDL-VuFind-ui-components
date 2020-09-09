@@ -292,7 +292,7 @@ vendorScripts.description = "Build and uglify vendor Javascript";
 
 watchTask.description = "Initialize BrowserSync instance and watch for changes";
 
-themeLessImports.description = "Inject component imports to dedicated files";
+themeLessImports.description = "Inject component Less imports to dedicated files";
 
 shouldUnlinkTheme.description = "Ask if linked components should be unlinked";
 
