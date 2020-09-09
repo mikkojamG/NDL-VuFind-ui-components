@@ -72,37 +72,13 @@ gulp.task(styles);
 
 const importScripts = async (files) => {
   try {
-    const themeConfigCopy = await asyncExec(
-      `php -r \'$config = include "${themeDirectoryPath}/theme.config.php"; echo json_encode($config);\'`
-    );
-
-    const themeConfigObject = JSON.parse(themeConfigCopy.stdout);
-    const themeJsConfig = themeConfigObject.js;
-
-    const clearImports = themeJsConfig.filter((item) => item.indexOf('components/') < 0);
-
     const cleanPaths = files.map((file) => file.replace('./source/', ''));
 
-    const newThemeJsConfig = clearImports.concat(cleanPaths);
+    const phpString = `<?php \n${cleanPaths.map((path) => {
+      return `$config['js'][] = '${path}'`
+    }).join(';\n')};`;
 
-    const newThemeConfig = Object.assign({}, themeConfigObject);
-    newThemeConfig['js'] = newThemeJsConfig;
-
-    const jsonString = JSON.stringify(newThemeConfig);
-
-    const phpString =
-      `<?php\nreturn ${
-      jsonString
-        .replace(/\{/g, '[')
-        .replace(/\}/g, ']')
-        .replace(/":/g, '" => ')
-        .replace(/"/g, "'")
-        .replace(/\\\\/g, "\\")
-        .replace(/\[/g, '[\n')
-        .replace(/,/g, ',\n')
-      };`;
-
-    return fs.writeFile(`${themeDirectoryPath}/theme.config.php`,
+    return fs.writeFile(`${themeDirectoryPath}/components.config.php`,
       phpString, (err) => {
         if (err) {
           throw err;
