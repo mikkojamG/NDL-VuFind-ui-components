@@ -20,7 +20,7 @@ const replace = require('gulp-replace');
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
 const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
-const componentsSourcePath = path.resolve(config.paths.source.patterns);
+const componentsSourcePath = path.resolve(`${config.paths.source.root}components`);
 
 // Tasks
 const cleanPublic = () => helpers.cleanDir(config.paths.public.root);
@@ -256,7 +256,7 @@ const symLinkTheme = gulp.series(
 );
 
 const copyPatterns = () => {
-  const source = config.paths.source.patterns;
+  const source = `${config.paths.source.root}components`;
 
   return gulp
     .src(`${source}**/*.phtml`)
@@ -265,7 +265,7 @@ const copyPatterns = () => {
 gulp.task(copyPatterns);
 
 const copyStyles = () => {
-  const source = config.paths.source.patterns;
+  const source = `${config.paths.source.root}components`;
 
   return gulp
     .src(`${source}**/*.less`)
@@ -274,7 +274,7 @@ const copyStyles = () => {
 gulp.task(copyStyles);
 
 const copyScripts = () => {
-  const source = config.paths.source.patterns;
+  const source = `${config.paths.source.root}components`;
 
   return gulp
     .src(`${source}**/*.js`)
