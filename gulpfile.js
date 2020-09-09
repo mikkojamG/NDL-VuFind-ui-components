@@ -256,7 +256,7 @@ const symLinkTheme = gulp.series(
 );
 
 const copyPatterns = () => {
-  const source = `${config.paths.source.root}components`;
+  const source = `${config.paths.source.root}components/`;
 
   return gulp
     .src(`${source}**/*.phtml`)
@@ -265,7 +265,7 @@ const copyPatterns = () => {
 gulp.task(copyPatterns);
 
 const copyStyles = () => {
-  const source = `${config.paths.source.root}components`;
+  const source = `${config.paths.source.root}components/`;
 
   return gulp
     .src(`${source}**/*.less`)
@@ -274,7 +274,7 @@ const copyStyles = () => {
 gulp.task(copyStyles);
 
 const copyScripts = () => {
-  const source = `${config.paths.source.root}components`;
+  const source = `${config.paths.source.root}components/`;
 
   return gulp
     .src(`${source}**/*.js`)
