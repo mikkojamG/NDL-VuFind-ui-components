@@ -7,6 +7,7 @@
   "form": {
     "label": "Type a keyword and click \"Enter\"",
     "button": "Enter",
-    "error": "Please provide a keyword"
+    "error": "Please provide a keyword",
+    "submit": "Submit"
   }
 }
