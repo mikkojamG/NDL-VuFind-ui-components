@@ -1,9 +1,9 @@
 /*global VuFind, finna */
 finna.keywords = (function keywords() {
-  var updateCounter = function updateCounter() {
-    var $keywords = $('.js-keyword');
+  var $keywordsList, $keywordsCounter, $wrapper, $spinner, $error;
 
-    $('.js-keywords-counter').text($keywords.length);
+  var updateCounter = function updateCounter() {
+    $keywordsCounter.text($('.js-keyword').length);
   };
 
   var getKeywordsArray = function getKeywordsArray() {
@@ -11,9 +11,7 @@ finna.keywords = (function keywords() {
   };
 
   var updateKeywords = function updateKeywords(keywordsArray) {
-    var $keywords = $('.js-keywords-list');
-
-    $keywords.empty();
+    $keywordsList.empty();
 
     if (keywordsArray) {
       keywordsArray.forEach(function forEachKeyword(keyword) {
@@ -25,7 +23,7 @@ finna.keywords = (function keywords() {
 
         $keyword.on('click', deleteKeyword);
 
-        $keywords.append($keyword);
+        $keywordsList.append($keyword);
         updateCounter();
       });
     } else {
@@ -33,14 +31,28 @@ finna.keywords = (function keywords() {
     }
   }
 
+  var editListRequest = function editListRequest(params) {
+    return $.ajax({
+      url: VuFind.path + '/AJAX/JSON?method=editList',
+      method: 'POST',
+      dataType: 'json',
+      data: { 'params': params }
+    }).done(function onRequestDone(response) {
+      updateKeywords(response.data.tags);
+      $spinner.addClass('hidden');
+    }).fail(function onRequestFail() {
+      $spinner.addClass('hidden');
+
+      $error.removeClass('hidden');
+      $error.focus();
+    });
+  }
+
   var deleteKeyword = function deleteKeyword() {
     var $this = $(this);
-    var editMode = $('.js-keywords-wrapper').hasClass('open');
+    var editMode = $wrapper.hasClass('open');
 
     if (editMode) {
-      var $spinner = $('.js-spinner');
-      var $error = $('.js-keywords-error');
-
       $spinner.removeClass('hidden');
       $error.addClass('hidden');
 
@@ -62,31 +74,16 @@ finna.keywords = (function keywords() {
 
       listParams.tags = modifyKeywords;
 
-      $.ajax({
-        url: VuFind.path + '/AJAX/JSON?method=editList',
-        method: 'POST',
-        dataType: 'json',
-        data: { 'params': listParams }
-      }).done(function onRequestDone(response) {
-        updateKeywords(response.data.tags);
-        $spinner.addClass('hidden');
-      }).fail(function onRequestFail() {
-        $spinner.addClass('hidden');
-
-        $error.removeClass('hidden');
-        $error.focus();
-      });
+      editListRequest(listParams);
     }
   };
 
   var initDeleteKeyword = function initDeleteKeyword() {
-    var $keywords = $('.js-keyword');
-
-    $keywords.on('click', deleteKeyword);
+    $('.js-keyword').on('click', deleteKeyword);
   };
 
   var initAddKeyword = function initAddKeyword() {
-    var $input = $('.js-keywords-wrapper').find('input[id="keyword"]');
+    var $input = $wrapper.find('input[id="keyword"]');
     var $form = $('.js-add-keyword');
 
     $input.one('blur keydown', function onInputTouched() {
@@ -96,14 +93,10 @@ finna.keywords = (function keywords() {
     $form.on('submit', function onSubmit(event) {
       event.preventDefault();
 
-      var $error = $('.js-keywords-error');
-
       $form.removeClass('invalid');
       $error.addClass('hidden');
 
       if ($form[0].checkValidity()) {
-        var $spinner = $('.js-spinner');
-
         $spinner.removeClass('hidden');
 
         var listParams = {
@@ -120,22 +113,9 @@ finna.keywords = (function keywords() {
         currentKeywords.push($input.val());
         listParams.tags = currentKeywords;
 
-        $.ajax({
-          url: VuFind.path + '/AJAX/JSON?method=editList',
-          method: 'POST',
-          dataType: 'json',
-          data: { 'params': listParams }
-        }).done(function onRequestDone(response) {
-          updateKeywords(response.data.tags);
+        editListRequest(listParams);
 
-          $input.val('');
-          $spinner.addClass('hidden');
-        }).fail(function onRequestFail() {
-          $spinner.addClass('hidden');
-
-          $error.removeClass('hidden');
-          $error.focus();
-        });
+        $input.val('');
       } else {
         $form.addClass('invalid');
       }
@@ -147,13 +127,19 @@ finna.keywords = (function keywords() {
 
     $toggleModuleButton.on('click', function onToggleModule() {
       $(this).toggleClass('open');
-      $('.js-keywords-wrapper').toggleClass('open');
+      $wrapper.toggleClass('open');
       $('.js-controls').toggleClass('open');
       $('.js-current').toggleClass('open');
     });
   };
 
   var init = function init() {
+    $spinner = $('.js-spinner');
+    $error = $('.js-keywords-error');
+    $keywordsList = $('.js-keywords-list');
+    $keywordsCounter = $('.js-keywords-counter');
+    $wrapper = $('.js-keywords-wrapper');
+
     initDeleteKeyword();
     initToggle();
     initAddKeyword();

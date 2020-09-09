@@ -14,7 +14,9 @@ $.mockjax([
       mockKeywords.data = settings.data.params.tags.slice(0);
 
       this.responseText = {
-        data: mockKeywords.data
+        data: {
+          tags: mockKeywords.data
+        }
       }
     }
   }
