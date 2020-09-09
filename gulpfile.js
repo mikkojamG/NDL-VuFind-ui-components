@@ -8,6 +8,7 @@ const shell = require('gulp-shell');
 const browserSync = require('browser-sync');
 const fs = require('fs');
 const chalk = require('chalk');
+const glob = require('glob');
 const path = require('path');
 
 const autoprefixer = require('gulp-autoprefixer');
@@ -15,7 +16,6 @@ const minify = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
-const inject = require('gulp-inject');
 const replace = require('gulp-replace');
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
@@ -123,72 +123,41 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const validateImportTargetFile = (file) => {
-  return fs.readFile(file, (error, data) => {
-    if (error) {
-      throw error;
-    }
-
-    if (data.indexOf('Component imports start here') == -1 && data.indexOf('Component imports end here') == -1) {
-      const errorMessage = `Not able to import to target file: ${file}. Make sure that file has required starting comment /* Component imports start here */ and ending comment /* Component imports end here */`;
-
-      console.log(chalk.red(errorMessage));
-
-      throw Error(errorMessage);
-    }
-  });
-};
-
-const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
-  return fs.access(file, (error) => {
-    if (error) {
-      console.log(chalk.yellow(`${file} does not exist. Trying to create.`));
-
-      const componentsFileContent = '/* Component imports start here */ \r\n/* Component imports end here */';
-
-      return fs.writeFile(file, componentsFileContent, (err) => {
-        if (err) {
-          reject(err);
-        }
-
-        console.log(chalk.green(`${file} created successfully. Proceeding..`));
-
-        resolve(validateImportTargetFile(file));
-      });
-    } else {
-      resolve(validateImportTargetFile(file));
-    }
-  });
-});
-;
-
-
-const componentImports = async () => {
-  const less = `${themeDirectoryPath}/less`;
-
+const importLess = async (files) => {
   try {
-    await checkImportTargetFile(`${less}/components.less`);
+    const cleanPaths = files.map((file) => file.replace('./source/', ''));
+    const importsString = `${cleanPaths.map((path) => {
+      return `@import "${path}"`
+    }).join(';\n')};`
 
-    return gulp.src(`${less}/components.less`)
-      .pipe(inject(
-        gulp.src(`${less}/components/**/*.less`, { read: false }),
-        {
-          starttag: '/* Component imports start here */',
-          endtag: '/* Component imports end here */',
-          addRootSlash: false,
-          transform: (filepath) => {
-            const componentPath = filepath.split('/less/')[1];
+    return fs.writeFile(`${themeDirectoryPath}/less/components.less`, importsString, (err) => {
+      if (err) {
+        throw err;
+      }
 
-            return `@import "${componentPath}";`
-          }
-        }))
-      .pipe(gulp.dest(less));
-  }
-  catch (err) {
-    throw err;
+      return;
+    })
+  } catch (error) {
+    return error;
   }
 };
-gulp.task(componentImports);
+
+const themeLessImports = async () => {
+  try {
+    const source = `${config.paths.source.root}/components/**/*.less`
+
+    glob(source, async (err, files) => {
+      if (err) {
+        throw err;
+      }
+
+      await importLess(files);
+    })
+  } catch (error) {
+    throw error;
+  }
+};
+gulp.task(themeLessImports);
 
 const unlinkPatterns = () => {
   return gulp
@@ -252,7 +221,7 @@ const symLinkTheme = gulp.series(
   symLinkPatterns,
   symLinkStyles,
   symLinkScripts,
-  componentImports
+  themeLessImports
 );
 
 const copyPatterns = () => {
@@ -298,7 +267,7 @@ const copyTheme = gulp.series(
   copyPatterns,
   copyStyles,
   copyScripts,
-  componentImports
+  themeLessImports
 );
 
 const defaultTask = gulp.series(
@@ -323,7 +292,7 @@ vendorScripts.description = "Build and uglify vendor Javascript";
 
 watchTask.description = "Initialize BrowserSync instance and watch for changes";
 
-componentImports.description = "Inject component imports to dedicated files";
+themeLessImports.description = "Inject component imports to dedicated files";
 
 shouldUnlinkTheme.description = "Ask if linked components should be unlinked";
 
