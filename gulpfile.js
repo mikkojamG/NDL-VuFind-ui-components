@@ -7,7 +7,6 @@ const browserSync = require('browser-sync');
 const fs = require('fs');
 const chalk = require('chalk');
 const exec = require('child_process').exec;
-const asyncExec = require('util').promisify(exec);
 const glob = require('glob');
 const path = require('path');
 
@@ -207,7 +206,7 @@ const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
 ;
 
 
-const themeStyleImports = async () => {
+const themeLessImports = async () => {
   const less = `${themeDirectoryPath}/less`;
 
   try {
@@ -232,7 +231,7 @@ const themeStyleImports = async () => {
     throw err;
   }
 };
-gulp.task(themeStyleImports);
+gulp.task(themeLessImports);
 
 const unlinkPatterns = () => {
   return exec(`rm -rf ${themeDirectoryPath}/templates/components`, (err) => {
@@ -306,7 +305,7 @@ const symLinkTheme = gulp.series(
   symLinkPatterns,
   symLinkStyles,
   symLinkScripts,
-  themeStyleImports,
+  themeLessImports,
   themeScriptImports
 );
 
@@ -353,7 +352,7 @@ const copyTheme = gulp.series(
   copyPatterns,
   copyStyles,
   copyScripts,
-  themeStyleImports,
+  themeLessImports,
   themeScriptImports
 );
 
@@ -379,7 +378,7 @@ vendorScripts.description = "Build and uglify vendor Javascript";
 
 watchTask.description = "Initialize BrowserSync instance and watch for changes";
 
-themeStyleImports.description = "Inject component Less imports to dedicated files";
+themeLessImports.description = "Inject component Less imports to dedicated files";
 
 themeScriptImports.description = "Inject component JS imports to working theme config";
 
