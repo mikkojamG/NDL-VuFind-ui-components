@@ -7,7 +7,6 @@ const less = require('gulp-less');
 const shell = require('gulp-shell');
 const browserSync = require('browser-sync');
 const fs = require('fs');
-const chalk = require('chalk');
 const glob = require('glob');
 const path = require('path');
 
@@ -123,14 +122,15 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const importLess = async (files) => {
+const importLess = (files) => {
   try {
     const cleanPaths = files.map((file) => file.replace('./source/', ''));
-    const importsString = `${cleanPaths.map((path) => {
+
+    const lessString = `${cleanPaths.map((path) => {
       return `@import "${path}"`
     }).join(';\n')};`
 
-    return fs.writeFile(`${themeDirectoryPath}/less/components.less`, importsString, (err) => {
+    return fs.writeFile(`${themeDirectoryPath}/less/components.less`, lessString, (err) => {
       if (err) {
         throw err;
       }
