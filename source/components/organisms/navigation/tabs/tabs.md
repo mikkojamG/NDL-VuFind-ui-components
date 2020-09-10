@@ -18,5 +18,5 @@ Finna main tabs component. Can be used for navigations and for showing/hiding co
 
 #### Child components
 
-- `molecules/navigation/tabs/_tabs.phtml`
+- `molecules/navigation/tabs/tabs.phtml`
 - `molecules/navigation/dropdowns/sort.phtml`
