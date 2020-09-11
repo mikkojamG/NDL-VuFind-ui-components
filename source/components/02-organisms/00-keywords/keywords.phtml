@@ -1,6 +1,6 @@
 <div class="keywords">
   <div class="keywords-error-wrapper js-keywords-error hidden">
-    <?= $this->render('components/01-molecules/02-messaging/00-error-alert.phtml', ['alert' => $submitError]) ?>
+    <?= $this->render('components/01-molecules/02-messaging/alert/alert.phtml', ['alert' => $submitError, 'alertClass' => 'alert-danger']) ?>
   </div>
   <div class="keywords-spinner js-spinner hidden">
     <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
