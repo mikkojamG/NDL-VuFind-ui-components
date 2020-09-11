@@ -225,7 +225,7 @@ const symLinkPatterns = () => {
 gulp.task(symLinkPatterns);
 
 const symLinkStyles = () => {
-  const sourceRelPath = path.relative(`${themeDirectoryPath}/templates`, componentsSourcePath);
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/less`, componentsSourcePath);
 
   return gulp
     .src('.', { allowEmpty: true })
@@ -234,7 +234,7 @@ const symLinkStyles = () => {
 gulp.task(symLinkStyles);
 
 const symLinkScripts = () => {
-  const sourceRelPath = path.relative(`${themeDirectoryPath}/templates`, componentsSourcePath);
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/js`, componentsSourcePath);
 
   return gulp
     .src('.', { allowEmpty: true })
