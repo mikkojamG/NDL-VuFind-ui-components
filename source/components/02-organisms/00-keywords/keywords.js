@@ -1,6 +1,10 @@
 /*global VuFind, finna */
 finna.keywords = (function keywords() {
-  var $keywordsList, $keywordsCounter, $wrapper, $spinner, $error;
+  var $keywordsList,
+    $keywordsCounter,
+    $wrapper,
+    $spinner,
+    $error;
 
   var updateCounter = function updateCounter() {
     $keywordsCounter.text($('.js-keyword').length);
@@ -29,7 +33,7 @@ finna.keywords = (function keywords() {
     } else {
       updateCounter();
     }
-  }
+  };
 
   var editListRequest = function editListRequest(params) {
     return $.ajax({
@@ -39,6 +43,7 @@ finna.keywords = (function keywords() {
       data: { 'params': params }
     }).done(function onRequestDone(response) {
       updateKeywords(response.data.tags);
+
       $spinner.addClass('hidden');
     }).fail(function onRequestFail() {
       $spinner.addClass('hidden');
@@ -46,7 +51,7 @@ finna.keywords = (function keywords() {
       $error.removeClass('hidden');
       $error.focus();
     });
-  }
+  };
 
   var deleteKeyword = function deleteKeyword() {
     var $this = $(this);
@@ -63,9 +68,8 @@ finna.keywords = (function keywords() {
       };
 
       var keywordId = $this.data('keyword-id');
-      var currentKeywords = getKeywordsArray();
 
-      var modifyKeywords = currentKeywords
+      var modifyKeywords = getKeywordsArray()
         .filter(function filterKeyword(keyword) {
           return $(keyword).data('keyword-id') !== keywordId;
         }).map(function mapKeywords(keyword) {
@@ -123,9 +127,7 @@ finna.keywords = (function keywords() {
   };
 
   var initToggle = function initToggle() {
-    var $toggleModuleButton = $('.js-toggle-keywords');
-
-    $toggleModuleButton.on('click', function onToggleModule() {
+    $('.js-toggle-keywords').on('click', function onToggleModule() {
       $(this).toggleClass('open');
       $wrapper.toggleClass('open');
       $('.js-controls').toggleClass('open');
