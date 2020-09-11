@@ -214,25 +214,31 @@ gulp.task(unlinkScripts);
 const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 
 const symLinkPatterns = () => {
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/templates`, componentsSourcePath);
+
   return gulp
     .src('.', { allowEmpty: true })
     .pipe(shell([
-      `cd ${themeDirectoryPath}/templates && ln -fs ${componentsSourcePath}`
+      `cd ${themeDirectoryPath}/templates && ln -fs ${sourceRelPath}`
     ]));
 };
 gulp.task(symLinkPatterns);
 
 const symLinkStyles = () => {
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/less`, componentsSourcePath);
+
   return gulp
     .src('.', { allowEmpty: true })
-    .pipe(shell([`cd ${themeDirectoryPath}/less && ln -fs ${componentsSourcePath}`]));
+    .pipe(shell([`cd ${themeDirectoryPath}/less && ln -fs ${sourceRelPath}`]));
 };
 gulp.task(symLinkStyles);
 
 const symLinkScripts = () => {
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/js`, componentsSourcePath);
+
   return gulp
     .src('.', { allowEmpty: true })
-    .pipe(shell([`cd ${themeDirectoryPath}/js && ln -fs ${componentsSourcePath}`]));
+    .pipe(shell([`cd ${themeDirectoryPath}/js && ln -fs ${sourceRelPath}`]));
 };
 gulp.task(symLinkScripts);
 
