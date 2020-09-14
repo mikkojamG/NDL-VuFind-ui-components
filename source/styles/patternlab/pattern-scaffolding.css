@@ -309,6 +309,7 @@
 
 .pl-c-pattern-info__description.pl-c-text-passage p {
   font-size: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .pl-c-pattern-info__description.pl-c-text-passage h4 {
@@ -318,8 +319,13 @@
 .pl-c-pattern-info__description.pl-c-text-passage table {
   width: 100%;
   font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .pl-c-pattern-info__description.pl-c-text-passage code {
   font-size: 1rem;
+}
+
+.pl-js-pattern-example {
+  position: relative;
 }
