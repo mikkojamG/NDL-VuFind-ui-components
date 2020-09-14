@@ -3,13 +3,14 @@ const config = require('./patternlab-config.json');
 const helpers = require('./gulp-helpers');
 
 const gulp = require('gulp');
-const less = require('gulp-less');
-const shell = require('gulp-shell');
 const browserSync = require('browser-sync');
 const fs = require('fs');
+const exec = require('child_process').exec;
 const glob = require('glob');
 const path = require('path');
 
+const pipeExec = require('gulp-exec');
+const less = require('gulp-less');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
@@ -28,8 +29,9 @@ gulp.task(cleanPublic);
 const patternLab = () => {
   return gulp
     .src('.', { allowEmpty: true })
-    .pipe(shell(['patternlab build --config ./patternlab-config.json']))
+    .pipe(pipeExec('patternlab build --config ./patternlab-config.json'))
     .pipe(browserSync.stream());
+
 };
 gulp.task(patternLab);
 
@@ -64,6 +66,46 @@ const styles = () => {
     .pipe(browserSync.stream());
 };
 gulp.task(styles);
+
+const importScripts = async (files) => {
+  try {
+    const cleanPaths = files.map((file) => file.replace('./source/', ''));
+
+    const phpString = `<?php \n${cleanPaths.map((path) => {
+      return `$config['js'][] = '${path}'`
+    }).join(';\n')};`;
+
+    return fs.writeFile(`${themeDirectoryPath}/components.config.php`,
+      phpString, (err) => {
+        if (err) {
+          throw err;
+        }
+
+        return;
+      })
+  } catch (error) {
+    return error;
+  }
+};
+
+const themeScriptImports = async () => {
+  try {
+    const source = `${config.paths.source.root}/components/**/*.js`
+
+    glob(source, async (err, files) => {
+      if (err) {
+        throw err;
+      }
+
+      await importScripts(files);
+    });
+
+
+  } catch (error) {
+    throw error;
+  }
+};
+gulp.task(themeScriptImports);
 
 const scripts = () => {
   const source = config.paths.source.root;
@@ -160,48 +202,58 @@ const themeLessImports = async () => {
 gulp.task(themeLessImports);
 
 const unlinkPatterns = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`rm -rf ${themeDirectoryPath}/templates/components`]))
+  return exec(`rm -rf ${themeDirectoryPath}/templates/components`, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 };
 gulp.task(unlinkPatterns);
 
 const unlinkStyles = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`rm -rf ${themeDirectoryPath}/less/components`]))
+  return exec(`rm -rf ${themeDirectoryPath}/less/components`, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 };
 gulp.task(unlinkStyles);
 
 const unlinkScripts = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`rm -rf ${themeDirectoryPath}/js/components`]))
+  return exec(`rm -rf ${themeDirectoryPath}/js/components`, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 };
 gulp.task(unlinkScripts);
 
 const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 
 const symLinkPatterns = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([
-      `cd ${themeDirectoryPath}/templates && ln -fs ${componentsSourcePath}`
-    ]));
+  return exec(`cd ${themeDirectoryPath}/templates && ln -fs ${componentsSourcePath}`, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 };
 gulp.task(symLinkPatterns);
 
 const symLinkStyles = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`cd ${themeDirectoryPath}/less && ln -fs ${componentsSourcePath}`]));
+  return exec(`cd ${themeDirectoryPath}/less && ln -fs ${componentsSourcePath}`, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 };
 gulp.task(symLinkStyles);
 
 const symLinkScripts = () => {
-  return gulp
-    .src('.', { allowEmpty: true })
-    .pipe(shell([`cd ${themeDirectoryPath}/js && ln -fs ${componentsSourcePath}`]));
+  return exec(`cd ${themeDirectoryPath}/js && ln -fs ${componentsSourcePath}`, (err) => {
+    if (err) {
+      throw err;
+    }
+  });
 };
 gulp.task(symLinkScripts);
 
@@ -221,7 +273,8 @@ const symLinkTheme = gulp.series(
   symLinkPatterns,
   symLinkStyles,
   symLinkScripts,
-  themeLessImports
+  themeLessImports,
+  themeScriptImports
 );
 
 const copyPatterns = () => {
@@ -267,7 +320,8 @@ const copyTheme = gulp.series(
   copyPatterns,
   copyStyles,
   copyScripts,
-  themeLessImports
+  themeLessImports,
+  themeScriptImports
 );
 
 const defaultTask = gulp.series(
@@ -293,6 +347,8 @@ vendorScripts.description = "Build and uglify vendor Javascript";
 watchTask.description = "Initialize BrowserSync instance and watch for changes";
 
 themeLessImports.description = "Inject component Less imports to dedicated files";
+
+themeScriptImports.description = "Inject component JS imports to working theme config";
 
 shouldUnlinkTheme.description = "Ask if linked components should be unlinked";
 
