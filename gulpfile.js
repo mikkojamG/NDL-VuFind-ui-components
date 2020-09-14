@@ -5,7 +5,6 @@ const helpers = require('./gulp-helpers');
 const gulp = require('gulp');
 const browserSync = require('browser-sync');
 const fs = require('fs');
-const chalk = require('chalk');
 const exec = require('child_process').exec;
 const glob = require('glob');
 const path = require('path');
@@ -17,7 +16,6 @@ const minify = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
-const inject = require('gulp-inject');
 const replace = require('gulp-replace');
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
@@ -166,69 +164,39 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const validateStyleImportFile = (file) => {
-  return fs.readFile(file, (error, data) => {
-    if (error) {
-      throw error;
-    }
+const importLess = (files) => {
+  try {
+    const cleanPaths = files.map((file) => file.replace('./source/', ''));
 
-    if (data.indexOf('Component imports start here') == -1 && data.indexOf('Component imports end here') == -1) {
-      const errorMessage = `Not able to import to target file: ${file}. Make sure that file has required starting comment /* Component imports start here */ and ending comment /* Component imports end here */`;
+    const lessString = `${cleanPaths.map((path) => {
+      return `@import "${path}"`
+    }).join(';\n')};`
 
-      console.log(chalk.red(errorMessage));
+    return fs.writeFile(`${themeDirectoryPath}/less/components.less`, lessString, (err) => {
+      if (err) {
+        throw err;
+      }
 
-      throw Error(errorMessage);
-    }
-  });
+      return;
+    })
+  } catch (error) {
+    return error;
+  }
 };
 
-const checkImportTargetFile = async (file) => new Promise((resolve, reject) => {
-  return fs.access(file, (error) => {
-    if (error) {
-      console.log(chalk.yellow(`${file} does not exist. Trying to create.`));
-
-      const componentsFileContent = '/* Component imports start here */ \r\n/* Component imports end here */';
-
-      return fs.writeFile(file, componentsFileContent, (err) => {
-        if (err) {
-          reject(err);
-        }
-
-        console.log(chalk.green(`${file} created successfully. Proceeding..`));
-
-        resolve(validateStyleImportFile(file));
-      });
-    } else {
-      resolve(validateStyleImportFile(file));
-    }
-  });
-});
-;
-
-
 const themeLessImports = async () => {
-  const less = `${themeDirectoryPath}/less`;
-
   try {
-    await checkImportTargetFile(`${less}/components.less`);
+    const source = `${config.paths.source.root}/components/**/*.less`
 
-    return gulp.src(`${less}/components.less`)
-      .pipe(inject(
-        gulp.src(`${less}/components/**/*.less`, { read: false }),
-        {
-          starttag: '/* Component imports start here */',
-          endtag: '/* Component imports end here */',
-          addRootSlash: false,
-          transform: (filepath) => {
-            const componentPath = filepath.split('/less/')[1];
+    glob(source, async (err, files) => {
+      if (err) {
+        throw err;
+      }
 
-            return `@import "${componentPath}";`
-          }
-        }))
-      .pipe(gulp.dest(less));
-  }
-  catch (err) {
-    throw err;
+      await importLess(files);
+    })
+  } catch (error) {
+    throw error;
   }
 };
 gulp.task(themeLessImports);
