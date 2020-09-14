@@ -231,7 +231,9 @@ gulp.task(unlinkScripts);
 const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 
 const symLinkPatterns = () => {
-  return exec(`cd ${themeDirectoryPath}/templates && ln -fs ${componentsSourcePath}`, (err) => {
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/templates`, componentsSourcePath);
+
+  return exec(`cd ${themeDirectoryPath}/templates && ln -fs ${sourceRelPath}`, (err) => {
     if (err) {
       throw err;
     }
@@ -240,7 +242,9 @@ const symLinkPatterns = () => {
 gulp.task(symLinkPatterns);
 
 const symLinkStyles = () => {
-  return exec(`cd ${themeDirectoryPath}/less && ln -fs ${componentsSourcePath}`, (err) => {
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/less`, componentsSourcePath);
+
+  return exec(`cd ${themeDirectoryPath}/less && ln -fs ${sourceRelPath}`, (err) => {
     if (err) {
       throw err;
     }
@@ -249,7 +253,9 @@ const symLinkStyles = () => {
 gulp.task(symLinkStyles);
 
 const symLinkScripts = () => {
-  return exec(`cd ${themeDirectoryPath}/js && ln -fs ${componentsSourcePath}`, (err) => {
+  const sourceRelPath = path.relative(`${themeDirectoryPath}/js`, componentsSourcePath);
+
+  return exec(`cd ${themeDirectoryPath}/js && ln -fs ${sourceRelPath}`, (err) => {
     if (err) {
       throw err;
     }
