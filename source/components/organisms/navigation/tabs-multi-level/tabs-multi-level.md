@@ -4,16 +4,15 @@ Multi level tabs navigation, containing primary and secondary navigations.
 
 #### Properties
 
-| Prop                  | Type       | Required |
-| --------------------- | ---------- | -------- |
-| menuClass             | `String`   | No       |
-| tablistLabel          | `String`   | Yes      |
-| fallbackLabel         | `String`   | Yes      |
-| iconLabel             | `String`   | Yes      |
-| tabs                  | `Object[]` | Yes      |
-| secondaryTablistLabel | `String`   | Yes      |
-| secondaryTabs         | `Object[]` | Yes      |
-
+| Prop                  | Type       | Value (example)                                                                          | Required |
+| --------------------- | ---------- | ---------------------------------------------------------------------------------------- | -------- |
+| fallbackLabel         | `String`   | `Submit`                                                                                 | Yes      |
+| iconLabel             | `String`   | `More`                                                                                   | Yes      |
+| secondaryTablistLabel | `String`   | `Finna secondary tabs`                                                                   | Yes      |
+| secondaryTabs         | `Object[]` | `[{"name": "Secondary tab 1", "id": "secondaryTab1", "href": "#", "active": true},...}]` | Yes      |
+| tablistLabel          | `String`   | `Finna main tabs`                                                                        | Yes      |
+| tabs                  | `Object[]` | `[{"name": "Primary tab 1", "id": "tab1", "href": "#", "active": true},...}]`            | Yes      |
+| menuClass             | `String`   | -                                                                                        | No       |
 
 #### Child components
 
