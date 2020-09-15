@@ -1,5 +1,0 @@
-{
-  "alert": "<strong>Warning!</strong> Better check yourself, you're <a href='#' class='alert-link'>not looking too good</a>.",
-  "dismissable": true,
-  "closeLabel": "Close alert"
-}
