@@ -1,0 +1,14 @@
+<div class="organisation-info" data-parent="<?= $id; ?>" data-target="<?= $target; ?>">
+  <div class="info schedules">
+    <div class="week-navi-holder">
+      <i class="fa fa-arrow-left prev-week week-navi" data-dir="-1"></i>
+      <span class="week-text">
+        <?= $week; ?> <span class="num"></span>
+      </span>
+      <i class="fa fa-arrow-right next-week week-navi" data-dir="+1"></i>
+    </div>
+    <div class="loader">
+      <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
+    </div>
+  </div>
+</div>

@@ -13,5 +13,6 @@ A keywords component, used for both displaying and editing keywords/tags related
 
 #### Child components
 
+- `molecules/messaging/loader/loader.phtml`
 - `molecules/messaging/in-testing-alert/in-testing-alert.phtml`
 - `molecules/forms/add-keyword/add-keyword.phtml`

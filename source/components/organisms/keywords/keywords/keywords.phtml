@@ -1,6 +1,6 @@
 <div class="keywords">
   <div class="keywords-spinner js-spinner">
-    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+    <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
   </div>
   <div class="keywords-wrapper js-keywords-wrapper">
     <?php if (isset($editable) && $editable) : ?>
