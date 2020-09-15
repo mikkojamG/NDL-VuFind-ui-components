@@ -37,8 +37,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $holder.find('.week-navi-holder .week-text .num').text(week);
   };
 
-  var handleOpenTimes = function handleOpenTimes(dayCount, timeRowTemplate, $dayRow, object) {
-    var count = dayCount;
+  var handleOpenTimes = function handleOpenTimes(timeRowTemplate, $dayRow, object) {
+    var dayCount = 0;
 
     var currentSelfService = null;
     var currentDate = null;
@@ -53,12 +53,12 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       var selfService = !!time.selfservice;
       selfServiceAvailable = selfServiceAvailable || 'selfservice' in time;
 
-      var date = count === 0 ? object.date : '';
-      var day = count === 0 ? object.day : '';
+      var date = dayCount === 0 ? object.date : '';
+      var day = dayCount === 0 ? object.day : '';
       var info = time.info ? time.info : null;
 
       if (currentDate !== object.date) {
-        count = 0;
+        dayCount = 0;
       }
 
       var timeOpens = time.opens;
@@ -113,50 +113,65 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         currentSelfService = selfService;
         currentDate = object.date;
 
-        count++;
+        dayCount++;
       }
     });
   }
 
-  var handleSchedule = function handleSchedule(object, $scheduleHolder) {
+  var handleSchedules = function handleSchedules(schedules, $scheduleHolder) {
     var dayRowTemplate = $holder.find('.day-container.template').clone().removeClass('template hide');
-
-    var $dayRow = dayRowTemplate.clone();
-
-    var isToday = 'today' in object;
-    var dayCount = 0;
-
-    $dayRow.toggleClass('today', isToday);
 
     var timeRowTemplate = $holder.find('.time-row.template').not('.staff').clone().removeClass('template hide');
 
-    if (!object.closed) {
-      handleOpenTimes(dayCount, timeRowTemplate, $dayRow, object);
-    } else {
-      var $timeRow = timeRowTemplate.clone();
+    $.each(schedules, function forEachSchedule(_, object) {
+      var isToday = 'today' in object;
 
-      $timeRow.find('.date').text(object.date);
-      $timeRow.find('.name').text(object.day);
-      $timeRow.find('.info').text(object.info);
+      var $dayRow = dayRowTemplate.clone();
 
-      $timeRow.find('.period, .name-staff').hide();
-      $timeRow.find('.closed-today').removeClass('hide');
+      $dayRow.toggleClass('today', isToday);
 
-      $dayRow.append($timeRow);
-      $dayRow.toggleClass('is-closed');
+      if (!object.closed) {
+        handleOpenTimes(timeRowTemplate, $dayRow, object);
+      } else {
+        var $timeRow = timeRowTemplate.clone();
+
+        $timeRow.find('.date').text(object.date);
+        $timeRow.find('.name').text(object.day);
+        $timeRow.find('.info').text(object.info);
+
+        $timeRow.find('.period, .name-staff').hide();
+        $timeRow.find('.closed-today').removeClass('hide');
+
+        $dayRow.append($timeRow);
+        $dayRow.toggleClass('is-closed');
+      }
+
+      $scheduleHolder.append($dayRow);
+    });
+  };
+
+  var handleLinks = function handleLinks(links, $linkHolder) {
+    $.each(links, function forEachLink(_, object) {
+      var $link = $holder.find('.mobile-schedule-link-template').eq(0).clone();
+
+      $link.removeClass('hide mobile-schedule-link-template');
+      $link.find('a').attr('href', object.url).text(object.name);
+      $link.appendTo($linkHolder);
+    });
+  };
+
+  var handleReferences = function handleReferences(data) {
+    var $infoHolder = $holder.find('.schedules-info');
+    $infoHolder.empty();
+
+    if (data.details.scheduleDescriptions) {
+      $.each(data.details.scheduleDescriptions, function forEachDescription(_, object) {
+        var obj = object.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $('<p/>').html(obj).appendTo($infoHolder);
+      });
+
+      $infoHolder.show();
     }
-
-    dayCount = 0;
-    $scheduleHolder.append($dayRow);
-    $dayRow = dayRowTemplate.clone();
-  }
-
-  var handleLink = function handleLink($linkHolder, object) {
-    var $link = $holder.find('.mobile-schedule-link-template').eq(0).clone();
-
-    $link.removeClass('hide mobile-schedule-link-template');
-    $link.find('a').attr('href', object.url).text(object.name);
-    $link.appendTo($linkHolder);
   };
 
   var schedulesLoaded = function schedulesLoaded(id, response) {
@@ -191,9 +206,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     if (hasSchedules) {
       var schedules = response.openTimes.schedules;
 
-      $.each(schedules, function forEachSchedule(_, object) {
-        handleSchedule(object, $scheduleHolder);
-      });
+      handleSchedules(schedules, $scheduleHolder);
     } else {
       var links = null;
       var $linkHolder = $holder.find('mobile-schedules');
@@ -204,9 +217,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         $linkHolder.show();
 
         if (data.details.links) {
-          $.each(data.details.links, function forEachLink(_, object) {
-            handleLink($linkHolder, object);
-          });
+          handleLinks(data.details.links, $linkHolder);
 
           links = true;
         }
@@ -217,18 +228,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       }
     }
 
-    var $infoHolder = $holder.find('.schedules-info');
-
-    $infoHolder.empty();
-
-    if (data.details.scheduleDescriptions) {
-      $.each(data.details.scheduleDescriptions, function forEachDescription(_, object) {
-        var obj = object.replace(/(?:\r\n|\r|\n)/g, '<br />');
-        $('<p/>').html(obj).appendTo($infoHolder);
-      });
-
-      $infoHolder.show();
-    }
+    handleReferences(data);
   };
 
   var detailsLoaded = function detailsLoaded(id, response) {
