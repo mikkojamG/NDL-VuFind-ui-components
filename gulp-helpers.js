@@ -1,8 +1,11 @@
 const fs = require('fs');
 const prompts = require('prompts');
+const path = require('path');
 
 const gulp = require('gulp');
 const clean = require('gulp-clean');
+
+const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
 
 const cleanDir = (dir) => gulp.src(`${dir}/*`).pipe(clean({ force: true }));;
 
@@ -22,9 +25,9 @@ const symlinksExist = (paths) => {
 
 const checkForComponents = async () => {
   const sources = [
-    `${process.env.THEME_DIRECTORY}/templates/components`,
-    `${process.env.THEME_DIRECTORY}/less/components`,
-    `${process.env.THEME_DIRECTORY}/js/components`
+    `${themeDirectoryPath}/templates/components`,
+    `${themeDirectoryPath}/less/components`,
+    `${themeDirectoryPath}/js/components`
   ];
 
   if (componentsExist(sources) && !symlinksExist(sources)) {
@@ -43,9 +46,9 @@ const checkForComponents = async () => {
 
 const checkForSymlinks = async () => {
   const sources = [
-    `${process.env.THEME_DIRECTORY}/templates/components`,
-    `${process.env.THEME_DIRECTORY}/less/components`,
-    `${process.env.THEME_DIRECTORY}/js/components`
+    `${themeDirectoryPath}/templates/components`,
+    `${themeDirectoryPath}/less/components`,
+    `${themeDirectoryPath}/js/components`
   ];
 
   if (componentsExist(sources) && symlinksExist(sources)) {
