@@ -1,5 +1,8 @@
 {
   "id": "patternLab",
   "target": "page",
-  "week": "Week"
+  "week": "Week",
+  "staffAvailable": "Staff available",
+  "selfService": "(self service)",
+  "closed": "Closed"
 }
