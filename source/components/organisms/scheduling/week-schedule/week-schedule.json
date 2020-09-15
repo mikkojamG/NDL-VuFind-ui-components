@@ -5,5 +5,6 @@
   "staffAvailable": "Staff available",
   "selfService": "(self service)",
   "closed": "Closed",
-  "notAvailable": "Not available"
+  "notAvailable": "Not available",
+  "schedulesInfo": "Schedules info placeholder"
 }
