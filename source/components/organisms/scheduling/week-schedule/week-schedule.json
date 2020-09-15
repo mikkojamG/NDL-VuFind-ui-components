@@ -4,5 +4,6 @@
   "week": "Week",
   "staffAvailable": "Staff available",
   "selfService": "(self service)",
-  "closed": "Closed"
+  "closed": "Closed",
+  "notAvailable": "Not available"
 }
