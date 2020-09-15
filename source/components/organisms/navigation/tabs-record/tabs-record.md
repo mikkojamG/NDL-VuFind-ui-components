@@ -4,12 +4,13 @@ Record tabs component, with the last tab aligned to right. Tab contents are dyna
 
 #### Properties
 
-| Prop         | Type       | Required |
-| ------------ | ---------- | -------- |
-| menuClass    | `String`   | No       |
-| tablistLabel | `String`   | Yes      |
-| tabs         | `Object[]` | Yes      |
+| Prop         | Type       | Value (example)                                                              | Required |
+| ------------ | ---------- | ---------------------------------------------------------------------------- | -------- |
+| tablistLabel | `String`   | `Finna record tabs`                                                          | Yes      |
+| tabs         | `Object[]` | `[{"name": "Example tab 1", "id": "tab1", "href": "#", "active": true}...}]` | Yes      |
+| menuClass    | `String`   | `js-records-tablist`                                                         | No       |
+| tablistClass | `String`   | `visible-md visible-lg`                                                      | No       |
 
 #### Child components
 
-- `01-molecules/01-navigation/tabs/_tabs.phtml`
+- `molecules/navigation/tabs/tabs-record.phtml`

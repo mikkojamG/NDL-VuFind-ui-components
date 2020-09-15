@@ -4,8 +4,8 @@ Tablist component in which the last item has been aligned to right. Generally us
 
 #### Properties
 
-| Prop         | Type       | Required |
-| ------------ | ---------- | -------- |
-| tablistClass | `String`   | No       |
-| label        | `String`   | Yes      |
-| tabs         | `Object[]` | Yes      |
+| Prop         | Type       | Value (example)                                                               | Required |
+| ------------ | ---------- | ----------------------------------------------------------------------------- | -------- |
+| label        | `String`   | `Finna detail tabs`                                                           | Yes      |
+| tabs         | `Object[]` | `[{"name": "Example tab 1", "id": "tab1", "href": "#", "active": true},...}]` | Yes      |
+| tablistClass | `String`   | `js-tablist-records-example`                                                  | No       |
