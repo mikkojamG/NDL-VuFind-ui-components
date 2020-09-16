@@ -1,0 +1,14 @@
+{
+  "id": "patternLab",
+  "target": "widget",
+  "week": "Week",
+  "staffAvailable": "Staff available",
+  "selfService": "(self service)",
+  "closed": "Closed",
+  "open": "Open",
+  "notAvailable": "Not available",
+  "schedulesInfo": "Schedules info placeholder",
+  "showDetails": true,
+  "organisationHomeUrl": "https://finna.fi/",
+  "organisationPlaceholderImage": "https://via.placeholder.com/149x100"
+}
