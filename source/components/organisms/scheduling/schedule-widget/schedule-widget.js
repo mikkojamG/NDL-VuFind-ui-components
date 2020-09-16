@@ -51,7 +51,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $.each(object.times, function forEachOpenTime(_, time) {
       var selfService = !!time.selfservice;
-      selfServiceAvailable = selfServiceAvailable || 'selfservice' in time;
+      selfServiceAvailable = selfServiceAvailable || time.selfservice;
 
       var date = dayCount === 0 ? object.date : '';
       var day = dayCount === 0 ? object.day : '';
@@ -94,7 +94,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
             $timeRow.toggleClass('staff', !selfService);
           }
 
-          if (time.selfservice === true) {
+          if (time.selfservice) {
             $timeRow.find('.name-staff').hide();
             $timeRow.find('.selfservice-only').removeClass('hide');
           }
@@ -143,7 +143,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         $timeRow.find('.closed-today').removeClass('hide');
 
         $dayRow.append($timeRow);
-        $dayRow.toggleClass('is-closed');
+        $dayRow.toggleClass('is-closed', true);
       }
 
       $scheduleHolder.append($dayRow);
@@ -200,7 +200,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $scheduleHolder.find('> div').not('.template').remove();
 
     var data = organisationList[id];
-
     var hasSchedules = response.openTimes && response.openTimes.schedules && response.openTimes.schedules.length;
 
     if (hasSchedules) {
@@ -244,10 +243,64 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     updatePrevBtn(response);
     updateNextBtn(response);
+
+    if (response.phone) {
+      $holder.find('.phone').attr('data-original-title', response.phone).show();
+    }
+
+    if (response.emails) {
+      $holder.find('.emails').attr('data-original-title', response.emails).attr('data-toggle', 'tooltip').show();
+
+      //finna.layout.initToolTips(holder);
+    }
+
+    if (response.links) {
+      var links = response.links;
+
+      if (links.length) {
+        $.each(links, function handleLink(_, obj) {
+          if (obj.name.indexOf('Facebook') > 0) {
+            $holder.find('.facebook').attr('href', obj.url).show();
+          }
+        });
+      }
+    }
+
+    var img = $holder.find('.facility-image');
+
+    if (response.pictures) {
+      var imgLink = img.parent('a');
+
+      imgLink.attr('href', (imgLink.data('href') + '#' + id));
+
+      var src = response.pictures[0].url;
+
+      img.show();
+
+      if (img.attr('src') !== src) {
+        img.fadeTo(0, 0);
+        img.on('load', function onLoadImage() {
+          $(this).stop(true, true).fadeTo(300, 1);
+        });
+        img.attr('src', src).attr('alt', name);
+        img.closest('.info-element').show();
+      } else {
+        img.fadeTo(300, 1);
+      }
+    } else {
+      img.hide();
+    }
+
+    if (response.services) {
+      $.each(response.services, function handleService(_, obj) {
+        $holder.find('.services .service-' + obj).show();
+      });
+    }
   };
 
   var showDetails = function showDetails(id, name, allServices) {
     $holder.find('.info-element').hide();
+    $holder.find('.is-open').hide();
 
     var parent = $holder.data('parent');
     var data = service.getDetails(id);
@@ -258,6 +311,31 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     $holder.data('id', id);
+
+    if (data.openTimes && data.openNow && data.openTimes.schedules && data.openTimes.schedules.length
+    ) {
+      $holder.find('.is-open' + (data.openNow ? '.open' : '.closed')).show();
+    }
+
+    if (data.email) {
+      $holder.find('.email.info-element').wrap($('<a/>').attr('href', 'mailto:' + data.email)).show();
+    }
+
+    var detailsLinkHolder = $holder.find('.details-link').show();
+    var detailsLink = detailsLinkHolder.find('a');
+    detailsLink.attr('href', detailsLink.data('href') + ('#' + id));
+
+    if (data.routeUrl) {
+      $holder.find('.route').attr('href', data.routeUrl).show();
+    }
+
+    if (data.mapUrl && data.address) {
+      var map = $holder.find('.map');
+
+      map.find('> a').attr('href', data.mapUrl);
+      map.find('.map-address').text(data.address);
+      map.show();
+    }
 
     service.getSchedules($holder.data('target'), parent, id, $holder.data('period-start'), null, true, allServices,
       function handleResponse(response) {
