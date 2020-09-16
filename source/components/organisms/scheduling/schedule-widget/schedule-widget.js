@@ -295,7 +295,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var showDetails = function showDetails(id, name, allServices) {
-    $holder.find('.info-element').hide();
+    $holder.find('.js-info-element').hide();
     $holder.find('.js-is-open').hide();
 
     var parent = $holder.data('parent');
