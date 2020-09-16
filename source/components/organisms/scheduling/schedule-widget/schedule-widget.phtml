@@ -10,11 +10,9 @@ $widget = $target == 'widget';
     </div>
     <div class="hide">
       <div class="<?= $showDetails ? 'info-col ' : ''; ?>info">
-
         <div class="organisation-dropdown-holder">
           <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation']) ?>
         </div>
-
         <div class="js-is-open">
           <span class="js-open is-open open js-info-element">
             <?= $open; ?>
@@ -24,7 +22,6 @@ $widget = $target == 'widget';
           </span>
         </div>
       <?php endif; ?>
-
       <div class="schedules">
         <div class="week-navigation week-navi-holder">
           <button class="week-navigation-control js-prev-week" data-dir="-1">
@@ -39,47 +36,36 @@ $widget = $target == 'widget';
             <span class="sr-only">Next week</span>
           </button>
         </div>
-
         <div class="loader js-loader">
           <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
         </div>
-
         <div class="js-opening-times-week opening-times-week"></div>
-
         <div class="js-no-schedules js-info-element">
           <?= $notAvailable; ?>
         </div>
-
         <div class="js-mobile-schedules mobile-schedules info-element js-info-element"></div>
       </div>
-
       <div class="js-schedules-info schedules-info js-info-element">
         <p><?= $schedulesInfo; ?></p>
       </div>
-
       <?php if ($widget && $showDetails) : ?>
       </div>
-
       <div class="details-col">
         <a href="" data-href="<?= $organisationHomeUrl; ?>">
           <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image" />
         </a>
         <div>
           <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
-
           <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
-
           <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route js-info-element btn">
             <i class="fa fa-bus" aria-hidden="true"></i>
             <span class="sr-only">Reittiohjeet</span>
           </a>
-
           <a href="<?= $organisationHomeUrl; ?>" target="_blank" class="js-facebook js-info-element btn">
             <i class="fa fa-facebook-square" aria-hidden="true"></i>
             <span class="sr-only">Facebook</span>
           </a>
         </div>
-
         <div class="js-map map js-info-element">
           <a href="https://www.google.com/maps?q=Linnankatu+2+Turku" target="_blank">
             <i class="fa fa-map-marker" aria-hidden="true">
@@ -87,14 +73,12 @@ $widget = $target == 'widget';
             <span class="js-map-address">Linnankatu 2, 20100 Keskusta (Turku)</span>
           </a>
         </div>
-
         <div class="js-details-link js-info-element">
           <a href="" data-href="<?= $organisationHomeUrl; ?>">
             <i class="fa fa-home" aria-hidden="true"></i>
             Palvelupisteen tiedot
           </a>
         </div>
-
         <div class="js-services services">
           <button class="btn btn-round js-service-wifi js-info-element">
             <i class="fa fa-wifi" aria-hidden="true"></i>
@@ -106,7 +90,6 @@ $widget = $target == 'widget';
           </button>
         </div>
       </div>
-
     </div>
   <?php endif; ?>
 </div>
