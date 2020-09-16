@@ -1,6 +1,7 @@
 /*global finna */
 finna.weekSchedule = (function finnaWeekSchedule() {
   var $holder, service, $spinner, $prevButton, $nextButton;
+  var timeRowTemplate, timeTemplate, mobileScheduleLinkTemplate;
   // var schedulesLoading = false;
   var organisationList = {};
 
@@ -33,11 +34,10 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var updateWeekNumber = function updateWeekNumber(week) {
-    $holder.data('week-num', week);
-    $holder.find('.week-navi-holder .week-text .num').text(week);
+    $holder.find('.js-week-number').text(week);
   };
 
-  var handleOpenTimes = function handleOpenTimes(timeRowTemplate, $dayRow, object) {
+  var handleOpenTimes = function handleOpenTimes($dayRow, object) {
     var dayCount = 0;
 
     var currentSelfService = null;
@@ -68,12 +68,12 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         if (currentSelfService === null || selfService === currentSelfService) {
           var $timeRow = timeRowTemplate.clone();
 
-          $timeRow.find('.date').text(date);
-          $timeRow.find('.name').text(day);
+          $timeRow.find('.js-date').text(date);
+          $timeRow.find('.js-name').text(day);
 
           if (addFullOpeningTimes && object.times.length > 1) {
-            $timeRow.find('.opens').text(firstItem.opens);
-            $timeRow.find('.closes').text(lastItem.closes);
+            $timeRow.find('.js-opens').text(firstItem.opens);
+            $timeRow.find('.js-closes').text(lastItem.closes);
 
             $dayRow.append($timeRow);
 
@@ -82,32 +82,32 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           }
 
           if (info == null) {
-            $timeRow.find('.info').hide();
+            $timeRow.find('.js-info').hide();
           } else {
-            $timeRow.find('.info').text(info);
+            $timeRow.find('.js-info').text(info);
           }
 
-          $timeRow.find('.opens').text(timeOpens);
-          $timeRow.find('.closes').text(timeCloses);
+          $timeRow.find('.js-opens').text(timeOpens);
+          $timeRow.find('.js-closes').text(timeCloses);
 
           if (selfServiceAvailable && selfService !== currentSelfService) {
             $timeRow.toggleClass('staff', !selfService);
           }
 
           if (time.selfservice) {
-            $timeRow.find('.name-staff').hide();
-            $timeRow.find('.selfservice-only').removeClass('hide');
+            $timeRow.find('.js-staff').hide();
+            $timeRow.find('.js-selfservice').removeClass('hide');
           }
 
           $dayRow.append($timeRow);
           currentTimeRow = $timeRow;
         } else {
-          var $timePeriod = currentTimeRow.find('.time-template').eq(0).clone();
+          var $timePeriod = timeTemplate.clone();
 
-          $timePeriod.find('.opens').text(timeOpens);
-          $timePeriod.find('.closes').text(timeCloses);
+          $timePeriod.find('.js-opens').text(timeOpens);
+          $timePeriod.find('.js-closes').text(timeCloses);
 
-          currentTimeRow.find('.time-container').append($timePeriod);
+          currentTimeRow.find('.js-time-container').append($timePeriod);
         }
 
         currentSelfService = selfService;
@@ -119,28 +119,24 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   }
 
   var handleSchedules = function handleSchedules(schedules, $scheduleHolder) {
-    var dayRowTemplate = $holder.find('.day-container.template').clone().removeClass('template hide');
-
-    var timeRowTemplate = $holder.find('.time-row.template').not('.staff').clone().removeClass('template hide');
-
     $.each(schedules, function forEachSchedule(_, object) {
       var isToday = 'today' in object;
 
-      var $dayRow = dayRowTemplate.clone();
+      var $dayRow = $('<div></div>').addClass('day-container');
 
       $dayRow.toggleClass('today', isToday);
 
       if (!object.closed) {
-        handleOpenTimes(timeRowTemplate, $dayRow, object);
+        handleOpenTimes($dayRow, object);
       } else {
         var $timeRow = timeRowTemplate.clone();
 
-        $timeRow.find('.date').text(object.date);
-        $timeRow.find('.name').text(object.day);
-        $timeRow.find('.info').text(object.info);
+        $timeRow.find('.js-date').text(object.date);
+        $timeRow.find('.js-name').text(object.day);
+        $timeRow.find('.js-info').text(object.info);
 
-        $timeRow.find('.period, .name-staff').hide();
-        $timeRow.find('.closed-today').removeClass('hide');
+        $timeRow.find('.js-period, .js-staff').hide();
+        $timeRow.find('.js-closed').removeClass('hide');
 
         $dayRow.append($timeRow);
         $dayRow.toggleClass('is-closed', true);
@@ -152,16 +148,15 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
   var handleLinks = function handleLinks(links, $linkHolder) {
     $.each(links, function forEachLink(_, object) {
-      var $link = $holder.find('.mobile-schedule-link-template').eq(0).clone();
+      var $link = mobileScheduleLinkTemplate.clone();
 
-      $link.removeClass('hide mobile-schedule-link-template');
       $link.find('a').attr('href', object.url).text(object.name);
       $link.appendTo($linkHolder);
     });
   };
 
   var handleReferences = function handleReferences(data) {
-    var $infoHolder = $holder.find('.schedules-info');
+    var $infoHolder = $holder.find('.js-schedules-info');
     $infoHolder.empty();
 
     if (data.details.scheduleDescriptions) {
@@ -177,7 +172,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   var schedulesLoaded = function schedulesLoaded(id, response) {
     // schedulesLoading = false;
 
-    $holder.find('.week-navi-holder .week-navi').each(function handleWeekNavi() {
+    $holder.find('.js-week-navigate').each(function handleWeekNavi() {
       var classes = $(this).data('classes');
 
       if (classes) {
@@ -196,8 +191,9 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     updatePrevBtn(response);
     updateNextBtn(response);
 
-    var $scheduleHolder = $holder.find('.schedules .opening-times-week');
-    $scheduleHolder.find('> div').not('.template').remove();
+    var $scheduleHolder = $holder.find('.js-opening-times-week');
+
+    $scheduleHolder.find('> div').remove();
 
     var data = organisationList[id];
     var hasSchedules = response.openTimes && response.openTimes.schedules && response.openTimes.schedules.length;
@@ -208,7 +204,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       handleSchedules(schedules, $scheduleHolder);
     } else {
       var links = null;
-      var $linkHolder = $holder.find('mobile-schedules');
+      var $linkHolder = $holder.find('.js-mobile-schedules');
 
       $linkHolder.empty();
 
@@ -223,7 +219,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       }
 
       if (!links) {
-        $holder.find('.no-schedules').show();
+        $holder.find('.js-no-schedules').show();
       }
     }
 
@@ -245,11 +241,11 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     updateNextBtn(response);
 
     if (response.phone) {
-      $holder.find('.phone').attr('data-original-title', response.phone).show();
+      $holder.find('.js-phone').attr('data-original-title', response.phone).show();
     }
 
     if (response.emails) {
-      $holder.find('.emails').attr('data-original-title', response.emails).attr('data-toggle', 'tooltip').show();
+      $holder.find('.js-email').attr('data-original-title', response.emails).attr('data-toggle', 'tooltip').show();
 
       //finna.layout.initToolTips(holder);
     }
@@ -260,13 +256,13 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       if (links.length) {
         $.each(links, function handleLink(_, obj) {
           if (obj.name.indexOf('Facebook') > 0) {
-            $holder.find('.facebook').attr('href', obj.url).show();
+            $holder.find('.js-facebook').attr('href', obj.url).show();
           }
         });
       }
     }
 
-    var img = $holder.find('.facility-image');
+    var img = $holder.find('.js-facility-image');
 
     if (response.pictures) {
       var imgLink = img.parent('a');
@@ -292,15 +288,15 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     if (response.services) {
-      $.each(response.services, function handleService(_, obj) {
-        $holder.find('.services .service-' + obj).show();
+      $.each(response.services, function handleService(_, serviceName) {
+        $holder.find('.js-services .js-service-' + serviceName).show();
       });
     }
   };
 
   var showDetails = function showDetails(id, name, allServices) {
     $holder.find('.info-element').hide();
-    $holder.find('.is-open').hide();
+    $holder.find('.js-is-open').hide();
 
     var parent = $holder.data('parent');
     var data = service.getDetails(id);
@@ -314,26 +310,26 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     if (data.openTimes && data.openNow && data.openTimes.schedules && data.openTimes.schedules.length
     ) {
-      $holder.find('.is-open' + (data.openNow ? '.open' : '.closed')).show();
+      $holder.find('.js-is-open' + (data.openNow ? '.js-open' : '.js-closed')).show();
     }
 
     if (data.email) {
-      $holder.find('.email.info-element').wrap($('<a/>').attr('href', 'mailto:' + data.email)).show();
+      $holder.find('.js-email').wrap($('<a/>').attr('href', 'mailto:' + data.email)).show();
     }
 
-    var detailsLinkHolder = $holder.find('.details-link').show();
+    var detailsLinkHolder = $holder.find('.js-details-link').show();
     var detailsLink = detailsLinkHolder.find('a');
     detailsLink.attr('href', detailsLink.data('href') + ('#' + id));
 
     if (data.routeUrl) {
-      $holder.find('.route').attr('href', data.routeUrl).show();
+      $holder.find('.js-route').attr('href', data.routeUrl).show();
     }
 
     if (data.mapUrl && data.address) {
-      var map = $holder.find('.map');
+      var map = $holder.find('.js-map');
 
       map.find('> a').attr('href', data.mapUrl);
-      map.find('.map-address').text(data.address);
+      map.find('.js-map-address').text(data.address);
       map.show();
     }
 
@@ -359,6 +355,10 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       $spinner = $holder.find('.js-loader');
       $prevButton = $holder.find('.js-prev-week');
       $nextButton = $holder.find('.js-next-week');
+
+      timeRowTemplate = $('.js-time-row-template');
+      timeTemplate = $('.js-time-template');
+      mobileScheduleLinkTemplate = $('.js-mobile-schedule-link-template')
     }
   }
 })();

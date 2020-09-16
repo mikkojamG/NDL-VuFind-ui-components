@@ -15,75 +15,52 @@ $widget = $target == 'widget';
         <div class="organisation-dropdown-holder">
           <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library']) ?>
         </div>
-        <span class="is-open open info-element">
+        <span class="js-is-open js-open is-open open info-element">
           <?= $open; ?>
         </span>
-        <span class="is-open closed info-element">
+        <span class="js-is-open js-closed is-open closed info-element">
           <?= $closed; ?>
         </span>
       <?php endif; ?>
       <div class="info schedules">
         <div class="week-navi-holder">
-          <i class="fa fa-arrow-left prev-week week-navi" data-dir="-1"></i>
-          <span class="week-text">
-            <?= $week; ?> <span class="num"></span>
-          </span>
-          <i class="fa fa-arrow-right next-week week-navi" data-dir="+1"></i>
+          <i class="fa fa-arrow-left prev-week js-week-navigate" data-dir="-1"></i>
+          <?= $week; ?> <span class="js-week-number"></span>
+          <i class="fa fa-arrow-right next-week js-week-navigate" data-dir="+1"></i>
         </div>
         <div class="loader js-loader">
           <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
         </div>
         <div class="content">
-          <div class="opening-times-week">
-            <div class="day-container template hide"></div>
-            <div class="time-row template hide">
-              <div class="cell date"></div>
-              <div class="cell description">
-                <span class="name"></span>
-                <span class="name-staff">
-                  <?= $staffAvailable; ?>
-                </span>
-                <span class="info"></span>
-                <span class="selfservice-only hide">
-                  <?= $selfService; ?>
-                </span>
-              </div>
-              <div class="cell time-container">
-                <div class="cell time-template">
-                  <span class="period">
-                    <span class="opens"></span> - <span class="closes"></span>
-                  </span>
-                  <span class="closed-today hide">
-                    <?= $closed; ?>
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div class="js-opening-times-week opening-times-week">
+            <div class="day-container"></div>
           </div>
         </div>
-        <div class="no-schedules info-element">
+        <div class="js-no-schedules info-element">
           <?= $notAvailable; ?>
         </div>
-        <div class="mobile-schedule-link-template hide" aria-hidden="true">
-          <a href="#" target="_blank">
-            Template link
-          </a>
-        </div>
-        <div class="mobile-schedules info-element"></div>
+        <div class="js-mobile-schedules mobile-schedules info-element"></div>
       </div>
-      <div class="schedules-info info-element">
+      <div class="js-schedules-info schedules-info info-element">
         <p><?= $schedulesInfo; ?></p>
       </div>
       <?php if ($widget && $showDetails) : ?>
       </div>
       <div class="details details-col">
         <a href="#" data-href="<?= $organisationHomeUrl; ?>" class="facility details">
-          <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="facility-image" />
+          <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image" />
         </a>
         <div class="contact-links">
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn btn-open-widget emails email info-element'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at'><span class='sr-only'>Email</span></i>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
+          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn btn-open-widget info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at'><span class='sr-only'>Email</span></i>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
 
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn btn-open-widget phone info-element'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square'><span class='sr-only'>Phone</span></i>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
+          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn btn-open-widget info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square'><span class='sr-only'>Phone</span></i>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
+
+          <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route info-element">
+            <span class="btn">
+              <i class="fa fa-bus"></i>
+              <span class="sr-only">Reittiohjeet</span>
+            </span>
+          </a>
 
           <a href="<?= $organisationHomeUrl; ?>">
             <span class="btn">
@@ -92,7 +69,7 @@ $widget = $target == 'widget';
             </span>
           </a>
 
-          <a href="<?= $organisationHomeUrl; ?>" target="_blank" class="facebook info-element">
+          <a href="<?= $organisationHomeUrl; ?>" target="_blank" class="js-facebook info-element">
             <span class="btn">
               <i class="fa fa-facebook-square"></i>
               <span class="sr-only">Facebook</span>
@@ -100,27 +77,27 @@ $widget = $target == 'widget';
           </a>
         </div>
 
-        <div class="map info-element">
+        <div class="js-map map info-element">
           <a href="https://www.google.com/maps?q=Linnankatu+2+Turku" target="_blank">
             <i class="fa fa-map-marker">
             </i>
-            <span class="map-address">Linnankatu 2, 20100 Keskusta (Turku)</span>
+            <span class="js-map-address">Linnankatu 2, 20100 Keskusta (Turku)</span>
           </a>
         </div>
 
-        <div class="details-link info-element">
+        <div class="js-details-link info-element">
           <a href="#" data-href="<?= $organisationHomeUrl; ?>" class="details">
             <i class="fa fa-home"></i>
             Palvelupisteen tiedot
           </a>
         </div>
 
-        <div class="services">
-          <span class="btn btn-open-widget btn-round service-wifi info-element" title="Langaton verkko">
+        <div class="js-services services">
+          <span class="btn btn-open-widget btn-round js-service-wifi info-element" title="Langaton verkko">
             <i class="fa fa-wifi"></i>
             <span class="sr-only">Langaton verkko</span>
           </span>
-          <span class="btn btn-open-widget btn-round service-print info-element" title="Tulostin">
+          <span class="btn btn-open-widget btn-round js-service-print info-element" title="Tulostin">
             <i class="fa fa-print"></i>
             <span class="sr-only">Tulostin</span>
           </span>
@@ -129,3 +106,32 @@ $widget = $target == 'widget';
     </div>
   <?php endif; ?>
 </div>
+<template class="js-time-row-template">
+  <div class="cell js-date"></div>
+  <div class="cell description">
+    <span class="js-name"></span>
+    <span class="js-staff">
+      <?= $staffAvailable; ?>
+    </span>
+    <span class="info js-info"></span>
+    <span class="js-selfservice hide">
+      <?= $selfService; ?>
+    </span>
+  </div>
+  <div class="cell js-time-container"></div>
+</template>
+
+<template class="js-time-template">
+  <span class="js-period">
+    <span class="js-opens"></span> - <span class="js-closes"></span>
+  </span>
+  <span class="js-closed hide">
+    <?= $closed; ?>
+  </span>
+</template>
+
+<template class="js-mobile-schedule-link-template">
+  <a href="#" target="_blank">
+    Template link
+  </a>
+</template>
