@@ -1,6 +1,6 @@
 {
   "id": "patternLab",
-  "target": "page",
+  "target": "widget",
   "week": "Week",
   "staffAvailable": "Staff available",
   "selfService": "(self service)",

@@ -46,75 +46,64 @@ $widget = $target == 'widget';
 
         <div class="js-opening-times-week opening-times-week"></div>
 
-        <div class="js-no-schedules info-element js-info-element">
+        <div class="js-no-schedules js-info-element">
           <?= $notAvailable; ?>
         </div>
 
         <div class="js-mobile-schedules mobile-schedules info-element js-info-element"></div>
       </div>
 
-      <div class="js-schedules-info schedules-info info-element js-info-element">
+      <div class="js-schedules-info schedules-info js-info-element">
         <p><?= $schedulesInfo; ?></p>
       </div>
 
       <?php if ($widget && $showDetails) : ?>
       </div>
 
-      <div class="details details-col">
-        <a href="#" data-href="<?= $organisationHomeUrl; ?>" class="facility details">
+      <div class="details-col">
+        <a href="" data-href="<?= $organisationHomeUrl; ?>">
           <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image" />
         </a>
-        <div class="contact-links">
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn btn-open-widget info-element js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at'><span class='sr-only'>Email</span></i>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
+        <div>
+          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
 
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn btn-open-widget info-element js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square'><span class='sr-only'>Phone</span></i>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
+          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
 
-          <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route info-element js-info-element">
-            <span class="btn">
-              <i class="fa fa-bus"></i>
-              <span class="sr-only">Reittiohjeet</span>
-            </span>
+          <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route js-info-element btn">
+            <i class="fa fa-bus" aria-hidden="true"></i>
+            <span class="sr-only">Reittiohjeet</span>
           </a>
 
-          <a href="<?= $organisationHomeUrl; ?>">
-            <span class="btn">
-              <i class="fa fa-bus"></i>
-              <span class="sr-only">Reittiohjeet</span>
-            </span>
-          </a>
-
-          <a href="<?= $organisationHomeUrl; ?>" target="_blank" class="js-facebook info-element js-info-element">
-            <span class="btn">
-              <i class="fa fa-facebook-square"></i>
-              <span class="sr-only">Facebook</span>
-            </span>
+          <a href="<?= $organisationHomeUrl; ?>" target="_blank" class="js-facebook js-info-element btn">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            <span class="sr-only">Facebook</span>
           </a>
         </div>
 
-        <div class="js-map map info-element js-info-element">
+        <div class="js-map map js-info-element">
           <a href="https://www.google.com/maps?q=Linnankatu+2+Turku" target="_blank">
-            <i class="fa fa-map-marker">
+            <i class="fa fa-map-marker" aria-hidden="true">
             </i>
             <span class="js-map-address">Linnankatu 2, 20100 Keskusta (Turku)</span>
           </a>
         </div>
 
-        <div class="js-details-link info-element js-info-element">
-          <a href="#" data-href="<?= $organisationHomeUrl; ?>" class="details">
-            <i class="fa fa-home"></i>
+        <div class="js-details-link js-info-element">
+          <a href="" data-href="<?= $organisationHomeUrl; ?>">
+            <i class="fa fa-home" aria-hidden="true"></i>
             Palvelupisteen tiedot
           </a>
         </div>
 
         <div class="js-services services">
-          <span class="btn btn-open-widget btn-round js-service-wifi info-element js-info-element" title="Langaton verkko">
-            <i class="fa fa-wifi"></i>
+          <button class="btn btn-round js-service-wifi js-info-element">
+            <i class="fa fa-wifi" aria-hidden="true"></i>
             <span class="sr-only">Langaton verkko</span>
-          </span>
-          <span class="btn btn-open-widget btn-round js-service-print info-element js-info-element" title="Tulostin">
-            <i class="fa fa-print"></i>
+          </button>
+          <button class="btn btn-round js-service-print js-info-element">
+            <i class="fa fa-print" aria-hidden="true"></i>
             <span class="sr-only">Tulostin</span>
-          </span>
+          </button>
         </div>
       </div>
 
