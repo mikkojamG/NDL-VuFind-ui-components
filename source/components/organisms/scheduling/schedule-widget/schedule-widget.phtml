@@ -10,46 +10,56 @@ $widget = $target == 'widget';
     </div>
     <div class="hide">
       <div class="<?= $showDetails ? 'info-col ' : ''; ?>info">
+
         <div class="organisation-dropdown-holder">
           <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation']) ?>
         </div>
-        <span class="js-is-open js-open is-open open js-info-element">
-          <?= $open; ?>
-        </span>
-        <span class="js-is-open js-closed is-open closed js-info-element">
-          <?= $closed; ?>
-        </span>
+
+        <div class="js-is-open">
+          <span class="js-open is-open open js-info-element">
+            <?= $open; ?>
+          </span>
+          <span class="js-closed is-open closed js-info-element">
+            <?= $closed; ?>
+          </span>
+        </div>
       <?php endif; ?>
+
       <div class="schedules">
         <div class="week-navigation week-navi-holder">
-          <button class="week-navigation-control js-prev-week js-week-navigate" data-dir="-1">
+          <button class="week-navigation-control js-prev-week" data-dir="-1">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
             <span class="sr-only">Previous week</span>
           </button>
           <span>
             <?= $week; ?> <span class="js-week-number">x</span>
           </span>
-          <button class="week-navigation-control js-next-week js-week-navigate" data-dir="+1">
+          <button class="week-navigation-control js-next-week" data-dir="+1">
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
             <span class="sr-only">Next week</span>
           </button>
         </div>
+
         <div class="loader js-loader">
           <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
         </div>
-        <div class="js-opening-times-week opening-times-week">
-          <div class="day-container"></div>
-        </div>
+
+        <div class="js-opening-times-week opening-times-week"></div>
+
         <div class="js-no-schedules info-element js-info-element">
           <?= $notAvailable; ?>
         </div>
+
         <div class="js-mobile-schedules mobile-schedules info-element js-info-element"></div>
       </div>
+
       <div class="js-schedules-info schedules-info info-element js-info-element">
         <p><?= $schedulesInfo; ?></p>
       </div>
+
       <?php if ($widget && $showDetails) : ?>
       </div>
+
       <div class="details details-col">
         <a href="#" data-href="<?= $organisationHomeUrl; ?>" class="facility details">
           <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image" />
@@ -107,6 +117,7 @@ $widget = $target == 'widget';
           </span>
         </div>
       </div>
+
     </div>
   <?php endif; ?>
 </div>

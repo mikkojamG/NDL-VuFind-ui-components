@@ -172,14 +172,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   var schedulesLoaded = function schedulesLoaded(id, response) {
     // schedulesLoading = false;
 
-    $holder.find('.js-week-navigate').each(function handleWeekNavi() {
-      var classes = $(this).data('classes');
-
-      if (classes) {
-        $(this).attr('class', classes);
-      }
-    });
-
     if (response.periodStart) {
       $holder.data('period-start', response.periodStart);
     }
@@ -310,7 +302,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     if (data.openTimes && data.openNow && data.openTimes.schedules && data.openTimes.schedules.length
     ) {
-      $holder.find('.js-is-open' + (data.openNow ? '.js-open' : '.js-closed')).show();
+      $holder.find('.js-is-open ' + (data.openNow ? '.js-open' : '.js-closed')).show();
     }
 
     if (data.email) {
