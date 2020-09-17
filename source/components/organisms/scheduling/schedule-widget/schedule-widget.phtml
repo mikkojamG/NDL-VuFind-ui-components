@@ -97,27 +97,33 @@ $widget = $target == 'widget';
 </div>
 
 <template class="js-time-row-template">
-  <div class="cell js-date"></div>
-  <div class="cell description">
-    <span class="js-name"></span>
-    <span class="js-staff">
-      <?= $staffAvailable; ?>
-    </span>
-    <span class="info js-info"></span>
-    <span class="js-selfservice hide">
-      <?= $selfService; ?>
-    </span>
+  <div class="time-row">
+    <div class="cell date">
+      <span class="js-date"></span>
+    </div>
+    <div class="cell description">
+      <span class="js-name"></span>
+      <span class="js-staff name-staff">
+        <?= $staffAvailable; ?>
+      </span>
+      <span class="info js-info"></span>
+      <span class="js-selfservice selfservice-only hide">
+        <?= $selfService; ?>
+      </span>
+    </div>
+    <div class="cell time-container js-time-container"></div>
   </div>
-  <div class="cell js-time-container"></div>
 </template>
 
 <template class="js-time-template">
-  <span class="js-period">
-    <span class="js-opens"></span> - <span class="js-closes"></span>
-  </span>
-  <span class="js-closed hide">
-    <?= $closed; ?>
-  </span>
+  <div class="time-template">
+    <span class="js-period">
+      <span class="js-opens"></span> - <span class="js-closes"></span>
+    </span>
+    <span class="js-closed hide">
+      <?= $closed; ?>
+    </span>
+  </div>
 </template>
 
 <template class="js-mobile-schedule-link-template">

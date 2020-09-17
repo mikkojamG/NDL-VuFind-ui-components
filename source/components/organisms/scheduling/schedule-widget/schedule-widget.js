@@ -66,7 +66,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
       if (!selfService || object.times.length === 1) {
         if (currentSelfService === null || selfService === currentSelfService) {
-          var $timeRow = timeRowTemplate.clone();
+          var $timeRow = $(timeRowTemplate.html().trim());
 
           $timeRow.find('.js-date').text(date);
           $timeRow.find('.js-name').text(day);
@@ -77,7 +77,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
             $dayRow.append($timeRow);
 
-            $timeRow = timeRowTemplate.clone();
+            $timeRow = $(timeRowTemplate.html().trim());
             addFullOpeningTimes = false;
           }
 
@@ -102,10 +102,12 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $dayRow.append($timeRow);
           currentTimeRow = $timeRow;
         } else {
-          var $timePeriod = timeTemplate.clone();
+          var $timePeriod = $(timeTemplate.html().trim());
 
           $timePeriod.find('.js-opens').text(timeOpens);
           $timePeriod.find('.js-closes').text(timeCloses);
+
+          console.log($timePeriod);
 
           currentTimeRow.find('.js-time-container').append($timePeriod);
         }
@@ -129,7 +131,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       if (!object.closed) {
         handleOpenTimes($dayRow, object);
       } else {
-        var $timeRow = timeRowTemplate.clone();
+        var $timeRow = $(timeRowTemplate.html().trim());
 
         $timeRow.find('.js-date').text(object.date);
         $timeRow.find('.js-name').text(object.day);
@@ -148,7 +150,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
   var handleLinks = function handleLinks(links, $linkHolder) {
     $.each(links, function forEachLink(_, object) {
-      var $link = mobileScheduleLinkTemplate.clone();
+      var $link = $(mobileScheduleLinkTemplate.html().trim());
 
       $link.find('a').attr('href', object.url).text(object.name);
       $link.appendTo($linkHolder);
