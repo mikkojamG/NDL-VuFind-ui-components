@@ -87,13 +87,6 @@ finna.organisationInfo = (function finnaOrganisationInfo() {
     });
   }
 
-  function getInfo(id) {
-    if (!(id in organisationList)) {
-      return false;
-    }
-    return organisationList[id];
-  }
-
   function getDetails(id) {
     if (!(id in organisationList)) {
       return false;
@@ -184,7 +177,6 @@ finna.organisationInfo = (function finnaOrganisationInfo() {
 
   var my = {
     getOrganisations: getOrganisations,
-    getInfo: getInfo,
     getDetails: getDetails,
     getSchedules: getSchedules
   };

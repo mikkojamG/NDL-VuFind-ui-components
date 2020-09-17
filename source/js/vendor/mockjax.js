@@ -59,68 +59,43 @@ $.mockjax([{
   response: function () {
     this.responseText = {
       data: {
-        phone: "<ul>\n<li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0625\">02 262 0625</a> / Lasten Saaga</p></li>\n</ul>\n",
+        phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;9412&#x20;3196\">02 9412 3196</a> / Asiakaspalvelu</p></li>\n</ul>\n",
+        emails: "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kk-palvelu&#x40;helsinki.fi\">kk-palvelu@helsinki.fi</a></p></li>\n</ul>\n",
         pictures: [
           {
-            "url": "https://kirkanta.kirjastot.fi/files/photos/medium/paakirjasto-57f346b5380ff.jpg",
-            "size": 254909,
-            "resolution": "1500x1000"
+            url: "https://kirkanta.kirjastot.fi/files/photos/medium/kanki-k-590867ab71c76.jpg",
+            size: 643166,
+            resolution: "1543x1000"
           },
+          {
+            url: "https://kirkanta.kirjastot.fi/files/photos/medium/kanki8-k-590867f193450.jpg",
+            size: 458578,
+            resolution: "1498x1000"
+          },
+          {
+            url: "https://kirkanta.kirjastot.fi/files/photos/medium/kanki3-k-5908677567274.jpg",
+            size: 679768,
+            resolution: "1498x1000"
+          }
         ],
-        slogan: "Turun p\u00e4\u00e4kirjasto tarjoaa asiakkailleen viihtyis\u00e4n paikan, jossa ihmiset, tieto ja mielikuvitus kohtaavat.",
-        description: "<p>Rakennettu 1903, uudisosa 2007.</p>",
+        slogan: "Kansakunnan aarteet kaikille",
         links: [
+          { name: "Twitter", url: "https://twitter.com/NatLibFi" },
           {
-            "name": "Facebook",
-            "url": "https://www.facebook.com/turunkaupunginkirjasto/"
+            name: "Instagram",
+            url: "https://www.instagram.com/kansalliskirjasto/"
           },
           {
-            "name": "Kirjaston kotisivut",
-            "url": "http://www.turku.fi/turun-kaupunginkirjasto"
-          }
-        ],
-        services: ["wifi", "print"],
-        allServices: {
-          room: [
-            ["Esiintymislava"],
-            {
-              "0": "Kokoustila ja opetustila",
-              "shortDesc": "<p>Tarkista kotisivuilta <a href=\"https://www.turku.fi/turun-kaupunginkirjasto/palvelut/vuokrattavat-tilat-paakirjastossa\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">vuokrattavat tilat</a></p>"
-            },
-          ],
-          service: [
-            ["Caf\u00e9 Sirius"],
-            {
-              "0": "Kotipalvelu",
-              "shortDesc": "<p>Lis\u00e4tietoa <a href=\"https://www.turku.fi/turun-kaupunginkirjasto/palvelut/omakirjasto\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Omakirjasto-palvelusta</a></p>"
-            },
-            {
-              "0": "Langaton verkko (Wi-Fi)",
-              "shortDesc": "Turku-Open. Verkkoon p\u00e4\u00e4see kirjautumaan kuukausittain vaihtuvilla yleistunnuksilla (esill\u00e4 asiakaspalvelutiskeill\u00e4)."
-            },
-          ],
-          hardware: [
-            {
-              "0": "3D-tulostin",
-              "shortDesc": "<p>\u2022  3D-tulostinta voi k\u00e4ytt\u00e4\u00e4 uutistorilla. Ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
-            },
-          ]
-        },
-        rss: [
-          {
-            "id": "events",
-            "url": "https://tapahtumat.vaskikirjastot.fi/?post_type=tribe_events&kunta=turku-fi&lang=fi&order=asc&feed=rss2"
+            name: "Facebook",
+            url: "https://www.facebook.com/Kansalliskirjasto/"
           },
           {
-            "id": "news",
-            "url": "https://tapahtumat.vaskikirjastot.fi/?post_type=uutinen&kunta=turku-fi&lang=fi&order=asc&feed=rss2"
+            name: "Kirjaston kotisivut",
+            url: "http://www.kansalliskirjasto.fi/"
           }
         ],
-        id: "85141",
+        id: "86154",
         periodStart: "2020-09-14",
-        scheduleDescriptions: [
-          "Lasten Saaga ja nuorten Stoori ovat koulujen lukuvuoden aikana varattu etuk\u00e4teen sovituille ryhmille ma-pe klo 9-10."
-        ],
         weekNum: "38"
       }
     }
@@ -135,104 +110,126 @@ $.mockjax([{
     this.responseText = {
       data: {
         consortium: {
-          name: "Vaski-kirjastot", "description": "<p>Vaski-kirjastot ovat varsinaissuomalaisten kirjastojen yhteenliittym\u00e4. Vaski-kirjastoilla on yhteinen verkkokirjasto, kirjastokortti, k\u00e4ytt\u00f6s\u00e4\u00e4nn\u00f6t ja yhteisk\u00e4ytt\u00f6inen kokoelma. Vaski-kirjastot tarjoavat asiakkaille koko Vaski-alueen aineiston ja ammattitaidon. Vaskiin kuuluu 50 kirjastoa ja 7&nbsp;kirjastoautoa.<\/p>", "homepageLabel": "vaski.finna.fi", "homepage": "https:\/\/vaski.finna.fi\/", "logo": { "small": "https:\/\/kirkanta.kirjastot.fi\/files\/logos\/small\/5f4dff8dcb641578397306.png" },
+          name: "Kansalliskirjasto",
+          description: "<p>Kansalliskirjasto on humanististen tieteiden kirjasto jonka kokoelmiin kuuluu laajat historialliset aineistot sek\u00e4 kattavasti suomalainen julkaisutuotanto.</p>",
+          homepageLabel: "www.kansalliskirjasto.fi",
+          homepage: "https://www.kansalliskirjasto.fi/",
+          logo: {
+            small: "https://kirkanta.kirjastot.fi/files/logos/small/5bf5a8a4e6a1f840110994.png"
+          },
           finna: {
-            "usage_info": "<p>Vaski-kirjastoista lainaamiseen tarvitset aina kirjastokortin. Henkil\u00f6kohtaisen kirjastokortin ja tunnusluvun saat kaikista Vaski-kirjastoista esitt\u00e4m\u00e4ll\u00e4 kuvallisen henkil\u00f6llisyystodistuksen ja sitoutumalla kirjaston k\u00e4ytt\u00f6s\u00e4\u00e4nt\u00f6ihin. Ensimm\u00e4inen kirjastokortti on maksuton, sen j\u00e4lkeen annetusta kirjastokortista perit\u00e4\u00e4n maksu. Sama kirjastokortti k\u00e4y kaikissa Vaski-kirjastoissa ja voit palauttaa aineiston mihin tahansa Vaski-kirjastoon.<\/p>", "notification": null, "finna_coverage": "99", "usage_perc": "99", "finnaLink": [{ name: "Asiakkaana kirjastossa", "value": "https:\/\/vaski.finna.fi\/Content\/asiakkaana" },
-            { name: "E-aineistot", "value": "https:\/\/vaski.finna.fi\/Content\/eaineistot" },
-            { name: "vaskikirjastot.fi", "value": "http:\/\/www.vaskikirjastot.fi\/" }], "service_point": 85141
-          },
-          id: 2115
-        },
-        list: [{
-          id: 85968, name: "Askaisten kirjasto", "shortName": "Askainen", "slug": "askainen", "type": "municipal", "mobile": 0, "email": "askaisten.kirjasto@masku.fi", "homepage": "https:\/\/www.masku.fi\/vapaa-aika\/kirjastopalvelut\/", "address": { "street": "Vesil\u00e4ntie 3", "zipcode": "21240", "city": "Masku", "coordinates": { "lat": 60.5724247, "lon": 21.8653932 } },
-          routeUrl: "https:\/\/opas.matka.fi\/?to=Vesil%C3%A4ntie%203,%20Masku", mapUrl: "http:\/\/maps.google.com\/?q=Vesil%C3%A4ntie%203%20Masku", openTimes: {
-            schedules: [{ date: "14.9.", times: [{ opens: "15", closes: "19", selfservice: false }], day: "Ma" },
-            { date: "15.9.", times: [], day: "Ti", closed: true },
-            { date: "16.9.", times: [{ opens: "15", closes: "19", selfservice: false }], day: "Ke" },
-            { date: "17.9.", times: [{ opens: "12", closes: "16", selfservice: false }], day: "To", "today": true },
-            { date: "18.9.", times: [], day: "Pe", closed: true },
-            { date: "19.9.", times: [], day: "La", closed: true },
-            { date: "20.9.", times: [], day: "Su", closed: true }], openToday: [{ opens: "12", closes: "16", selfservice: false }], currentWeek: true, openNow: 0
-          },
-          openNow: false
-        },
-        {
-          id: 85141,
-          name: "Turun p\u00e4\u00e4kirjasto",
-          shortName: "Turku",
-          slug: "paakirjasto-turku",
-          type: "municipal",
-          mobile: 0,
-          email: "kaupunginkirjasto@turku.fi",
-          homepage: "http://www.turku.fi/turun-kaupunginkirjasto",
-          address: {
-            street: "Linnankatu 2",
-            zipcode: "20100",
-            city: "Keskusta (Turku)",
-            coordinates: { lat: 60.4504634, lon: 22.2708644 }
-          },
-          routeUrl: "https://opas.matka.fi/?to=Linnankatu%202,%20Turku",
-          mapUrl: "http://maps.google.com/?q=Linnankatu%202%20Turku",
-          openTimes: {
-            schedules: [
+            usage_info: "<p>Kansalliskirjaston kokoelman perustan muodostaa kotimaisten julkaisujen arkistokokoelma. Kansalliskirjaston ulkomaiset kokoelmat kytkev\u00e4t Suomen tieteen ja kulttuurin eurooppalaisiin ja kansainv\u00e4lisiin yhteyksiins\u00e4.&nbsp;</p><p>Humanistisen kokoelman kirjat ovat historiantutkimuksen, taiteiden tutkimuksen ja filosofian aloilta.&nbsp;Slaavilaisen kirjaston kirjat k\u00e4sittelev\u00e4t p\u00e4\u00e4asiassa Ven\u00e4j\u00e4\u00e4 ja muita slaavilaisia maita, kansoja ja kulttuureja.</p><p>Kansalliskokoelma sis\u00e4lt\u00e4\u00e4 kattavasti suomalaiset julkaisut. Ne on luetteloitu&nbsp;<i>Fennica</i>-&nbsp;ja <i>Viola</i>-tietokantoihin. N\u00e4m\u00e4 aineistot palvelevat&nbsp;etup\u00e4\u00e4ss\u00e4 tutkimustarkoitusta, ja ovat&nbsp;k\u00e4ytett\u00e4viss\u00e4 ainoastaan Kansalliskirjaston lukusaleissa.</p><p>Kansalliskirjasto on digitoinut kotimaisia <a href=\"http://digi.kansalliskirjasto.fi/\">aikakaus- ja sanomalehti\u00e4</a>, <a href=\"https://www.doria.fi/handle/10024/4194\">arjen painatteita, varhaisimpia \u00e4\u00e4nitteit\u00e4 sek\u00e4 kirjoja ja karttoja</a>. N\u00e4m\u00e4 ovat&nbsp;mukana Finnan hakutuloksissa, mutta l\u00f6ytyv\u00e4t my\u00f6s kyseisten aineistojen omista hakuliittymist\u00e4 (linkit edell\u00e4).</p><p><i>Arto </i>on kotimaisten artikkelien viitetietokanta. Se sis\u00e4lt\u00e4\u00e4&nbsp;runsaasti linkkej\u00e4 artikkeleiden kokoteksteihin, mutta ei lainkaan lainattavien aineistojen saatavuustietoja.&nbsp; Artikkelin tiedoissa on kuitenkin linkki julkaisun tietoihin, joista voi tarkistaa julkaisun saatavuuden eri kirjastoissa. Suuri osa kokoteksteist\u00e4, mm. Elektra-aineisto, vaatii k\u00e4ytt\u00f6luvan. T\u00e4ll\u00e4 hetkell\u00e4 aineistot ovat k\u00e4ytett\u00e4viss\u00e4 mm. yleisiss\u00e4 kirjastoissa sek\u00e4 ammattikorkeakoulujen ja useimpien yliopistojen paikallisverkoissa, mkl. Kansalliskirjasto. Elektran julkaisujen viitetiedot ovat vapaasti selattavissa, mutta itse sis\u00e4lt\u00f6jen k\u00e4ytt\u00f6 edellytt\u00e4\u00e4 sopimusta.</p><p><i>Doria </i>on julkaisuarkisto joka tarjoaa sek\u00e4 digitoituja kulttuuriperint\u00f6aineistoja, ett\u00e4 tuoreempia tutkielmia, raportteja yms.</p><p>&nbsp;</p>",
+            notification: null,
+            finna_coverage: null,
+            usage_perc: null,
+            finnaLink: [
               {
-                date: "14.9.",
-                times: [{
-                  opens: "9", closes: "20", selfservice: false
-                }],
-                day: "Ma"
+                name: "kansalliskirjasto.finna.fi",
+                value: "https://kansalliskirjasto.finna.fi/"
               },
               {
-                date: "15.9.",
-                times: [{
-                  opens: "9", closes: "20", selfservice: false
-                }],
-                day: "Ti"
+                name: "Lis\u00e4tietoa kokoelmista",
+                value: "https://www.kansalliskirjasto.fi/fi/collections/search"
               },
               {
-                date: "16.9.",
-                times: [{
-                  opens: "9", closes: "20", selfservice: false
-                }],
-                day: "Ke"
+                name: "Lis\u00e4tietoa aineistojen k\u00e4yt\u00f6st\u00e4",
+                value: "https://www.kansalliskirjasto.fi/fi/aineistot/aineiston-saatavuus-ja-kaytto"
               },
               {
-                date: "17.9.",
-                times: [{
-                  opens: "9", closes: "20", selfservice: false
-                }],
-                day: "To",
-                today: true
+                name: "Digitoidut sanoma- ja aikakauslehdet",
+                value: "http://digi.kansalliskirjasto.fi/"
               },
               {
-                date: "18.9.",
-                times: [{
-                  opens: "9", closes: "20", selfservice: false
-                }],
-                day: "Pe"
-              },
-              {
-                date: "19.9.",
-                times: [{
-                  opens: "11", closes: "17", selfservice: false
-                }],
-                day: "La"
-              },
-              {
-                date: "20.9.",
-                times: [{
-                  opens: "11", closes: "17", selfservice: false
-                }],
-                day: "Su"
+                name: "Digitoidut kirjat, kartat, pienpainatteet, musiikki",
+                value: "http://www.doria.fi/handle/10024/4194"
               }
             ],
-            openToday: [{ opens: "9", closes: "20", selfservice: false }],
-            currentWeek: true,
-            openNow: 1
+            service_point: 86154
           },
-          openNow: true
-        }],
-        id: "85141", weekNum: "38"
+          id: 2184
+        },
+        list: [
+          {
+            id: 86154,
+            name: "Kansalliskirjasto",
+            shortName: null,
+            slug: "kansalliskirjasto",
+            type: "university",
+            mobile: 0,
+            email: "kk-palvelu@helsinki.fi",
+            homepage: "https://www.facebook.com/Kansalliskirjasto/",
+            address: {
+              street: "Unioninkatu 36",
+              zipcode: "00170",
+              city: "Helsinki",
+              coordinates: { "lat": 60.17037, "lon": 24.95034 }
+            },
+            routeUrl: "https://opas.matka.fi/?to=Unioninkatu%2036,%20Helsinki",
+            mapUrl: "http://maps.google.com/?q=Unioninkatu%2036%20Helsinki",
+            openTimes: {
+              schedules: [
+                {
+                  date: "14.9.",
+                  times: [
+                    { opens: "9", closes: "10", selfservice: true },
+                    { opens: "10", closes: "17", selfservice: false },
+                    { opens: "17", closes: "18", selfservice: true }
+                  ],
+                  day: "Ma"
+                },
+                {
+                  date: "15.9.",
+                  times: [
+                    { opens: "9", closes: "10", selfservice: true },
+                    { opens: "10", closes: "17", selfservice: false },
+                    { opens: "17", closes: "18", selfservice: true }
+                  ],
+                  day: "Ti"
+                },
+                {
+                  date: "16.9.",
+                  times: [
+                    { opens: "9", closes: "10", selfservice: true },
+                    { opens: "10", closes: "17", selfservice: false },
+                    { opens: "17", closes: "18", selfservice: true }
+                  ],
+                  day: "Ke"
+                },
+                {
+                  date: "17.9.",
+                  times: [
+                    { opens: "9", closes: "10", selfservice: true },
+                    { opens: "10", closes: "17", selfservice: false },
+                    { opens: "17", closes: "18", selfservice: true }
+                  ],
+                  day: "To",
+                  today: true
+                },
+                {
+                  date: "18.9.",
+                  times: [
+                    { opens: "9", closes: "10", selfservice: true },
+                    { opens: "10", closes: "17", selfservice: false },
+                    { opens: "17", closes: "18", selfservice: true }
+                  ],
+                  day: "Pe"
+                },
+                { date: "19.9.", times: [], day: "La", "closed": true },
+                { date: "20.9.", times: [], day: "Su", "closed": true }
+              ],
+              openToday: [
+                { opens: "9", closes: "10", selfservice: true },
+                { opens: "10", closes: "17", selfservice: false },
+                { opens: "17", closes: "18", selfservice: true }
+              ],
+              currentWeek: true,
+              openNow: 2
+            },
+            openNow: true
+          }
+        ],
+        id: "86154",
+        weekNum: "38"
       }
     }
   }

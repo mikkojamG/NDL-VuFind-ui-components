@@ -120,7 +120,7 @@ $widget = $target == 'widget';
     <span class="js-period">
       <span class="js-opens"></span> - <span class="js-closes"></span>
     </span>
-    <span class="js-closed hide">
+    <span class="js-closed closed-today hide">
       <?= $closed; ?>
     </span>
   </div>
@@ -141,7 +141,7 @@ $widget = $target == 'widget';
     finna.weekSchedule.loadOrganisationList();
 
     setTimeout(function() {
-      finna.weekSchedule.showDetails('85141', '', true);
+      finna.weekSchedule.showDetails('<?= $id; ?>', '', true);
     }, 2500)
   })
 </script>

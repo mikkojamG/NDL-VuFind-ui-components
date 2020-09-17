@@ -74,10 +74,15 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $timeRow.find('.js-name').text(day);
 
           if (addFullOpeningTimes && object.times.length > 1) {
-            $timeRow.find('.js-opens').text(firstItem.opens);
-            $timeRow.find('.js-closes').text(lastItem.closes);
+            $timePeriod.find('.js-opens').text(firstItem.opens);
+            $timePeriod.find('.js-closes').text(lastItem.closes);
+
+            $timeRow.find('.js-time-container').append($timePeriod);
 
             $dayRow.append($timeRow);
+
+            $timePeriod = $(timeTemplate.html().trim());
+            $timeRow = $(timeRowTemplate.html().trim());
 
             addFullOpeningTimes = false;
           }
@@ -123,24 +128,26 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
   var handleSchedules = function handleSchedules(schedules, $scheduleHolder) {
     $.each(schedules, function forEachSchedule(_, object) {
-      var isToday = 'today' in object;
-
       var $dayRow = $('<div></div>').addClass('day-container');
 
-      $dayRow.toggleClass('today', isToday);
+      $dayRow.toggleClass('today', !!object.today);
 
-      if (!object.closed) {
+      var closed = !!object.closed;
 
+      if (!closed) {
         handleOpenTimes($dayRow, object);
       } else {
         var $timeRow = $(timeRowTemplate.html().trim());
+        var $timePeriod = $(timeTemplate.html().trim());
 
         $timeRow.find('.js-date').text(object.date);
         $timeRow.find('.js-name').text(object.day);
         $timeRow.find('.js-info').text(object.info);
 
-        $timeRow.find('.js-period, .js-staff').hide();
-        $timeRow.find('.js-closed').removeClass('hide');
+        $timePeriod.find('.js-period, .js-staff').hide();
+        $timePeriod.find('.js-closed').removeClass('hide');
+
+        $timeRow.find('.js-time-container').append($timePeriod);
 
         $dayRow.append($timeRow);
         $dayRow.toggleClass('is-closed', true);
@@ -402,7 +409,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
       organisationList[obj.id] = obj;
     });
-
 
     if (!found) {
       id = finna.common.getField(data.consortium.finna, 'service_point');
