@@ -2,16 +2,16 @@
 $widget = $target == 'widget';
 ?>
 
-<div class="schedule-widget organisation-info<?= $showDetails ? ' with-details' : '' ?><?= $widget ? ' organisation-info-widget' : '' ?>" data-parent="<?= $id; ?>" data-target="<?= $target; ?>">
+<div class="js-schedule-widget schedule-widget organisation-info<?= $showDetails ? ' with-details' : '' ?><?= $widget ? ' organisation-info-widget' : '' ?>" data-parent="<?= $parent; ?>" data-target="<?= $target; ?>" data-id="<?= $id; ?>">
   <?php if ($widget) : ?>
     <h2>Heading</h2>
     <div class="loader js-loader">
       <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
     </div>
-    <div class="hide">
+    <div class="js-content hide">
       <div class="<?= $showDetails ? 'info-col ' : ''; ?>info">
         <div class="organisation-dropdown-holder">
-          <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation']) ?>
+          <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation js-organisation-menu']) ?>
         </div>
         <div class="js-is-open">
           <span class="js-open is-open open js-info-element">
@@ -23,7 +23,7 @@ $widget = $target == 'widget';
         </div>
       <?php endif; ?>
       <div class="schedules">
-        <div class="week-navigation week-navi-holder">
+        <div class="js-week-navigation week-navigation week-navi-holder">
           <button class="week-navigation-control js-prev-week" data-dir="-1">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
             <span class="sr-only">Previous week</span>
@@ -39,7 +39,9 @@ $widget = $target == 'widget';
         <div class="loader js-loader">
           <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
         </div>
-        <div class="js-opening-times-week opening-times-week"></div>
+        <div class="js-content">
+          <div class="js-opening-times-week opening-times-week"></div>
+        </div>
         <div class="js-no-schedules js-info-element">
           <?= $notAvailable; ?>
         </div>
@@ -55,8 +57,8 @@ $widget = $target == 'widget';
           <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image" />
         </a>
         <div>
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => "<ul><dl><a href='mailto:test.test@test.fi'>test.test@test.fi</a></dl></li>"]) ?>
+          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => "<a href='mailto:test.test@test.fi'>test.test@test.fi</a>"]) ?>
+          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => "<a href='tel:1234567'>1234567</a>"]) ?>
           <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route js-info-element btn">
             <i class="fa fa-bus" aria-hidden="true"></i>
             <span class="sr-only">Reittiohjeet</span>
@@ -123,3 +125,17 @@ $widget = $target == 'widget';
     Template link
   </a>
 </template>
+
+<script type="text/javascript">
+  $(document).ready(function onReady() {
+    var service = finna.organisationInfo;
+
+    finna.weekSchedule.init($('.js-schedule-widget'), service);
+
+    finna.weekSchedule.loadOrganisationList();
+
+    setTimeout(function() {
+      finna.weekSchedule.showDetails('85141', '', true);
+    }, 2500)
+  })
+</script>

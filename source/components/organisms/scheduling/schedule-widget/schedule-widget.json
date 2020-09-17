@@ -1,5 +1,6 @@
 {
-  "id": "patternLab",
+  "id": "85141",
+  "parent": "Vaski",
   "target": "widget",
   "week": "Week",
   "staffAvailable": "Staff available",

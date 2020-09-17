@@ -2,14 +2,14 @@
 finna.weekSchedule = (function finnaWeekSchedule() {
   var $holder, service, $spinner, $prevButton, $nextButton;
   var timeRowTemplate, timeTemplate, mobileScheduleLinkTemplate;
-  // var schedulesLoading = false;
+  var schedulesLoading = false;
   var organisationList = {};
 
   var toggleSpinner = function toggleSpinner(hide) {
     if (hide) {
-      $spinner.hide();
-    } else {
       $spinner.fadeIn();
+    } else {
+      $spinner.hide();
     }
   };
 
@@ -170,7 +170,14 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var schedulesLoaded = function schedulesLoaded(id, response) {
-    // schedulesLoading = false;
+    schedulesLoading = false;
+
+    $holder.find('.js-prev-week, .js-next-week').each(function handleWeekNavi() {
+      var classes = $(this).data('classes');
+      if (classes) {
+        $(this).find('i').attr('class', classes);
+      }
+    });
 
     if (response.periodStart) {
       $holder.data('period-start', response.periodStart);
@@ -188,6 +195,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $scheduleHolder.find('> div').remove();
 
     var data = organisationList[id];
+
     var hasSchedules = response.openTimes && response.openTimes.schedules && response.openTimes.schedules.length;
 
     if (hasSchedules) {
@@ -230,6 +238,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     updatePrevBtn(response);
+
     updateNextBtn(response);
 
     if (response.phone) {
@@ -327,6 +336,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     service.getSchedules($holder.data('target'), parent, id, $holder.data('period-start'), null, true, allServices,
       function handleResponse(response) {
+
         if (response) {
           schedulesLoaded(id, response);
 
@@ -338,7 +348,106 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     );
   };
 
+  var attachWeekNaviListener = function attachWeekNaviListener() {
+    $holder.find('.js-prev-week, .js-next-week').unbind('click').click(function onClickWeekNavi() {
+      if ($(this).hasClass('disabled')) {
+        return;
+      }
+      if (schedulesLoading) {
+        return;
+      }
+
+      schedulesLoading = true;
+
+      var parent = $holder.data('parent');
+
+      var id = $holder.data('id');
+
+      var dir = parseInt($(this).data('dir'));
+
+      var currentWeek = parseInt($holder.find('.js-week-number').text());
+
+      $holder.find('.js-week-number').text(currentWeek + dir);
+
+      $(this).attr('data-classes', $(this).find('i').attr('class'));
+
+      $(this).find('i').removeClass('fa-arrow-right fa-arrow-left');
+      $(this).find('i').addClass('fa-spinner fa-spin');
+
+      service.getSchedules(
+        $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
+        function onGetSchedules(response) {
+          schedulesLoaded(id, response);
+        }
+      );
+    });
+  }
+
+  var organisationListLoaded = function organisationListLoaded(data) {
+    var list = data.list;
+    var id = data.id;
+    var found = false;
+    var menu = $holder.find('.js-organisation-menu .dropdown-menu');
+
+    $.each(list, function handleOrganisationList(_, obj) {
+      if (String(id) === String(obj.id)) {
+        found = true;
+      }
+
+      $('<li role="menuitem"><input type="hidden" value="' + obj.id + '"></input>' + obj.name + '</li>').appendTo(menu);
+
+      organisationList[obj.id] = obj;
+    });
+
+
+    if (!found) {
+      id = finna.common.getField(data.consortium.finna, 'service_point');
+      if (!id) {
+        id = menu.find('li input').eq(0).val();
+      }
+    }
+
+
+    menu.on('change', function onClickMenuItem(val) {
+      showDetails(val, '', false);
+    });
+
+    toggleSpinner(false);
+
+    $holder.find('.js-content').removeClass('hide');
+
+    var week = parseInt(data.weekNum);
+
+    updateWeekNumber(week);
+
+    attachWeekNaviListener();
+  }
+
+  var loadOrganisationList = function loadOrganisationList() {
+    $holder.find('.js-prev-week').fadeTo(0, 0);
+
+    var parent = $holder.data('parent');
+
+    if (typeof parent == 'undefined') {
+      return;
+    }
+    var buildings = $holder.data('buildings');
+
+    toggleSpinner(true);
+
+    $holder.find('.js-info-element').hide();
+
+    service.getOrganisations($holder.data('target'), parent, buildings, {}, function onGetOrganisations(response) {
+      if (response === false) {
+        $holder.html('<!-- Organisation info could not be loaded');
+      } else {
+        organisationListLoaded(response);
+      }
+    });
+  }
+
   return {
+    loadOrganisationList: loadOrganisationList,
     showDetails: showDetails,
     init: function init(holder, _service) {
       $holder = holder;
