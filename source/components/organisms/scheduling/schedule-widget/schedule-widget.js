@@ -65,7 +65,9 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       var timeCloses = time.closes;
 
       if (!selfService || object.times.length === 1) {
-        if (currentSelfService === null || selfService === currentSelfService) {
+        var $timePeriod = $(timeTemplate.html().trim());
+
+        if (currentSelfService === null || selfService !== currentSelfService) {
           var $timeRow = $(timeRowTemplate.html().trim());
 
           $timeRow.find('.js-date').text(date);
@@ -77,7 +79,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
             $dayRow.append($timeRow);
 
-            $timeRow = $(timeRowTemplate.html().trim());
             addFullOpeningTimes = false;
           }
 
@@ -86,6 +87,11 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           } else {
             $timeRow.find('.js-info').text(info);
           }
+
+          $timePeriod.find('.js-opens').text(timeOpens);
+          $timePeriod.find('.js-closes').text(timeCloses);
+
+          $timeRow.find('.js-time-container').append($timePeriod);
 
           $timeRow.find('.js-opens').text(timeOpens);
           $timeRow.find('.js-closes').text(timeCloses);
@@ -102,8 +108,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $dayRow.append($timeRow);
           currentTimeRow = $timeRow;
         } else {
-          var $timePeriod = $(timeTemplate.html().trim());
-
           $timePeriod.find('.js-opens').text(timeOpens);
           $timePeriod.find('.js-closes').text(timeCloses);
 
@@ -112,7 +116,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         currentSelfService = selfService;
         currentDate = object.date;
-
         dayCount++;
       }
     });
@@ -127,6 +130,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       $dayRow.toggleClass('today', isToday);
 
       if (!object.closed) {
+
         handleOpenTimes($dayRow, object);
       } else {
         var $timeRow = $(timeRowTemplate.html().trim());

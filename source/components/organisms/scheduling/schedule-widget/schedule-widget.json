@@ -1,7 +1,7 @@
 {
   "id": "85141",
   "parent": "Vaski",
-  "target": "widget",
+  "target": "page",
   "week": "Week",
   "staffAvailable": "Staff available",
   "selfService": "(self service)",
