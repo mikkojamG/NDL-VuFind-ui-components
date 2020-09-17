@@ -107,8 +107,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $timePeriod.find('.js-opens').text(timeOpens);
           $timePeriod.find('.js-closes').text(timeCloses);
 
-          console.log($timePeriod);
-
           currentTimeRow.find('.js-time-container').append($timePeriod);
         }
 
