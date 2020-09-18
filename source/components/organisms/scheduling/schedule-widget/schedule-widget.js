@@ -125,7 +125,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         dayCount++;
       }
     });
-  }
+  };
 
   var handleSchedules = function handleSchedules(schedules, $scheduleHolder) {
     $.each(schedules, function forEachSchedule(_, object) {
@@ -376,10 +376,12 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         $weekNumber.text(currentWeek + dir);
 
-        $(this).attr('data-classes', $(this).find('i').attr('class'));
+        var $icon = $(this).find('i');
 
-        $(this).find('i').removeClass('fa-arrow-right fa-arrow-left');
-        $(this).find('i').addClass('fa-spinner fa-spin');
+        $(this).attr('data-classes', $icon.attr('class'));
+
+        $icon.removeClass('fa-arrow-right fa-arrow-left');
+        $icon.addClass('fa-spinner fa-spin');
 
         service.getSchedules(
           $holder.data('target'), $parent, id, $holder.data('period-start'), dir, false, false,
@@ -388,18 +390,19 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           }
         );
       });
-  }
+  };
 
   var organisationListLoaded = function organisationListLoaded(data) {
     var list = data.list;
     var id = data.id;
     var found = false;
     var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
+    var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
 
     $.each(list, function handleOrganisationList(_, obj) {
       if (String(id) === String(obj.id)) {
         found = true;
-        $holder.find('.js-organisation-menu .dropdown-toggle span').text(obj.name);
+        $toggleText.text(obj.name);
       }
 
       $('<li role="menuitem" data-id="' + obj.id + '">' + obj.name + '</li>').appendTo($menu);
@@ -418,7 +421,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var $menuItem = $menu.find('li');
 
     $menuItem.on('click', function onClickMenuItem() {
-      $holder.find('.js-organisation-menu .dropdown-toggle span').text($(this).text());
+      $toggleText.text($(this).text());
 
       showDetails($(this).data('id'), false);
     });
@@ -430,9 +433,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var week = parseInt(data.weekNum);
 
     updateWeekNumber(week);
-
     attachWeekNaviListener();
-  }
+  };
 
   var loadOrganisationList = function loadOrganisationList() {
     $holder.find('.js-prev-week').fadeTo(0, 0);
@@ -451,7 +453,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     service.getOrganisations($holder.data('target'), parent, buildings, {}, function onGetOrganisations(response) {
       organisationListLoaded(response);
     });
-  }
+  };
 
   return {
     loadOrganisationList: loadOrganisationList,
@@ -468,5 +470,5 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       timeRowTemplate = $('.js-time-row-template');
       timeTemplate = $('.js-time-template');
     }
-  }
+  };
 })();
