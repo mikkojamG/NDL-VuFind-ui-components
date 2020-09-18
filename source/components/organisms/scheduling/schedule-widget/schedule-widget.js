@@ -258,8 +258,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     if (response.emails) {
       $holder.find('.js-email').attr('data-original-title', response.emails).attr('data-toggle', 'tooltip').show();
-
-      //finna.layout.initToolTips(holder);
     }
 
     if (response.links) {
@@ -455,11 +453,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $holder.find('.js-info-element').hide();
 
     service.getOrganisations($holder.data('target'), parent, buildings, {}, function onGetOrganisations(response) {
-      if (response === false) {
-        $holder.html('<!-- Organisation info could not be loaded');
-      } else {
-        organisationListLoaded(response);
-      }
+      organisationListLoaded(response);
     });
   }
 
