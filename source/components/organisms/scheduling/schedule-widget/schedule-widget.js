@@ -325,6 +325,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       $holder.find('.js-is-open ' + (data.openNow ? '.js-open' : '.js-closed')).show();
     }
 
+    $holder.find('.js-is-open').show();
+
     if (data.email) {
       $holder.find('.js-email').wrap($('<a/>').attr('href', 'mailto:' + data.email)).show();
     }
@@ -398,14 +400,15 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var list = data.list;
     var id = data.id;
     var found = false;
-    var menu = $holder.find('.js-organisation-menu .dropdown-menu');
+    var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
 
     $.each(list, function handleOrganisationList(_, obj) {
       if (String(id) === String(obj.id)) {
         found = true;
+        $holder.find('.js-organisation-menu .dropdown-toggle span').text(obj.name);
       }
 
-      $('<li role="menuitem"><input type="hidden" value="' + obj.id + '"></input>' + obj.name + '</li>').appendTo(menu);
+      $('<li role="menuitem" data-id="' + obj.id + '">' + obj.name + '</li>').appendTo($menu);
 
       organisationList[obj.id] = obj;
     });
@@ -413,13 +416,16 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     if (!found) {
       id = finna.common.getField(data.consortium.finna, 'service_point');
       if (!id) {
-        id = menu.find('li input').eq(0).val();
+        id = $menu.find('li input').eq(0).val();
       }
     }
 
+    var $menuItem = $menu.find('li');
 
-    menu.on('change', function onClickMenuItem(val) {
-      showDetails(val, '', false);
+    $menuItem.on('click', function onClickMenuItem() {
+      $holder.find('.js-organisation-menu .dropdown-toggle span').text($(this).text());
+
+      showDetails($(this).data('id'), $(this).text(), false);
     });
 
     toggleSpinner(false);
