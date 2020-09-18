@@ -2,18 +2,26 @@
   display: block !important;
   padding: 0 0.5rem;
 
-  .info-col {
-    .week-navigation {
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 100% !important;
+  .week-navigation {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100% !important;
 
-      &-control {
-        border: none;
-        background-color: transparent;
+    &-control {
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  .schedules {
+    &.info {
+      .opening-times-week {
+        max-width: 100% !important;
       }
     }
+  }
 
+  .info-col {
     .organisation-wrapper {
       display: flex;
       justify-content: space-between;
@@ -51,14 +59,6 @@
             color: @gray;
             border: #d1d1d1;
           }
-        }
-      }
-    }
-
-    .schedules {
-      &.info {
-        .opening-times-week {
-          max-width: 100% !important;
         }
       }
     }

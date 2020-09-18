@@ -1,7 +1,7 @@
 {
   "id": "86154",
   "parent": "NLF",
-  "target": "widget",
+  "target": "page",
   "week": "Week",
   "staffAvailable": "Staff available",
   "selfService": "(self service)",
