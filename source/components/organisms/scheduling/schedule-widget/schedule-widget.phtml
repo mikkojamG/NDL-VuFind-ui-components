@@ -59,8 +59,10 @@ $widget = $target == 'widget';
         </a>
         <div class="details-wrapper">
           <div>
-            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => "<a href='mailto:test.test@test.fi'>test.test@test.fi</a>"]) ?>
-            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => "<a href='tel:1234567'>1234567</a>"]) ?>
+            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => ""]) ?>
+
+            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => ""]) ?>
+
             <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route js-info-element btn">
               <i class="fa fa-bus" aria-hidden="true"></i>
               <span class="sr-only"><?= $directions; ?></span>
@@ -129,10 +131,6 @@ $widget = $target == 'widget';
   </div>
 </template>
 
-<template class="js-mobile-schedule-link-template">
-  <a href="#" target="_blank"></a>
-</template>
-
 <script type="text/javascript">
   $(document).ready(function onReady() {
     var service = finna.organisationInfo;
@@ -142,7 +140,7 @@ $widget = $target == 'widget';
     finna.weekSchedule.loadOrganisationList();
 
     setTimeout(function() {
-      finna.weekSchedule.showDetails('<?= $id; ?>', '', true);
+      finna.weekSchedule.showDetails('<?= $id; ?>', true);
     }, 1000)
   })
 </script>

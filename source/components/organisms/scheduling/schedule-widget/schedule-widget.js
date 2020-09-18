@@ -1,7 +1,7 @@
 /*global finna */
 finna.weekSchedule = (function finnaWeekSchedule() {
-  var $holder, service, $spinner, $prevButton, $nextButton;
-  var timeRowTemplate, timeTemplate, mobileScheduleLinkTemplate;
+  var $holder, service, $spinner, $prevButton, $nextButton, $weekNumber;
+  var timeRowTemplate, timeTemplate;
   var schedulesLoading = false;
   var organisationList = {};
 
@@ -34,7 +34,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var updateWeekNumber = function updateWeekNumber(week) {
-    $holder.find('.js-week-number').text(week);
+    $weekNumber.text(week);
   };
 
   var handleOpenTimes = function handleOpenTimes($dayRow, object) {
@@ -43,7 +43,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var currentSelfService = null;
     var currentDate = null;
     var selfServiceAvailable = false;
-    var currentTimeRow = null;
+    var $currentTimeRow = null;
     var addFullOpeningTimes = true;
 
     var firstItem = object.times[0];
@@ -51,6 +51,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $.each(object.times, function forEachOpenTime(_, time) {
       var selfService = !!time.selfservice;
+
       selfServiceAvailable = selfServiceAvailable || time.selfservice;
 
       var date = dayCount === 0 ? object.date : '';
@@ -111,12 +112,12 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           }
 
           $dayRow.append($timeRow);
-          currentTimeRow = $timeRow;
+          $currentTimeRow = $timeRow;
         } else {
           $timePeriod.find('.js-opens').text(timeOpens);
           $timePeriod.find('.js-closes').text(timeCloses);
 
-          currentTimeRow.find('.js-time-container').append($timePeriod);
+          $currentTimeRow.find('.js-time-container').append($timePeriod);
         }
 
         currentSelfService = selfService;
@@ -159,9 +160,9 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
   var handleLinks = function handleLinks(links, $linkHolder) {
     $.each(links, function forEachLink(_, object) {
-      var $link = $(mobileScheduleLinkTemplate.html().trim());
+      var $link = $('<a></a>');
 
-      $link.find('a').attr('href', object.url).text(object.name);
+      $link.attr('href', object.url).text(object.name);
       $link.appendTo($linkHolder);
     });
   };
@@ -173,6 +174,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     if (data.details.scheduleDescriptions) {
       $.each(data.details.scheduleDescriptions, function forEachDescription(_, object) {
         var obj = object.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
         $('<p/>').html(obj).appendTo($infoHolder);
       });
 
@@ -185,6 +187,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $holder.find('.js-prev-week, .js-next-week').each(function handleWeekNavi() {
       var classes = $(this).data('classes');
+
       if (classes) {
         $(this).find('i').attr('class', classes);
       }
@@ -202,7 +205,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     updateNextBtn(response);
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
-
     $scheduleHolder.find('> div').remove();
 
     var data = organisationList[id];
@@ -240,7 +242,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   var detailsLoaded = function detailsLoaded(id, response) {
     toggleSpinner(false);
 
-    if (response === null) {
+    if (!response) {
       return;
     }
 
@@ -249,7 +251,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     updatePrevBtn(response);
-
     updateNextBtn(response);
 
     if (response.phone) {
@@ -257,44 +258,40 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     if (response.emails) {
-      $holder.find('.js-email').attr('data-original-title', response.emails).attr('data-toggle', 'tooltip').show();
+      $holder.find('.js-email').attr('data-original-title', response.emails).show();
     }
 
     if (response.links) {
-      var links = response.links;
-
-      if (links.length) {
-        $.each(links, function handleLink(_, obj) {
-          if (obj.name.indexOf('Facebook') > 0) {
-            $holder.find('.js-facebook').attr('href', obj.url).show();
-          }
-        });
-      }
+      $.each(response.links, function handleLink(_, obj) {
+        if (obj.name.indexOf('Facebook') > 0) {
+          $holder.find('.js-facebook').attr('href', obj.url).show();
+        }
+      });
     }
 
-    var img = $holder.find('.js-facility-image');
+    var $img = $holder.find('.js-facility-image');
 
     if (response.pictures) {
-      var imgLink = img.parent('a');
+      var $imgLink = $img.parent('a');
 
-      imgLink.attr('href', (imgLink.data('href') + '#' + id));
+      $imgLink.attr('href', ($imgLink.data('href') + '#' + id));
 
       var src = response.pictures[0].url;
 
-      img.show();
+      $img.show();
 
-      if (img.attr('src') !== src) {
-        img.fadeTo(0, 0);
-        img.on('load', function onLoadImage() {
+      if ($img.attr('src') !== src) {
+        $img.fadeTo(0, 0);
+        $img.on('load', function onLoadImage() {
           $(this).stop(true, true).fadeTo(300, 1);
         });
-        img.attr('src', src).attr('alt', name);
-        img.closest('.info-element').show();
+        $img.attr('src', src);
+        $img.closest('.info-element').show();
       } else {
-        img.fadeTo(300, 1);
+        $img.fadeTo(300, 1);
       }
     } else {
-      img.hide();
+      $img.hide();
     }
 
     if (response.services) {
@@ -304,11 +301,11 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
   };
 
-  var showDetails = function showDetails(id, name, allServices) {
+  var showDetails = function showDetails(id, allServices) {
     $holder.find('.js-info-element').hide();
     $holder.find('.js-is-open').hide();
 
-    var parent = $holder.data('parent');
+    var $parent = $holder.data('parent');
     var data = service.getDetails(id);
 
     if (!data) {
@@ -318,7 +315,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $holder.data('id', id);
 
-    if (data.openTimes && data.openNow && data.openTimes.schedules && data.openTimes.schedules.length
+    if (data.openTimes && data.openNow && data.openTimes.schedules
     ) {
       $holder.find('.js-is-open ' + (data.openNow ? '.js-open' : '.js-closed')).show();
     }
@@ -326,31 +323,31 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $holder.find('.js-is-open').show();
 
     if (data.email) {
-      $holder.find('.js-email').wrap($('<a/>').attr('href', 'mailto:' + data.email)).show();
+      $holder.find('.js-email').show();
     }
 
-    var detailsLinkHolder = $holder.find('.js-details-link').show();
-    var detailsLink = detailsLinkHolder.find('a');
-    detailsLink.attr('href', detailsLink.data('href') + ('#' + id));
+    var $detailsLinkHolder = $holder.find('.js-details-link').show();
+    var $detailsLink = $detailsLinkHolder.find('a');
+
+    $detailsLink.attr('href', $detailsLink.data('href') + ('#' + id));
 
     if (data.routeUrl) {
       $holder.find('.js-route').attr('href', data.routeUrl).show();
     }
 
     if (data.mapUrl && data.address) {
-      var map = $holder.find('.js-map');
+      var $map = $holder.find('.js-map');
 
-      map.find('> a').attr('href', data.mapUrl);
-      map.find('.js-map-address').text(data.address);
-      map.show();
+      $map.find('> a').attr('href', data.mapUrl);
+      $map.find('.js-map-address').text(data.address);
+      $map.show();
     }
 
-    service.getSchedules($holder.data('target'), parent, id, $holder.data('period-start'), null, true, allServices,
+    service.getSchedules($holder.data('target'), $parent, id, $holder.data('period-start'), null, true, allServices,
       function handleResponse(response) {
 
         if (response) {
           schedulesLoaded(id, response);
-
           detailsLoaded(id, response);
 
           $holder.trigger('detailsLoaded', id);
@@ -360,38 +357,37 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var attachWeekNaviListener = function attachWeekNaviListener() {
-    $holder.find('.js-prev-week, .js-next-week').unbind('click').click(function onClickWeekNavi() {
-      if ($(this).hasClass('disabled')) {
-        return;
-      }
-      if (schedulesLoading) {
-        return;
-      }
-
-      schedulesLoading = true;
-
-      var parent = $holder.data('parent');
-
-      var id = $holder.data('id');
-
-      var dir = parseInt($(this).data('dir'));
-
-      var currentWeek = parseInt($holder.find('.js-week-number').text());
-
-      $holder.find('.js-week-number').text(currentWeek + dir);
-
-      $(this).attr('data-classes', $(this).find('i').attr('class'));
-
-      $(this).find('i').removeClass('fa-arrow-right fa-arrow-left');
-      $(this).find('i').addClass('fa-spinner fa-spin');
-
-      service.getSchedules(
-        $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
-        function onGetSchedules(response) {
-          schedulesLoaded(id, response);
+    $holder.find('.js-prev-week, .js-next-week')
+      .unbind('click')
+      .on('click', function onClickWeekNavi() {
+        if ($(this).hasClass('disabled')) {
+          return;
         }
-      );
-    });
+        if (schedulesLoading) {
+          return;
+        }
+
+        schedulesLoading = true;
+
+        var $parent = $holder.data('parent');
+        var id = $holder.data('id');
+        var dir = parseInt($(this).data('dir'));
+        var currentWeek = parseInt($weekNumber.text());
+
+        $weekNumber.text(currentWeek + dir);
+
+        $(this).attr('data-classes', $(this).find('i').attr('class'));
+
+        $(this).find('i').removeClass('fa-arrow-right fa-arrow-left');
+        $(this).find('i').addClass('fa-spinner fa-spin');
+
+        service.getSchedules(
+          $holder.data('target'), $parent, id, $holder.data('period-start'), dir, false, false,
+          function onGetSchedules(response) {
+            schedulesLoaded(id, response);
+          }
+        );
+      });
   }
 
   var organisationListLoaded = function organisationListLoaded(data) {
@@ -424,7 +420,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $menuItem.on('click', function onClickMenuItem() {
       $holder.find('.js-organisation-menu .dropdown-toggle span').text($(this).text());
 
-      showDetails($(this).data('id'), $(this).text(), false);
+      showDetails($(this).data('id'), false);
     });
 
     toggleSpinner(false);
@@ -467,10 +463,10 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       $spinner = $holder.find('.js-loader');
       $prevButton = $holder.find('.js-prev-week');
       $nextButton = $holder.find('.js-next-week');
+      $weekNumber = $holder.find('.js-week-number');
 
       timeRowTemplate = $('.js-time-row-template');
       timeTemplate = $('.js-time-template');
-      mobileScheduleLinkTemplate = $('.js-mobile-schedule-link-template')
     }
   }
 })();
