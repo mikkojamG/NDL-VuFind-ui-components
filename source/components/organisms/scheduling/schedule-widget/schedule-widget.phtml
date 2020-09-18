@@ -28,14 +28,14 @@ $widget = $target == 'widget';
         <div class="js-week-navigation week-navigation week-navi-holder">
           <button class="week-navigation-control js-prev-week" data-dir="-1">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            <span class="sr-only">Previous week</span>
+            <span class="sr-only"><?= $previousWeek; ?></span>
           </button>
           <span>
             <?= $week; ?> <span class="js-week-number"></span>
           </span>
           <button class="week-navigation-control js-next-week" data-dir="+1">
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            <span class="sr-only">Next week</span>
+            <span class="sr-only"><?= $nextWeek; ?></span>
           </button>
         </div>
         <div class="loader js-loader">
@@ -45,17 +45,16 @@ $widget = $target == 'widget';
           <div class="js-opening-times-week opening-times-week"></div>
         </div>
         <div class="js-no-schedules js-info-element">
-          <?= $notAvailable; ?>
+          <?= $noSchedulesAvailable; ?>
         </div>
         <div class="js-mobile-schedules mobile-schedules info-element js-info-element"></div>
       </div>
       <div class="js-schedules-info schedules-info js-info-element">
-        <p><?= $schedulesInfo; ?></p>
       </div>
       <?php if ($widget && $showDetails) : ?>
       </div>
       <div class="details-col">
-        <a href="" data-href="<?= $organisationHomeUrl; ?>">
+        <a href="" data-href="<?= $facilityImageLink; ?>">
           <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image facility-image" />
         </a>
         <div class="details-wrapper">
@@ -64,34 +63,34 @@ $widget = $target == 'widget';
             <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => "<a href='tel:1234567'>1234567</a>"]) ?>
             <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route js-info-element btn">
               <i class="fa fa-bus" aria-hidden="true"></i>
-              <span class="sr-only">Reittiohjeet</span>
+              <span class="sr-only"><?= $directions; ?></span>
             </a>
           </div>
-          <a href="<?= $organisationHomeUrl; ?>" target="_blank" class="js-facebook js-info-element btn">
+          <a href="<?= $facilityImageLink; ?>" target="_blank" class="js-facebook js-info-element btn">
             <i class="fa fa-facebook-square" aria-hidden="true"></i>
-            <span class="sr-only">Facebook</span>
+            <span class="sr-only"><?= $facebook ?></span>
           </a>
           <div class="js-map map js-info-element">
             <a href="https://www.google.com/maps?q=Linnankatu+2+Turku" target="_blank">
               <i class="fa fa-map-marker" aria-hidden="true">
               </i>
-              <span class="js-map-address">Linnankatu 2, 20100 Keskusta (Turku)</span>
+              <span class="js-map-address"></span>
             </a>
           </div>
           <div class="js-details-link js-info-element">
-            <a href="" data-href="<?= $organisationHomeUrl; ?>">
+            <a href="" data-href="<?= $facilityImageLink; ?>">
               <i class="fa fa-home" aria-hidden="true"></i>
-              Palvelupisteen tiedot
+              <?= $servicePointInfo; ?>
             </a>
           </div>
           <div class="js-services services">
             <button class="btn btn-round js-service-wifi js-info-element">
               <i class="fa fa-wifi" aria-hidden="true"></i>
-              <span class="sr-only">Langaton verkko</span>
+              <span class="sr-only"><?= $wifi; ?></span>
             </button>
             <button class="btn btn-round js-service-print js-info-element">
               <i class="fa fa-print" aria-hidden="true"></i>
-              <span class="sr-only">Tulostin</span>
+              <span class="sr-only"><?= $print; ?></span>
             </button>
           </div>
         </div>
@@ -131,9 +130,7 @@ $widget = $target == 'widget';
 </template>
 
 <template class="js-mobile-schedule-link-template">
-  <a href="#" target="_blank">
-    Template link
-  </a>
+  <a href="#" target="_blank"></a>
 </template>
 
 <script type="text/javascript">
