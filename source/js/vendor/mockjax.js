@@ -164,6 +164,10 @@ $.mockjax([{
               url: "http://www.kansalliskirjasto.fi/"
             }
           ],
+          services: [
+            'wifi',
+            'print'
+          ],
           id: "86154",
           periodStart: "2020-09-14",
           weekNum: weekNumber

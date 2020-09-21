@@ -1,8 +1,0 @@
-<?php
-$buttonDisabled = isset($disabled) && $disabled
-?>
-
-<button class="<?= $class ?? 'btn btn-round'; ?><?= $buttonDisabled ? ' disabled' : '' ?>" <?= $buttonDisabled ? 'disabled' : ''; ?>>
-  <i class="<?= $icon; ?>" aria-hidden="true"></i>
-  <span class="sr-only"><?= $label; ?></span>
-</button>

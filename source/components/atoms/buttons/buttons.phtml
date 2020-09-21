@@ -1,0 +1,12 @@
+<?php
+$buttonDisabled = isset($disabled) && $disabled
+?>
+<ul>
+  <?php foreach ($items as $button) : ?>
+    <li class="c-button-list__item">
+      <button class="<?= $button['class'] ?? 'btn'; ?><?= $buttonDisabled ? ' disabled' : '' ?>" <?= $buttonDisabled ? 'disabled' : ''; ?>>
+        <?= $button['name']; ?>
+      </button>
+    </li>
+  <?php endforeach; ?>
+</ul>
