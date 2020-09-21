@@ -348,6 +348,9 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         if (response) {
           schedulesLoaded(id, response);
+
+          console.log(response);
+
           detailsLoaded(id, response);
 
           $holder.trigger('detailsLoaded', id);
@@ -403,6 +406,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       if (String(id) === String(obj.id)) {
         found = true;
         $toggleText.text(obj.name);
+
+        $holder.find('.js-facility-image').attr('alt', obj.name);
       }
 
       $('<li role="menuitem" data-id="' + obj.id + '">' + obj.name + '</li>').appendTo($menu);
@@ -422,6 +427,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $menuItem.on('click', function onClickMenuItem() {
       $toggleText.text($(this).text());
+
+      $holder.find('.js-facility-image').attr('alt', $(this).text());
 
       showDetails($(this).data('id'), false);
     });
