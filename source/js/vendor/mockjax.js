@@ -8,6 +8,29 @@ var mockTags = [{
 }
 ];
 
+var getWeekForDate = function (date) {
+  var week = [];
+
+  for (var i = 1; i <= 7; i++) {
+    var first = date.getDate() - date.getDay() + i;
+    var day = new Date(date.setDate(first)).toISOString().slice(0, 10);
+
+    var dayArray = day.split('-').reverse();
+    var yearRemoved = dayArray.slice(0, -1);
+    var dateString = yearRemoved.join('.')
+
+    week.push(dateString);
+  }
+
+  return week;
+};
+
+var getWeekNumber = function (date) {
+  var oneJan = new Date(date.getFullYear(), 0, 1);
+
+  return Math.ceil((((date.getTime() - oneJan.getTime()) / 86400000) + oneJan.getDay() + 1) / 7);
+};
+
 $.mockjax([{
   url: '/finna/tags',
   type: 'GET',
@@ -56,36 +79,102 @@ $.mockjax([{
   data: { method: 'getOrganisationInfo', params: { action: 'details' } },
   type: 'GET',
   responseTime: 1000,
-  response: function () {
-    this.responseText = {
-      data: {
-        phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;9412&#x20;3196\">02 9412 3196</a> / Asiakaspalvelu</p></li>\n</ul>\n",
-        emails: "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kk-palvelu&#x40;helsinki.fi\">kk-palvelu@helsinki.fi</a></p></li>\n</ul>\n",
-        pictures: [
-          {
-            url: "https://kirkanta.kirjastot.fi/files/photos/medium/kanki-k-590867ab71c76.jpg",
-            size: 643166,
-            resolution: "1543x1000"
-          }
-        ],
-        links: [
-          { name: "Twitter", url: "https://twitter.com/NatLibFi" },
-          {
-            name: "Instagram",
-            url: "https://www.instagram.com/kansalliskirjasto/"
+  response: function (settings) {
+    var params = settings.data.params;
+
+    if (params.dir) {
+      if (params.dir > 0) {
+        var dateWeekFromNow = new Date;
+        dateWeekFromNow.setDate(dateWeekFromNow.getDate() + 7);
+
+        var week = getWeekForDate(dateWeekFromNow);
+        var weekNumber = getWeekNumber(new Date) + 1;
+      } else {
+        var week = getWeekForDate(new Date);
+        var weekNumber = getWeekNumber(new Date);
+      }
+
+      var openTimes = [
+        { opens: "9", closes: "10", selfservice: true },
+        { opens: "10", closes: "17", selfservice: false },
+        { opens: "17", closes: "18", selfservice: true }
+      ];
+
+      this.responseText = {
+        data: {
+          openTimes: {
+            schedules: [
+              {
+                date: week[0],
+                times: openTimes,
+                day: "Ma",
+                today: true
+              },
+              {
+                date: week[1],
+                times: openTimes,
+                day: "Ti"
+              },
+              {
+                date: week[2],
+                times: openTimes,
+                day: "Ke"
+              },
+              {
+                date: week[3],
+                times: openTimes,
+                day: "To"
+              },
+              {
+                date: week[4],
+                times: openTimes,
+                day: "Pe"
+              },
+              { date: week[5], times: [], day: "La", "closed": true },
+              { date: week[6], times: [], day: "Su", "closed": true }
+            ],
+            openToday: false,
+            currentWeek: false,
+            openNow: 1
           },
-          {
-            name: "Facebook",
-            url: "https://www.facebook.com/Kansalliskirjasto/"
-          },
-          {
-            name: "Kirjaston kotisivut",
-            url: "http://www.kansalliskirjasto.fi/"
-          }
-        ],
-        id: "86154",
-        periodStart: "2020-09-14",
-        weekNum: "38"
+          id: "86154",
+          periodStart: "2020-09-28",
+          weekNum: weekNumber
+        }
+      }
+    } else {
+      var today = new Date();
+
+      this.responseText = {
+        data: {
+          phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;9412&#x20;3196\">02 9412 3196</a> / Asiakaspalvelu</p></li>\n</ul>\n",
+          emails: "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kk-palvelu&#x40;helsinki.fi\">kk-palvelu@helsinki.fi</a></p></li>\n</ul>\n",
+          pictures: [
+            {
+              url: "https://kirkanta.kirjastot.fi/files/photos/medium/kanki-k-590867ab71c76.jpg",
+              size: 643166,
+              resolution: "1543x1000"
+            }
+          ],
+          links: [
+            { name: "Twitter", url: "https://twitter.com/NatLibFi" },
+            {
+              name: "Instagram",
+              url: "https://www.instagram.com/kansalliskirjasto/"
+            },
+            {
+              name: "Facebook",
+              url: "https://www.facebook.com/Kansalliskirjasto/"
+            },
+            {
+              name: "Kirjaston kotisivut",
+              url: "http://www.kansalliskirjasto.fi/"
+            }
+          ],
+          id: "86154",
+          periodStart: today.getFullYear() + '-' + (today.getMonth + 1) + '-' + today.getDate(),
+          weekNum: weekNumber
+        }
       }
     }
   }
@@ -96,6 +185,15 @@ $.mockjax([{
   type: 'GET',
   responseTime: 1000,
   response: function () {
+    var week = getWeekForDate(new Date);
+    var weekNumber = getWeekNumber(new Date);
+
+    var openTimes = [
+      { opens: "9", closes: "10", selfservice: true },
+      { opens: "10", closes: "17", selfservice: false },
+      { opens: "17", closes: "18", selfservice: true }
+    ];
+
     this.responseText = {
       data: {
         consortium: {
@@ -120,59 +218,35 @@ $.mockjax([{
             openTimes: {
               schedules: [
                 {
-                  date: "14.9.",
-                  times: [
-                    { opens: "9", closes: "10", selfservice: true },
-                    { opens: "10", closes: "17", selfservice: false },
-                    { opens: "17", closes: "18", selfservice: true }
-                  ],
-                  day: "Ma"
-                },
-                {
-                  date: "15.9.",
-                  times: [
-                    { opens: "9", closes: "10", selfservice: true },
-                    { opens: "10", closes: "17", selfservice: false },
-                    { opens: "17", closes: "18", selfservice: true }
-                  ],
-                  day: "Ti"
-                },
-                {
-                  date: "16.9.",
-                  times: [
-                    { opens: "9", closes: "10", selfservice: true },
-                    { opens: "10", closes: "17", selfservice: false },
-                    { opens: "17", closes: "18", selfservice: true }
-                  ],
-                  day: "Ke"
-                },
-                {
-                  date: "17.9.",
-                  times: [
-                    { opens: "9", closes: "10", selfservice: true },
-                    { opens: "10", closes: "17", selfservice: false },
-                    { opens: "17", closes: "18", selfservice: true }
-                  ],
-                  day: "To",
+                  date: week[0],
+                  times: openTimes,
+                  day: "Ma",
                   today: true
                 },
                 {
-                  date: "18.9.",
-                  times: [
-                    { opens: "9", closes: "10", selfservice: true },
-                    { opens: "10", closes: "17", selfservice: false },
-                    { opens: "17", closes: "18", selfservice: true }
-                  ],
+                  date: week[1],
+                  times: openTimes,
+                  day: "Ti"
+                },
+                {
+                  date: week[2],
+                  times: openTimes,
+                  day: "Ke"
+                },
+                {
+                  date: week[3],
+                  times: openTimes,
+                  day: "To",
+                },
+                {
+                  date: week[4],
+                  times: openTimes,
                   day: "Pe"
                 },
-                { date: "19.9.", times: [], day: "La", "closed": true },
-                { date: "20.9.", times: [], day: "Su", "closed": true }
+                { date: week[5], times: [], day: "La", "closed": true },
+                { date: week[6], times: [], day: "Su", "closed": true }
               ],
-              openToday: [
-                { opens: "9", closes: "10", selfservice: true },
-                { opens: "10", closes: "17", selfservice: false },
-                { opens: "17", closes: "18", selfservice: true }
-              ],
+              openToday: openTimes,
               currentWeek: true,
               openNow: 2
             },
@@ -180,7 +254,7 @@ $.mockjax([{
           }
         ],
         id: "86154",
-        weekNum: "38"
+        weekNum: weekNumber
       }
     }
   }
