@@ -1,4 +1,3 @@
 {
-  "disabled": false,
   "items": [{ "name": "Primary", "class": "btn btn-outline-primary" }]
 }
