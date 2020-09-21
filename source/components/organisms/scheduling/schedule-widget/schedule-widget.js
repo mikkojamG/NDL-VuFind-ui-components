@@ -348,9 +348,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         if (response) {
           schedulesLoaded(id, response);
-
-          console.log(response);
-
           detailsLoaded(id, response);
 
           $holder.trigger('detailsLoaded', id);
