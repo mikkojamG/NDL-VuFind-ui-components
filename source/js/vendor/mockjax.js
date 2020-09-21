@@ -134,7 +134,7 @@ $.mockjax([{
               { date: week[6], times: [], day: "Su", "closed": true }
             ],
             openToday: false,
-            currentWeek: false,
+            currentWeek: weekNumber == getWeekNumber(new Date),
             openNow: 1
           },
           id: "86154",
@@ -143,8 +143,6 @@ $.mockjax([{
         }
       }
     } else {
-      var today = new Date();
-
       this.responseText = {
         data: {
           phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;9412&#x20;3196\">02 9412 3196</a> / Asiakaspalvelu</p></li>\n</ul>\n",
