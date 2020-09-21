@@ -8,21 +8,25 @@ var mockTags = [{
 }
 ];
 
-var getWeekForDate = function (date) {
-  var week = [];
+var mockOpeningTimes = [
+  { opens: "9", closes: "10", selfservice: true },
+  { opens: "10", closes: "17", selfservice: false },
+  { opens: "17", closes: "18", selfservice: true }
+];
 
-  for (var i = 1; i <= 7; i++) {
-    var first = date.getDate() - date.getDay() + i;
+var getWeekForDate = function (date) {
+  var weekModel = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
+
+  return weekModel.map(function (_, index) {
+    var first = date.getDate() - date.getDay() + (index + 1);
     var day = new Date(date.setDate(first)).toISOString().slice(0, 10);
 
     var dayArray = day.split('-').reverse();
     var yearRemoved = dayArray.slice(0, -1);
     var dateString = yearRemoved.join('.')
 
-    week.push(dateString);
-  }
-
-  return week;
+    return dateString
+  });
 };
 
 var getWeekNumber = function (date) {
@@ -93,49 +97,40 @@ $.mockjax([{
         var week = getWeekForDate(new Date);
         var weekNumber = getWeekNumber(new Date);
       }
-
-      var openTimes = [
-        { opens: "9", closes: "10", selfservice: true },
-        { opens: "10", closes: "17", selfservice: false },
-        { opens: "17", closes: "18", selfservice: true }
-      ];
-
       this.responseText = {
         data: {
           openTimes: {
             schedules: [
               {
                 date: week[0],
-                times: openTimes,
+                times: mockOpeningTimes,
                 day: "Ma",
                 today: true
               },
               {
                 date: week[1],
-                times: openTimes,
+                times: mockOpeningTimes,
                 day: "Ti"
               },
               {
                 date: week[2],
-                times: openTimes,
+                times: mockOpeningTimes,
                 day: "Ke"
               },
               {
                 date: week[3],
-                times: openTimes,
+                times: mockOpeningTimes,
                 day: "To"
               },
               {
                 date: week[4],
-                times: openTimes,
+                times: mockOpeningTimes,
                 day: "Pe"
               },
-              { date: week[5], times: [], day: "La", "closed": true },
-              { date: week[6], times: [], day: "Su", "closed": true }
+              { date: week[5], times: [], day: "La", closed: true },
+              { date: week[6], times: [], day: "Su", closed: true }
             ],
-            openToday: false,
             currentWeek: weekNumber == getWeekNumber(new Date),
-            openNow: 1
           },
           id: "86154",
           periodStart: "2020-09-28",
@@ -186,12 +181,6 @@ $.mockjax([{
     var week = getWeekForDate(new Date);
     var weekNumber = getWeekNumber(new Date);
 
-    var openTimes = [
-      { opens: "9", closes: "10", selfservice: true },
-      { opens: "10", closes: "17", selfservice: false },
-      { opens: "17", closes: "18", selfservice: true }
-    ];
-
     this.responseText = {
       data: {
         consortium: {
@@ -217,36 +206,34 @@ $.mockjax([{
               schedules: [
                 {
                   date: week[0],
-                  times: openTimes,
+                  times: mockOpeningTimes,
                   day: "Ma",
                   today: true
                 },
                 {
                   date: week[1],
-                  times: openTimes,
+                  times: mockOpeningTimes,
                   day: "Ti"
                 },
                 {
                   date: week[2],
-                  times: openTimes,
+                  times: mockOpeningTimes,
                   day: "Ke"
                 },
                 {
                   date: week[3],
-                  times: openTimes,
+                  times: mockOpeningTimes,
                   day: "To",
                 },
                 {
                   date: week[4],
-                  times: openTimes,
+                  times: mockOpeningTimes,
                   day: "Pe"
                 },
                 { date: week[5], times: [], day: "La", "closed": true },
                 { date: week[6], times: [], day: "Su", "closed": true }
               ],
-              openToday: openTimes,
               currentWeek: true,
-              openNow: 2
             },
             openNow: true
           }
