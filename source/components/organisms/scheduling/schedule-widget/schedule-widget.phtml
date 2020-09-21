@@ -5,9 +5,7 @@ $widget = $target == 'widget';
 <div class="js-schedule-widget schedule-widget organisation-info<?= $showDetails ? ' with-details' : '' ?><?= $widget ? ' organisation-info-widget' : '' ?>" data-parent="<?= $parent; ?>" data-target="<?= $target; ?>" data-id="<?= $id; ?>">
   <?php if ($widget) : ?>
     <h2>Heading</h2>
-    <div class="loader js-loader">
-      <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
-    </div>
+    <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['loaderClass' => 'loader js-loader']); ?>
     <div class="js-content hide">
       <div class="<?= $showDetails ? 'info-col ' : ''; ?>info">
         <div class="organisation-wrapper">
@@ -25,22 +23,9 @@ $widget = $target == 'widget';
         </div>
       <?php endif; ?>
       <div class="schedules info">
-        <div class="js-week-navigation week-navigation week-navi-holder">
-          <button class="week-navigation-control js-prev-week" data-dir="-1">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            <span class="sr-only"><?= $previousWeek; ?></span>
-          </button>
-          <span>
-            <?= $week; ?> <span class="js-week-number"></span>
-          </span>
-          <button class="week-navigation-control js-next-week" data-dir="+1">
-            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            <span class="sr-only"><?= $nextWeek; ?></span>
-          </button>
-        </div>
-        <div class="loader js-loader">
-          <?= $this->render('components/molecules/messaging/loader/loader.phtml'); ?>
-        </div>
+        <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeek], 'label' => $week . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeek]]) ?>
+
+        <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['loaderClass' => 'loader js-loader']); ?>
         <div class="js-content">
           <div class="js-opening-times-week opening-times-week"></div>
         </div>
