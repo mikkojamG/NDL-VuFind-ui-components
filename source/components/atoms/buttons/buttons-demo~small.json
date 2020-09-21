@@ -1,4 +1,5 @@
 {
+  "disabled": false,
   "items": [
     { "name": "Primary", "class": "btn btn-primary btn-sm" },
     { "name": "Secondary", "class": "btn btn-secondary btn-sm" }

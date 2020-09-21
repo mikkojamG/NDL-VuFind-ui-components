@@ -1,0 +1,7 @@
+<ul>
+  <?php foreach ($items as $button) : ?>
+    <li class="c-button-list__item">
+      <?= $this->render('components/atoms/buttons/button/default.phtml', ['class' => $button['class'], 'text' => $button['name'], 'disabled' => $disabled]) ?>
+    </li>
+  <?php endforeach; ?>
+</ul>
