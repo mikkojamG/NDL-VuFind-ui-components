@@ -72,14 +72,8 @@ $widget = $target == 'widget';
             </a>
           </div>
           <div class="js-services services">
-            <button class="btn btn-round js-service-wifi js-info-element">
-              <i class="fa fa-wifi" aria-hidden="true"></i>
-              <span class="sr-only"><?= $wifi; ?></span>
-            </button>
-            <button class="btn btn-round js-service-print js-info-element">
-              <i class="fa fa-print" aria-hidden="true"></i>
-              <span class="sr-only"><?= $print; ?></span>
-            </button>
+            <?= $this->render('components/atoms/buttons/button/icon.phtml', ['class' => 'btn btn-round js-service-wifi js-info-element', 'icon' => 'fa fa-wifi', 'label' => $wifi]); ?>
+            <?= $this->render('components/atoms/buttons/button/icon.phtml', ['class' => 'btn btn-round js-service-print js-info-element', 'icon' => 'fa fa-print', 'label' => $print]); ?>
           </div>
         </div>
       </div>
