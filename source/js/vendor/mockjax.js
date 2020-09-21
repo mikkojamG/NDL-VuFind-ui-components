@@ -172,7 +172,7 @@ $.mockjax([{
             }
           ],
           id: "86154",
-          periodStart: today.getFullYear() + '-' + (today.getMonth + 1) + '-' + today.getDate(),
+          periodStart: "2020-09-14",
           weekNum: weekNumber
         }
       }
