@@ -1,6 +1,6 @@
 #### Description
 
-Schedule widget component, used for displaying schedules and other for one or multiple organisations.
+Schedule widget component, used for displaying schedules and other information for one or multiple organisations.
 
 #### Properties
 
