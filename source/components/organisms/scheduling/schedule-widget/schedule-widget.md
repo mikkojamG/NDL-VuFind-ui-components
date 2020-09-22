@@ -18,7 +18,7 @@ Schedule widget component, used for displaying schedules and other for one or mu
 | closedText               | `String`  | `Closed`                              | No       |
 | directionsText           | `String`  | `Directions`                          | No       |
 | facebookText             | `String`  | `Facebook`                            | No       |
-| facilityImageLink        | `String`  | `https://finna.fi/`                   | No       |
+| facilityLink             | `String`  | `https://finna.fi/`                   | No       |
 | facilityPlaceholderImage | `String`  | `https://via.placeholder.com/149x100` | No       |
 | openText                 | `String`  | `Open`                                | No       |
 | printText                | `String`  | `Print`                               | No       |
