@@ -303,7 +303,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $holder.find('.js-info-element').hide();
     $holder.find('.js-is-open').hide();
 
-    var $parent = $holder.data('parent');
+    var parent = $holder.data('parent');
     var data = service.getDetails(id);
 
     if (!data) {
@@ -341,7 +341,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       $map.show();
     }
 
-    service.getSchedules($holder.data('target'), $parent, id, $holder.data('period-start'), null, true, allServices,
+    service.getSchedules($holder.data('target'), parent, id, $holder.data('period-start'), null, true, allServices,
       function handleResponse(response) {
 
         if (response) {
@@ -367,7 +367,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         schedulesLoading = true;
 
-        var $parent = $holder.data('parent');
+        var parent = $holder.data('parent');
         var id = $holder.data('id');
         var dir = parseInt($(this).data('dir'));
         var currentWeek = parseInt($weekNumber.text());
@@ -382,7 +382,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         $icon.addClass('fa-spinner fa-spin');
 
         service.getSchedules(
-          $holder.data('target'), $parent, id, $holder.data('period-start'), dir, false, false,
+          $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
           function onGetSchedules(response) {
             schedulesLoaded(id, response);
           }

@@ -2,61 +2,59 @@
 $widget = $target == 'widget';
 ?>
 
-<div class="js-schedule-widget schedule-widget organisation-info" data-parent="<?= $parent; ?>" data-target="<?= $target; ?>" data-id="<?= $id; ?>">
+<div class="js-schedule-widget schedule-widget organisation-info" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id; ?>">
   <?php if ($widget) : ?>
-    <h2><?= $widgetHeading; ?></h2>
+    <?php if (isset($widgetHeading)) : ?>
+      <h2><?= $widgetHeading; ?></h2>
+    <?php endif; ?>
     <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
     <div class="js-content hide">
-      <div class="<?= $showDetails ? 'info-col ' : ''; ?>info">
+      <div class="<?= (isset($showDetails) && $showDetails) ? 'info-col ' : ''; ?>info">
         <div class="organisation-dropdown-wrapper">
           <div class="organisation-dropdown-holder">
-            <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation js-organisation-menu']) ?>
+            <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation js-organisation-menu', 'fallbackLabel' => 'Submit']) ?>
           </div>
           <div class="js-is-open">
             <span class="js-open is-open open js-info-element">
-              <?= $open; ?>
+              <?= $openText ?? ''; ?>
             </span>
             <span class="js-closed is-open closed js-info-element">
-              <?= $closed; ?>
+              <?= $closedText ?? ''; ?>
             </span>
           </div>
         </div>
       <?php endif; ?>
       <div class="schedules info">
-        <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeek], 'label' => $week . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeek]]) ?>
-
+        <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
         <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
-
         <div class="js-content">
           <div class="js-opening-times-week opening-times-week"></div>
         </div>
         <div class="js-no-schedules js-info-element">
-          <p><?= $noSchedulesAvailable; ?></p>
+          <p><?= $noSchedulesAvailableText; ?></p>
         </div>
         <ul class="js-mobile-schedules mobile-schedules info-element js-info-element"></ul>
       </div>
       <div class="js-schedules-info schedules-info js-info-element">
       </div>
-      <?php if ($widget && $showDetails) : ?>
+      <?php if ($widget && (isset($showDetails) && $showDetails)) : ?>
       </div>
       <div class="details-col">
-        <a href="" data-href="<?= $facilityImageLink; ?>">
-          <img src="<?= $organisationPlaceholderImage; ?>" alt="" class="js-facility-image facility-image" />
+        <a href="" data-href="<?= $facilityImageLink ?? ''; ?>">
+          <img src="<?= $facilityPlaceholderImage ?? ''; ?>" alt="" class="js-facility-image facility-image" />
         </a>
         <div class="details-wrapper">
           <div>
             <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>Email</span>", 'content' => ""]) ?>
-
             <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-info-element js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>Phone</span>", 'content' => ""]) ?>
-
             <a href="https://opas.matka.fi/?to=Linnankatu%202,%20Turku" target="_blank" class="js-route js-info-element btn">
               <i class="fa fa-bus" aria-hidden="true"></i>
-              <span class="sr-only"><?= $directions; ?></span>
+              <span class="sr-only"><?= $directionsText ?? ''; ?></span>
             </a>
           </div>
-          <a href="<?= $facilityImageLink; ?>" target="_blank" class="js-facebook js-info-element btn">
+          <a href="<?= $facilityImageLink ?? ''; ?>" target="_blank" class="js-facebook js-info-element btn">
             <i class="fa fa-facebook-square" aria-hidden="true"></i>
-            <span class="sr-only"><?= $facebook ?></span>
+            <span class="sr-only"><?= $facebookText ?? ''; ?></span>
           </a>
           <div class="js-map map js-info-element">
             <a href="https://www.google.com/maps?q=Linnankatu+2+Turku" target="_blank">
@@ -66,19 +64,19 @@ $widget = $target == 'widget';
             </a>
           </div>
           <div class="js-details-link js-info-element">
-            <a href="" data-href="<?= $facilityImageLink; ?>">
+            <a href="" data-href="<?= $facilityImageLink ?? ''; ?>">
               <i class="fa fa-home" aria-hidden="true"></i>
-              <?= $servicePointInfo; ?>
+              <?= $servicePointInfoText ?? ''; ?>
             </a>
           </div>
           <div class="js-services services">
             <span class="service-item js-service-wifi js-info-element">
               <i class="fa fa-wifi" aria-hidden="true"></i>
-              <span class="sr-only"><?= $wifi ?></span>
+              <span class="sr-only"><?= $wifiText ?? ''; ?></span>
             </span>
             <span class="service-item js-service-print js-info-element">
               <i class="fa fa-print" aria-hidden="true"></i>
-              <span class="sr-only"><?= $print ?></span>
+              <span class="sr-only"><?= $printText ?? ''; ?></span>
             </span>
           </div>
         </div>
@@ -95,11 +93,11 @@ $widget = $target == 'widget';
     <div class="cell description">
       <span class="js-name"></span>
       <span class="js-staff name-staff">
-        <?= $staffAvailable; ?>
+        <?= $staffAvailableText; ?>
       </span>
       <span class="info js-info"></span>
       <span class="js-selfservice selfservice-only hide">
-        <?= $selfService; ?>
+        <?= $selfServiceText; ?>
       </span>
     </div>
     <div class="cell time-container js-time-container"></div>
@@ -111,7 +109,7 @@ $widget = $target == 'widget';
     <span class="js-opens"></span> - <span class="js-closes"></span>
   </span>
   <span class="js-closed closed-today hide">
-    <?= $closed; ?>
+    <?= $closedText ?? ''; ?>
   </span>
 </template>
 
