@@ -2,7 +2,7 @@
 $widget = $target == 'widget';
 ?>
 
-<div class="js-schedule-widget schedule-widget organisation-info" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id; ?>">
+<div class="schedule-widget organisation-info <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id; ?>">
   <?php if ($widget) : ?>
     <?php if (isset($widgetHeading)) : ?>
       <h2><?= $widgetHeading; ?></h2>
@@ -112,17 +112,3 @@ $widget = $target == 'widget';
     <?= $closedText ?? ''; ?>
   </span>
 </template>
-
-<script type="text/javascript">
-  $(document).ready(function onReady() {
-    var service = finna.organisationInfo;
-
-    finna.weekSchedule.init($('.js-schedule-widget'), service);
-
-    finna.weekSchedule.loadOrganisationList();
-
-    setTimeout(function() {
-      finna.weekSchedule.showDetails('<?= $id; ?>', true);
-    }, 1000)
-  })
-</script>
