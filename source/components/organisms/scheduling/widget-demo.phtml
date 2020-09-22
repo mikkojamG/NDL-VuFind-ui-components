@@ -1,0 +1,20 @@
+<div>
+  <?= $this->render('components/organisms/scheduling/widget/widget.phtml', ['wrapperClass' => 'js-schedule-widget', 'id' => $id, 'nextWeekLabel' => $nextWeekLabel, 'noSchedulesAvailableText' => $noSchedulesAvailableText, 'parent' => $parent, 'previousWeekLabel' => $previousWeekLabel, 'selfServiceText' => $selfServiceText, 'staffAvailableText' => $staffAvailableText, 'target' => $target, 'weekText' => $weekText, 'showDetails' => $showDetails, 'widgetHeading' => $widgetHeading, 'openText' => $openText, 'closedText' => $closedText, 'facilityLink' => $facilityLink, 'facilityPlaceholderImage' => $facilityPlaceholderImage, 'directionsText' => $directionsText, 'facebookText' => $facebookText, 'servicePointInfoText' => $servicePointInfoText, 'wifiText' => $wifiText, 'printText' => $printText, 'dropdownFallbackLabel' => $dropdownFallbackLabel, 'emailText' => $emailText, 'phoneText' => $phoneText]) ?>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function onDocumentReadt() {
+    var initSchedulingWidgetDemo = function initSchedulingWidgetDemo() {
+      var service = finna.organisationInfo;
+
+      finna.weekSchedule.init($('.js-schedule-widget'), service);
+      finna.weekSchedule.loadOrganisationList();
+
+      setTimeout(function() {
+        finna.weekSchedule.showDetails('<?= $id; ?>', true);
+      }, 1000)
+    };
+
+    initSchedulingWidgetDemo();
+  })
+</script>
