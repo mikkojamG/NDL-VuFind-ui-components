@@ -284,7 +284,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $(this).stop(true, true).fadeTo(300, 1);
         });
         $img.attr('src', src);
-        $img.closest('.info-element').show();
+        $img.closest('.js-info-element').show();
       } else {
         $img.fadeTo(300, 1);
       }
