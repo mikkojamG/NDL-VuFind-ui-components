@@ -2,13 +2,13 @@
 $widget = $target == 'widget';
 ?>
 
-<div class="js-schedule-widget schedule-widget organisation-info<?= $showDetails ? ' with-details' : '' ?><?= $widget ? ' organisation-info-widget' : '' ?>" data-parent="<?= $parent; ?>" data-target="<?= $target; ?>" data-id="<?= $id; ?>">
+<div class="js-schedule-widget schedule-widget organisation-info" data-parent="<?= $parent; ?>" data-target="<?= $target; ?>" data-id="<?= $id; ?>">
   <?php if ($widget) : ?>
-    <h2>Heading</h2>
+    <h2><?= $widgetHeading; ?></h2>
     <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
     <div class="js-content hide">
       <div class="<?= $showDetails ? 'info-col ' : ''; ?>info">
-        <div class="organisation-wrapper">
+        <div class="organisation-dropdown-wrapper">
           <div class="organisation-dropdown-holder">
             <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['items' => [], 'label' => 'Select library', 'dropdownClass' => 'organisation js-organisation-menu']) ?>
           </div>
@@ -31,9 +31,9 @@ $widget = $target == 'widget';
           <div class="js-opening-times-week opening-times-week"></div>
         </div>
         <div class="js-no-schedules js-info-element">
-          <?= $noSchedulesAvailable; ?>
+          <p><?= $noSchedulesAvailable; ?></p>
         </div>
-        <div class="js-mobile-schedules mobile-schedules info-element js-info-element"></div>
+        <ul class="js-mobile-schedules mobile-schedules info-element js-info-element"></ul>
       </div>
       <div class="js-schedules-info schedules-info js-info-element">
       </div>
@@ -72,14 +72,14 @@ $widget = $target == 'widget';
             </a>
           </div>
           <div class="js-services services">
-            <button class="btn btn-round js-service-wifi js-info-element">
+            <span class="service-item js-service-wifi js-info-element">
               <i class="fa fa-wifi" aria-hidden="true"></i>
               <span class="sr-only"><?= $wifi ?></span>
-            </button>
-            <button class="btn btn-round js-service-print js-info-element">
+            </span>
+            <span class="service-item js-service-print js-info-element">
               <i class="fa fa-print" aria-hidden="true"></i>
               <span class="sr-only"><?= $print ?></span>
-            </button>
+            </span>
           </div>
         </div>
       </div>
@@ -107,14 +107,12 @@ $widget = $target == 'widget';
 </template>
 
 <template class="js-time-template">
-  <div class="time-template">
-    <span class="js-period">
-      <span class="js-opens"></span> - <span class="js-closes"></span>
-    </span>
-    <span class="js-closed closed-today hide">
-      <?= $closed; ?>
-    </span>
-  </div>
+  <span class="js-period">
+    <span class="js-opens"></span> - <span class="js-closes"></span>
+  </span>
+  <span class="js-closed closed-today hide">
+    <?= $closed; ?>
+  </span>
 </template>
 
 <script type="text/javascript">

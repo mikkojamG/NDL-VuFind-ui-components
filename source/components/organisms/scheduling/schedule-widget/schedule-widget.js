@@ -160,9 +160,10 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
   var handleLinks = function handleLinks(links, $linkHolder) {
     $.each(links, function forEachLink(_, object) {
-      var $link = $('<a></a>');
+      var $link = $('<li><a></a></li>');
 
-      $link.attr('href', object.url).text(object.name);
+      $link.find('a').attr('href', object.url).text(object.name);
+
       $link.appendTo($linkHolder);
     });
   };
@@ -216,7 +217,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
       handleSchedules(schedules, $scheduleHolder);
     } else {
-      var links = null;
       var $linkHolder = $holder.find('.js-mobile-schedules');
 
       $linkHolder.empty();
@@ -226,12 +226,10 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         if (data.details.links) {
           handleLinks(data.details.links, $linkHolder);
-
-          links = true;
         }
       }
 
-      if (!links) {
+      if (!data.details.links) {
         $holder.find('.js-no-schedules').show();
       }
     }

@@ -3,6 +3,7 @@
   "showDetails": true,
   "parent": "NLF",
   "id": "86154",
+  "widgetHeading": "Widget Heading",
   "open": "Open",
   "closed": "Closed",
   "previousWeek": "Previous week",
