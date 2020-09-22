@@ -405,7 +405,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         $holder.find('.js-facility-image').attr('alt', obj.name);
       }
 
-      $('<li role="menuitem" data-id="' + obj.id + '">' + obj.name + '</li>').appendTo($menu);
+      $('<li role="menuitem"><button data-id="' + obj.id + '">' + obj.name + '</button></li>').appendTo($menu);
 
       organisationList[obj.id] = obj;
     });
@@ -418,7 +418,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       }
     }
 
-    var $menuItem = $menu.find('li');
+    var $menuItem = $menu.find('li button');
 
     $menuItem.on('click', function onClickMenuItem() {
       $toggleText.text($(this).text());
