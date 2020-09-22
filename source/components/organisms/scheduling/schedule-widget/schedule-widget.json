@@ -18,5 +18,8 @@
   "wifiText": "Wifi",
   "printText": "Print",
   "staffAvailableText": "Staff available",
-  "selfServiceText": "(self service)"
+  "selfServiceText": "(self service)",
+  "dropdownFallbackLabel": "Select library",
+  "emailText": "Email",
+  "phoneText": "Phone"
 }

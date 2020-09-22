@@ -16,11 +16,14 @@ Schedule widget component, used for displaying schedules and other for one or mu
 | target                   | `String`  | `widget`                              | Yes      |
 | weekText                 | `String`  | `Week`                                | Yes      |
 | closedText               | `String`  | `Closed`                              | No       |
+| dropdownFallbackLabel    | `String`  | `Select library`                      | No       |
 | directionsText           | `String`  | `Directions`                          | No       |
+| emailText                | `String`  | `Email`                               | No       |
 | facebookText             | `String`  | `Facebook`                            | No       |
 | facilityLink             | `String`  | `https://finna.fi/`                   | No       |
 | facilityPlaceholderImage | `String`  | `https://via.placeholder.com/149x100` | No       |
 | openText                 | `String`  | `Open`                                | No       |
+| phoneText                | `String`  | `Phone`                               | No       |
 | printText                | `String`  | `Print`                               | No       |
 | servicePointInfoText     | `String`  | `Service point information`           | No       |
 | showDetails              | `Boolean` | `true`                                | No       |
