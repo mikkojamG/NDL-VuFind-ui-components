@@ -40,7 +40,7 @@ $widget = $target == 'widget';
           <img src="<?= $facilityPlaceholderImage ?? ''; ?>" alt="" class="js-facility-image facility-image" />
         </a>
         <div class="details-wrapper">
-          <div>
+          <div class="details-item">
             <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
             <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
             <a href="" target="_blank" class="js-route js-hide-onload btn">

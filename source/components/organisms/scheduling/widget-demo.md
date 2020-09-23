@@ -6,7 +6,6 @@ Schedule widget component, used for displaying schedules and other information f
 
 | Prop                     | Type      | Value (example)                       | Required |
 | ------------------------ | --------- | ------------------------------------- | -------- |
-| id                       | `String`  | `86154`                               | Yes      |
 | nextWeekLabel            | `String`  | `Next week`                           | Yes      |
 | noSchedulesAvailableText | `String`  | `No schedules available`              | Yes      |
 | parent                   | `String`  | `NFL`                                 | Yes      |
