@@ -49,7 +49,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var firstItem = object.times[0];
     var lastItem = object.times[object.times.length - 1];
 
-    $.each(object.times, function forEachOpenTime(_, time) {
+    object.times.forEach(function forEachOpenTime(time) {
       var selfService = !!time.selfservice;
 
       selfServiceAvailable = selfServiceAvailable || time.selfservice;
@@ -128,7 +128,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var handleSchedules = function handleSchedules(schedules, $scheduleHolder) {
-    $.each(schedules, function forEachSchedule(_, object) {
+    schedules.forEach(function forEachSchedule(object) {
       var $dayRow = $('<div></div>').addClass('day-container');
 
       $dayRow.toggleClass('today', !!object.today);
@@ -161,7 +161,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var handleLinks = function handleLinks(links, $linkHolder) {
-    $.each(links, function forEachLink(_, object) {
+    links.forEach(function forEachLink(object) {
       var $link = $('<li><a></a></li>');
 
       $link.find('a').attr('href', object.url).text(object.name);
@@ -175,7 +175,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     $infoHolder.empty();
 
     if (data.details.scheduleDescriptions) {
-      $.each(data.details.scheduleDescriptions, function forEachDescription(_, object) {
+      data.details.scheduleDescriptions.forEach(function forEachDescription(object) {
         var obj = object.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
         $('<p/>').html(obj).appendTo($infoHolder);
@@ -255,11 +255,13 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     if (response.links) {
-      $.each(response.links, function handleLink(_, obj) {
-        if (obj.name.indexOf('Facebook') > 0) {
-          $holder.find('.js-facebook').attr('href', obj.url).removeClass('hide');
-        }
+      var facebookLink = response.links.filter(function findFacebookLink(link) {
+        return link.name.indexOf('Facebook') !== -1;
       });
+
+      if (facebookLink.length) {
+        $holder.find('.js-facebook').attr('href', facebookLink[0].url).removeClass('hide');
+      }
     }
 
     var $img = $holder.find('.js-facility-image');
@@ -277,7 +279,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $(this).stop(true, true).fadeTo(300, 1);
         });
         $img.attr('src', src);
-        $img.closest('.js-info-element').removeClass('hide');
+        $img.closest('.js-hide-onload').removeClass('hide');
       } else {
         $img.fadeTo(300, 1);
       }
@@ -288,14 +290,14 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     if (response.services) {
-      $.each(response.services, function handleService(_, serviceName) {
+      response.services.forEach(function handleService(serviceName) {
         $holder.find('.js-services .js-service-' + serviceName).removeClass('hide');
       });
     }
   };
 
   var showDetails = function showDetails(id, allServices) {
-    $holder.find('.js-info-element').addClass('hide');
+    $holder.find('.js-hide-onload').addClass('hide');
     $holder.find('.js-is-open').addClass('hide');
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
@@ -396,7 +398,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
     var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
 
-    $.each(list, function handleOrganisationList(_, obj) {
+    list.forEach(function handleOrganisationList(obj) {
       if (String(id) === String(obj.id)) {
         found = true;
         $toggleText.text(obj.name);
@@ -431,12 +433,12 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       toggleSpinner(true);
     });
 
-    $holder.find('.js-content').removeClass('hide');
-
     var week = parseInt(data.weekNum);
 
     updateWeekNumber(week);
     attachWeekNaviListener();
+
+    $holder.find('.js-hidden-initally').removeClass('hide');
   };
 
   var loadOrganisationList = function loadOrganisationList() {
@@ -449,7 +451,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
     var buildings = $holder.data('buildings');
 
-    $holder.find('.js-info-element').addClass('hide');
+    $holder.find('.js-hide-onload').addClass('hide');
 
     service.getOrganisations($holder.data('target'), parent, buildings, {}, function onGetOrganisations(response) {
       organisationListLoaded(response);
