@@ -1,6 +1,3 @@
 {
-  "disabled": true,
-  "items": [
-    { "name": "Disabled Large Button", "class": "btn btn-default btn-lg" }
-  ]
+  "items": [{ "name": "Disabled Large Button", "class": "btn btn-default btn-lg" }]
 }
