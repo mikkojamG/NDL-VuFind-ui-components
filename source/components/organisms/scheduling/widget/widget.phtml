@@ -7,7 +7,6 @@ $widget = $target == 'widget';
     <?php if (isset($widgetHeading)) : ?>
       <h2><?= $widgetHeading; ?></h2>
     <?php endif; ?>
-    <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-initial-loader']); ?>
     <div class="js-content hide">
       <div class="<?= (isset($showDetails) && $showDetails) ? 'info-col ' : ''; ?>info">
         <div class="organisation-dropdown-wrapper">
@@ -25,10 +24,11 @@ $widget = $target == 'widget';
         </div>
       <?php endif; ?>
       <div class="schedules info">
-        <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
+        <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder hide', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
+
+        <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
 
         <div class="js-content">
-          <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
           <div class="js-opening-times-week opening-times-week"></div>
         </div>
         <div class="js-no-schedules js-info-element">

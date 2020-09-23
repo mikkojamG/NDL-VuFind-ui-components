@@ -212,6 +212,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
       handleSchedules(schedules, $scheduleHolder);
     } else {
+      $holder.find('.js-week-navigation').addClass('hide');
+
       var $linkHolder = $holder.find('.js-mobile-schedules');
 
       $linkHolder.empty();
@@ -230,12 +232,9 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     handleReferences(data);
-    toggleSpinner(false)
   };
 
   var detailsLoaded = function detailsLoaded(id, response) {
-    toggleSpinner(false);
-
     if (!response) {
       return;
     }
@@ -296,7 +295,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var showDetails = function showDetails(id, allServices) {
-    $holder.find('.js-week-navigation').addClass('hide');
     $holder.find('.js-info-element').addClass('hide');
     $holder.find('.js-is-open').addClass('hide');
 
@@ -349,6 +347,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           detailsLoaded(id, response);
 
           $holder.trigger('detailsLoaded', id);
+
+          toggleSpinner(false);
         }
       }
     );
@@ -383,6 +383,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
           $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
           function onGetSchedules(response) {
             schedulesLoaded(id, response);
+            toggleSpinner(false);
           }
         );
       });
@@ -419,16 +420,16 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var $menuItem = $menu.find('li button');
 
     $menuItem.on('click', function onClickMenuItem() {
+      toggleSpinner(false);
+
       $toggleText.text($(this).text());
 
       $holder.find('.js-facility-image').attr('alt', $(this).text());
 
-      toggleSpinner(true);
-
       showDetails($(this).data('id'), false);
-    });
 
-    toggleSpinner(false);
+      toggleSpinner(true);
+    });
 
     $holder.find('.js-content').removeClass('hide');
 
@@ -452,8 +453,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     service.getOrganisations($holder.data('target'), parent, buildings, {}, function onGetOrganisations(response) {
       organisationListLoaded(response);
-
-      $('.js-initial-loader').addClass('hide');
     });
   };
 
