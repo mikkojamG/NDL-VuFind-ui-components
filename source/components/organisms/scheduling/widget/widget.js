@@ -13,7 +13,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
   };
 
-  var updatePrevBtn = function updatePrevBtn(response) {
+  var updatePreviousButton = function updatePreviousButton(response) {
     var shouldDisable = response.openTimes && response.openTimes.currentWeek;
 
     if (shouldDisable) {
@@ -27,7 +27,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
   };
 
-  var updateNextBtn = function updateNextBtn(response) {
+  var updateNextButton = function updateNextButton(response) {
     var shouldDisable = response.openTimes.museum === true;
 
     if (shouldDisable) {
@@ -208,8 +208,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       updateWeekNumber(parseInt(response.weekNum));
     }
 
-    updatePrevBtn(response);
-    updateNextBtn(response);
+    updatePreviousButton(response);
+    updateNextButton(response);
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
 
@@ -255,8 +255,8 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       $holder.data('period-start', response.periodStart);
     }
 
-    updatePrevBtn(response);
-    updateNextBtn(response);
+    updatePreviousButton(response);
+    updateNextButton(response);
 
     if (response.phone) {
       $holder.find('.js-phone')
@@ -310,7 +310,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     }
 
     if (response.services) {
-      response.services.forEach(function handleService(serviceName) {
+      response.services.forEach(function forEachService(serviceName) {
         $holder.find('.js-services .js-service-' + serviceName).removeClass('hide');
       });
     }
@@ -383,7 +383,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   var attachWeekNaviListener = function attachWeekNaviListener() {
     $holder.find('.js-prev-week, .js-next-week')
       .unbind('click')
-      .on('click', function onClickWeekNavi() {
+      .on('click', function onNaviClick() {
         if ($(this).hasClass('disabled')) {
           return;
         }
@@ -407,7 +407,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         service.getSchedules(
           $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
-          function onGetSchedules(response) {
+          function handleResponse(response) {
             schedulesLoaded(id, response);
             toggleSpinner(false);
           }
@@ -422,7 +422,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
     var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
     var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
 
-    list.forEach(function handleOrganisationList(obj) {
+    list.forEach(function forEachOrganisationList(obj) {
       if (String(id) === String(obj.id)) {
         found = true;
         $toggleText.text(obj.name);
@@ -479,7 +479,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $holder.find('.js-hide-onload').addClass('hide');
 
-    service.getOrganisations($holder.data('target'), parent, buildings, {}, function onGetOrganisations(response) {
+    service.getOrganisations($holder.data('target'), parent, buildings, {}, function handleResponse(response) {
       organisationListLoaded(response);
     });
   };
