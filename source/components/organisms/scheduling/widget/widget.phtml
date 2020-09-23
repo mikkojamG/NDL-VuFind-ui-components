@@ -2,7 +2,7 @@
 $widget = $target == 'widget';
 ?>
 
-<div class="schedule-widget organisation-info <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id; ?>">
+<div class="schedule-widget organisation-info <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="">
   <?php if ($widget) : ?>
     <?php if (isset($widgetHeading)) : ?>
       <h2><?= $widgetHeading; ?></h2>
@@ -105,10 +105,12 @@ $widget = $target == 'widget';
 </template>
 
 <template class="js-time-template">
-  <span class="js-period">
-    <span class="js-opens"></span> - <span class="js-closes"></span>
-  </span>
-  <span class="js-closed closed-today hide">
-    <?= $closedText ?? ''; ?>
-  </span>
+  <div>
+    <span class="js-period">
+      <span class="js-opens"></span> - <span class="js-closes"></span>
+    </span>
+    <span class="js-closed closed-today hide">
+      <?= $closedText ?? ''; ?>
+    </span>
+  </div>
 </template>

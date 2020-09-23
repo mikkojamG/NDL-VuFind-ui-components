@@ -145,7 +145,9 @@ finna.weekSchedule = (function finnaWeekSchedule() {
         $timeRow.find('.js-name').text(object.day);
         $timeRow.find('.js-info').text(object.info);
 
-        $timePeriod.find('.js-period, .js-staff').hide();
+        $timeRow.find('.js-staff').hide();
+        $timePeriod.find('.js-period').hide();
+
         $timePeriod.find('.js-closed').removeClass('hide');
 
         $timeRow.find('.js-time-container').append($timePeriod);
@@ -276,8 +278,6 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
       var src = response.pictures[0].url;
 
-      $img.show();
-
       if ($img.attr('src') !== src) {
         $img.fadeTo(0, 0);
         $img.on('load', function onLoadImage() {
@@ -288,8 +288,10 @@ finna.weekSchedule = (function finnaWeekSchedule() {
       } else {
         $img.fadeTo(300, 1);
       }
+
+      $img.parent('a').show();
     } else {
-      $img.hide();
+      $img.parent('a').hide();
     }
 
     if (response.services) {
@@ -313,7 +315,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
     $holder.data('id', id);
 
-    if (data.openTimes && data.openNow && data.openTimes.schedules
+    if ('openNow' in data && data.openTimes && data.openTimes.schedules.length
     ) {
       $holder.find('.js-is-open ' + (data.openNow ? '.js-open' : '.js-closed')).show();
     }
@@ -369,6 +371,7 @@ finna.weekSchedule = (function finnaWeekSchedule() {
 
         var parent = $holder.data('parent');
         var id = $holder.data('id');
+
         var dir = parseInt($(this).data('dir'));
         var currentWeek = parseInt($weekNumber.text());
 
