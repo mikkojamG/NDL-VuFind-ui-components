@@ -3,9 +3,6 @@
   flex-direction: column;
 
   .week-navigation {
-    margin-left: auto;
-    margin-right: auto;
-
     &.week-navi-holder {
       max-width: 100%;
     }
@@ -13,16 +10,6 @@
     &-control {
       border: none;
       background-color: transparent;
-
-      &.disabled,
-      &[disabled] {
-        cursor: not-allowed;
-        pointer-events: none;
-
-        i {
-          color: @gray-lighter;
-        }
-      }
     }
   }
 
