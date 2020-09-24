@@ -365,8 +365,6 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
         if (response) {
           schedulesLoaded(id, response);
           detailsLoaded(id, response);
-
-          $holder.trigger('detailsLoaded', id);
         }
       }
     );
