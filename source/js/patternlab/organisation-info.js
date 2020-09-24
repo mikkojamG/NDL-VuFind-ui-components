@@ -175,11 +175,9 @@ finna.organisationInfo = (function finnaOrganisationInfo() {
     });
   }
 
-  var my = {
+  return {
     getOrganisations: getOrganisations,
     getDetails: getDetails,
     getSchedules: getSchedules
   };
-
-  return my;
 })();
