@@ -2,7 +2,7 @@
 $widget = $target == 'widget';
 ?>
 
-<div class="schedule-widget organisation-info <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="">
+<div class="schedule-widget organisation-info <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id ?? ''; ?>">
   <?php if ($widget) : ?>
     <?php if (isset($widgetHeading)) : ?>
       <h2><?= $widgetHeading; ?></h2>

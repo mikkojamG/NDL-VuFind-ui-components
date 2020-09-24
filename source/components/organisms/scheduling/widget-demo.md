@@ -21,6 +21,7 @@ Schedule widget component, used for displaying schedules and other information f
 | facebookText             | `String`  | `Facebook`                            | No       |
 | facilityLink             | `String`  | `https://finna.fi/`                   | No       |
 | facilityPlaceholderImage | `String`  | `https://via.placeholder.com/149x100` | No       |
+| id                       | `String`  | `86154`                               | No       |
 | openText                 | `String`  | `Open`                                | No       |
 | phoneText                | `String`  | `Phone`                               | No       |
 | printText                | `String`  | `Print`                               | No       |

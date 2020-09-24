@@ -7,9 +7,9 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
   var toggleSpinner = function toggleSpinner(hide) {
     if (hide) {
-      $spinner.fadeIn();
-    } else {
       $spinner.hide();
+    } else {
+      $spinner.fadeIn();
     }
   };
 
@@ -373,8 +373,6 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
           detailsLoaded(id, response);
 
           $holder.trigger('detailsLoaded', id);
-
-          toggleSpinner(false);
         }
       }
     );
@@ -392,7 +390,7 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
         }
 
         schedulesLoading = true;
-        toggleSpinner(true);
+        toggleSpinner(false);
 
         var $scheduleHolder = $holder.find('.js-opening-times-week');
         $scheduleHolder.empty();
@@ -409,7 +407,7 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
           $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
           function handleResponse(response) {
             schedulesLoaded(id, response);
-            toggleSpinner(false);
+            toggleSpinner(true);
           }
         );
       });
@@ -417,7 +415,13 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
   var organisationListLoaded = function organisationListLoaded(data) {
     var organisations = data.list;
-    var id = data.id;
+    var id;
+
+    if ($holder.data('id')) {
+      id = $holder.data('id');
+    } else {
+      id = data.id;
+    }
 
     organisations.forEach(function forEachOrganisation(obj) {
       organisationList[obj.id] = obj;
@@ -465,7 +469,11 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
         $menu.find('button[data-id="' + id + '"]').click();
       }
     } else {
+      toggleSpinner(false);
+
       showDetails(id, false);
+
+      toggleSpinner(true);
     }
 
     var week = parseInt(data.weekNum);
@@ -477,8 +485,6 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
   };
 
   var loadOrganisationList = function loadOrganisationList() {
-    $holder.find('.js-prev-week').fadeTo(0, 0);
-
     var parent = $holder.data('parent');
 
     if (typeof parent == 'undefined') {
