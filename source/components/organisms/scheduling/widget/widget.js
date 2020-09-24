@@ -1,5 +1,5 @@
 /*global finna */
-finna.weekSchedule = (function finnaWeekSchedule() {
+finna.scheduleWidget = (function finnaWeekSchedule() {
   var $holder, service, $spinner, $prevButton, $nextButton, $weekNumber;
   var timeRowTemplate, timeTemplate;
   var schedulesLoading = false;
@@ -416,48 +416,57 @@ finna.weekSchedule = (function finnaWeekSchedule() {
   };
 
   var organisationListLoaded = function organisationListLoaded(data) {
-    var list = data.list;
+    var organisations = data.list;
     var id = data.id;
-    var found = false;
-    var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
-    var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
 
-    list.forEach(function forEachOrganisationList(obj) {
-      if (String(id) === String(obj.id)) {
-        found = true;
-        $toggleText.text(obj.name);
-
-        $holder.find('.js-facility-image').attr('alt', obj.name);
-      }
-
-      $menu.append($('<li role="menuitem"><button data-id="' + obj.id + '">' + obj.name + '</button></li>'));
-
+    organisations.forEach(function forEachOrganisation(obj) {
       organisationList[obj.id] = obj;
     });
 
-    if (!found) {
-      id = finna.common.getField(data.consortium.finna, 'service_point');
+    var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
 
-      if (!id) {
-        id = $menu.find('li')
-          .first()
-          .val();
+    if ($menu.length) {
+      organisations.forEach(function forEachOrganisation(obj) {
+        $menu.append($('<li role="menuitem"><button data-id="' + obj.id + '">' + obj.name + '</button></li>'));
+      });
+
+      var preselected = organisations.filter(function findPreselectedOrganisation(organisation) {
+        return organisation.id.toString() === id.toString();
+      });
+
+      var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
+      var $menuItem = $menu.find('li button');
+
+      $menuItem.on('click', function onClickMenuItem() {
+        toggleSpinner(false);
+
+        $toggleText.text($(this).text());
+
+        $holder.find('.js-facility-image').attr('alt', $(this).text());
+
+        showDetails($(this).data('id'), false);
+
+        toggleSpinner(true);
+      });
+
+      if (preselected.length) {
+        var organisation = preselected[0];
+
+        $menu.find('button[data-id="' + organisation.id + '"]').click();
+      } else {
+        id = finna.common.getField(data.consortium.finna, 'service_point');
+
+        if (!id) {
+          id = $menu.find('li button')
+            .first()
+            .data('id');
+        }
+
+        $menu.find('button[data-id="' + id + '"]').click();
       }
+    } else {
+      showDetails(id, false);
     }
-
-    var $menuItem = $menu.find('li button');
-
-    $menuItem.on('click', function onClickMenuItem() {
-      toggleSpinner(false);
-
-      $toggleText.text($(this).text());
-
-      $holder.find('.js-facility-image').attr('alt', $(this).text());
-
-      showDetails($(this).data('id'), false);
-
-      toggleSpinner(true);
-    });
 
     var week = parseInt(data.weekNum);
 
