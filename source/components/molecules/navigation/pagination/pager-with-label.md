@@ -9,5 +9,5 @@ Pager component. Generally used for pagination, but also works controlling dynam
 | label        | `String` | `This is a label`                                                              | Yes      |
 | nextButton   | `Object` | `{"class": "btn-link", "icon": "fa fa-arrow-right", "text": "Next button"}`    | `[text]` |
 | prevButton   | `Object` | `{"class": "btn-link", "icon": "fa fa-arrow-left", "text": "Previous button"}` | `[text]` |
-| labelClass   | `String` | `pager-label-wrapper`                                                          | No       |
+| labelClass   | `String` | -                                                                              | No       |
 | wrapperClass | `String` | -                                                                              | No       |

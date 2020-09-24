@@ -1,7 +1,5 @@
 {
   "label": "This is a label",
-  "labelClass": "pager-label-wrapper",
-  "wrapperClass": "pager-label-wrapper",
   "prevButton": {
     "class": "btn-link",
     "icon": "fa fa-arrow-left",
