@@ -7,37 +7,37 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
   var toggleSpinner = function toggleSpinner(hide) {
     if (hide) {
-      $spinner.hide();
+      $spinner.fadeTo(100, 0);
     } else {
-      $spinner.fadeIn();
+      $spinner.fadeTo(100, 1)
     }
   };
 
   var updatePreviousButton = function updatePreviousButton(response) {
-    var shouldDisable = response.openTimes && response.openTimes.currentWeek;
+    var disable = response.openTimes.currentWeek || !response.openTimes.schedules.length;
 
-    if (shouldDisable) {
+    if (disable) {
       $prevButton
-        .fadeTo(200, 0)
-        .addClass('disabled');
+        .addClass('disabled')
+        .attr('disabled', true);
     } else {
       $prevButton
-        .fadeTo(200, 1)
-        .removeClass('disabled');
+        .removeClass('disabled')
+        .attr('disabled', false);
     }
   };
 
   var updateNextButton = function updateNextButton(response) {
-    var shouldDisable = response.openTimes.museum === true;
+    var disable = response.openTimes.museum === true || !response.openTimes.schedules.length;
 
-    if (shouldDisable) {
+    if (disable) {
       $nextButton
-        .fadeTo(200, 0)
-        .addClass('disabled');
+        .addClass('disabled')
+        .attr('disabled', true);
     } else {
       $nextButton
-        .fadeTo(200, 1)
-        .removeClass('disabled');
+        .removeClass('disabled')
+        .attr('disabled', false);
     }
   };
 
@@ -180,17 +180,15 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
     });
   };
 
-  var handleReferences = function handleReferences(data) {
+  var handleDescriptions = function handleDescriptions(data) {
     var $infoHolder = $holder.find('.js-schedules-info');
     $infoHolder.empty();
 
     if (data.details.scheduleDescriptions) {
-      data.details.scheduleDescriptions.forEach(function forEachDescription(object) {
-        var obj = object.replace(/(?:\r\n|\r|\n)/g, '<br />');
+      data.details.scheduleDescriptions.forEach(function forEachDescription(description) {
+        var descriptionString = description.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
-        $infoHolder
-          .append($('<p/>')
-            .html(obj));
+        $infoHolder.append($('<p/>').html(descriptionString));
       });
 
       $infoHolder.removeClass('hide');
@@ -213,37 +211,33 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
 
-    var data = organisationList[id];
+    var organisation = organisationList[id];
 
     var hasSchedules = response.openTimes && response.openTimes.schedules && response.openTimes.schedules.length;
 
     if (hasSchedules) {
       $holder.find('.js-week-navigation').removeClass('hide');
 
-      var schedules = response.openTimes.schedules;
-
-      handleSchedules(schedules, $scheduleHolder);
+      handleSchedules(response.openTimes.schedules, $scheduleHolder);
     } else {
-      $holder.find('.js-week-navigation').addClass('hide');
-
       var $linkHolder = $holder.find('.js-mobile-schedules');
 
       $linkHolder.empty();
 
-      if (data.mobile) {
+      if (organisation.mobile) {
         $linkHolder.removeClass('hide');
 
-        if (data.details.links) {
-          handleLinks(data.details.links, $linkHolder);
+        if (organisation.details.links) {
+          handleLinks(organisation.details.links, $linkHolder);
         }
       }
 
-      if (!data.details.links) {
+      if (!organisation.details.links) {
         $holder.find('.js-no-schedules').removeClass('hide');
       }
     }
 
-    handleReferences(data);
+    handleDescriptions(organisation);
   };
 
   var detailsLoaded = function detailsLoaded(id, response) {
@@ -316,7 +310,7 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
     }
   };
 
-  var showDetails = function showDetails(id, allServices) {
+  var getSchedules = function getSchedules(id, allServices) {
     $holder.find('.js-hide-onload').addClass('hide');
     $holder.find('.js-is-open').addClass('hide');
 
@@ -434,10 +428,6 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
         $menu.append($('<li role="menuitem"><button data-id="' + obj.id + '">' + obj.name + '</button></li>'));
       });
 
-      var preselected = organisations.filter(function findPreselectedOrganisation(organisation) {
-        return organisation.id.toString() === id.toString();
-      });
-
       var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
       var $menuItem = $menu.find('li button');
 
@@ -448,9 +438,13 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
         $holder.find('.js-facility-image').attr('alt', $(this).text());
 
-        showDetails($(this).data('id'), false);
+        getSchedules($(this).data('id'), false);
 
         toggleSpinner(true);
+      });
+
+      var preselected = organisations.filter(function findPreselectedOrganisation(organisation) {
+        return organisation.id.toString() === id.toString();
       });
 
       if (preselected.length) {
@@ -471,7 +465,7 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
     } else {
       toggleSpinner(false);
 
-      showDetails(id, false);
+      getSchedules(id, false);
 
       toggleSpinner(true);
     }
@@ -492,16 +486,16 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
     }
     var buildings = $holder.data('buildings');
 
-    $holder.find('.js-hide-onload').addClass('hide');
-
     service.getOrganisations($holder.data('target'), parent, buildings, {}, function handleResponse(response) {
-      organisationListLoaded(response);
+      if (response) {
+        organisationListLoaded(response);
+      }
     });
   };
 
   return {
     loadOrganisationList: loadOrganisationList,
-    showDetails: showDetails,
+    getSchedules: getSchedules,
     init: function init(holder, _service) {
       $holder = holder;
       service = _service;

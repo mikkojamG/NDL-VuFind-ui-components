@@ -14,10 +14,10 @@ $widget = $target == 'widget';
             <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['dropdownClass' => 'organisation js-organisation-menu', 'items' => [], 'label' => $dropdownFallbackLabel ?? '', 'fallbackLabel' => $dropdownFallbackLabel ?? '']) ?>
           </div>
           <div class="js-is-open">
-            <span class="js-open is-open open js-hide-onload">
+            <span class="js-open is-open open js-hide-onload hide">
               <?= $openText ?? ''; ?>
             </span>
-            <span class="js-closed is-open closed js-hide-onload">
+            <span class="js-closed is-open closed js-hide-onload hide">
               <?= $closedText ?? ''; ?>
             </span>
           </div>
@@ -27,12 +27,12 @@ $widget = $target == 'widget';
         <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder hide', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
         <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
         <div class="js-opening-times-week opening-times-week"></div>
-        <div class="js-no-schedules js-hide-onload">
+        <div class="js-no-schedules js-hide-onload hide">
           <p><?= $noSchedulesAvailableText; ?></p>
         </div>
-        <ul class="js-mobile-schedules mobile-schedules js-hide-onload"></ul>
+        <ul class="js-mobile-schedules mobile-schedules js-hide-onload hide"></ul>
       </div>
-      <div class="js-schedules-info schedules-info js-hide-onload"></div>
+      <div class="js-schedules-info schedules-info js-hide-onload hide"></div>
       <?php if ($widget && (isset($showDetails) && $showDetails)) : ?>
       </div>
       <div class="details-col">
@@ -41,36 +41,36 @@ $widget = $target == 'widget';
         </a>
         <div class="details-wrapper">
           <div class="details-item">
-            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
-            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
-            <a href="" target="_blank" class="js-route js-hide-onload btn">
+            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
+            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
+            <a href="" target="_blank" class="js-route js-hide-onload hide btn">
               <i class="fa fa-bus" aria-hidden="true"></i>
               <span class="sr-only"><?= $directionsText ?? ''; ?></span>
             </a>
-            <a href="" target="_blank" class="js-facebook js-hide-onload btn">
+            <a href="" target="_blank" class="js-facebook js-hide-onload hide btn">
               <i class="fa fa-facebook-square" aria-hidden="true"></i>
               <span class="sr-only"><?= $facebookText ?? ''; ?></span>
             </a>
           </div>
-          <div class="js-map js-hide-onload details-item">
+          <div class="js-map js-hide-onload hide details-item">
             <a href="" target="_blank">
               <i class="fa fa-map-marker" aria-hidden="true">
               </i>
               <span class="js-map-address"></span>
             </a>
           </div>
-          <div class="js-details-link js-hide-onload details-item">
+          <div class="js-details-link js-hide-onload hide details-item">
             <a href="" data-href="<?= $facilityLink ?? ''; ?>">
               <i class="fa fa-home" aria-hidden="true"></i>
               <?= $servicePointInfoText ?? ''; ?>
             </a>
           </div>
           <div class="js-services details-item">
-            <span class="service-item js-service-wifi js-hide-onload">
+            <span class="service-item js-service-wifi js-hide-onload hide">
               <i class="fa fa-wifi" aria-hidden="true"></i>
               <span class="sr-only"><?= $wifiText ?? ''; ?></span>
             </span>
-            <span class="service-item js-service-print js-hide-onload">
+            <span class="service-item js-service-print js-hide-onload hide">
               <i class="fa fa-print" aria-hidden="true"></i>
               <span class="sr-only"><?= $printText ?? ''; ?></span>
             </span>
