@@ -1,5 +1,5 @@
 .collapse-accordion {
-  &-header {
+  &-trigger {
     &:extend(h4);
 
     text-align: left;
@@ -11,15 +11,24 @@
     padding: 1rem;
     font-size: 1.6rem;
     margin: 0;
+    transition: 0.3s background-color ease-in-out;
 
     .fa {
       transition: 0.3s transform ease-in-out;
+      font-weight: bold;
     }
 
     &.collapsed {
       .fa {
         transform: rotateX(180deg);
       }
+    }
+
+    &:hover,
+    &:focus {
+      background-color: @gray-light;
+      color: white;
+      outline-color: @gray-light;
     }
   }
 
@@ -35,11 +44,17 @@
   }
 
   &-dark {
-    .collapse-accordion-header {
+    .collapse-accordion-trigger {
       box-shadow: none;
       background-color: @gray-light;
       outline-color: @gray-light;
       color: white;
+
+      &:hover,
+      &:focus {
+        background-color: @gray;
+        outline-color: @gray;
+      }
     }
   }
 }
