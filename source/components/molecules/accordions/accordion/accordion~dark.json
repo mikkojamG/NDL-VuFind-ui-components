@@ -1,0 +1,7 @@
+{
+  "darkTheme": true,
+  "trigger": "Toggle",
+  "triggerId": "toggleDarkTrigger",
+  "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
+  "contentId": "toggleDarkContent"
+}

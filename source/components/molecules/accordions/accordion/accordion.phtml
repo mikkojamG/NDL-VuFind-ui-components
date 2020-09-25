@@ -1,4 +1,4 @@
-<div class="collapse-accordion">
+<div class="collapse-accordion<?= (isset($darkTheme) && $darkTheme) ? ' collapse-accordion-dark' : ''; ?>">
   <button type="button" id="<?= $triggerId; ?>" class="collapse-accordion-header collapsed" data-toggle="collapse" data-target="#<?= $contentId; ?>" aria-expanded="false" aria-controls="<?= $contentId; ?>">
     <i class="fa fa-handle-close" aria-hidden="true"></i>
     <?= $trigger; ?>
