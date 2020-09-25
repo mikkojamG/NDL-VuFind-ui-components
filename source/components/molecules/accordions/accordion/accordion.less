@@ -5,16 +5,26 @@
     text-align: left;
     width: 100%;
     background-color: @gray-ultralight;
-    outline: 1px solid @gray-lighter;
+    outline: 0.1rem solid @gray-lighter;
     border: none;
-    box-shadow: 1px 1px 1px 1px @gray-lighter;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem @gray-lighter;
     padding: 1rem;
     font-size: 1.6rem;
     margin: 0;
+
+    .fa {
+      transition: 0.3s transform ease-in-out;
+    }
+
+    &.collapsed {
+      .fa {
+        transform: rotateX(180deg);
+      }
+    }
   }
 
   &-panel {
-    outline: 1px solid @gray-lighter;
+    outline: 0.1rem solid @gray-lighter;
     padding: 1rem;
     font-size: 1.4rem;
     margin-top: 0.2rem;

@@ -1,9 +1,9 @@
 <div class="collapse-accordion">
-  <button type="button" data-toggle="collapse" data-target="#toggle" class="collapse-accordion-header collapsed" aria-expanded="false" aria-controls="toggle" id="accordionToggle">
-    Toggle
+  <button type="button" id="<?= $triggerId; ?>" class="collapse-accordion-header collapsed" data-toggle="collapse" data-target="#<?= $contentId; ?>" aria-expanded="false" aria-controls="<?= $contentId; ?>">
+    <i class="fa fa-handle-close" aria-hidden="true"></i>
+    <?= $trigger; ?>
   </button>
-  <section id="toggle" aria-expanded="false" class="collapse-accordion-panel collapse" aria-labelledby="accordionToggle">
-    <p>Content</p>
-    <p>Content</p>
+  <section id="<?= $contentId; ?>" aria-expanded="false" class="collapse-accordion-panel collapse" aria-labelledby="<?= $triggerId; ?>">
+    <?= $content; ?>
   </section>
 </div>
