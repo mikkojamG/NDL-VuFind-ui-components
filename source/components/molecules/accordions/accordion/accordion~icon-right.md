@@ -13,5 +13,6 @@ General purpose accordion component with icon aligned to the right. Used for hid
 | darkTheme    | `Boolean` | -                                      | No       |
 | icon         | `String`  | -                                      | No       |
 | iconAlign    | `String`  | `right`                                | No       |
+| initallyOpen | `Boolean` | `false`                                | No       |
 | outline      | `Boolean` | -                                      | No       |
 | wrapperClass | `String`  | -                                      | No       |

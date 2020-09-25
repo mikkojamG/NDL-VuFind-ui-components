@@ -13,5 +13,6 @@ General purpose accordion component with outline applied and icon aligned to the
 | darkTheme    | `Boolean` | -                                      | No       |
 | icon         | `String`  | -                                      | No       |
 | iconAlign    | `String`  | `right`                                | No       |
+| initallyOpen | `Boolean` | `false`                                | No       |
 | outline      | `Boolean` | `true`                                 | No       |
 | wrapperClass | `String`  | -                                      | No       |

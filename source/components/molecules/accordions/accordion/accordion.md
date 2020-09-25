@@ -1,6 +1,6 @@
 #### Description
 
-General purpose accordion component. Used for hiding/showing content.
+General purpose accordion component. Used for hiding/showing content. Accordion is set to be initially open.
 
 #### Properties
 
@@ -13,5 +13,6 @@ General purpose accordion component. Used for hiding/showing content.
 | darkTheme    | `Boolean` | -                                      | No       |
 | icon         | `String`  | -                                      | No       |
 | iconAlign    | `String`  | -                                      | No       |
+| initallyOpen | `Boolean` | `true`                                 | No       |
 | outline      | `Boolean` | -                                      | No       |
 | wrapperClass | `String`  | -                                      | No       |

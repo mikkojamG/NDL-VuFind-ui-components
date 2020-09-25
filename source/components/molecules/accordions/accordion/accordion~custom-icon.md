@@ -11,7 +11,8 @@ General purpose accordion component with custom icon aligned to the right. Used 
 | triggerText  | `String`  | `Toggle`                               | Yes      |
 | triggerId    | `String`  | `toggleCustomIconTrigger`              | Yes      |
 | darkTheme    | `Boolean` | -                                      | No       |
-| icon         | `String`  | `fa-arrow-down`                        | No       |
+| icon         | `String`  | `fa fa-arrow-down`                     | No       |
 | iconAlign    | `String`  | `right`                                | No       |
+| initallyOpen | `Boolean` | `false`                                | No       |
 | outline      | `Boolean` | -                                      | No       |
 | wrapperClass | `String`  | -                                      | No       |

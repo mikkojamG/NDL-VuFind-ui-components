@@ -13,5 +13,6 @@ General purpose accordion component with dark coloring theme applied. Used for h
 | darkTheme    | `Boolean` | `true`                                 | No       |
 | icon         | `String`  | -                                      | No       |
 | iconAlign    | `String`  | -                                      | No       |
+| initallyOpen | `Boolean` | `false`                                | No       |
 | outline      | `Boolean` | -                                      | No       |
 | wrapperClass | `String`  | -                                      | No       |

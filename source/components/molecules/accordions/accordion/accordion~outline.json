@@ -4,5 +4,6 @@
   "triggerText": "Toggle",
   "triggerId": "toggleOutlineTrigger",
   "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
-  "contentId": "toggleOutlineContent"
+  "contentId": "toggleOutlineContent",
+  "initallyOpen": false
 }
