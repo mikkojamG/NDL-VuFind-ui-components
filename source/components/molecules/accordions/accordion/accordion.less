@@ -1,0 +1,26 @@
+.collapse-accordion {
+  &-header {
+    &:extend(h4);
+
+    text-align: left;
+    width: 100%;
+    background-color: @gray-ultralight;
+    outline: 1px solid @gray-lighter;
+    border: none;
+    box-shadow: 1px 1px 1px 1px @gray-lighter;
+    padding: 1rem;
+    font-size: 1.6rem;
+    margin: 0;
+  }
+
+  &-panel {
+    outline: 1px solid @gray-lighter;
+    padding: 1rem;
+    font-size: 1.4rem;
+    margin-top: 0.2rem;
+
+    p {
+      margin-bottom: 0.9rem;
+    }
+  }
+}
