@@ -1,13 +1,15 @@
-<div class="collapse-accordion<?= (isset($darkTheme) && $darkTheme) ? ' collapse-accordion-dark' : ''; ?>">
+<?php $iconClass = isset($icon) ? $icon :  'fa-handle-close'; ?>
+
+<div class="collapse-accordion<?= (isset($darkTheme) && $darkTheme) ? ' collapse-accordion-dark' : ''; ?><?= (isset($outline) && !$outline) ? ' collapse-accordion-no-outline' : ''; ?>">
   <button type="button" id="<?= $triggerId; ?>" class="collapse-accordion-trigger collapsed" data-toggle="collapse" data-target="#<?= $contentId; ?>" aria-expanded="false" aria-controls="<?= $contentId; ?>">
     <?php if (!isset($iconAlign)) : ?>
-      <i class="fa fa-handle-close" aria-hidden="true"></i>
+      <i class="fa <?= $iconClass; ?>" aria-hidden="true"></i>
     <?php endif; ?>
 
     <?= $trigger; ?>
 
     <?php if (isset($iconAlign) && $iconAlign == 'right') : ?>
-      <i class="fa fa-handle-close pull-right" aria-hidden="true"></i>
+      <i class="fa <?= $iconClass; ?> pull-right" aria-hidden="true"></i>
     <?php endif; ?>
   </button>
   <section id="<?= $contentId; ?>" aria-expanded="false" class="collapse-accordion-panel collapse" aria-labelledby="<?= $triggerId; ?>">
