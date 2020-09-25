@@ -1,5 +1,5 @@
 {
-  "trigger": "Toggle",
+  "triggerText": "Toggle",
   "triggerId": "toggleTrigger",
   "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
   "contentId": "toggleContent"

@@ -1,3 +1,19 @@
+.accordion-outline(@outline, @hover) {
+  .collapse-accordion {
+    &-trigger {
+      outline: 0.1rem solid @outline;
+
+      &:hover,
+      &:focus {
+        outline-color: @hover;
+      }
+    }
+    &-panel {
+      outline: 0.1rem solid @outline;
+    }
+  }
+}
+
 .collapse-accordion {
   &-trigger {
     &:extend(h4);
@@ -5,7 +21,7 @@
     text-align: left;
     width: 100%;
     background-color: @gray-ultralight;
-    outline: 0.1rem solid @gray-lighter;
+
     border: none;
     padding: 1rem;
     font-size: 1.6rem;
@@ -29,12 +45,10 @@
     &:focus {
       background-color: @gray-light;
       color: white;
-      outline-color: @gray-light;
     }
   }
 
   &-panel {
-    outline: 0.1rem solid @gray-lighter;
     padding: 1rem;
     font-size: 1.4rem;
     margin-top: 0.2rem;
@@ -44,28 +58,23 @@
     }
   }
 
+  &-outline {
+    .accordion-outline(@gray-lighter, @gray-light);
+  }
+
   &-dark {
     .collapse-accordion-trigger {
       background-color: @gray-light;
-      outline-color: @gray-light;
       color: white;
 
       &:hover,
       &:focus {
         background-color: @gray;
-        outline-color: @gray;
       }
     }
-  }
 
-  &-no-outline {
-    .collapse-accordion {
-      &-trigger {
-        outline: none;
-      }
-      &-panel {
-        outline: none;
-      }
+    &.collapse-accordion-outline {
+      .accordion-outline(@gray-lighter, @gray);
     }
   }
 }

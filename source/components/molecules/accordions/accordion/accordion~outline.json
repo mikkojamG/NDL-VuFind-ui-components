@@ -1,7 +1,8 @@
 {
+  "outline": true,
   "iconAlign": "right",
   "triggerText": "Toggle",
-  "triggerId": "toggleIconRightTrigger",
+  "triggerId": "toggleOutlineTrigger",
   "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
-  "contentId": "toggleIconRightContent"
+  "contentId": "toggleOutlineContent"
 }

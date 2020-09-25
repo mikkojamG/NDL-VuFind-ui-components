@@ -1,9 +1,0 @@
-{
-  "outline": false,
-  "darkTheme": true,
-  "iconAlign": "right",
-  "trigger": "Toggle",
-  "triggerId": "toggleNoOutlineTrigger",
-  "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
-  "contentId": "toggleNoOutlineContent"
-}
