@@ -1,7 +1,14 @@
 <div class="collapse-accordion<?= (isset($darkTheme) && $darkTheme) ? ' collapse-accordion-dark' : ''; ?>">
   <button type="button" id="<?= $triggerId; ?>" class="collapse-accordion-header collapsed" data-toggle="collapse" data-target="#<?= $contentId; ?>" aria-expanded="false" aria-controls="<?= $contentId; ?>">
-    <i class="fa fa-handle-close" aria-hidden="true"></i>
+    <?php if (!isset($iconAlign)) : ?>
+      <i class="fa fa-handle-close" aria-hidden="true"></i>
+    <?php endif; ?>
+
     <?= $trigger; ?>
+
+    <?php if (isset($iconAlign) && $iconAlign == 'right') : ?>
+      <i class="fa fa-handle-close pull-right" aria-hidden="true"></i>
+    <?php endif; ?>
   </button>
   <section id="<?= $contentId; ?>" aria-expanded="false" class="collapse-accordion-panel collapse" aria-labelledby="<?= $triggerId; ?>">
     <?= $content; ?>
