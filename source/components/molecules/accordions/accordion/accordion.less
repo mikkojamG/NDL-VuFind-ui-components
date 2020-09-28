@@ -28,15 +28,8 @@
     transition: 0.3s background-color ease-in-out,
       0.3s outline-color ease-in-out;
 
-    .fa {
-      transition: 0.3s transform ease-in-out;
-      font-weight: bold;
-      vertical-align: middle;
-      transform: rotateX(180deg);
-    }
-
     &.collapsed {
-      .fa {
+      .collapse-accordion-icon {
         transform: rotateX(0deg);
       }
     }
@@ -45,6 +38,13 @@
     &:focus {
       background-color: @gray-lighter;
     }
+  }
+
+  &-icon {
+    transition: 0.3s transform ease-in-out;
+    font-weight: bold;
+    vertical-align: middle;
+    transform: rotateX(180deg);
   }
 
   &-panel {
