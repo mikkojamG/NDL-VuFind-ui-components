@@ -21,7 +21,6 @@
     text-align: left;
     width: 100%;
     background-color: @gray-ultralight;
-
     border: none;
     padding: 1rem;
     font-size: 1.6rem;
@@ -44,8 +43,7 @@
 
     &:hover,
     &:focus {
-      background-color: @gray-light;
-      color: white;
+      background-color: @gray-lighter;
     }
   }
 
@@ -60,7 +58,7 @@
   }
 
   &-outline {
-    .accordion-outline(@gray-lighter, @gray-light);
+    .accordion-outline(@gray-lighter, @gray-lighter);
   }
 
   &-dark {
