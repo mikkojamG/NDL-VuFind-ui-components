@@ -1,0 +1,51 @@
+{
+  "tablistLabel": "Finna main tabs",
+  "fallbackLabel": "Submit",
+  "tabs": [
+    {
+      "name": "Primary tab 1",
+      "id": "tab1",
+      "href": "#",
+      "active": true
+    },
+    {
+      "name": "Primary tab 2",
+      "id": "tab2",
+      "href": "#"
+    },
+    {
+      "name": "Primary tab 3",
+      "id": "tab3",
+      "href": "#"
+    },
+    {
+      "name": "Primary tab 4",
+      "id": "tab4",
+      "href": "#"
+    },
+    {
+      "name": "Primary tab 5",
+      "id": "tab5",
+      "href": "#"
+    }
+  ],
+  "secondaryTablistLabel": "Finna secondary tabs",
+  "secondaryTabs": [
+    {
+      "name": "Secondary tab 1",
+      "id": "secondaryTab1",
+      "href": "#",
+      "active": true
+    },
+    {
+      "name": "Secondary tab 2",
+      "id": "secondaryTab2",
+      "href": "#"
+    },
+    {
+      "name": "Secondary tab 3",
+      "id": "secondaryTab3",
+      "href": "#"
+    }
+  ]
+}
