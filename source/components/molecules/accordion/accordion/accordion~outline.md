@@ -4,7 +4,7 @@ title: Outline
 
 #### Description
 
-General purpose accordion component with outline applied and icon aligned to the right.
+General purpose accordion component with outline applied.
 
 #### Properties
 
