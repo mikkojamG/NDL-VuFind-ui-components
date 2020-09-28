@@ -1,3 +1,7 @@
+---
+title: Outline
+---
+
 #### Description
 
 General purpose accordion component with outline applied and icon aligned to the right.
@@ -12,7 +16,7 @@ General purpose accordion component with outline applied and icon aligned to the
 | titleId      | `String`            | `toggleOutlineTitle`                   | Yes      |
 | darkTheme    | `Boolean`           | -                                      | No       |
 | icon         | `String`\|`Boolean` | -                                      | No       |
-| iconAlign    | `String`            | `right`                                | No       |
+| iconAlign    | `String`            | -                                      | No       |
 | initallyOpen | `Boolean`           | `false`                                | No       |
 | outline      | `Boolean`           | `true`                                 | No       |
 | wrapperClass | `String`            | -                                      | No       |

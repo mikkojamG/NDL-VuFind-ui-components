@@ -1,3 +1,7 @@
+---
+title: Icon Right
+---
+
 #### Description
 
 General purpose accordion component with icon aligned to the right.

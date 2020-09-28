@@ -13,7 +13,7 @@ $open = isset($initallyOpen) && $initallyOpen;
       <i class="collapse-accordion-icon <?= $iconClass; ?> pull-right" aria-hidden="true"></i>
     <?php endif; ?>
   </button>
-  <section id="<?= $contentId; ?>" aria-expanded="<?= $open ? 'true' : 'false'; ?>" class="collapse-accordion-panel collapse<?= $open ? ' in' : ''; ?>" aria-labelledby="<?= $titleId; ?>">
+  <div id="<?= $contentId; ?>" aria-expanded="<?= $open ? 'true' : 'false'; ?>" class="collapse-accordion-panel collapse<?= $open ? ' in' : ''; ?>" aria-labelledby="<?= $titleId; ?>">
     <?= $content; ?>
-  </section>
+  </div>
 </div>

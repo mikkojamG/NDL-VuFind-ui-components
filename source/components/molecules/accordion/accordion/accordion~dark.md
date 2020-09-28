@@ -1,3 +1,7 @@
+---
+title: Dark
+---
+
 #### Description
 
 General purpose accordion component with dark coloring theme applied.

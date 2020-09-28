@@ -1,6 +1,10 @@
+---
+title: Custom Icon
+---
+
 #### Description
 
-General purpose accordion component with custom icon aligned to the right.
+General purpose accordion component with custom icon.
 
 #### Properties
 
@@ -12,7 +16,7 @@ General purpose accordion component with custom icon aligned to the right.
 | titleId      | `String`            | `toggleCustomIconTitle`                | Yes      |
 | darkTheme    | `Boolean`           | -                                      | No       |
 | icon         | `String`\|`Boolean` | `fa fa-arrow-down`                     | No       |
-| iconAlign    | `String`            | `right`                                | No       |
+| iconAlign    | `String`            | -                                      | No       |
 | initallyOpen | `Boolean`           | `false`                                | No       |
 | outline      | `Boolean`           | -                                      | No       |
 | wrapperClass | `String`            | -                                      | No       |

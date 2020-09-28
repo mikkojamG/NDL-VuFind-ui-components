@@ -1,3 +1,7 @@
+---
+title: Default
+---
+
 #### Description
 
 General purpose accordion component. Accordion is set to be open with the `initallyOpen` property.

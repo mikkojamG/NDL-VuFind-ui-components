@@ -1,6 +1,5 @@
 {
   "outline": true,
-  "iconAlign": "right",
   "titleId": "toggleOutlineTitle",
   "contentId": "toggleOutlineContent",
   "initallyOpen": false

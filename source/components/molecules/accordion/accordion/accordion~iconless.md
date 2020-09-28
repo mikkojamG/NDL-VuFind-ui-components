@@ -1,3 +1,7 @@
+---
+title: Iconless
+---
+
 #### Description
 
 Accordion component without an icon. Accordion can be made iconless by setting `icon` property to boolean value `false`.

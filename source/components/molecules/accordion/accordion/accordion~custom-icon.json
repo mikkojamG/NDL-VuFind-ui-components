@@ -1,6 +1,5 @@
 {
   "icon": "fa fa-arrow-down",
-  "iconAlign": "right",
   "titleId": "toggleCustomIconTitle",
   "contentId": "toggleCustomIconContent",
   "initallyOpen": false
