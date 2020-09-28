@@ -1,8 +1,6 @@
 {
   "iconAlign": "right",
-  "triggerText": "Toggle",
-  "triggerId": "toggleIconRightTrigger",
-  "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
+  "titleId": "toggleIconRightTitle",
   "contentId": "toggleIconRightContent",
   "initallyOpen": false
 }

@@ -1,6 +1,6 @@
 .accordion-outline(@outline, @hover) {
   .collapse-accordion {
-    &-trigger {
+    &-title {
       outline: 0.1rem solid @outline;
 
       &:hover,
@@ -15,7 +15,7 @@
 }
 
 .collapse-accordion {
-  &-trigger {
+  &-title {
     &:extend(h4);
 
     text-align: left;
@@ -64,7 +64,7 @@
   }
 
   &-dark {
-    .collapse-accordion-trigger {
+    .collapse-accordion-title {
       background-color: @gray-light;
       color: white;
 

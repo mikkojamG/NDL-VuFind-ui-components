@@ -1,9 +1,7 @@
 {
   "icon": "fa fa-arrow-down",
   "iconAlign": "right",
-  "triggerText": "Toggle",
-  "triggerId": "toggleCustomIconTrigger",
-  "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
+  "titleId": "toggleCustomIconTitle",
   "contentId": "toggleCustomIconContent",
   "initallyOpen": false
 }
