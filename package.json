@@ -46,6 +46,7 @@
     "gulp-less": "^4.0.1",
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "husky": "^4.2.5",
     "prompts": "^2.3.2"
