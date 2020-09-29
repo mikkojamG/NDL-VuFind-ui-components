@@ -9,8 +9,12 @@
   }
 
   &-form-wrapper {
-    width: 40%;
     margin: 1rem;
+    width: 100%;
+
+    @media (min-width: @screen-sm) {
+      width: 40%;
+    }
 
     .organisation-map-form {
       width: 100%;
@@ -35,6 +39,20 @@
   &-controls {
     display: flex;
     margin: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
+
+    @media (min-width: @screen-sm) {
+      width: auto;
+      flex-wrap: nowrap;
+    }
+
+    .map-controls {
+      width: 100%;
+      @media (min-width: @screen-sm) {
+        width: auto;
+      }
+    }
   }
 
   &-control {
