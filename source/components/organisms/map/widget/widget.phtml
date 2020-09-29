@@ -1,0 +1,36 @@
+<div class="organisation-map">
+  <h2>Heading</h2>
+  <p class="consortium-notification">Hide this</p>
+  <div class="organisation-map-control-bar">
+    <div class="organisation-map-form-wrapper">
+      <form class="organisation-map-form form-inline">
+        <div class="input-group">
+          <input id="office-search" class="form-control" type="text" aria-label="Office search" placeholder="Search for office" aria-placeholder="Search for office" />
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-search"></i>
+            <span class="sr-only">Office Search</span>
+          </button>
+          <p class="notification hide">Organisation location not available</p>
+        </div>
+      </form>
+      <div class="autocomplete-container"></div>
+    </div>
+    <div class="organisation-map-controls">
+      <button type="button" class="organisation-map-control-show btn btn-primary js-show-map">Show map</button>
+      <div class="map-controls">
+        <button type="button" class="organisation-map-control js-show-service-point">Show service point</button>
+        <button type="button" class="organisation-map-control js-show-all">Show all</button>
+      </div>
+    </div>
+  </div>
+  <div class="office map" aria-hidden="true">
+    <div id="openlayers-canvas" class="map-widget"></div>
+    <div id="marker-tooltip" class="hide"></div>
+  </div>
+</div>
+<template class="js-map-bubble">
+  <div class="map-bubble">
+    <h5 class="name js-name"></h5>
+    <p class="js-address"></p>
+  </div>
+</template>

@@ -1,0 +1,53 @@
+.organisation-map {
+  &-control-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    background-color: @gray-ultralight;
+  }
+
+  &-form-wrapper {
+    width: 40%;
+    margin: 1rem;
+
+    .organisation-map-form {
+      width: 100%;
+
+      .input-group {
+        display: flex;
+        width: inherit;
+
+        input {
+          width: inherit;
+        }
+
+        button {
+          i {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+
+  &-controls {
+    display: flex;
+    margin: 1rem;
+  }
+
+  &-control {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    font-weight: 300;
+
+    &-show {
+      padding: 0.3rem 0.5rem;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+}
