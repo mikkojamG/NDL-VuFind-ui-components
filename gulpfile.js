@@ -11,6 +11,7 @@ const path = require('path');
 
 const pipeExec = require('gulp-exec');
 const less = require('gulp-less');
+const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
@@ -53,6 +54,7 @@ const styles = () => {
 
   return gulp
     .src(`${source}/*.less`)
+    .pipe(sourcemaps.init())
     .pipe(less({
       modifyVars: {
         '@themePath': themesRootPath
@@ -62,6 +64,7 @@ const styles = () => {
     .pipe(replace('../../../themes/finna2/css/fonts', '../fonts'))
     .pipe(minify())
     .pipe(rename({ suffix: '.min' }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(dest))
     .pipe(browserSync.stream());
 };
@@ -344,7 +347,7 @@ patternLab.description = "Build PatternLab to public directory";
 
 fonts.description = "Copy font files from theme directory";
 
-styles.description = "Convert and minify Less to CSS";
+styles.description = "Build styles and sourcemaps.";
 
 scripts.description = "Build and uglify Javascript into main.js";
 
