@@ -1,0 +1,10 @@
+{
+  "widgetHeading": "Demo Heading",
+  "inputLabel": "Office search",
+  "formButton": "Office search",
+  "locationNotAvailableText": "Organisation location not available",
+  "showMapButton": "Show map",
+  "centerButton": "Center",
+  "showAllButton": "Show all",
+  "widgetClass": "js-map-widget"
+}
