@@ -1,14 +1,14 @@
 <div>
-  <?= $this->render('components/organisms/map/widget/widget.phtml', ['widgetHeading' => $widgetHeading, 'inputLabel' => $inputLabel, 'formButton' => $formButton, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass]); ?>
+  <?= $this->render('components/organisms/map/widget/widget.phtml', ['widgetHeading' => $widgetHeading, 'inputLabel' => $inputLabel, 'formButton' => $formButton, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass, 'wrapperClass' => 'js-widget-wrapper']); ?>
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
     var attribution =
-      '<i class="fa fa-map-marker marker open"></i><span class="map-marker-text">' + VuFind.translate('organisation_info_is_open') + '</span>' +
-      '<i class="fa fa-map-marker marker closed"></i><span class="map-marker-text">' + VuFind.translate('organisation_info_is_closed') + '</span>' +
-      '<i class="fa fa-map-marker marker no-schedule"></i><span class="map-marker-text">' + VuFind.translate('organisation_info_no_schedule') + '</span>' +
-      '<span class="js-expand-map expand expand-map map-marker-text marker"><i class="fa fa-expand"></i>' + VuFind.translate('organisation_info_map_expand') + '</span>' +
-      '<span class="js-contract-map collapse contract-map map-marker-text marker" style="display: none"> <i class="fa fa-condense"></i>' + VuFind.translate('organisation_info_map_collapse') + '</span>';
+      '<i class="fa fa-map-marker marker open"></i><span class="map-marker-text">Open</span>' +
+      '<i class="fa fa-map-marker marker closed"></i><span class="map-marker-text">Closed</span>' +
+      '<i class="fa fa-map-marker marker no-schedule"></i><span class="map-marker-text">Not available</span>' +
+      '<span class="js-expand-map expand expand-map map-marker-text marker"><i class="fa fa-expand"></i>Expand</span>' +
+      '<span class="js-contract-map collapse contract-map map-marker-text marker" style="display: none"> <i class="fa fa-condense"></i>Collapse</span>';
 
     var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
 
@@ -188,15 +188,16 @@
     };
 
     map.draw(organisationList);
+    var $wrapper = $('.js-widget-wrapper');
 
-    var $holder = $('.js-map-holder');
+    var $holder = $wrapper.find('.js-map-holder');
     var id = 85141;
 
-    $('.js-show-map').on('click', function onShowMap() {
+    $wrapper.find('.js-show-map').on('click', function onShowMap() {
       if ($holder.hasClass('hidden')) {
         $holder.removeClass('hidden');
 
-        $('.js-map-controls').removeClass('hidden');
+        $wrapper.find('.js-map-controls').removeClass('hidden');
         $(this).addClass('toggled');
 
         map.resize();
@@ -211,11 +212,11 @@
         }
       } else {
         $holder.addClass('hidden');
-        $('.js-map-controls').addClass('hidden');
+        $wrapper.find('.js-map-controls').addClass('hidden');
         $(this).removeClass('toggled');
       }
 
-      $('.js-center').on('click', function onCenter() {
+      $wrapper.find('.js-center').on('click', function onCenter() {
         if (id in organisationList) {
           var data = organisationList[id];
 
@@ -226,10 +227,10 @@
         }
       });
 
-      $('.js-show-all').on('click', function() {
+      $wrapper.find('.js-show-all').on('click', function() {
         if ($holder.hasClass('hidden')) {
           $holder.removeClass('hidden');
-          $('.js-show-map').addClass('toggled');
+          $wrapper.find('.js-show-map').addClass('toggled');
         }
 
         map.resize();
@@ -251,7 +252,7 @@
       })
     });
 
-    $('.js-office-search').autocomplete({
+    $wrapper.find('.js-office-search').autocomplete({
       source: function autocompleteSource(request, response) {
         var term = request.term.toLowerCase();
         var result = Object.keys(organisationList).map(function mapOrganisation(key, id) {
@@ -271,14 +272,14 @@
         response(result);
       },
       select: function onSelect(event, ui) {
-        $('.js-office-search').val(ui.item.label);
+        $wrapper.find('.js-office-search').val(ui.item.label);
 
         return false;
       },
       focus: function onAutocompleteFocus() {
         if ($(window).width() < 768) {
           $('html, body').animate({
-            scrollTop: $('.js-office-search').offset().top - 5
+            scrollTop: $wrapper.find('.js-office-search').offset().top - 5
           }, 100);
         }
         return false;
@@ -299,17 +300,17 @@
         .appendTo(ul);
     };
 
-    $('.js-office-search').on('click', function onClickSearch() {
-      $('.js-office-search').autocomplete('search', $(this).val());
+    $wrapper.find('.js-office-search').on('click', function onClickSearch() {
+      $wrapper.find('.js-office-search').autocomplete('search', $(this).val());
     });
 
-    $('.js-office-search').find('li').on('touchstart', function onTouchStartSearch() {
-      $('.js-office-search').autocomplete('search', $(this).val());
+    $wrapper.find('.js-office-search').find('li').on('touchstart', function onTouchStartSearch() {
+      $wrapper.find('.js-office-search').autocomplete('search', $(this).val());
     });
 
     $('.js-office-search-btn').on('click', function onClickSearchButton() {
-      $('.js-office-search').autocomplete('search', '');
-      $('.js-office-search').focus();
+      $wrapper.find('.js-office-search').autocomplete('search', '');
+      $wrapper.find('.js-office-search').focus();
 
       e.preventDefault();
       return;
