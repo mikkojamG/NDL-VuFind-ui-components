@@ -5,8 +5,8 @@
     <div class="organisation-map-form-wrapper">
       <form class="organisation-map-form form-inline">
         <div class="input-group">
-          <input id="office-search" class="form-control" type="text" aria-label="Office search" placeholder="Search for office" aria-placeholder="Search for office" />
-          <button type="submit" class="btn btn-primary">
+          <input id="office-search" class="js-office-search form-control" type="text" aria-label="Office search" placeholder="Search for office" aria-placeholder="Search for office" />
+          <button type="submit" class="btn btn-primary js-office-search-btn">
             <i class="fa fa-search"></i>
             <span class="sr-only">Office Search</span>
           </button>
@@ -53,6 +53,7 @@
     var organisationList = {
       85141: {
         id: 85141,
+        name: "Turun pääkirjasto",
         address: {
           street: "Linnankatu 2",
           zipcode: "20100",
@@ -142,6 +143,7 @@
       },
       85968: {
         id: 85968,
+        name: "Askaisten kirjasto",
         address: {
           street: "Vesiläntie 3",
           zipcode: "21240",
@@ -282,5 +284,71 @@
         $holder.find('.js-expand-map').show();
       })
     });
-  })
+
+    $('.js-office-search').autocomplete({
+      source: function autocompleteSource(request, response) {
+        var term = request.term.toLowerCase();
+        var result = Object.keys(organisationList).map(function mapOrganisation(key, id) {
+
+          if (organisationList[key].name.toLowerCase().indexOf(term) !== -1) {
+            return {
+              value: id,
+              label: organisationList[key].name
+            }
+          }
+        });
+
+        result = result.sort(function sortCallback(a, b) {
+          return a.label > b.label ? 1 : -1;
+        });
+
+        response(result);
+      },
+      select: function onSelect(event, ui) {
+        console.log(ui.item.label);
+
+        $('.js-office-search').val(ui.item.label);
+
+        return false;
+      },
+      focus: function onAutocompleteFocus() {
+        if ($(window).width() < 768) {
+          $('html, body').animate({
+            scrollTop: $('.js-office-search').offset().top - 5
+          }, 100);
+        }
+        return false;
+      },
+      open: function onOpen() {
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+          holder.find('.ui-autocomplete').off('menufocus hover mouseover');
+        }
+      },
+      minLength: 0,
+      delay: 100,
+      appendTo: '.autocomplete-container',
+      autoFocus: false
+    }).data('ui-autocomplete')._renderItem = function addLabels(ul, item) {
+      return $('<li>')
+        .attr('aria-label', item.label)
+        .html(item.label)
+        .appendTo(ul);
+    };
+
+    $('.js-office-search').on('click', function onClickSearch() {
+      $('.js-office-search').autocomplete('search', $(this).val());
+    });
+
+    $('.js-office-search').find('li').on('touchstart', function onTouchStartSearch() {
+      $('.js-office-search').autocomplete('search', $(this).val());
+    });
+
+    $('.js-office-search-btn').on('click', function onClickSearchButton() {
+      $('.js-office-search').autocomplete('search', '');
+      $('.js-office-search').focus();
+
+      e.preventDefault();
+      return;
+    })
+  });
 </script>
