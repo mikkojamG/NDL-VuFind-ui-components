@@ -69,8 +69,64 @@
     }
   }
 
+  .map {
+    .map-marker-text {
+      font-size: 1.6rem;
+
+      &.expand-map {
+        i {
+          margin-left: 2rem;
+          margin-right: 0;
+        }
+      }
+    }
+
+    .marker {
+      font-size: 1.6rem;
+      padding-right: 0.5rem;
+      cursor: pointer;
+
+      &.open {
+        color: @brand-success;
+      }
+
+      &.closed {
+        color: @brand-danger;
+      }
+
+      &.no-schedule {
+        color: @gray-light;
+      }
+    }
+  }
+
   .map-widget {
     height: 32rem;
     width: 100%;
+
+    .leaflet-marker-icon {
+      i {
+        opacity: 0.8;
+
+        &.open {
+          color: @brand-success;
+        }
+
+        &.closed {
+          color: @brand-danger;
+        }
+
+        &.no-schedule {
+          color: @gray-light;
+        }
+      }
+    }
+  }
+
+  .map-bubble {
+    .name {
+      min-width: 12rem;
+      max-width: 20rem;
+    }
   }
 }
