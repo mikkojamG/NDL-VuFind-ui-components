@@ -9,6 +9,35 @@ finna.mapWidget = (function finnaMapWidget() {
 
   var $holder, $map;
 
+  var hideMarker = function hideMarker() {
+    if ($selectedMarker) {
+      $selectedMarker.closePopup();
+    }
+  }
+
+  var selectMarker = function selectMarker(id) {
+    var marker;
+
+    if (id in mapMarkers) {
+      marker = mapMarkers[id];
+    }
+
+    if (!marker) {
+      hideMarker();
+      return
+    }
+
+    if ($selectedMarker && $selectedMarker === marker) {
+      return;
+    }
+
+    marker.openPopup();
+    $selectedMarker = marker;
+  };
+
+  var resize = function resize() {
+    $map.invalidateSize(true);
+  };
 
   var initMapZooming = function initMapZooming() {
     L.control.zoom({
@@ -76,9 +105,9 @@ finna.mapWidget = (function finnaMapWidget() {
 
       mapMarkers[organisation.id] = $marker;
       markers.push($marker);
+    } else {
+      return;
     }
-
-    return;
   };
 
   var reset = function reset() {
@@ -134,7 +163,7 @@ finna.mapWidget = (function finnaMapWidget() {
 
     var icons = {};
 
-    ['open', 'closed', 'no-schedule'].forEach(function forEachIcon(_, iconName) {
+    ['open', 'closed', 'no-schedule'].forEach(function forEachIcon(iconName) {
       icons[iconName] = L.divIcon({
         className: 'mapMarker',
         iconSize: null,
@@ -145,12 +174,14 @@ finna.mapWidget = (function finnaMapWidget() {
       });
     });
 
-    organisations.forEach(function forEachOrganisation(_, organisation) {
-      handleOrganisation(organisation, $this, icons);
+    Object.keys(organisations).forEach(function forEachOrganisation(key) {
+      handleOrganisation(organisations[key], $this, icons);
     });
   };
 
   return {
+    selectMarker: selectMarker,
+    resize: resize,
     reset: reset,
     draw: draw,
     init: function init(holder, _mapTileUrl, _attribution) {

@@ -17,14 +17,14 @@
     </div>
     <div class="organisation-map-controls">
       <button type="button" class="organisation-map-control-show btn btn-primary js-show-map">Show map</button>
-      <div class="map-controls">
+      <div class="map-controls hidden js-map-controls">
         <button type="button" class="organisation-map-control js-show-service-point">Show service point</button>
         <button type="button" class="organisation-map-control js-show-all">Show all</button>
       </div>
     </div>
   </div>
-  <div class="office map" aria-hidden="true">
-    <div id="openlayers-canvas" class="map-widget"></div>
+  <div class="office map hidden js-map-holder" aria-hidden="true">
+    <div id="openlayers-canvas" class="js-map-widget map-widget"></div>
     <div id="marker-tooltip" class="hide"></div>
   </div>
 </div>
@@ -37,7 +37,216 @@
 
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
-    console.log('Nui');
-    console.log(L);
+    var attribution =
+      '<i class="fa fa-map-marker marker open"></i><span class="map-marker-text">' + VuFind.translate('organisation_info_is_open') + '</span>' +
+      '<i class="fa fa-map-marker marker closed"></i><span class="map-marker-text">' + VuFind.translate('organisation_info_is_closed') + '</span>' +
+      '<i class="fa fa-map-marker marker no-schedule"></i><span class="map-marker-text">' + VuFind.translate('organisation_info_no_schedule') + '</span>' +
+      '<span class="expand expand-map map-marker-text marker"><i class="fa fa-expand"></i>' + VuFind.translate('organisation_info_map_expand') + '</span>' +
+      '<span class="collapse contract-map map-marker-text marker" style="display: none"> <i class="fa fa-condense"></i>' + VuFind.translate('organisation_info_map_collapse') + '</span>';
+
+    var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
+
+    var map = finna.mapWidget;
+
+    map.init($('.js-map-widget'), url, attribution);
+
+    var organisationList = {
+      85141: {
+        id: 85141,
+        address: {
+          street: "Linnankatu 2",
+          zipcode: "20100",
+          city: "Keskusta (Turku)",
+          coordinates: {
+            lat: 60.4504634,
+            lon: 22.2708644
+          }
+        },
+        openTimes: {
+          schedules: [{
+              date: "28.9.",
+              times: [{
+                opens: "9",
+                closes: "20",
+                selfservice: false
+              }],
+              day: "Ma"
+            },
+            {
+              date: "29.9.",
+              times: [{
+                opens: "9",
+                closes: "20",
+                selfservice: false
+              }],
+              day: "Ti"
+            },
+            {
+              date: "30.9.",
+              times: [{
+                opens: "9",
+                closes: "20",
+                selfservice: false
+              }],
+              day: "Ke",
+              "today": true
+            },
+            {
+              date: "1.10.",
+              times: [{
+                opens: "9",
+                closes: "20",
+                selfservice: false
+              }],
+              day: "To"
+            },
+            {
+              date: "2.10.",
+              times: [{
+                opens: "9",
+                closes: "20",
+                selfservice: false
+              }],
+              day: "Pe"
+            },
+            {
+              date: "3.10.",
+              times: [{
+                opens: "11",
+                closes: "17",
+                selfservice: false
+              }],
+              day: "La"
+            },
+            {
+              date: "4.10.",
+              times: [{
+                opens: "11",
+                closes: "17",
+                selfservice: false
+              }],
+              day: "Su"
+            }
+          ],
+          openToday: [{
+            opens: "9",
+            closes: "20",
+            selfservice: false
+          }],
+          currentWeek: true,
+          openNow: 1
+        },
+        map: {
+          info: "\n  <div class=\"map-bubble\">\n    <h5 class=\"name\">Turun pääkirjasto</h5>\n    <p><span class=\"office-links address\"></span></p>\n  </div>\n"
+        }
+      },
+      85968: {
+        id: 85968,
+        address: {
+          street: "Vesiläntie 3",
+          zipcode: "21240",
+          city: "Masku",
+          coordinates: {
+            lat: 60.5724247,
+            lon: 21.8653932
+          }
+        },
+        openTimes: {
+          schedules: [{
+              date: "28.9.",
+              times: [{
+                opens: "15",
+                closes: "19",
+                selfservice: false
+              }],
+              day: "Ma"
+            },
+            {
+              date: "29.9.",
+              times: [],
+              day: "Ti",
+              "closed": true
+            },
+            {
+              date: "30.9.",
+              times: [{
+                opens: "15",
+                closes: "19",
+                selfservice: false
+              }],
+              day: "Ke",
+              "today": true
+            },
+            {
+              date: "1.10.",
+              times: [{
+                opens: "12",
+                closes: "16",
+                selfservice: false
+              }],
+              day: "To"
+            },
+            {
+              date: "2.10.",
+              times: [],
+              day: "Pe",
+              "closed": true
+            },
+            {
+              date: "3.10.",
+              times: [],
+              day: "La",
+              "closed": true
+            },
+            {
+              date: "4.10.",
+              times: [],
+              day: "Su",
+              "closed": true
+            }
+          ],
+          openToday: [{
+            opens: "15",
+            closes: "19",
+            selfservice: false
+          }],
+          currentWeek: true,
+          openNow: 0
+        },
+        map: {
+          info: "\n  <div class=\"map-bubble\">\n    <h5 class=\"name\">Askaisten kirjasto</h5>\n    <p><span class=\"office-links address\"></span></p>\n  </div>\n"
+        }
+      }
+    };
+
+    map.draw(organisationList);
+
+    $('.js-show-map').on('click', function onShowMap() {
+      var $holder = $('.js-map-holder');
+
+      if ($holder.hasClass('hidden')) {
+        $holder.removeClass('hidden');
+
+        $('.js-map-controls').removeClass('hidden');
+        $(this).addClass('toggled');
+
+        map.resize();
+        map.reset();
+
+        var id = 85141;
+
+        if (id in organisationList) {
+          var data = organisationList[id];
+
+          if (data.address && data.address.coordinates) {
+            map.selectMarker(id);
+          }
+        }
+      } else {
+        $holder.addClass('hidden');
+        $('.js-map-controls').addClass('hidden');
+        $(this).removeClass('toggled');
+      }
+    });
   })
 </script>
