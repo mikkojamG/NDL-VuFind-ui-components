@@ -290,7 +290,7 @@ const copyPatterns = () => {
   const source = config.paths.source.patterns;
 
   return gulp
-    .src(`${source}**/*.phtml`)
+    .src([`${source}**/*.phtml`, `!${source}**/*-demo.phtml`])
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
 };
 gulp.task(copyPatterns);
@@ -299,7 +299,7 @@ const copyStyles = () => {
   const source = config.paths.source.patterns;
 
   return gulp
-    .src(`${source}**/*.less`)
+    .src([`${source}**/*.less`, `!${source}**/*-demo.less`])
     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
 };
 gulp.task(copyStyles);
@@ -308,7 +308,7 @@ const copyScripts = () => {
   const source = config.paths.source.patterns;
 
   return gulp
-    .src(`${source}**/*.js`)
+    .src([`${source}**/*.js`, `!${source}**/*-demo.js`])
     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
 };
 gulp.task(copyScripts);
