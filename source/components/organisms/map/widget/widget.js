@@ -4,18 +4,16 @@ finna.mapWidget = (function finnaMapWidget() {
   var mapTileUrl;
 
   var mapMarkers = {};
+  var organisationList = {};
   var markers = [];
   var $selectedMarker = null;
 
   var $widget,
     $map,
-    $showMapButton,
     $mapControls,
-    $officeSearchForm,
+    $searchInput,
     $holder,
     $mapHolder;
-
-  var organisationList = {};
 
   var hideMarker = function hideMarker() {
     if ($selectedMarker) {
@@ -30,12 +28,12 @@ finna.mapWidget = (function finnaMapWidget() {
       marker = mapMarkers[id];
     }
 
-    if (!marker) {
-      hideMarker();
+    if ($selectedMarker && $selectedMarker === marker) {
       return;
     }
 
-    if ($selectedMarker && $selectedMarker === marker) {
+    if (!marker) {
+      hideMarker();
       return;
     }
 
@@ -89,11 +87,8 @@ finna.mapWidget = (function finnaMapWidget() {
 
   var handleOrganisation = function handleOrganisation(organisation, $ref, icons) {
     if (organisation.address && organisation.address.coordinates) {
-      var infoWindowContent = organisation.map.info;
       var point = organisation.address.coordinates;
-
       var icon = icons['no-schedule'];
-
       var openTimes = finna.common.getField(organisation, 'openTimes');
 
       if (openTimes) {
@@ -107,7 +102,7 @@ finna.mapWidget = (function finnaMapWidget() {
 
       setMarkerEventListeners($marker, $ref, organisation)
 
-      $marker.bindPopup(infoWindowContent,
+      $marker.bindPopup(organisation.map.info,
         { zoomAnimation: true, autoPan: false }
       ).addTo($map);
 
@@ -128,7 +123,7 @@ finna.mapWidget = (function finnaMapWidget() {
   };
 
   var draw = function draw() {
-    var $this = $(this);
+    var $ref = $(this);
 
     var attribution = $('.js-attribution').html().trim();
 
@@ -184,16 +179,14 @@ finna.mapWidget = (function finnaMapWidget() {
     });
 
     Object.keys(organisationList).forEach(function forEachOrganisation(key) {
-      handleOrganisation(organisationList[key], $this, icons);
+      handleOrganisation(organisationList[key], $ref, icons);
     });
   };
 
   var attachMapControllers = function attachMapControllers(id) {
     $holder.find('.js-center').on('click', function onCenter() {
       if (id in organisationList) {
-        var organisationData = organisationList[id];
-
-        if (organisationData.address && organisationData.address.coordinates) {
+        if (organisationList[id].address && organisationList[id].address.coordinates) {
           reset();
           selectMarker(id);
         }
@@ -206,7 +199,8 @@ finna.mapWidget = (function finnaMapWidget() {
       $holder.find('.js-show-all').on('click', function onShowAll() {
         if ($mapHolder.hasClass('hidden')) {
           $mapHolder.removeClass('hidden');
-          $showMapButton.addClass('toggled');
+
+          $holder.find('.js-show-map').addClass('toggled');
         }
 
         resize();
@@ -230,7 +224,7 @@ finna.mapWidget = (function finnaMapWidget() {
   };
 
   var initMapControls = function initMapControls() {
-    $showMapButton.on('click', function onShowMap() {
+    $holder.find('.js-show-map').on('click', function onShowMap() {
       var id = $holder.data('organisation-id');
 
       if ($mapHolder.hasClass('hidden')) {
@@ -243,9 +237,7 @@ finna.mapWidget = (function finnaMapWidget() {
         reset();
 
         if (id in organisationList) {
-          var data = organisationList[id];
-
-          if (data.address && data.address.coordinates) {
+          if (organisationList[id].address && organisationList[id].address.coordinates) {
             selectMarker(id);
           }
         }
@@ -260,7 +252,7 @@ finna.mapWidget = (function finnaMapWidget() {
   };
 
   var initAutoComplete = function initAutoComplete() {
-    $officeSearchForm.autocomplete({
+    $searchInput.autocomplete({
       source: function autocompleteSource(request, response) {
         var term = request.term.toLowerCase();
         var result = Object.keys(organisationList).map(function mapOrganisation(key, index) {
@@ -280,14 +272,14 @@ finna.mapWidget = (function finnaMapWidget() {
         response(result);
       },
       select: function onSelect(_, ui) {
-        $officeSearchForm.val(ui.item.label);
+        $searchInput.val(ui.item.label);
 
         return false;
       },
       focus: function onAutocompleteFocus() {
         if ($(window).width() < 768) {
           $('html, body').animate({
-            scrollTop: $officeSearchForm.offset().top - 5
+            scrollTop: $searchInput.offset().top - 5
           }, 100);
         }
         return false;
@@ -308,17 +300,17 @@ finna.mapWidget = (function finnaMapWidget() {
         .appendTo(ul);
     };
 
-    $officeSearchForm.on('click', function onClickSearch() {
-      $officeSearchForm.autocomplete('search', $(this).val());
+    $searchInput.on('click', function onClickSearch() {
+      $searchInput.autocomplete('search', $(this).val());
     });
 
-    $officeSearchForm.find('li').on('touchstart', function onTouchStartSearch() {
-      $officeSearchForm.autocomplete('search', $(this).val());
+    $searchInput.find('li').on('touchstart', function onTouchStartSearch() {
+      $searchInput.autocomplete('search', $(this).val());
     });
 
     $holder.find('.js-office-search-btn').on('click', function onClickSearchButton(event) {
-      $officeSearchForm.autocomplete('search', '');
-      $officeSearchForm.focus();
+      $searchInput.autocomplete('search', '');
+      $searchInput.focus();
 
       event.preventDefault();
       return false;
@@ -326,6 +318,7 @@ finna.mapWidget = (function finnaMapWidget() {
   };
 
   return {
+    hideMarker: hideMarker,
     selectMarker: selectMarker,
     resize: resize,
     reset: reset,
@@ -336,9 +329,8 @@ finna.mapWidget = (function finnaMapWidget() {
       mapTileUrl = url;
       organisationList = organisations;
 
-      $showMapButton = $holder.find('.js-show-map');
       $mapControls = $holder.find('.js-map-controls')
-      $officeSearchForm = $holder.find('.js-office-search');
+      $searchInput = $holder.find('.js-office-search');
       $mapHolder = $holder.find('.js-map-holder');
 
       initMapControls();
