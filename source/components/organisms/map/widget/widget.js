@@ -1,13 +1,21 @@
 /*global VuFind, finna, L */
 finna.mapWidget = (function finnaMapWidget() {
   var zoomLevel = { initial: 27, far: 5, close: 14 };
-  var mapTileUrl, attribution;
+  var mapTileUrl;
 
   var mapMarkers = {};
   var markers = [];
   var $selectedMarker = null;
 
-  var $holder, $map;
+  var $widget,
+    $map,
+    $showMapButton,
+    $mapControls,
+    $officeSearchForm,
+    $holder,
+    $mapHolder;
+
+  var organisationList = {};
 
   var hideMarker = function hideMarker() {
     if ($selectedMarker) {
@@ -24,7 +32,7 @@ finna.mapWidget = (function finnaMapWidget() {
 
     if (!marker) {
       hideMarker();
-      return
+      return;
     }
 
     if ($selectedMarker && $selectedMarker === marker) {
@@ -61,7 +69,7 @@ finna.mapWidget = (function finnaMapWidget() {
         return;
       }
 
-      var holderOffset = $($holder).offset();
+      var holderOffset = $($widget).offset();
       var offset = $(event.originalEvent.target).offset();
 
       var x = offset.left - holderOffset.left;
@@ -119,16 +127,17 @@ finna.mapWidget = (function finnaMapWidget() {
     $selectedMarker = null;
   };
 
-  var draw = function draw(organisationList) {
+  var draw = function draw() {
     var $this = $(this);
-    var organisations = organisationList;
+
+    var attribution = $('.js-attribution').html().trim();
 
     var layer = L.tileLayer(mapTileUrl, {
       attribution: attribution,
       tileSize: 256
     });
 
-    $map = L.map($($holder).attr('id'), {
+    $map = L.map($($widget).attr('id'), {
       zoomControl: false,
       layers: layer,
       minZoom: zoomLevel.far,
@@ -174,8 +183,145 @@ finna.mapWidget = (function finnaMapWidget() {
       });
     });
 
-    Object.keys(organisations).forEach(function forEachOrganisation(key) {
-      handleOrganisation(organisations[key], $this, icons);
+    Object.keys(organisationList).forEach(function forEachOrganisation(key) {
+      handleOrganisation(organisationList[key], $this, icons);
+    });
+  };
+
+  var attachMapControllers = function attachMapControllers(id) {
+    $holder.find('.js-center').on('click', function onCenter() {
+      if (id in organisationList) {
+        var organisationData = organisationList[id];
+
+        if (organisationData.address && organisationData.address.coordinates) {
+          reset();
+          selectMarker(id);
+        }
+      }
+    });
+
+    if (Object.keys(organisationList).length > 1) {
+      $holder.find('.js-show-all').removeClass('hidden');
+
+      $holder.find('.js-show-all').on('click', function onShowAll() {
+        if ($mapHolder.hasClass('hidden')) {
+          $mapHolder.removeClass('hidden');
+          $showMapButton.addClass('toggled');
+        }
+
+        resize();
+        reset();
+      });
+    }
+
+    $mapHolder.find('.js-expand-map').on('click', function onExpandMap() {
+      $mapHolder.toggleClass('expand', true);
+      resize();
+      $(this).addClass('hidden');
+      $mapHolder.find('.js-contract-map').removeClass('hidden');
+    });
+
+    $mapHolder.find('.js-contract-map').on('click', function onContractMap() {
+      $mapHolder.toggleClass('expand', false);
+      resize();
+      $(this).addClass('hidden');
+      $mapHolder.find('.js-expand-map').removeClass('hidden');
+    });
+  };
+
+  var initMapControls = function initMapControls() {
+    $showMapButton.on('click', function onShowMap() {
+      var id = $holder.data('organisation-id');
+
+      if ($mapHolder.hasClass('hidden')) {
+
+        $mapHolder.removeClass('hidden');
+        $mapControls.removeClass('hidden');
+        $(this).addClass('toggled');
+
+        resize();
+        reset();
+
+        if (id in organisationList) {
+          var data = organisationList[id];
+
+          if (data.address && data.address.coordinates) {
+            selectMarker(id);
+          }
+        }
+      } else {
+        $mapHolder.addClass('hidden');
+        $mapControls.addClass('hidden');
+        $(this).removeClass('toggled');
+      }
+
+      attachMapControllers(id);
+    });
+  };
+
+  var initAutoComplete = function initAutoComplete() {
+    $officeSearchForm.autocomplete({
+      source: function autocompleteSource(request, response) {
+        var term = request.term.toLowerCase();
+        var result = Object.keys(organisationList).map(function mapOrganisation(key, index) {
+
+          if (organisationList[key].name.toLowerCase().indexOf(term) !== -1) {
+            return {
+              value: index,
+              label: organisationList[key].name
+            }
+          }
+        });
+
+        result = result.sort(function sortCallback(a, b) {
+          return a.label > b.label ? 1 : -1;
+        });
+
+        response(result);
+      },
+      select: function onSelect(_, ui) {
+        $officeSearchForm.val(ui.item.label);
+
+        return false;
+      },
+      focus: function onAutocompleteFocus() {
+        if ($(window).width() < 768) {
+          $('html, body').animate({
+            scrollTop: $officeSearchForm.offset().top - 5
+          }, 100);
+        }
+        return false;
+      },
+      open: function onOpen() {
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+          $holder.find('.ui-autocomplete').off('menufocus hover mouseover');
+        }
+      },
+      minLength: 0,
+      delay: 100,
+      appendTo: '.autocomplete-container',
+      autoFocus: false
+    }).data('ui-autocomplete')._renderItem = function addLabels(ul, item) {
+      return $('<li>')
+        .attr('aria-label', item.label)
+        .html(item.label)
+        .appendTo(ul);
+    };
+
+    $officeSearchForm.on('click', function onClickSearch() {
+      $officeSearchForm.autocomplete('search', $(this).val());
+    });
+
+    $officeSearchForm.find('li').on('touchstart', function onTouchStartSearch() {
+      $officeSearchForm.autocomplete('search', $(this).val());
+    });
+
+    $holder.find('.js-office-search-btn').on('click', function onClickSearchButton(event) {
+      $officeSearchForm.autocomplete('search', '');
+      $officeSearchForm.focus();
+
+      event.preventDefault();
+      return false;
     });
   };
 
@@ -184,10 +330,19 @@ finna.mapWidget = (function finnaMapWidget() {
     resize: resize,
     reset: reset,
     draw: draw,
-    init: function init(holder, _mapTileUrl, _attribution) {
+    init: function init(holder, widget, url, organisations) {
       $holder = holder;
-      mapTileUrl = _mapTileUrl;
-      attribution = _attribution;
+      $widget = widget;
+      mapTileUrl = url;
+      organisationList = organisations;
+
+      $showMapButton = $holder.find('.js-show-map');
+      $mapControls = $holder.find('.js-map-controls')
+      $officeSearchForm = $holder.find('.js-office-search');
+      $mapHolder = $holder.find('.js-map-holder');
+
+      initMapControls();
+      initAutoComplete();
     }
   };
 })();

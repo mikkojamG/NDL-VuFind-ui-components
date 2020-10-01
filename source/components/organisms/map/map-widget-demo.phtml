@@ -1,5 +1,5 @@
 <div>
-  <?= $this->render('components/organisms/map/widget/widget.phtml', ['widgetHeading' => $widgetHeading, 'inputLabel' => $inputLabel, 'formButton' => $formButton, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass, 'wrapperClass' => 'js-widget-wrapper']); ?>
+  <?= $this->render('components/organisms/map/widget/widget.phtml', ['widgetHeading' => $widgetHeading, 'inputLabel' => $inputLabel, 'formButton' => $formButton, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass, 'wrapperClass' => $wrapperClass, 'showSearchForm' => $showSearchForm, 'organisationId' => $organisationId]); ?>
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
@@ -7,6 +7,6 @@
       return;
     }
 
-    initMapWidgetDemo();
+    initMapWidgetDemo('<?= $wrapperClass; ?>', '<?= $widgetClass ?>');
   });
 </script>

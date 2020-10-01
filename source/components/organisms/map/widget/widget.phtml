@@ -1,10 +1,14 @@
-<div class="organisation-map <?= $wrapperClass ?? ''; ?>">
+<?php
+$showForm = isset($showSearchForm) && $showSearchForm;
+?>
+
+<div class="organisation-map <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>
   <p class="consortium-notification hide"></p>
   <div class="organisation-map-control-bar">
-    <div class="organisation-map-form-wrapper">
+    <div class="organisation-map-form-wrapper<?= !$showForm ? ' hidden' : ''; ?>">
       <form class="organisation-map-form form-inline">
         <div class="input-group">
           <input id="office-search" class="js-office-search form-control" type="text" aria-label="<?= $inputLabel; ?>" placeholder="" aria-placeholder="" />
@@ -21,7 +25,7 @@
       <button type="button" class="organisation-map-control-show btn btn-primary js-show-map"><?= $showMapButton; ?></button>
       <div class="map-controls hidden js-map-controls">
         <button type="button" class="organisation-map-control js-center"><?= $centerButton; ?></button>
-        <button type="button" class="organisation-map-control js-show-all"><?= $showAllButton; ?></button>
+        <button type="button" class="organisation-map-control js-show-all hidden"><?= $showAllButton; ?></button>
       </div>
     </div>
   </div>
@@ -35,4 +39,18 @@
     <h5 class="name js-name"></h5>
     <p class="js-address"></p>
   </div>
+</template>
+<template class="js-attribution">
+  <i class="fa fa-map-marker marker open"></i>
+  <span class="map-marker-text">Open</span>
+  <i class="fa fa-map-marker marker closed"></i>
+  <span class="map-marker-text">Closed</span>
+  <i class="fa fa-map-marker marker no-schedule"></i>
+  <span class="map-marker-text">Not available</span>
+  <span class="js-expand-map expand expand-map map-marker-text marker">
+    <i class="fa fa-expand"></i>Expand
+  </span>
+  <span class="js-contract-map contract-map map-marker-text marker hidden">
+    <i class="fa fa-condense"></i>Collapse
+  </span>
 </template>
