@@ -9,16 +9,8 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <p class="consortium-notification hide"></p>
   <div class="organisation-map-control-bar">
     <div class="organisation-map-form-wrapper<?= !$showForm ? ' hidden' : ''; ?>">
-      <form class="organisation-map-form form-inline">
-        <div class="input-group">
-          <input id="office-search" class="js-office-search form-control" type="text" aria-label="<?= $inputLabel; ?>" placeholder="" aria-placeholder="" />
-          <button type="button" class="btn btn-primary js-office-search-btn">
-            <i class="fa fa-search"></i>
-            <span class="sr-only"><?= $formButton; ?></span>
-          </button>
-          <p class="notification hide"><?= $locationNotAvailableText; ?></p>
-        </div>
-      </form>
+      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $formLabel, 'wrapperClass' => 'js-organisation-map-form']) ?>
+      <p class="notification"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
     <div class="organisation-map-controls">

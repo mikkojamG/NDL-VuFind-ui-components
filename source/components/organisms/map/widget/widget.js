@@ -308,7 +308,7 @@ finna.mapWidget = (function finnaMapWidget() {
       $searchInput.autocomplete('search', $(this).val());
     });
 
-    $holder.find('.js-office-search-btn').on('click', function onClickSearchButton(event) {
+    $holder.find('.js-organisation-map-form button').on('click', function onClickSearchButton(event) {
       $searchInput.autocomplete('search', '');
       $searchInput.focus();
 
@@ -330,7 +330,7 @@ finna.mapWidget = (function finnaMapWidget() {
       organisationList = organisations;
 
       $mapControls = $holder.find('.js-map-controls')
-      $searchInput = $holder.find('.js-office-search');
+      $searchInput = $holder.find('.js-organisation-map-form input');
       $mapHolder = $holder.find('.js-map-holder');
 
       initMapControls();

@@ -1,13 +1,12 @@
 {
   "widgetHeading": "Demo Heading",
-  "inputLabel": "Office search",
-  "formButton": "Office search",
+  "formLabel": "Office search",
   "locationNotAvailableText": "Organisation location not available",
   "showMapButton": "Show map",
   "centerButton": "Center",
   "showAllButton": "Show all service points",
   "widgetClass": "js-map-widget",
   "wrapperClass": "js-widget-wrapper",
-  "showSearchForm": false,
+  "showSearchForm": true,
   "organisationId": 85141
 }
