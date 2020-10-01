@@ -67,7 +67,7 @@ finna.mapWidget = (function finnaMapWidget() {
         return;
       }
 
-      var holderOffset = $($widget).offset();
+      var holderOffset = $widget.offset();
       var offset = $(event.originalEvent.target).offset();
 
       var x = offset.left - holderOffset.left;
