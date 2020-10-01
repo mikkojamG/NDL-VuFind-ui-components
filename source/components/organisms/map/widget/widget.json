@@ -7,6 +7,9 @@
   "showAllButton": "Show all",
   "showSearchForm": true,
   "organisationId": 85141,
-  "widgetClass": "js-map-widget",
-  "wrapperClass": "js-widget-wrapper"
+  "markerOpenText": "Open",
+  "markerClosedText": "Closed",
+  "markerNotAvailableText": "Not available",
+  "markerExpandText": "Expand",
+  "markerCollapseText": "Collapse"
 }

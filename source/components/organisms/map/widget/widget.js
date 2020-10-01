@@ -255,11 +255,11 @@ finna.mapWidget = (function finnaMapWidget() {
     $searchInput.autocomplete({
       source: function autocompleteSource(request, response) {
         var term = request.term.toLowerCase();
-        var result = Object.keys(organisationList).map(function mapOrganisation(key, index) {
+        var result = Object.keys(organisationList).map(function mapOrganisation(key) {
 
           if (organisationList[key].name.toLowerCase().indexOf(term) !== -1) {
             return {
-              value: index,
+              value: organisationList[key].id,
               label: organisationList[key].name
             }
           }
@@ -273,6 +273,8 @@ finna.mapWidget = (function finnaMapWidget() {
       },
       select: function onSelect(_, ui) {
         $searchInput.val(ui.item.label);
+
+        selectMarker(ui.item.value);
 
         return false;
       },
