@@ -252,16 +252,22 @@ finna.mapWidget = (function finnaMapWidget() {
   };
 
   var initAutoComplete = function initAutoComplete() {
+    var organisationsAmount = Object.keys(organisationList).length;
+    var placeholderString = $searchInput.attr('placeholder').replace('{0}', organisationsAmount);
+
+    $searchInput
+      .attr('placeholder', placeholderString)
+      .attr('aria-placeholder', placeholderString);
+
     $searchInput.autocomplete({
       source: function autocompleteSource(request, response) {
         var term = request.term.toLowerCase();
-        var result = Object.keys(organisationList).map(function mapOrganisation(key) {
-
-          if (organisationList[key].name.toLowerCase().indexOf(term) !== -1) {
-            return {
-              value: organisationList[key].id,
-              label: organisationList[key].name
-            }
+        var result = Object.keys(organisationList).filter(function filterOrganisation(key) {
+          return organisationList[key].name.toLowerCase().indexOf(term) !== -1;
+        }).map(function mapOrganisation(key) {
+          return {
+            value: organisationList[key].id,
+            label: organisationList[key].name
           }
         });
 
