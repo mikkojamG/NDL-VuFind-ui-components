@@ -183,4 +183,49 @@
       }
     }
   }
+
+  .service-point {
+    flex-basis: 50%;
+
+    &-info {
+      display: flex;
+      margin: 1rem 0;
+    }
+
+    &-title {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    &-links {
+      display: flex;
+    }
+
+    &-link {
+      margin-right: 1rem;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+
+    &-opening-times {
+      flex-basis: 50%;
+
+      .opening-times-title {
+        margin: 0;
+
+        .open {
+          color: @brand-success;
+        }
+
+        .closed {
+          color: @brand-danger;
+        }
+      }
+    }
+  }
 }

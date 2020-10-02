@@ -25,7 +25,45 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass ?? ''; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
+  <div class="service-point-info">
+    <div class="service-point">
+      <h3 class="service-point-title">Turun pääkirjasto</h3>
+      <p class="service-point-address">
+        Linnankatu 2, 20100 Keskusta (Turku)
+      </p>
+      <div class="service-point-links">
+        <a href="#" target="_blank" class="service-point-link">
+          <i class="fa fa-bus"></i> Directions
+        </a>
+        <a href="" class="service-point-link">
+          <i class="fa fa-desktop"></i> Reserve a computer
+        </a>
+        <a href="#" target="_blank" class="service-point-link">
+          <i class="fa fa-home"></i> Homepage
+        </a>
+      </div>
+      <p class="service-point-email">
+        <i class="fa fa-envelope"></i>
+        <span>kaupunginkirjasto(at)turku.fi</span>
+      </p>
+    </div>
+    <div class="service-point-opening-times">
+      <h3 class="opening-times-title">
+        <span class="open">Open</span>
+        <span class="closed">Closed</span>
+      </h3>
+      <p class="opening-times-today">
+        <i class="fa fa-clock-o"></i> Open today
+        <span class="opens">9</span> - <span class="closes">20</span>
+      </p>
+      <p class="opening-times-staff-availabel">
+        Staff available
+        <span class="opens">10</span> - <span class="closes">19</span>
+      </p>
+    </div>
+  </div>
 </div>
+
 <template class="js-map-bubble">
   <div class="map-bubble">
     <h5 class="name js-name"></h5>
