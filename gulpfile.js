@@ -11,6 +11,7 @@ const path = require('path');
 
 const pipeExec = require('gulp-exec');
 const less = require('gulp-less');
+const lessGlob = require('less-plugin-glob');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-clean-css');
@@ -58,7 +59,8 @@ const styles = () => {
     .pipe(less({
       modifyVars: {
         '@themePath': themesRootPath
-      }
+      },
+      plugins: [lessGlob]
     }))
     .pipe(autoprefixer())
     .pipe(replace('../../../themes/finna2/css/fonts', '../fonts'))
