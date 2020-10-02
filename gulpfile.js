@@ -52,9 +52,7 @@ const importLess = async (files) => {
   try {
     const destination = `${config.paths.source.styles}`;
 
-    const paths = files.map((file) => {
-      return path.relative(destination, file);
-    });
+    const paths = files.map((file) => path.relative(destination, file));
 
     const importsString = `${paths.map((path) => {
       return `@import "${path}"`
