@@ -1,4 +1,4 @@
-.organisation-map {
+.service-points {
   &-control-bar {
     display: flex;
     flex-wrap: wrap;
@@ -8,7 +8,7 @@
     background-color: @gray-ultralight;
   }
 
-  &-form-wrapper {
+  .form-wrapper {
     display: flex;
     margin: 1rem;
     width: 100%;
@@ -18,7 +18,7 @@
     }
   }
 
-  &-controls {
+  .map-controls {
     display: flex;
     margin: 1rem;
     width: 100%;
@@ -29,7 +29,7 @@
       flex-wrap: nowrap;
     }
 
-    .map-controls {
+    &-wrapper {
       width: 100%;
       @media (min-width: @screen-sm) {
         width: auto;
@@ -37,7 +37,7 @@
     }
   }
 
-  &-control {
+  .map-control {
     background: none;
     border: none;
     text-decoration: underline;

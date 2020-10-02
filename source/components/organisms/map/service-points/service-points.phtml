@@ -2,22 +2,22 @@
 $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
-<div class="organisation-map <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>">
+<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>
   <p class="consortium-notification hide"></p>
-  <div class="organisation-map-control-bar">
-    <div class="organisation-map-form-wrapper<?= !$showForm ? ' hidden' : ''; ?>">
-      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $formLabel, 'wrapperClass' => 'js-organisation-map-form', 'placeholder' => $formPlaceholder]) ?>
+  <div class="service-points-control-bar">
+    <div class="form-wrapper<?= !$showForm ? ' hidden' : ''; ?>">
+      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $formLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $formPlaceholder]) ?>
       <p class="notification hide"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
-    <div class="organisation-map-controls">
-      <button type="button" class="organisation-map-control-show btn btn-primary js-show-map"><?= $showMapButton; ?></button>
-      <div class="map-controls hidden js-map-controls">
-        <button type="button" class="organisation-map-control js-center"><?= $centerButton; ?></button>
-        <button type="button" class="organisation-map-control js-show-all hidden"><?= $showAllButton; ?></button>
+    <div class="map-controls">
+      <button type="button" class="map-control-show btn btn-primary js-show-map"><?= $showMapButton; ?></button>
+      <div class="map-controls-wrapper hidden js-map-controls">
+        <button type="button" class="map-control js-center"><?= $centerButton; ?></button>
+        <button type="button" class="map-control js-show-all hidden"><?= $showAllButton; ?></button>
       </div>
     </div>
   </div>
