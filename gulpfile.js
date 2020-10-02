@@ -196,7 +196,6 @@ const watchTask = () => {
   });
 
   gulp.watch(`${config.paths.source.styles}/**/*.less`, styles);
-
   gulp.watch(`${config.paths.source.patterns}**/*.less`, styles);
 
   gulp.watch(`${config.paths.source.js}/**/*.js`, scripts);
