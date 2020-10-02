@@ -49,6 +49,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "husky": "^4.2.5",
+    "less-plugin-glob": "^3.0.0",
     "prompts": "^2.3.2"
   },
   "husky": {
