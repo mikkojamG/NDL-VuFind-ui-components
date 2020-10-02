@@ -180,8 +180,10 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
-  var setControllerEventListeners = function setControllerEventListeners(id) {
+  var setControllerEventListeners = function setControllerEventListeners() {
     $holder.find('.js-center').on('click', function onCenter() {
+      var id = $holder.data('organisation-id');
+
       if (id in organisationList) {
         if (organisationList[id].address && organisationList[id].address.coordinates) {
           reset();
@@ -237,7 +239,7 @@ finna.mapWidget = (function finnaMapWidget() {
         $(this).removeClass('toggled');
       }
 
-      setControllerEventListeners(id);
+      setControllerEventListeners();
     });
   };
 

@@ -1,0 +1,16 @@
+{
+  "widgetHeading": "Heading",
+  "formLabel": "Label",
+  "formPlaceholder": "Placeholder",
+  "locationNotAvailableText": "Not available text",
+  "showMapButton": "Show map button",
+  "centerButton": "Center button",
+  "showAllButton": "Show all button",
+  "showSearchForm": true,
+  "organisationId": 85141,
+  "markerOpenText": "Open",
+  "markerClosedText": "Closed",
+  "markerNotAvailableText": "Not available",
+  "markerExpandText": "Expand",
+  "markerCollapseText": "Collapse"
+}
