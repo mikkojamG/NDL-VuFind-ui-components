@@ -48,6 +48,47 @@ const fonts = () => {
 };
 gulp.task(fonts);
 
+const importPatternLabLess = async (files) => {
+  try {
+    const destination = `${config.paths.source.styles}`;
+
+    const paths = files.map((file) => {
+      return path.relative(destination, file);
+    });
+
+    const importsString = `${paths.map((path) => {
+      return `@import "${path}"`
+    }).join(';\n')};`
+
+    return fs.writeFile(`${destination}/components.less`, importsString, (err) => {
+      if (err) {
+        throw err;
+      }
+
+      return;
+    })
+  } catch (error) {
+    return error;
+  }
+};
+
+const patternLabLessImports = async () => {
+  try {
+    const source = `${config.paths.source.patterns}**/*.less`;
+
+    glob(source, async (err, files) => {
+      if (err) {
+        throw err;
+      }
+
+      await importPatternLabLess(files);
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+gulp.task(patternLabLessImports);
+
 const styles = () => {
   const source = config.paths.source.styles;
   const dest = config.paths.public.styles;
