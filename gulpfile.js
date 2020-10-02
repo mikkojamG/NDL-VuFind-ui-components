@@ -94,7 +94,7 @@ const styles = () => {
   const dest = config.paths.public.styles;
 
   return gulp
-    .src(`${source}/*.less`)
+    .src(`${source}/style.less`)
     .pipe(sourcemaps.init())
     .pipe(less({
       modifyVars: {

@@ -19,8 +19,7 @@
     "unlink:theme": "gulp unlinkTheme",
     "copy:theme": "gulp copyTheme",
     "list:tasks": "gulp --tasks",
-    "test:a11y": "npm run build && node ./test/a11y/index.js",
-    "styles": "gulp patternLabLessImports"
+    "test:a11y": "npm run build && node ./test/a11y/index.js"
   },
   "keywords": [],
   "author": "",
