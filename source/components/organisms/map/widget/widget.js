@@ -26,13 +26,11 @@ finna.mapWidget = (function finnaMapWidget() {
 
     if (id in mapMarkers) {
       marker = mapMarkers[id];
-    }
 
-    if ($selectedMarker && $selectedMarker === marker) {
-      return;
-    }
-
-    if (!marker) {
+      if ($selectedMarker && $selectedMarker === marker) {
+        return;
+      }
+    } else {
       hideMarker();
       return;
     }
@@ -124,7 +122,6 @@ finna.mapWidget = (function finnaMapWidget() {
 
   var draw = function draw() {
     var $ref = $(this);
-
     var attribution = $('.js-attribution').html().trim();
 
     var layer = L.tileLayer(mapTileUrl, {
@@ -183,7 +180,7 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
-  var attachMapControllers = function attachMapControllers(id) {
+  var setControllerEventListeners = function setControllerEventListeners(id) {
     $holder.find('.js-center').on('click', function onCenter() {
       if (id in organisationList) {
         if (organisationList[id].address && organisationList[id].address.coordinates) {
@@ -197,12 +194,6 @@ finna.mapWidget = (function finnaMapWidget() {
       $holder.find('.js-show-all').removeClass('hidden');
 
       $holder.find('.js-show-all').on('click', function onShowAll() {
-        if ($mapHolder.hasClass('hidden')) {
-          $mapHolder.removeClass('hidden');
-
-          $holder.find('.js-show-map').addClass('toggled');
-        }
-
         resize();
         reset();
       });
@@ -228,7 +219,6 @@ finna.mapWidget = (function finnaMapWidget() {
       var id = $holder.data('organisation-id');
 
       if ($mapHolder.hasClass('hidden')) {
-
         $mapHolder.removeClass('hidden');
         $mapControls.removeClass('hidden');
         $(this).addClass('toggled');
@@ -247,7 +237,7 @@ finna.mapWidget = (function finnaMapWidget() {
         $(this).removeClass('toggled');
       }
 
-      attachMapControllers(id);
+      setControllerEventListeners(id);
     });
   };
 
@@ -281,6 +271,8 @@ finna.mapWidget = (function finnaMapWidget() {
         $searchInput.val(ui.item.label);
 
         selectMarker(ui.item.value);
+
+        $holder.data('organisation-id', ui.item.value);
 
         return false;
       },
@@ -342,7 +334,10 @@ finna.mapWidget = (function finnaMapWidget() {
       $mapHolder = $holder.find('.js-map-holder');
 
       initMapControls();
-      initAutoComplete();
+
+      if (Object.keys(organisationList).length > 1) {
+        initAutoComplete();
+      }
     }
   };
 })();
