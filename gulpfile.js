@@ -48,7 +48,7 @@ const fonts = () => {
 };
 gulp.task(fonts);
 
-const importPatternLabLess = async (files) => {
+const importLess = async (files) => {
   try {
     const destination = `${config.paths.source.styles}`;
 
@@ -72,7 +72,7 @@ const importPatternLabLess = async (files) => {
   }
 };
 
-const patternLabLessImports = async () => {
+const lessImports = async () => {
   try {
     const source = `${config.paths.source.patterns}**/*.less`;
 
@@ -81,13 +81,13 @@ const patternLabLessImports = async () => {
         throw err;
       }
 
-      await importPatternLabLess(files);
+      await importLess(files);
     });
   } catch (error) {
     throw error;
   }
 };
-gulp.task(patternLabLessImports);
+gulp.task(lessImports);
 
 const styles = () => {
   const source = config.paths.source.styles;
@@ -111,7 +111,7 @@ const styles = () => {
 };
 gulp.task(styles);
 
-const importScripts = async (files) => {
+const importThemeScripts = async (files) => {
   try {
     const cleanPaths = files.map((file) => file.replace('./source/', ''));
 
@@ -141,7 +141,7 @@ const themeScriptImports = async () => {
         throw err;
       }
 
-      await importScripts(files);
+      await importThemeScripts(files);
     });
 
 
@@ -198,6 +198,7 @@ const watchTask = () => {
   });
 
   gulp.watch(`${config.paths.source.styles}/**/*.less`, styles);
+
   gulp.watch(`${config.paths.source.patterns}**/*.less`, styles);
 
   gulp.watch(`${config.paths.source.js}/**/*.js`, scripts);
@@ -208,7 +209,7 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const importLess = (files) => {
+const importThemeLess = (files) => {
   try {
     const cleanPaths = files.map((file) => file.replace('./source/', ''));
 
@@ -237,7 +238,7 @@ const themeLessImports = async () => {
         throw err;
       }
 
-      await importLess(files);
+      await importThemeLess(files);
     })
   } catch (error) {
     throw error;
@@ -376,7 +377,13 @@ const copyTheme = gulp.series(
 
 const defaultTask = gulp.series(
   cleanPublic,
-  gulp.parallel(patternLab, fonts, styles, scripts, vendorScripts)
+  gulp.parallel(
+    patternLab,
+    fonts,
+    gulp.series(lessImports, styles),
+    scripts,
+    vendorScripts
+  )
 );
 
 const watch = gulp.series(defaultTask, watchTask);
@@ -387,6 +394,8 @@ cleanPublic.description = "Clear all files under public directory";
 patternLab.description = "Build PatternLab to public directory";
 
 fonts.description = "Copy font files from theme directory";
+
+lessImports.description = "Import components for Pattern Lab styles";
 
 styles.description = "Build styles and sourcemaps.";
 
