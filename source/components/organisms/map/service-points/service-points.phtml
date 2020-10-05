@@ -2,7 +2,7 @@
 $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
-<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>">
+<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>" data-parent="<?= $parent; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>

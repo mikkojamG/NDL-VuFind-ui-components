@@ -344,6 +344,17 @@ finna.mapWidget = (function finnaMapWidget() {
       if (Object.keys(organisationList).length > 1) {
         initAutoComplete();
       }
+
+      if (!finna.servicePointInfo && !finna.organisationInfo) {
+        return;
+      }
+
+      var parent = $holder.data('parent');
+      var buildings = Object.keys(organisations).map(function mapBuildings(key) {
+        return organisations[key].id;
+      });
+
+      finna.servicePointInfo.init($('.js-service-point-info-wrapper'), finna.organisationInfo, parent, buildings);
     }
   };
 })();
