@@ -5,12 +5,18 @@
     flex-basis: 55%;
   }
 
+  &-loader {
+    text-align: center;
+  }
+
   &-info {
     margin: 1rem 0;
 
-    @media (min-width: @screen-sm) {
-      display: flex;
-      flex-wrap: wrap;
+    &-wrapper {
+      @media (min-width: @screen-sm) {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
   }
 

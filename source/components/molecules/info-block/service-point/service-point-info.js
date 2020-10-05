@@ -35,6 +35,9 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
   };
 
   var getServicePoint = function getServicePoint(id) {
+    $('.js-loader').removeClass('hide');
+    $holder.addClass('hide');
+
     var data = service.getDetails(id);
 
     $holder.find('.js-service-point-title').text(data.name);
@@ -76,6 +79,8 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     }
 
 
+    $('.js-loader').addClass('hide');
+    $holder.removeClass('hide');
   }
 
   return {
