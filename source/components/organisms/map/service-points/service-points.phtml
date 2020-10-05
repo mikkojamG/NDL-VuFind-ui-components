@@ -25,49 +25,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass ?? ''; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
-  <div class="service-point-info">
-    <div class="service-point">
-      <h3 class="service-point-title js-service-point-title"></h3>
-      <p class="service-point-address js-service-point-address"></p>
-      <div class="service-point-links">
-        <a href="#" target="_blank" class="service-point-link">
-          <i class="fa fa-bus"></i> <?= $directionsText; ?>
-        </a>
-        <a href="" class="service-point-link">
-          <i class="fa fa-desktop"></i> <?= $computerText; ?>
-        </a>
-        <a href="#" target="_blank" class="service-point-link">
-          <i class="fa fa-home"></i> <?= $homepageText; ?>
-        </a>
-      </div>
-      <p class="service-point-email">
-        <i class="fa fa-envelope"></i>
-        <span class="js-service-point-email"></span>
-      </p>
-    </div>
-    <div class="service-point-opening-times">
-      <h3 class="opening-times-title">
-        <span class="open"><?= $openText; ?></span>
-        <span class="closed"><?= $closedText; ?></span>
-      </h3>
-      <p class="opening-times-today">
-        <i class="fa fa-clock-o"></i> <?= $openTodayText; ?>
-        <span class="opens js-opens"></span> - <span class="closes js-closes"></span>
-      </p>
-      <p class="opening-times-staff-available">
-        <?= $staffAvailableText; ?>
-        <span class="opens js-staff-opens"></span> - <span class="closes js-staff-closes"></span>
-      </p>
-    </div>
-    <div class="service-point-social-media">
-      <a class="js-facebook" aria-label="Facebook" href="" target="_blank">
-        <i class="fa fa-facebook"></i>
-      </a>
-    </div>
-    <div class="service-point-slogan">
-      <p class="js-slogan">Slogan</p>
-    </div>
-  </div>
+  <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText]) ?>
 </div>
 
 <template class="js-map-bubble">
