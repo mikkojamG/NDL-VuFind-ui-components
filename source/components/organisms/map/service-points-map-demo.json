@@ -14,5 +14,10 @@
   "closedText": "Closed",
   "notAvailableText": "Not available",
   "expandText": "Expand",
-  "collapseText": "Collapse"
+  "collapseText": "Collapse",
+  "directionsText": "Directions",
+  "computerText": "Reserve computer",
+  "homepageText": "Homepage",
+  "openTodayText": "Open today",
+  "staffAvailableText": "Staff available"
 }

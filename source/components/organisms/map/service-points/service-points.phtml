@@ -27,24 +27,22 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   </div>
   <div class="service-point-info">
     <div class="service-point">
-      <h3 class="service-point-title">Turun pääkirjasto</h3>
-      <p class="service-point-address">
-        Linnankatu 2, 20100 Keskusta (Turku)
-      </p>
+      <h3 class="service-point-title js-service-point-title"></h3>
+      <p class="service-point-address js-service-point-address"></p>
       <div class="service-point-links">
         <a href="#" target="_blank" class="service-point-link">
-          <i class="fa fa-bus"></i> Directions
+          <i class="fa fa-bus"></i> <?= $directionsText; ?>
         </a>
         <a href="" class="service-point-link">
-          <i class="fa fa-desktop"></i> Reserve a computer
+          <i class="fa fa-desktop"></i> <?= $computerText; ?>
         </a>
         <a href="#" target="_blank" class="service-point-link">
-          <i class="fa fa-home"></i> Homepage
+          <i class="fa fa-home"></i> <?= $homepageText; ?>
         </a>
       </div>
       <p class="service-point-email">
         <i class="fa fa-envelope"></i>
-        <span>kaupunginkirjasto(at)turku.fi</span>
+        <span class="js-service-point-email"></span>
       </p>
     </div>
     <div class="service-point-opening-times">
@@ -53,12 +51,12 @@ $showForm = isset($showSearchForm) && $showSearchForm;
         <span class="closed"><?= $closedText; ?></span>
       </h3>
       <p class="opening-times-today">
-        <i class="fa fa-clock-o"></i> Open today
-        <span class="opens">9</span> - <span class="closes">20</span>
+        <i class="fa fa-clock-o"></i> <?= $openTodayText; ?>
+        <span class="opens js-opens"></span> - <span class="closes js-closes"></span>
       </p>
       <p class="opening-times-staff-availabel">
-        Staff available
-        <span class="opens">10</span> - <span class="closes">19</span>
+        <?= $staffAvailableText; ?>
+        <span class="opens js-staff-opens"></span> - <span class="closes js-staff-closes"></span>
       </p>
     </div>
   </div>
