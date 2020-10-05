@@ -1,6 +1,6 @@
 /*global finna */
 finna.servicePointInfo = (function finnaServicePointInfo() {
-  var $holder;
+  var $wrapper, $holder;
   var service;
 
   var getOrganisations = function getOrganisations(target, parent, buildings) {
@@ -34,12 +34,7 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     });
   };
 
-  var getServicePoint = function getServicePoint(id) {
-    $('.js-loader').removeClass('hide');
-    $holder.addClass('hide');
-
-    var data = service.getDetails(id);
-
+  var handleServicePointData = function handleServicePointData(data) {
     $holder.find('.js-service-point-title').text(data.name);
 
     if (data.address) {
@@ -69,6 +64,15 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
 
       $holder.find('.js-facebook').attr('href', facebookLink.url);
     }
+  }
+
+  var getServicePoint = function getServicePoint(id) {
+    $wrapper.find('.js-loader').removeClass('hide');
+    $holder.addClass('hide');
+
+    var data = service.getDetails(id);
+
+    handleServicePointData(data);
 
     var hasSchedules = data.openTimes.schedules && data.openTimes.schedules.length;
 
@@ -79,14 +83,16 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     }
 
 
-    $('.js-loader').addClass('hide');
+    $wrapper.find('.js-loader').addClass('hide');
     $holder.removeClass('hide');
   }
 
   return {
     getServicePoint: getServicePoint,
-    init: function init(holder, _service) {
-      $holder = holder;
+    init: function init(wrapper, _service) {
+      $wrapper = wrapper;
+      $holder = $wrapper.find('.js-service-point-info');
+
       service = _service;
 
       getOrganisations('page', 'Vaski', [85141, 85968]);
