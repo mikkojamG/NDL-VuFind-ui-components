@@ -2,7 +2,7 @@
 $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
-<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>" data-parent="<?= $parent; ?>">
+<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>
@@ -22,10 +22,10 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     </div>
   </div>
   <div class="office map hidden js-map-holder" aria-hidden="true">
-    <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass ?? ''; ?>"></div>
+    <div id="<?= $widgetClass ?? '' . '-' . $organisationId ?>" class="map-widget <?= $widgetClass ?? ''; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
-  <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass]) ?>
+  <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass ?? '']) ?>
 </div>
 
 <template class="js-map-bubble">
