@@ -49,8 +49,8 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     </div>
     <div class="service-point-opening-times">
       <h3 class="opening-times-title">
-        <span class="open">Open</span>
-        <span class="closed">Closed</span>
+        <span class="open"><?= $openText; ?></span>
+        <span class="closed"><?= $closedText; ?></span>
       </h3>
       <p class="opening-times-today">
         <i class="fa fa-clock-o"></i> Open today
@@ -72,13 +72,13 @@ $showForm = isset($showSearchForm) && $showSearchForm;
 </template>
 <template class="js-attribution">
   <i class="fa fa-map-marker marker open"></i>
-  <span class="map-marker-text"><?= $markerOpenText; ?></span>
+  <span class="map-marker-text"><?= $openText; ?></span>
   <i class="fa fa-map-marker marker closed"></i>
-  <span class="map-marker-text"><?= $markerClosedText; ?></span>
+  <span class="map-marker-text"><?= $closedText; ?></span>
   <i class="fa fa-map-marker marker no-schedule"></i>
-  <span class="map-marker-text"><?= $markerNotAvailableText; ?></span>
+  <span class="map-marker-text"><?= $notAvailableText; ?></span>
   <span class="js-expand-map expand expand-map map-marker-text marker">
-    <i class="fa fa-expand"></i><?= $markerExpandText; ?>
+    <i class="fa fa-expand"></i><?= $expandText; ?>
   </span>
   <span class="js-contract-map contract-map map-marker-text marker hidden">
     <i class="fa fa-condense"></i>

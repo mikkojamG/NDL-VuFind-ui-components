@@ -10,9 +10,9 @@
   "wrapperClass": "js-widget-wrapper",
   "showSearchForm": true,
   "organisationId": 85141,
-  "markerOpenText": "Open",
-  "markerClosedText": "Closed",
-  "markerNotAvailableText": "Not available",
-  "markerExpandText": "Expand",
-  "markerCollapseText": "Collapse"
+  "openText": "Open",
+  "closedText": "Closed",
+  "notAvailableText": "Not available",
+  "expandText": "Expand",
+  "collapseText": "Collapse"
 }
