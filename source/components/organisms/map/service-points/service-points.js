@@ -80,6 +80,8 @@ finna.mapWidget = (function finnaMapWidget() {
 
     $marker.on('click', function onMarkerClick() {
       $ref.trigger('marker-click', organisation.id);
+
+      finna.servicePointInfo.getServicePoint(organisation.id);
     });
   };
 
@@ -275,6 +277,8 @@ finna.mapWidget = (function finnaMapWidget() {
         selectMarker(ui.item.value);
 
         $holder.data('organisation-id', ui.item.value);
+
+        finna.servicePointInfo.getServicePoint(ui.item.value);
 
         return false;
       },
