@@ -83,6 +83,15 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
+  var getMarkerBubbleHtml = function getMarkerBubbleHtml(data) {
+    var bubbleTemplateString = $('.js-map-bubble').html().trim();
+    var $bubble = $(bubbleTemplateString);
+
+    $bubble.find('.js-name').text(data.name);
+
+    return $bubble.html();
+  };
+
   var handleOrganisation = function handleOrganisation(organisation, $ref, icons) {
     if (organisation.address && organisation.address.coordinates) {
       var point = organisation.address.coordinates;
@@ -99,6 +108,10 @@ finna.mapWidget = (function finnaMapWidget() {
       var $marker = L.marker([point.lat, point.lon], { icon: icon }).addTo($map);
 
       setMarkerEventListeners($marker, $ref, organisation)
+
+      var bubble = getMarkerBubbleHtml(organisation);
+
+      organisation.map = { info: bubble };
 
       $marker.bindPopup(organisation.map.info,
         { zoomAnimation: true, autoPan: false }
