@@ -85,6 +85,16 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
+  var getMarkerBubbleHtml = function getMarkerBubbleHtml(data) {
+    var bubbleTemplateString = $('.js-map-bubble').html().trim();
+
+    var $bubble = $(bubbleTemplateString);
+
+    $bubble.find('.js-name').text(data.name);
+
+    return $bubble.html();
+  };
+
   var handleOrganisation = function handleOrganisation(organisation, $ref, icons) {
     if (organisation.address && organisation.address.coordinates) {
       var point = organisation.address.coordinates;
@@ -101,6 +111,10 @@ finna.mapWidget = (function finnaMapWidget() {
       var $marker = L.marker([point.lat, point.lon], { icon: icon }).addTo($map);
 
       setMarkerEventListeners($marker, $ref, organisation)
+
+      var bubble = getMarkerBubbleHtml(organisation);
+
+      organisation.map = { info: bubble };
 
       $marker.bindPopup(organisation.map.info,
         { zoomAnimation: true, autoPan: false }
@@ -329,7 +343,7 @@ finna.mapWidget = (function finnaMapWidget() {
     resize: resize,
     reset: reset,
     draw: draw,
-    init: function init(holder, widget, url, organisations) {
+    init: function init(holder, widget, url, organisations, $infoWrapper) {
       $holder = holder;
       $widget = widget;
       mapTileUrl = url;
@@ -349,12 +363,11 @@ finna.mapWidget = (function finnaMapWidget() {
         return;
       }
 
-      var parent = $holder.data('parent');
-      var buildings = Object.keys(organisations).map(function mapBuildings(key) {
-        return organisations[key].id;
+      var buildings = Object.keys(organisationList).map(function mapBuildings(key) {
+        return organisationList[key].id;
       });
 
-      finna.servicePointInfo.init($('.js-service-point-info-wrapper'), finna.organisationInfo, parent, buildings);
+      finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, buildings);
     }
   };
 })();

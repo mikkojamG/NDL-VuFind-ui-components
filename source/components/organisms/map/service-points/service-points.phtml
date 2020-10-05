@@ -25,7 +25,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass ?? ''; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
-  <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText]) ?>
+  <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass]) ?>
 </div>
 
 <template class="js-map-bubble">

@@ -1,4 +1,4 @@
-<div class="service-point-info js-service-point-info-wrapper">
+<div class="service-point-info <?= $wrapperClass ?? ''; ?>">
   <?= $this->render('components/molecules/messaging/loader/loader.phtml', ['wrapperClass' => 'service-point-loader js-loader']); ?>
   <div class="service-point-info-wrapper hide js-service-point-info">
     <div class="service-point">

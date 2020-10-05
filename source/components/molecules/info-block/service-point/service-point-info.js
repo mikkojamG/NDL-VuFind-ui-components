@@ -3,12 +3,6 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
   var $wrapper, $holder;
   var service;
 
-  var getOrganisations = function getOrganisations(target, parent, buildings) {
-    service.getOrganisations(target, parent, buildings, {}, function callback() {
-      getServicePoint(buildings[0]);
-    });
-  };
-
   var handleOpeningTimes = function handleOpeningTimes(schedules) {
     schedules.forEach(function forEachSchedule(schedule) {
       if (schedule.today && schedule.times && schedule.times.length) {
@@ -91,13 +85,13 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
 
   return {
     getServicePoint: getServicePoint,
-    init: function init(wrapper, _service, parent, buildings) {
+    init: function init(wrapper, _service, buildings) {
       $wrapper = wrapper;
       $holder = $wrapper.find('.js-service-point-info');
 
       service = _service;
 
-      getOrganisations('page', parent, buildings);
+      getServicePoint(buildings[0]);
     }
   }
 })();
