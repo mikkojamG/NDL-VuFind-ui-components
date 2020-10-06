@@ -32,7 +32,7 @@ Schedule widget component, used for displaying schedules and other information f
 
 #### Child components
 
-- `molecules/messaging/loader/loader.phtml`
+- `atoms/messaging/loader/loader.phtml`
 - `molecules/navigation/dropdowns/sort.phtml`
 - `molecules/navigation/pagination/pager-with-label.phtml`
 - `molecules/tooltips/tooltip/tooltip.phtml`
