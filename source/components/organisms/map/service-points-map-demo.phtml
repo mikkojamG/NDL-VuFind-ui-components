@@ -3,8 +3,18 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
-    finna.organisationInfo.getOrganisations('page', 'Vaski', [85141, 85968], {}, function onResponse(response) {
-      var organisationList = response.list;
+    var buildings = ["85141", "85968"];
+    var organisationList;
+
+    finna.organisationInfo.getOrganisations('page', 'Vaski', buildings.join(","), {}, function onResponse(response) {
+      organisationList = response.list;
+
+      buildings.forEach(function getBuildingSchedule(id) {
+        finna.organisationInfo.getSchedules('page', 'Vaski', id, '2020-10-05', null, true, true, function callback() {
+          return;
+        });
+      });
+
 
       var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
 
@@ -12,5 +22,7 @@
 
       finna.mapWidget.draw();
     });
+
+
   });
 </script>

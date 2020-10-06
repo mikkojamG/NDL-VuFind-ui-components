@@ -49,22 +49,25 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
       $holder.find('.js-directions').attr('href', data.routeUrl);
     }
 
-    if (data.slogan) {
-      $holder.find('.js-service-point-slogan').text(data.slogan);
+    if (data.details.slogan) {
+      $holder.find('.js-service-point-slogan').text(data.details.slogan);
     }
 
-    if (data.details && data.details.links) {
-      var facebookLink = data.details.links.map(function mapFacebooklink(link) {
+    if (data.details.links) {
+      var facebookLink = data.details.links.filter(function findFacebooklink(link) {
         return link.name.indexOf('Facebook') !== -1;
       })[0];
 
-      $holder.find('.js-facebook').attr('href', facebookLink.url);
+      $holder.find('.js-facebook')
+        .attr('href', facebookLink.url)
+        .removeClass('hide');
     }
   }
 
   var getServicePoint = function getServicePoint(id) {
     $wrapper.find('.js-loader').removeClass('hide');
     $holder.addClass('hide');
+    $holder.find('.js-hide-on-load').addClass('hide');
 
     var data = service.getDetails(id);
 
@@ -78,20 +81,23 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
       $holder.find('.js-open-today ' + data.openNow ? '.open' : '.closed').removeClass('hide');
     }
 
-
     $wrapper.find('.js-loader').addClass('hide');
     $holder.removeClass('hide');
+
   }
 
   return {
     getServicePoint: getServicePoint,
-    init: function init(wrapper, _service, buildings) {
+    init: function init(wrapper, _service, servicePointId) {
       $wrapper = wrapper;
       $holder = $wrapper.find('.js-service-point-info');
 
       service = _service;
 
-      getServicePoint(buildings[0]);
+      if (servicePointId) {
+        getServicePoint(servicePointId);
+      }
+
     }
   }
 })();

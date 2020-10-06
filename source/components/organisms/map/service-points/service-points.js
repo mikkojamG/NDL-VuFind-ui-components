@@ -367,7 +367,7 @@ finna.mapWidget = (function finnaMapWidget() {
         return organisationList[key].id;
       });
 
-      finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, buildings);
+      finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, buildings[0]);
     }
   };
 })();
