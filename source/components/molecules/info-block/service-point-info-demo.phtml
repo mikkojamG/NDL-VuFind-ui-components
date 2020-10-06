@@ -1,0 +1,24 @@
+<div>
+  <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['wrapperClass' => 'js-service-point-demo', 'directionsText' => $directionsText, 'homepageText' => $homepageText, 'closedText' => $closedText, 'openText' => $openText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText]); ?>
+</div>
+<script type="text/javascript">
+  $(document).ready(function onDocumentReady() {
+    $(document).ready(function onDocumentReady() {
+      var id = "85141";
+      var organisationList;
+
+      finna.organisationInfo.getOrganisations('page', 'Vaski', id, {}, function onResponse(response) {
+        organisationList = response.list;
+
+        finna.organisationInfo.getSchedules('page', 'Vaski', id, '2020-10-05', null, true, true, function callback() {
+          return;
+        });
+
+        var service = finna.organisationInfo;
+
+        finna.servicePointInfo.init($('.js-service-point-demo'), service, id);
+      });
+
+    });
+  });
+</script>
