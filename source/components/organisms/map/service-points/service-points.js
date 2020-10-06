@@ -80,14 +80,12 @@ finna.mapWidget = (function finnaMapWidget() {
 
     $marker.on('click', function onMarkerClick() {
       $ref.trigger('marker-click', organisation.id);
-
       finna.servicePointInfo.getServicePoint(organisation.id);
     });
   };
 
   var getMarkerBubbleHtml = function getMarkerBubbleHtml(data) {
     var bubbleTemplateString = $('.js-map-bubble').html().trim();
-
     var $bubble = $(bubbleTemplateString);
 
     $bubble.find('.js-name').text(data.name);
