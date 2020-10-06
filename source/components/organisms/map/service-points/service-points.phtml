@@ -22,7 +22,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     </div>
   </div>
   <div class="office map hidden js-map-holder" aria-hidden="true">
-    <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass ?? ''; ?>"></div>
+    <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
   <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass ?? '']) ?>
