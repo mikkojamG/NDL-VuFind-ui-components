@@ -25,6 +25,8 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
             $staffTimes.find('.js-staff-opens').text(staffTime.opens);
             $staffTimes.find('.js-staff-closes').text(staffTime.closes);
           });
+
+          $staffTimes.removeClass('hide');
         }
       }
     });

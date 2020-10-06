@@ -207,7 +207,7 @@ finna.mapWidget = (function finnaMapWidget() {
     });
 
     if (Object.keys(organisationList).length > 1) {
-      $holder.find('.js-show-all').removeClass('hidden');
+      $holder.find('.js-show-all').removeClass('hide');
 
       $holder.find('.js-show-all').on('click', function onShowAll() {
         resize();
@@ -218,15 +218,15 @@ finna.mapWidget = (function finnaMapWidget() {
     $mapHolder.find('.js-expand-map').on('click', function onExpandMap() {
       $mapHolder.toggleClass('expand', true);
       resize();
-      $(this).addClass('hidden');
-      $mapHolder.find('.js-contract-map').removeClass('hidden');
+      $(this).addClass('hide');
+      $mapHolder.find('.js-contract-map').removeClass('hide');
     });
 
     $mapHolder.find('.js-contract-map').on('click', function onContractMap() {
       $mapHolder.toggleClass('expand', false);
       resize();
-      $(this).addClass('hidden');
-      $mapHolder.find('.js-expand-map').removeClass('hidden');
+      $(this).addClass('hide');
+      $mapHolder.find('.js-expand-map').removeClass('hide');
     });
   };
 
@@ -234,9 +234,9 @@ finna.mapWidget = (function finnaMapWidget() {
     $holder.find('.js-show-map').on('click', function onShowMap() {
       var id = $holder.data('organisation-id');
 
-      if ($mapHolder.hasClass('hidden')) {
-        $mapHolder.removeClass('hidden');
-        $mapControls.removeClass('hidden');
+      if ($mapHolder.hasClass('hide')) {
+        $mapHolder.removeClass('hide');
+        $mapControls.removeClass('hide');
         $(this).addClass('toggled');
 
         resize();
@@ -248,8 +248,8 @@ finna.mapWidget = (function finnaMapWidget() {
           }
         }
       } else {
-        $mapHolder.addClass('hidden');
-        $mapControls.addClass('hidden');
+        $mapHolder.addClass('hide');
+        $mapControls.addClass('hide');
         $(this).removeClass('toggled');
       }
 
