@@ -50,7 +50,7 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     }
 
     if (data.details.slogan) {
-      $holder.find('.js-service-point-slogan').text(data.details.slogan);
+      $holder.find('.js-slogan').text(data.details.slogan).removeClass('hide');
     }
 
     if (data.details.links) {
