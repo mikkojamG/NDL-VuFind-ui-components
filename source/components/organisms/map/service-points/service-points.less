@@ -8,7 +8,7 @@
     background-color: @gray-ultralight;
   }
 
-  .form-wrapper {
+  .search-form-wrapper {
     display: flex;
     margin: 1rem;
     width: 100%;
@@ -18,48 +18,36 @@
     }
   }
 
-  .map-controls {
-    display: flex;
-    margin: 1rem;
-    width: 100%;
-    flex-wrap: wrap;
+  .map {
+    &-control {
+      background: none;
+      border: none;
+      text-decoration: underline;
+      font-weight: 300;
 
-    @media (min-width: @screen-sm) {
-      width: auto;
-      flex-wrap: nowrap;
-    }
-
-    &-wrapper {
-      width: 100%;
-      @media (min-width: @screen-sm) {
-        width: auto;
+      &-show {
+        padding: 0.3rem 0.5rem;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        font-weight: 600;
       }
     }
-  }
 
-  .map-control {
-    background: none;
-    border: none;
-    text-decoration: underline;
-    font-weight: 300;
+    &-controls {
+      display: flex;
+      margin: 1rem;
+      width: 100%;
+      flex-wrap: wrap;
 
-    &-show {
-      padding: 0.3rem 0.5rem;
-      text-transform: uppercase;
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-  }
+      @media (min-width: @screen-sm) {
+        width: auto;
+        flex-wrap: nowrap;
+      }
 
-  .map {
-    .map-marker-text {
-      font-size: 1.6rem;
-      padding-right: 5px;
-
-      &.expand-map {
-        i {
-          margin-left: 2rem;
-          margin-right: 0;
+      &-wrapper {
+        width: 100%;
+        @media (min-width: @screen-sm) {
+          width: auto;
         }
       }
     }
@@ -82,40 +70,52 @@
       }
     }
 
+    .map-marker-text {
+      font-size: 1.6rem;
+      padding-right: 0.5rem;
+
+      &.expand-map {
+        i {
+          margin-left: 2rem;
+          margin-right: 0;
+        }
+      }
+    }
+
     &.expand {
       .map-widget {
         height: 60rem;
       }
     }
-  }
 
-  .map-widget {
-    height: 32rem;
-    width: 100%;
+    &-widget {
+      height: 32rem;
+      width: 100%;
 
-    .leaflet-marker-icon {
-      i {
-        opacity: 0.8;
+      .leaflet-marker-icon {
+        i {
+          opacity: 0.8;
 
-        &.open {
-          color: @brand-success;
-        }
+          &.open {
+            color: @brand-success;
+          }
 
-        &.closed {
-          color: @brand-danger;
-        }
+          &.closed {
+            color: @brand-danger;
+          }
 
-        &.no-schedule {
-          color: @gray-light;
+          &.no-schedule {
+            color: @gray-light;
+          }
         }
       }
     }
-  }
 
-  .map-bubble {
-    .name {
-      min-width: 12rem;
-      max-width: 20rem;
+    &-bubble {
+      .name {
+        min-width: 12rem;
+        max-width: 20rem;
+      }
     }
   }
 
@@ -160,7 +160,7 @@
     }
 
     li {
-      padding: 7px 5px;
+      padding: 0.7rem 0.5rem;
       color: @gray;
 
       &:first-child {
