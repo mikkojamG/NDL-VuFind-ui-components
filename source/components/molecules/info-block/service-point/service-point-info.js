@@ -80,7 +80,11 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     if (hasSchedules) {
       handleOpeningTimes(data.openTimes.schedules);
 
-      $holder.find('.js-open-today ' + data.openNow ? '.open' : '.closed').removeClass('hide');
+      if (data.openNow) {
+        $holder.find('.js-open-today .open').removeClass('hide');
+      } else {
+        $holder.find('.js-open-today .closed').removeClass('hide');
+      }
     }
 
     $wrapper.find('.js-loader').addClass('hide');
