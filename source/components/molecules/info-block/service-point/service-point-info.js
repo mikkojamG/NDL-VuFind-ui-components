@@ -92,10 +92,6 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
 
       $wrapper.find('.js-loader').addClass('hide');
       $holder.removeClass('hide');
-
-
-      console.log($holder);
-      console.log('NOI');
     });
   }
 
