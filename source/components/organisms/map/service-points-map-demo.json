@@ -1,7 +1,7 @@
 {
   "widgetHeading": "Demo Heading",
-  "searchformLabel": "Office search",
-  "searchformPlaceholder": "Search service points ({0})",
+  "searchFormLabel": "Office search",
+  "searchFormPlaceholder": "Search service points ({0})",
   "locationNotAvailableText": "Organisation location not available",
   "showMapButton": "Show map",
   "centerButton": "Center",

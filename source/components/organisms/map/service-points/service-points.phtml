@@ -9,7 +9,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <p class="consortium-notification hide"></p>
   <div class="service-points-control-bar">
     <div class="form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
-      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searcFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder]) ?>
+      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder]) ?>
       <p class="notification hide"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
