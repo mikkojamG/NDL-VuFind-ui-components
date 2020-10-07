@@ -335,37 +335,60 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
+  var getOrganisationsData = function getOrganisationsData(settings, callback) {
+    finna.organisationInfo.getOrganisations(settings.target, settings.parent, settings.buildings.join(','), {}, function onOrganisationsLoaded(response) {
+
+      settings.buildings.forEach(function forEachBuilding(id) {
+        finna.organisationInfo.getSchedules(settings.target, settings.parent, id, null, null, true, true, function onSchedulesLoaded() {
+          return;
+        });
+      });
+
+      organisationList = response.list;
+
+      callback();
+    })
+  };
+
+  var initMap = function initMap($infoWrapper) {
+    initMapControls();
+
+    if (Object.keys(organisationList).length > 1) {
+      initAutoComplete();
+    }
+
+    if (!finna.servicePointInfo && !finna.organisationInfo) {
+      return;
+    }
+
+    var buildings = Object.keys(organisationList).map(function mapBuildings(key) {
+      return organisationList[key].id;
+    });
+
+    finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, buildings[0]);
+  };
+
   return {
     hideMarker: hideMarker,
     selectMarker: selectMarker,
     resize: resize,
     reset: reset,
     draw: draw,
-    init: function init(holder, widget, url, organisations, $infoWrapper) {
+    init: function init(holder, widget, $infoWrapper, url, settings, organisations) {
       $holder = holder;
       $widget = widget;
       mapTileUrl = url;
-      organisationList = organisations;
 
-      $mapControls = $holder.find('.js-map-controls')
+      $mapControls = $holder.find('.js-map-controls');
       $searchInput = $holder.find('.js-service-points-form input');
       $mapHolder = $holder.find('.js-map-holder');
 
-      initMapControls();
-
-      if (Object.keys(organisationList).length > 1) {
-        initAutoComplete();
+      if (!organisations) {
+        getOrganisationsData(settings, function onOrganisationsDataLoaded() { initMap($infoWrapper) });
+      } else {
+        organisationList = organisations;
+        initMap($infoWrapper);
       }
-
-      if (!finna.servicePointInfo && !finna.organisationInfo) {
-        return;
-      }
-
-      var buildings = Object.keys(organisationList).map(function mapBuildings(key) {
-        return organisationList[key].id;
-      });
-
-      finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, buildings[0]);
     }
   };
 })();

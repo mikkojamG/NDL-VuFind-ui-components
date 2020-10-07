@@ -3,26 +3,16 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
-    var buildings = ["85141", "85968"];
-    var organisationList;
+    var settings = {
+      target: 'page',
+      parent: 'Vaski',
+      buildings: ["85141", "85968"]
+    }
 
-    finna.organisationInfo.getOrganisations('page', 'Vaski', buildings.join(","), {}, function onResponse(response) {
-      organisationList = response.list;
+    var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
 
-      buildings.forEach(function getBuildingSchedule(id) {
-        finna.organisationInfo.getSchedules('page', 'Vaski', id, '2020-10-05', null, true, true, function callback() {
-          return;
-        });
-      });
+    finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $widgetClass; ?>'), $('.<?= $infoWrapperClass; ?>'), url, settings);
 
-
-      var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
-
-      finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $widgetClass; ?>'), url, organisationList, $('.<?= $infoWrapperClass; ?>'));
-
-      finna.mapWidget.draw();
-    });
-
-
+    finna.mapWidget.draw();
   });
 </script>
