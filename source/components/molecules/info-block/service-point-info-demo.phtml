@@ -5,18 +5,16 @@
   $(document).ready(function onDocumentReady() {
     $(document).ready(function onDocumentReady() {
       var id = "85141";
-      var organisationList;
 
-      finna.organisationInfo.getOrganisations('page', 'Vaski', id, {}, function onResponse(response) {
-        organisationList = response.list;
+      var settings = {
+        target: 'page',
+        parent: 'Vaski'
+      }
 
-        finna.organisationInfo.getSchedules('page', 'Vaski', id, '2020-10-05', null, true, true, function callback() {
-          return;
-        });
+      var service = finna.organisationInfo;
 
-        var service = finna.organisationInfo;
-
-        finna.servicePointInfo.init($('.js-service-point-demo'), service, id);
+      service.getOrganisations(settings.target, settings.parent, id, {}, function onResponse() {
+        finna.servicePointInfo.init($('.js-service-point-demo'), settings, service, id);
       });
 
     });
