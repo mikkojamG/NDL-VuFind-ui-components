@@ -12,9 +12,5 @@
     var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
 
     finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $widgetClass; ?>'), $('.<?= $infoWrapperClass; ?>'), url, settings);
-
-    setTimeout(function() {
-      finna.mapWidget.draw();
-    }, 2000)
   });
 </script>
