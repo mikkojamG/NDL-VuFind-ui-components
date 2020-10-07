@@ -238,6 +238,10 @@ finna.mapWidget = (function finnaMapWidget() {
         $mapControls.removeClass('hide');
         $(this).addClass('toggled');
 
+        if (!$map) {
+          draw();
+        }
+
         resize();
         reset();
 
