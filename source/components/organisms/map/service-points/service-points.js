@@ -239,6 +239,10 @@ finna.mapWidget = (function finnaMapWidget() {
         $mapControls.removeClass('hide');
         $(this).addClass('toggled');
 
+        if (!$map) {
+          draw();
+        }
+
         resize();
         reset();
 
@@ -364,6 +368,14 @@ finna.mapWidget = (function finnaMapWidget() {
 
     if (!finna.servicePointInfo && !finna.organisationInfo) {
       return;
+    }
+
+    if (!$holder.data('organisation-id')) {
+      var firstId = Object.keys(organisationList).map(function mapIds(key) {
+        return organisationList[key].id;
+      })[0];
+
+      $holder.data('organisation-id', firstId);
     }
 
     var id = $holder.data('organisation-id');

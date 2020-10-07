@@ -2,14 +2,14 @@
 $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
-<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $organisationId; ?>">
+<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $preselectOrganisationId ?? ''; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>
   <p class="consortium-notification hide"></p>
   <div class="service-points-control-bar">
     <div class="form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
-      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $formLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $formPlaceholder]) ?>
+      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searcFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder]) ?>
       <p class="notification hide"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
@@ -22,7 +22,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     </div>
   </div>
   <div class="office map hide js-map-holder" aria-hidden="true">
-    <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass; ?>"></div>
+    <div id="<?= $widgetClass; ?>" class="map-widget <?= $widgetClass; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
   <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass ?? '']) ?>

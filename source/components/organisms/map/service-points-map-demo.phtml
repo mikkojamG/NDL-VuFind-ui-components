@@ -1,5 +1,5 @@
 <div>
-  <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['widgetHeading' => $widgetHeading, 'formLabel' => $formLabel, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass, 'wrapperClass' => $wrapperClass, 'showSearchForm' => $showSearchForm, 'organisationId' => $organisationId, 'openText' => $openText, 'closedText' => $closedText, 'notAvailableText' => $notAvailableText, 'expandText' => $expandText, 'collapseText' => $collapseText, 'formPlaceholder' => $formPlaceholder, 'directionsText' => $directionsText, 'homepageText' => $homepageText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'infoWrapperClass' => $infoWrapperClass]); ?>
+  <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['widgetHeading' => $widgetHeading, 'searchFormLabel' => $searchFormLabel, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass, 'wrapperClass' => $wrapperClass, 'showSearchForm' => $showSearchForm, 'preselectOrganisationId' => $preselectOrganisationId, 'openText' => $openText, 'closedText' => $closedText, 'notAvailableText' => $notAvailableText, 'expandText' => $expandText, 'collapseText' => $collapseText, 'searcFormPlaceholder' => $searcFormPlaceholder, 'directionsText' => $directionsText, 'homepageText' => $homepageText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'infoWrapperClass' => $infoWrapperClass]); ?>
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
@@ -13,6 +13,8 @@
 
     finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $widgetClass; ?>'), $('.<?= $infoWrapperClass; ?>'), url, settings);
 
-    finna.mapWidget.draw();
+    setTimeout(function() {
+      finna.mapWidget.draw();
+    }, 2000)
   });
 </script>

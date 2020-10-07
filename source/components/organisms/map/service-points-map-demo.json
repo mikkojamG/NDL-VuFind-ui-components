@@ -1,7 +1,7 @@
 {
   "widgetHeading": "Demo Heading",
-  "formLabel": "Office search",
-  "formPlaceholder": "Search service points ({0})",
+  "searchformLabel": "Office search",
+  "searchformPlaceholder": "Search service points ({0})",
   "locationNotAvailableText": "Organisation location not available",
   "showMapButton": "Show map",
   "centerButton": "Center",
@@ -10,7 +10,7 @@
   "widgetClass": "js-map-widget",
   "infoWrapperClass": "js-service-point-info-wrapper",
   "showSearchForm": true,
-  "organisationId": 85141,
+  "preselectOrganisationId": 85141,
   "openText": "Open",
   "closedText": "Closed",
   "notAvailableText": "Not available",

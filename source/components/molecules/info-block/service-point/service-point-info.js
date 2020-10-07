@@ -60,13 +60,16 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
         return link.name.indexOf('Facebook') !== -1;
       })[0];
 
-      $holder.find('.js-facebook')
-        .attr('href', facebookLink.url)
-        .removeClass('hide');
+      if (facebookLink) {
+        $holder.find('.js-facebook')
+          .attr('href', facebookLink.url)
+          .removeClass('hide');
+      }
     }
   }
 
   var getServicePoint = function getServicePoint(id) {
+
     $wrapper.find('.js-loader').removeClass('hide');
     $holder.addClass('hide');
     $holder.find('.js-hide-on-load').addClass('hide');
@@ -89,7 +92,6 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
 
     $wrapper.find('.js-loader').addClass('hide');
     $holder.removeClass('hide');
-
   }
 
   return {
