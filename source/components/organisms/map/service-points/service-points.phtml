@@ -8,20 +8,20 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <?php endif; ?>
   <p class="consortium-notification hide"></p>
   <div class="service-points-control-bar">
-    <div class="form-wrapper<?= !$showForm ? ' hidden' : ''; ?>">
+    <div class="form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
       <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $formLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $formPlaceholder]) ?>
       <p class="notification hide"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
     <div class="map-controls">
       <button type="button" class="map-control-show btn btn-primary js-show-map"><?= $showMapButton; ?></button>
-      <div class="map-controls-wrapper hidden js-map-controls">
+      <div class="map-controls-wrapper hide js-map-controls">
         <button type="button" class="map-control js-center"><?= $centerButton; ?></button>
-        <button type="button" class="map-control js-show-all hidden"><?= $showAllButton; ?></button>
+        <button type="button" class="map-control js-show-all hide"><?= $showAllButton; ?></button>
       </div>
     </div>
   </div>
-  <div class="office map hidden js-map-holder" aria-hidden="true">
+  <div class="office map hide js-map-holder" aria-hidden="true">
     <div id="<?= $widgetClass . '-' . $organisationId ?>" class="map-widget <?= $widgetClass; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
@@ -51,7 +51,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <span class="js-expand-map expand expand-map map-marker-text marker">
     <i class="fa fa-expand"></i><?= $expandText; ?>
   </span>
-  <span class="js-contract-map contract-map map-marker-text marker hidden">
+  <span class="js-contract-map contract-map map-marker-text marker hide">
     <i class="fa fa-condense"></i>
     <?$markerCollapseText;?>
   </span>
