@@ -197,9 +197,6 @@ finna.mapWidget = (function finnaMapWidget() {
   var setControllerEventListeners = function setControllerEventListeners() {
     $holder.find('.js-center').on('click', function onCenter() {
       var id = $holder.data('organisation-id');
-      
-      console.log(id);
-      console.log(organisationList);
 
       if (id in organisationList) {
         if (organisationList[id].address && organisationList[id].address.coordinates) {
