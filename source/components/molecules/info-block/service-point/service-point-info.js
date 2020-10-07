@@ -1,7 +1,7 @@
 /*global finna */
 finna.servicePointInfo = (function finnaServicePointInfo() {
   var $wrapper, $holder;
-  var service;
+  var service, settings;
 
   var handleOpeningTimes = function handleOpeningTimes(schedules) {
     schedules.forEach(function forEachSchedule(schedule) {
@@ -73,33 +73,36 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     $holder.addClass('hide');
     $holder.find('.js-hide-on-load').addClass('hide');
 
-    var data = service.getDetails(id);
+    service.getSchedules(settings.target, settings.parent, id, null, null, true, true, function onSchedulesLoaded() {
+      var data = service.getDetails(id);
 
-    handleServicePointData(data);
+      handleServicePointData(data);
 
-    var hasSchedules = data.openTimes.schedules && data.openTimes.schedules.length;
+      var hasSchedules = data.openTimes.schedules && data.openTimes.schedules.length;
 
-    if (hasSchedules) {
-      handleOpeningTimes(data.openTimes.schedules);
+      if (hasSchedules) {
+        handleOpeningTimes(data.openTimes.schedules);
 
-      if (data.openNow) {
-        $holder.find('.js-open-today .open').removeClass('hide');
-      } else {
-        $holder.find('.js-open-today .closed').removeClass('hide');
+        if (data.openNow) {
+          $holder.find('.js-open-today .open').removeClass('hide');
+        } else {
+          $holder.find('.js-open-today .closed').removeClass('hide');
+        }
       }
-    }
 
-    $wrapper.find('.js-loader').addClass('hide');
-    $holder.removeClass('hide');
+      $wrapper.find('.js-loader').addClass('hide');
+      $holder.removeClass('hide');
+    });
   }
 
   return {
     getServicePoint: getServicePoint,
-    init: function init(wrapper, _service, servicePointId) {
+    init: function init(wrapper, _settings, _service, servicePointId) {
       $wrapper = wrapper;
       $holder = $wrapper.find('.js-service-point-info');
 
       service = _service;
+      settings = _settings;
 
       if (servicePointId) {
         getServicePoint(servicePointId);

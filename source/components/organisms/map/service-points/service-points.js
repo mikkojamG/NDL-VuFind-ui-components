@@ -7,6 +7,7 @@ finna.mapWidget = (function finnaMapWidget() {
   var organisationList = {};
   var markers = [];
   var $selectedMarker = null;
+  var service;
 
   var $widget,
     $map,
@@ -339,35 +340,24 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
-  var getOrganisationsData = function getOrganisationsData(settings, callback) {
-    finna.organisationInfo.getOrganisations(settings.target, settings.parent, settings.buildings, {}, function onOrganisationsLoaded(response) {
+  var getOrganisationsData = function getOrganisationsData(settings) {
+    var deferred = $.Deferred();
 
-      var buildings = response.list.map(function mapIds(building) {
-        return building.id;
-      });
+    service.getOrganisations(settings.target, settings.parent, settings.buildings, {}, function onOrganisationsLoaded(response) {
+      deferred.resolve(response.list);
+    });
 
-      if (buildings.length) {
-        buildings.forEach(function forEachBuilding(id) {
-          finna.organisationInfo.getSchedules(settings.target, settings.parent, id, null, null, true, true, function onSchedulesLoaded() {
-            return;
-          });
-        });
-      }
-
-      organisationList = response.list;
-
-      callback();
-    })
+    return deferred.promise();
   };
 
-  var initMapWidget = function initMapWidget($infoWrapper) {
+  var initMapWidget = function initMapWidget($infoWrapper, settings) {
     initMapControls();
 
     if (Object.keys(organisationList).length > 1) {
       initAutoComplete();
     }
 
-    if (!finna.servicePointInfo && !finna.organisationInfo) {
+    if (!finna.servicePointInfo && !service) {
       return;
     }
 
@@ -381,7 +371,7 @@ finna.mapWidget = (function finnaMapWidget() {
 
     var id = $holder.data('organisation-id');
 
-    finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, id);
+    finna.servicePointInfo.init($infoWrapper, settings, service, id);
   };
 
   return {
@@ -399,8 +389,13 @@ finna.mapWidget = (function finnaMapWidget() {
       $searchInput = $holder.find('.js-service-points-form input');
       $mapHolder = $holder.find('.js-map-holder');
 
+      service = finna.organisationInfo;
+
       if (!organisations) {
-        getOrganisationsData(settings, function onOrganisationsDataLoaded() { initMapWidget($infoWrapper) });
+        getOrganisationsData(settings).then(function onOrganisationsLoaded(res) {
+          organisationList = res;
+          initMapWidget($infoWrapper, settings);
+        })
       } else {
         organisationList = organisations;
         initMapWidget($infoWrapper);
