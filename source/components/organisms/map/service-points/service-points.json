@@ -1,7 +1,7 @@
 {
   "widgetHeading": "Heading",
-  "searchFormLabel": "Label",
-  "searchFormPlaceholder": "Placeholder",
+  "searchFormLabel": "Office search",
+  "searchFormPlaceholder": "Search service points ({0})",
   "locationNotAvailableText": "Not available text",
   "showMapButton": "Show map button",
   "centerButton": "Center button",
