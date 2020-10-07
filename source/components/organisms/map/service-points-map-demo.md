@@ -10,6 +10,7 @@ A map component for displaying organisation service point locations and informat
 | closedText               | `String`  | `Closed`                              | Yes      |
 | collapseMapText          | `String`  | `Collapse`                            | Yes      |
 | expandMapText            | `String`  | `Expand`                              | Yes      |
+| infoWrapperClass         | `String`  | `js-service-point-info-wrapper`       | Yes      |
 | locationNotAvailableText | `String`  | `Organisation location not available` | Yes      |
 | mapWrapperClass          | `String`  | `js-map-widget`                       | Yes      |
 | notAvailableText         | `String`  | `Not available`                       | Yes      |
@@ -22,3 +23,7 @@ A map component for displaying organisation service point locations and informat
 | searchFormPlaceholder    | `String`  | `Search service points ({0})`         | No       |
 | showSearchForm           | `Boolean` | `true`                                | No       |
 | wrapperClass             | `String`  | `js-widget-wrapper`                   | No       |
+
+#### Child components
+
+- `molecules/info-block/service-point/service-point-info.phtml`
