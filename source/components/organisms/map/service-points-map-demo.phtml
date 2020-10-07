@@ -1,5 +1,5 @@
 <div>
-  <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['widgetHeading' => $widgetHeading, 'searchFormLabel' => $searchFormLabel, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerButton' => $centerButton, 'showAllButton' => $showAllButton, 'widgetClass' => $widgetClass, 'wrapperClass' => $wrapperClass, 'showSearchForm' => $showSearchForm, 'preselectOrganisationId' => $preselectOrganisationId, 'openText' => $openText, 'closedText' => $closedText, 'notAvailableText' => $notAvailableText, 'expandText' => $expandText, 'collapseText' => $collapseText, 'searchFormPlaceholder' => $searchFormPlaceholder]); ?>
+  <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['mapHeading' => $mapHeading, 'searchFormLabel' => $searchFormLabel, 'locationNotAvailableText' => $locationNotAvailableText, 'showMapButton' => $showMapButton, 'centerMapButton' => $centerMapButton, 'showAllMarkersButton' => $showAllMarkersButton, 'mapWrapperClass' => $mapWrapperClass, 'wrapperClass' => $wrapperClass, 'showSearchForm' => $showSearchForm, 'preselectOrganisationId' => $preselectOrganisationId, 'openText' => $openText, 'closedText' => $closedText, 'notAvailableText' => $notAvailableText, 'expandMapText' => $expandMapText, 'collapseMapText' => $collapseMapText, 'searchFormPlaceholder' => $searchFormPlaceholder ?? '']); ?>
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
@@ -176,6 +176,6 @@
       }
     };
 
-    finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $widgetClass; ?>'), url, organisationList);
+    finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $mapWrapperClass; ?>'), url, organisationList);
   });
 </script>

@@ -1,18 +1,18 @@
 {
-  "widgetHeading": "Demo Heading",
+  "mapHeading": "Demo Heading",
   "searchFormLabel": "Office search",
   "searchFormPlaceholder": "Search service points ({0})",
   "locationNotAvailableText": "Organisation location not available",
   "showMapButton": "Show map",
-  "centerButton": "Center",
-  "showAllButton": "Show all service points",
-  "widgetClass": "js-map-widget",
+  "centerMapButton": "Center",
+  "showAllMarkersButton": "Show all service points",
+  "mapWrapperClass": "js-map-widget",
   "wrapperClass": "js-widget-wrapper",
   "showSearchForm": true,
   "preselectOrganisationId": 85141,
   "openText": "Open",
   "closedText": "Closed",
   "notAvailableText": "Not available",
-  "expandText": "Expand",
-  "collapseText": "Collapse"
+  "expandMapText": "Expand",
+  "collapseMapText": "Collapse"
 }

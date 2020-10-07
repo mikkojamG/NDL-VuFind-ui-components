@@ -3,35 +3,30 @@ $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
 <div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $preselectOrganisationId ?? ''; ?>">
-  <?php if (isset($widgetHeading)) : ?>
-    <h2><?= $widgetHeading; ?></h2>
+  <?php if (isset($mapHeading)) : ?>
+    <h2><?= $mapHeading; ?></h2>
   <?php endif; ?>
   <p class="consortium-notification hide"></p>
   <div class="service-points-control-bar">
     <div class="form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
-      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder]) ?>
+      <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder ?? '']) ?>
       <p class="notification hide"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
     <div class="map-controls">
       <button type="button" class="map-control-show btn btn-primary js-show-map"><?= $showMapButton; ?></button>
       <div class="map-controls-wrapper hide js-map-controls">
-        <button type="button" class="map-control js-center"><?= $centerButton; ?></button>
-        <button type="button" class="map-control js-show-all hide"><?= $showAllButton; ?></button>
+        <button type="button" class="map-control js-center"><?= $centerMapButton; ?></button>
+        <button type="button" class="map-control js-show-all hide"><?= $showAllMarkersButton; ?></button>
       </div>
     </div>
   </div>
   <div class="office map hide js-map-holder" aria-hidden="true">
-    <div id="<?= $widgetClass; ?>" class="map-widget <?= $widgetClass; ?>"></div>
+    <div id="<?= $mapWrapperClass; ?>" class="map-widget <?= $mapWrapperClass; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
   <div class="service-point-info">
-    <div class="service-point">
-      Service point
-    </div>
-    <div class="service-point-opening-times">
-      Opening Times
-    </div>
+    <!-- Service point info goes here -->
   </div>
 </div>
 
@@ -49,10 +44,10 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <i class="fa fa-map-marker marker no-schedule"></i>
   <span class="map-marker-text"><?= $notAvailableText; ?></span>
   <span class="js-expand-map expand expand-map map-marker-text marker">
-    <i class="fa fa-expand"></i><?= $expandText; ?>
+    <i class="fa fa-expand"></i><?= $expandMapText; ?>
   </span>
   <span class="js-contract-map contract-map map-marker-text marker hide">
     <i class="fa fa-condense"></i>
-    <?$markerCollapseText;?>
+    <?$markercollapseMapText;?>
   </span>
 </template>
