@@ -336,21 +336,26 @@ finna.mapWidget = (function finnaMapWidget() {
   };
 
   var getOrganisationsData = function getOrganisationsData(settings, callback) {
-    finna.organisationInfo.getOrganisations(settings.target, settings.parent, settings.buildings.join(','), {}, function onOrganisationsLoaded(response) {
+    finna.organisationInfo.getOrganisations(settings.target, settings.parent, settings.buildings, {}, function onOrganisationsLoaded(response) {
 
-      settings.buildings.forEach(function forEachBuilding(id) {
-        finna.organisationInfo.getSchedules(settings.target, settings.parent, id, null, null, true, true, function onSchedulesLoaded() {
-          return;
-        });
+      var buildings = response.list.map(function mapIds(building) {
+        return building.id;
       });
 
-      organisationList = response.list;
+      if (buildings.length) {
+        buildings.forEach(function forEachBuilding(id) {
+          finna.organisationInfo.getSchedules(settings.target, settings.parent, id, null, null, true, true, function onSchedulesLoaded() {
+            return;
+          });
+        });
+      }
 
+      organisationList = response.list;
       callback();
     })
   };
 
-  var initMap = function initMap($infoWrapper) {
+  var initMapWidget = function initMapWidget($infoWrapper) {
     initMapControls();
 
     if (Object.keys(organisationList).length > 1) {
@@ -361,11 +366,9 @@ finna.mapWidget = (function finnaMapWidget() {
       return;
     }
 
-    var buildings = Object.keys(organisationList).map(function mapBuildings(key) {
-      return organisationList[key].id;
-    });
+    var id = $holder.data('organisation-id');
 
-    finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, buildings[0]);
+    finna.servicePointInfo.init($infoWrapper, finna.organisationInfo, id);
   };
 
   return {
@@ -384,10 +387,10 @@ finna.mapWidget = (function finnaMapWidget() {
       $mapHolder = $holder.find('.js-map-holder');
 
       if (!organisations) {
-        getOrganisationsData(settings, function onOrganisationsDataLoaded() { initMap($infoWrapper) });
+        getOrganisationsData(settings, function onOrganisationsDataLoaded() { initMapWidget($infoWrapper) });
       } else {
         organisationList = organisations;
-        initMap($infoWrapper);
+        initMapWidget($infoWrapper);
       }
     }
   };
