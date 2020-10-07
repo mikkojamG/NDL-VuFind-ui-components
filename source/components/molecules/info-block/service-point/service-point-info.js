@@ -69,7 +69,6 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
   }
 
   var getServicePoint = function getServicePoint(id) {
-
     $wrapper.find('.js-loader').removeClass('hide');
     $holder.addClass('hide');
     $holder.find('.js-hide-on-load').addClass('hide');

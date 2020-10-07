@@ -355,6 +355,7 @@ finna.mapWidget = (function finnaMapWidget() {
       }
 
       organisationList = response.list;
+
       callback();
     })
   };
