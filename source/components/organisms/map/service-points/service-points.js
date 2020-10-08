@@ -201,6 +201,10 @@ finna.mapWidget = (function finnaMapWidget() {
         if (organisationList[id].address && organisationList[id].address.coordinates) {
           reset();
           selectMarker(id);
+
+          $holder.find('.js-location-not-available').addClass('hide');
+        } else {
+          $holder.find('.js-location-not-available').removeClass('hide');
         }
       }
     });
@@ -248,6 +252,10 @@ finna.mapWidget = (function finnaMapWidget() {
         if (id in organisationList) {
           if (organisationList[id].address && organisationList[id].address.coordinates) {
             selectMarker(id);
+
+            $holder.find('.js-location-not-available').addClass('hide');
+          } else {
+            $holder.find('.js-location-not-available').removeClass('hide');
           }
         }
       } else {
@@ -289,9 +297,14 @@ finna.mapWidget = (function finnaMapWidget() {
       select: function onSelect(_, ui) {
         $searchInput.val(ui.item.label);
 
-        selectMarker(ui.item.value);
+        if (ui.item.value in organisationList) {
+          selectMarker(ui.item.value);
+          $holder.data('organisation-id', ui.item.value);
 
-        $holder.data('organisation-id', ui.item.value);
+          $holder.find('.js-location-not-available').addClass('hide');
+        } else {
+          $holder.find('.js-location-not-available').removeClass('hide');
+        }
 
         return false;
       },
