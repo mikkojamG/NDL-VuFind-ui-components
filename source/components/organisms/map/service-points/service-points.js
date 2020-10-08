@@ -85,6 +85,7 @@ finna.mapWidget = (function finnaMapWidget() {
 
   var getMarkerBubbleHtml = function getMarkerBubbleHtml(data) {
     var bubbleTemplateString = $('.js-map-bubble').html().trim();
+
     var $bubble = $(bubbleTemplateString);
 
     $bubble.find('.js-name').text(data.name);
@@ -93,7 +94,9 @@ finna.mapWidget = (function finnaMapWidget() {
       $bubble.find('.js-address').html(data.address);
     }
 
-    return $bubble.html();
+    $bubble = $bubble.wrap('<div />').addClass('map-bubble');
+
+    return $bubble.parent().html();
   };
 
   var handleOrganisation = function handleOrganisation(organisation, $ref, icons) {

@@ -110,10 +110,16 @@
           }
         }
       }
+
+      .leaflet-popup-close-button {
+        color: @gray-light;
+      }
     }
 
     &-bubble {
       .name {
+        &:extend(.h5);
+
         min-width: 12rem;
         max-width: 20rem;
       }
