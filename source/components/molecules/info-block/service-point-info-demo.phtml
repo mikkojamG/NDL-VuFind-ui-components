@@ -3,20 +3,17 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
-    $(document).ready(function onDocumentReady() {
-      var id = "85141";
+    var id = "85141";
 
-      var settings = {
-        target: 'page',
-        parent: 'Vaski'
-      }
+    var settings = {
+      target: 'page',
+      parent: 'Vaski'
+    }
 
-      var service = finna.organisationInfo;
+    var service = finna.organisationInfo;
 
-      service.getOrganisations(settings.target, settings.parent, id, {}, function onResponse() {
-        finna.servicePointInfo.init($('.js-service-point-demo'), settings, service, id);
-      });
-
+    service.getOrganisations(settings.target, settings.parent, id, {}, function onResponse() {
+      finna.servicePointInfo.init($('.js-service-point-demo'), settings, service, id);
     });
   });
 </script>
