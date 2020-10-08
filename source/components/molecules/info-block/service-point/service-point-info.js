@@ -108,7 +108,6 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
       if (servicePointId) {
         getServicePoint(servicePointId);
       }
-
     }
   }
 })();
