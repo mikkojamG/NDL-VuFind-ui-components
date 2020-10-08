@@ -13,6 +13,7 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
 
         $openingTimes.find('.js-opens').text(openToday.opens);
         $openingTimes.find('.js-closes').text(lastSchedule.closes);
+        $openingTimes.removeClass('hide');
 
         var staffTimes = schedule.times.filter(function mapStaffTimes(time) {
           return !time.selfservice;
@@ -51,7 +52,7 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
       $holder.find('.js-directions').attr('href', data.routeUrl);
     }
 
-    if (data.details.slogan) {
+    if (data.details.slogan && data.details.slogan.length > 1) {
       $holder.find('.js-slogan').text(data.details.slogan).removeClass('hide');
     }
 
