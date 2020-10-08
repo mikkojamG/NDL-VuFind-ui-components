@@ -344,7 +344,7 @@ finna.mapWidget = (function finnaMapWidget() {
       },
       minLength: 0,
       delay: 100,
-      appendTo: '.autocomplete-container',
+      appendTo: '.js-autocomplete-container',
       autoFocus: false
     }).data('ui-autocomplete')._renderItem = function addLabels(ul, item) {
       return $('<li>')
