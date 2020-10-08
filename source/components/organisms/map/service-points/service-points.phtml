@@ -28,8 +28,8 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass ?? '']) ?>
 </div>
 <template class="js-map-bubble">
-  <div class="map-bubble">
-    <h5 class="name js-name"></h5>
+  <div>
+    <p class="name js-name"></p>
     <p class="js-address"></p>
   </div>
 </template>
