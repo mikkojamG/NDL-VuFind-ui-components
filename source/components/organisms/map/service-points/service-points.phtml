@@ -27,7 +27,6 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   </div>
   <?= $this->render('components/molecules/info-block/service-point/service-point-info.phtml', ['directionsText' => $directionsText, 'homepageText' => $homepageText, 'openText' => $openText, 'closedText' => $closedText, 'openTodayText' => $openTodayText, 'staffAvailableText' => $staffAvailableText, 'wrapperClass' => $infoWrapperClass ?? '']) ?>
 </div>
-
 <template class="js-map-bubble">
   <div class="map-bubble">
     <h5 class="name js-name"></h5>
@@ -35,17 +34,17 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   </div>
 </template>
 <template class="js-attribution">
-  <i class="fa fa-map-marker marker open"></i>
+  <i class="fa fa-map-marker marker open" aria-hidden="true"></i>
   <span class="map-marker-text"><?= $openText; ?></span>
-  <i class="fa fa-map-marker marker closed"></i>
+  <i class="fa fa-map-marker marker closed" aria-hidden="true"></i>
   <span class="map-marker-text"><?= $closedText; ?></span>
-  <i class="fa fa-map-marker marker no-schedule"></i>
+  <i class="fa fa-map-marker marker no-schedule" aria-hidden="true"></i>
   <span class="map-marker-text"><?= $notAvailableText; ?></span>
   <span class="js-expand-map map-marker-text marker">
-    <i class="fa fa-expand"></i><?= $expandMapText; ?>
+    <i class="fa fa-expand" aria-hidden="true"></i><?= $expandMapText; ?>
   </span>
   <span class="js-contract-map map-marker-text marker hide">
-    <i class="fa fa-condense"></i>
+    <i class="fa fa-condense" aria-hidden=""></i>
     <?= $collapseMapText; ?>
   </span>
 </template>
