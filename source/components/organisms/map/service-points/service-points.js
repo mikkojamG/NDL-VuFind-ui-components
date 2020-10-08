@@ -358,9 +358,6 @@ finna.mapWidget = (function finnaMapWidget() {
     }
 
     if (organisationList.consortium && organisationList.consortium.finna.notification) {
-
-      console.log(organisationList.consortium.finna.notification);
-
       $holder.find('.js-consortium-notification').html(organisationList.consortium.finna.notification).removeClass('hide');
     }
 
