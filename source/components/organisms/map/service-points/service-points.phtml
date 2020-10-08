@@ -10,7 +10,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <div class="service-points-control-bar">
     <div class="search-form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
       <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder ?? '']) ?>
-      <p class="notification hide"><?= $locationNotAvailableText; ?></p>
+      <p class="not-available-notification js-location-not-available hide"><?= $locationNotAvailableText; ?></p>
       <div class="autocomplete-container"></div>
     </div>
     <div class="map-controls">
