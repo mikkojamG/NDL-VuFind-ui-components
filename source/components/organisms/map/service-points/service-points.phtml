@@ -11,7 +11,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <div class="search-form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
       <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder ?? '']) ?>
       <p class="not-available-notification js-location-not-available hide"><?= $locationNotAvailableText; ?></p>
-      <div class="autocomplete-container"></div>
+      <div class="js-autocomplete-container"></div>
     </div>
     <div class="map-controls">
       <button type="button" class="map-control-show btn btn-primary js-show-map"><?= $showMapButton; ?></button>
@@ -21,7 +21,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
       </div>
     </div>
   </div>
-  <div class="office map hide js-map-holder" aria-hidden="true">
+  <div class="map hide js-map-holder" aria-hidden="true">
     <div id="<?= $mapWrapperClass; ?>" class="map-widget <?= $mapWrapperClass; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
@@ -43,11 +43,11 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <span class="map-marker-text"><?= $closedText; ?></span>
   <i class="fa fa-map-marker marker no-schedule"></i>
   <span class="map-marker-text"><?= $notAvailableText; ?></span>
-  <span class="js-expand-map expand expand-map map-marker-text marker">
+  <span class="js-expand-map map-marker-text marker">
     <i class="fa fa-expand"></i><?= $expandMapText; ?>
   </span>
-  <span class="js-contract-map contract-map map-marker-text marker hide">
+  <span class="js-contract-map map-marker-text marker hide">
     <i class="fa fa-condense"></i>
-    <?$markercollapseMapText;?>
+    <?= $collapseMapText; ?>
   </span>
 </template>
