@@ -89,6 +89,10 @@ finna.mapWidget = (function finnaMapWidget() {
 
     $bubble.find('.js-name').text(data.name);
 
+    if (data.address) {
+      $bubble.find('.js-address').html(data.address);
+    }
+
     return $bubble.html();
   };
 
