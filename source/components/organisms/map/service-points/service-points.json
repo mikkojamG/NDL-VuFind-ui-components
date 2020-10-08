@@ -12,5 +12,6 @@
   "closedText": "Closed",
   "notAvailableText": "Not available",
   "expandMapText": "Expand",
-  "collapseMapText": "Collapse"
+  "collapseMapText": "Collapse",
+  "mapWrapperClass": ""
 }
