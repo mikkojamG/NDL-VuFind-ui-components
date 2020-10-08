@@ -5,8 +5,7 @@
   $(document).ready(function onDocumentReady() {
     var url = 'http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png';
 
-    var organisationList = {
-      85141: {
+    var organisationList = [{
         id: 85141,
         name: "Turun pääkirjasto",
         address: {
@@ -96,7 +95,7 @@
           info: "\n  <div class=\"map-bubble\">\n    <h5 class=\"name js-name\">Turun pääkirjasto</h5>\n    <p class=\"js-address\"></p>\n  </div>\n"
         }
       },
-      85968: {
+      {
         id: 85968,
         name: "Askaisten kirjasto",
         address: {
@@ -174,7 +173,7 @@
           info: "\n  <div class=\"map-bubble\">\n    <h5 class=\"name js-name\">Askaisten kirjasto</h5>\n    <p class=\"js-address\"></p>\n  </div>\n"
         }
       }
-    };
+    ];
 
     finna.mapWidget.init($('.<?= $wrapperClass ?>'), $('.<?= $mapWrapperClass; ?>'), url, organisationList);
   });
