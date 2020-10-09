@@ -1,6 +1,6 @@
 <ul class="contact-list <?= $wrapperClass ?? ''; ?>">
   <?php foreach ($items as $item) : ?>
-    <li class="contact">
+    <li class="contact <?= $item['class'] ?? ''; ?>">
       <span class="contact-title"><?= $item['title']; ?></span>
       <div class="contact-content">
         <?php if (isset($item['content'])) : ?>
