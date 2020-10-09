@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "title": "Address",
+      "content": "<p>Unioninkatu 36, 00170 Helsinki</p>"
+    },
+    {
+      "title": "Postal Address",
+      "content": "<p>PL 15<br>00014 HELSINGIN YLIOPISTO</p>"
+    },
+    {
+      "title": "Email",
+      "content": [
+        {
+          "icon": "fa fa-envelope",
+          "text": "<a href=\"mailto:kk-palvelu@helsinki.fi\">kk-palvelu@helsinki.fi</a>"
+        }
+      ]
+    },
+    {
+      "title": "Customer Service",
+      "content": [
+        {
+          "icon": "fa fa-phone-square",
+          "text": "<a href=\"tel:02 9412 3196\">02 9412 3196</a> / Customer Service"
+        }
+      ]
+    }
+  ]
+}

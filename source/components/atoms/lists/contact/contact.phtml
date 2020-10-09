@@ -1,40 +1,25 @@
 <ul class="contact-list">
-  <li class="contact">
-    <span class="contact-title">Osoite</span>
-    <div class="contact-content">
-      <p>Unioninkatu 36, 00170 Helsinki</p>
-    </div>
-  </li>
-  <li class="contact">
-    <span class="contact-title">Postiosoite</span>
-    <div class="contact-content">
-      <p>PL 15<br>00014 HELSINGIN YLIOPISTO</p>
-    </div>
-  </li>
-  <li class="contact">
-    <span class="contact-title">Sähköposti</span>
-    <div class="contact-content">
-      <ul>
-        <li>
-          <p><i class="fa fa-envelope"></i><a href="mailto:kk-palvelu@helsinki.fi">kk-palvelu@helsinki.fi</a></p>
-        </li>
-        <li>
-          <p><i class="fa fa-envelope"></i><a href="mailto:kk-palvelu@helsinki.fi">kk-palvelu@helsinki.fi</a></p>
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="contact">
-    <span class="contact-title">Sähköposti</span>
-    <div class="contact-content">
-      <ul>
-        <li>
-          <p><i class="fa fa-phone-square"></i><a href="tel:02 9412 3196">02 9412 3196</a> / Asiakaspalvelu</p>
-        </li>
-        <li>
-          <p><i class="fa fa-phone-square"></i><a href="tel:02 9412 3196">02 9412 3196</a> / Asiakaspalvelu</p>
-        </li>
-      </ul>
-    </div>
-  </li>
+  <?php foreach ($items as $item) : ?>
+    <li class="contact">
+      <span class="contact-title"><?= $item['title']; ?></span>
+      <div class="contact-content">
+        <?php if (is_array($item['content'])) : ?>
+          <ul>
+            <?php foreach ($item['content'] as $contentItem) : ?>
+              <li>
+                <p>
+                  <?php if (isset($contentItem['icon'])) : ?>
+                    <i class="<?= $contentItem['icon']; ?>" aria-hidden="true"></i>
+                  <?php endif; ?>
+                  <?= $contentItem['text']; ?>
+                </p>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php else : ?>
+          <?= $item['content']; ?>
+        <?php endif; ?>
+      </div>
+    </li>
+  <?php endforeach; ?>
 </ul>
