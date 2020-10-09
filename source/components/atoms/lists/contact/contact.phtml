@@ -1,23 +1,25 @@
-<ul class="contact-list">
+<ul class="contact-list <?= $wrapperClass ?? ''; ?>">
   <?php foreach ($items as $item) : ?>
     <li class="contact">
       <span class="contact-title"><?= $item['title']; ?></span>
       <div class="contact-content">
-        <?php if (is_array($item['content'])) : ?>
-          <ul>
-            <?php foreach ($item['content'] as $contentItem) : ?>
-              <li>
-                <p>
-                  <?php if (isset($contentItem['icon'])) : ?>
-                    <i class="<?= $contentItem['icon']; ?>" aria-hidden="true"></i>
-                  <?php endif; ?>
-                  <?= $contentItem['text']; ?>
-                </p>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        <?php else : ?>
-          <?= $item['content']; ?>
+        <?php if (isset($item['content'])) : ?>
+          <?php if (is_array($item['content'])) : ?>
+            <ul>
+              <?php foreach ($item['content'] as $contentItem) : ?>
+                <li>
+                  <p>
+                    <?php if (isset($contentItem['icon'])) : ?>
+                      <i class="<?= $contentItem['icon']; ?>" aria-hidden="true"></i>
+                    <?php endif; ?>
+                    <?= $contentItem['text']; ?>
+                  </p>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          <?php else : ?>
+            <p><?= $item['content']; ?></p>
+          <?php endif; ?>
         <?php endif; ?>
       </div>
     </li>

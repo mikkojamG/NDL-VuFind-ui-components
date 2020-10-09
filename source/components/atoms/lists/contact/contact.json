@@ -1,12 +1,13 @@
 {
+  "wrapperClass": "js-pl-contact-list",
   "items": [
     {
       "title": "Address",
-      "content": "<p>Unioninkatu 36, 00170 Helsinki</p>"
+      "content": "Unioninkatu 36, 00170 Helsinki"
     },
     {
       "title": "Postal Address",
-      "content": "<p>PL 15<br>00014 HELSINGIN YLIOPISTO</p>"
+      "content": "PL 15<br>00014 HELSINGIN YLIOPISTO"
     },
     {
       "title": "Email",
@@ -18,13 +19,7 @@
       ]
     },
     {
-      "title": "Customer Service",
-      "content": [
-        {
-          "icon": "fa fa-phone-square",
-          "text": "<a href=\"tel:02 9412 3196\">02 9412 3196</a> / Customer Service"
-        }
-      ]
+      "title": "Customer Service"
     }
   ]
 }
