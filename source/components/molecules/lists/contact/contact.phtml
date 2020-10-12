@@ -12,7 +12,7 @@
                     <?php if (isset($contentItem['icon'])) : ?>
                       <i class="<?= $contentItem['icon']; ?>" aria-hidden="true"></i>
                     <?php endif; ?>
-                    <?= $contentItem['text']; ?>
+                    <?= $contentItem['text'] ?? ''; ?>
                   </p>
                 </li>
               <?php endforeach; ?>

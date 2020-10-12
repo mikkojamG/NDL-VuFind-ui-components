@@ -1,24 +1,29 @@
 {
+  "wrapperClass": "js-pl-contact-list",
   "items": [
     {
-      "title": "Item 1",
-      "content": "Item 1",
-      "class": "js-contact-list-item-1"
+      "title": "Address",
+      "class": "js-contact-address",
+      "content": "Linnankatu 2, 20100 Keskusta (Turku)"
     },
     {
-      "title": "Item 2",
-      "content": "Item 3",
-      "class": "js-contact-list-item-2"
+      "title": "Postal Address",
+      "class": "js-contact-postal-address",
+      "content": "Linnankatu 2<br/>20100 TURKU"
     },
     {
-      "title": "Item 3",
+      "title": "Email",
+      "class": "js-contact-email",
       "content": [
         {
           "icon": "fa fa-envelope",
-          "text": "<a href=\"mailto:test.test@test.fi\">test.test@test.fi</a>"
+          "text": "<a href=\"mailto:kaupunginkirjasto@turku.fi\">kaupunginkirjasto@turku.fi</a>"
         }
-      ],
-      "class": "js-contact-list-item-3"
+      ]
+    },
+    {
+      "title": "Phone",
+      "content": ""
     }
   ]
 }
