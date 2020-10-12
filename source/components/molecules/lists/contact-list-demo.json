@@ -2,8 +2,13 @@
   "wrapperClass": "js-pl-contact-list",
   "items": [
     {
-      "title": "Postal Address",
+      "title": "Address",
       "class": "js-contact-address"
+    },
+    {
+      "title": "Postal Address",
+      "class": "js-contact-postal-address",
+      "content": "Linnankatu 2<br/>20100 TURKU"
     },
     {
       "title": "Email",

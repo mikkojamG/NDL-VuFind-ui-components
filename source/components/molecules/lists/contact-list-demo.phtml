@@ -16,9 +16,7 @@
     var $holder = $('.js-pl-contact-list');
 
     $holder.find('.js-contact-address .contact-content').html('<p>' + data.address.street + ' ' + data.address.zipcode + ' ' + data.address.city + '</p>');
-
     $holder.find('.js-contact-email .contact-content').html(data.emails);
-
     $holder.find('.js-contact-phone .contact-content').html(data.phone);
   });
 </script>
