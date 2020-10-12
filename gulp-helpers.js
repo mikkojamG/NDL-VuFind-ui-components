@@ -17,9 +17,11 @@ const componentsExist = (paths) => {
 
 const symlinksExist = (paths) => {
   return paths.filter((path) => {
-    const stats = fs.lstatSync(path);
-
-    return stats.isSymbolicLink();
+    try {
+      return fs.lstatSync(path).isSymbolicLink();
+    } catch (err) {
+      return false;
+    }
   }).length > 0;
 }
 
