@@ -3,22 +3,22 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function onDocumentReady() {
-    var emails = "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kaupunginkirjasto&#x40;turku.fi\">kaupunginkirjasto@turku.fi</a></p></li>\n</ul>\n";
-
-    var address = {
-      street: "Linnankatu 2",
-      zipcode: "20100",
-      city: "Keskusta (Turku)",
-    };
-
-    var phone = "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0625\">02 262 0625</a> / Lasten Saaga</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0626\">02 262 0626</a> / Nuorten Stoori</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:040&#x20;632&#x20;3207\">040 632 3207</a> / Musiikkiosasto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0629\">02 262 0629</a> / Mikrofilmilukulaitteiden varaukset</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:044&#x20;9075&#x20;272\">044 9075 272</a> / Kaukopalvelu</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0621\">02 262 0621</a> / Uutistori</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:040&#x20;160&#x20;3615\">040 160 3615</a> / Tilavaraukset (Uutistori)</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0624\">02 262 0624</a> / Vastaanotto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0630\">02 262 0630</a> / Tieto-osasto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0623\">02 262 0623</a> / Kirjallisuus ja taiteet</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:044&#x20;907&#x20;2942\">044 907 2942</a> / Vahtimestarit</p></li>\n</ul>\n";
+    var data = {
+      emails: "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kaupunginkirjasto&#x40;turku.fi\">kaupunginkirjasto@turku.fi</a></p></li>\n</ul>\n",
+      address: {
+        street: "Linnankatu 2",
+        zipcode: "20100",
+        city: "Keskusta (Turku)",
+      },
+      phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0625\">02 262 0625</a> / Lasten Saaga</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0626\">02 262 0626</a> / Nuorten Stoori</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:040&#x20;632&#x20;3207\">040 632 3207</a> / Musiikkiosasto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0629\">02 262 0629</a> / Mikrofilmilukulaitteiden varaukset</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:044&#x20;9075&#x20;272\">044 9075 272</a> / Kaukopalvelu</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0621\">02 262 0621</a> / Uutistori</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:040&#x20;160&#x20;3615\">040 160 3615</a> / Tilavaraukset (Uutistori)</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0624\">02 262 0624</a> / Vastaanotto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0630\">02 262 0630</a> / Tieto-osasto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0623\">02 262 0623</a> / Kirjallisuus ja taiteet</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:044&#x20;907&#x20;2942\">044 907 2942</a> / Vahtimestarit</p></li>\n</ul>\n"
+    }
 
     var $holder = $('.js-pl-contact-list');
 
-    $holder.find('.js-contact-address .contact-content').html('<p>' + address.street + ' ' + address.zipcode + ' ' + address.city + '</p>');
+    $holder.find('.js-contact-address .contact-content').html('<p>' + data.address.street + ' ' + data.address.zipcode + ' ' + data.address.city + '</p>');
 
-    $holder.find('.js-contact-email .contact-content').html(emails);
+    $holder.find('.js-contact-email .contact-content').html(data.emails);
 
-    $holder.find('.js-contact-phone .contact-content').html(phone);
+    $holder.find('.js-contact-phone .contact-content').html(data.phone);
   });
 </script>
