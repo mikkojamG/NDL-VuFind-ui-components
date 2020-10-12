@@ -166,6 +166,7 @@ const watchTask = () => {
 
   gulp.watch(`${config.paths.source.patterns}**/*.phtml`, patternLab);
   gulp.watch(`${config.paths.source.patterns}**/*.json`, patternLab);
+  gulp.watch(`${config.paths.source.patterns}**/*.md`, patternLab);
 };
 gulp.task(watchTask);
 
