@@ -1,3 +1,7 @@
+---
+state: demo
+---
+
 #### Description
 
 A general radio button.

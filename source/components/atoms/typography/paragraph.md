@@ -1,4 +1,3 @@
 ---
-title: Success
 state: inprogress
 ---

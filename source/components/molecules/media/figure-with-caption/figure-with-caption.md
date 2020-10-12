@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 An image with caption text. Caption can be aligned to either left or right.
