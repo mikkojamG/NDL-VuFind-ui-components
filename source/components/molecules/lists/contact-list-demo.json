@@ -1,0 +1,17 @@
+{
+  "wrapperClass": "js-pl-contact-list",
+  "items": [
+    {
+      "title": "Postal Address",
+      "class": "js-contact-address"
+    },
+    {
+      "title": "Email",
+      "class": "js-contact-email"
+    },
+    {
+      "title": "Phone",
+      "class": "js-contact-phone"
+    }
+  ]
+}

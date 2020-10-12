@@ -1,29 +1,24 @@
 {
-  "wrapperClass": "js-pl-contact-list",
   "items": [
     {
-      "title": "Address",
-      "content": "Unioninkatu 36, 00170 Helsinki",
-      "class": "js-contact-address"
+      "title": "Item 1",
+      "content": "Item 1",
+      "class": "js-contact-list-item-1"
     },
     {
-      "title": "Postal Address",
-      "content": "PL 15<br>00014 HELSINGIN YLIOPISTO",
-      "class": "js-contact-postal-address"
+      "title": "Item 2",
+      "content": "Item 3",
+      "class": "js-contact-list-item-2"
     },
     {
-      "title": "Email",
+      "title": "Item 3",
       "content": [
         {
           "icon": "fa fa-envelope",
-          "text": "<a href=\"mailto:kk-palvelu@helsinki.fi\">kk-palvelu@helsinki.fi</a>"
+          "text": "<a href=\"mailto:test.test@test.fi\">test.test@test.fi</a>"
         }
       ],
-      "class": "js-contact-email"
-    },
-    {
-      "title": "Customer Service",
-      "class": "js-contact-customer-service"
+      "class": "js-contact-list-item-3"
     }
   ]
 }
