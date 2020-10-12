@@ -158,14 +158,21 @@ const watchTask = () => {
     }
   });
 
-  gulp.watch(`${config.paths.source.styles}/**/*.less`, styles);
-  gulp.watch(`${config.paths.source.patterns}**/*.less`, styles);
+  gulp.watch([
+    `${config.paths.source.styles}/**/*.less`,
+    `${config.paths.source.patterns}**/*.less`
+  ], styles);
 
-  gulp.watch(`${config.paths.source.js}/**/*.js`, scripts);
-  gulp.watch(`${config.paths.source.patterns}**/*.js`, scripts);
+  gulp.watch([
+    `${config.paths.source.js}/**/*.js`,
+    `${config.paths.source.patterns}**/*.js`
+  ], scripts);
 
-  gulp.watch(`${config.paths.source.patterns}**/*.phtml`, patternLab);
-  gulp.watch(`${config.paths.source.patterns}**/*.json`, patternLab);
+  gulp.watch([
+    `${config.paths.source.patterns}**/*.phtml`,
+    `${config.paths.source.patterns}**/*.json`,
+    `${config.paths.source.patterns}**/*.md`
+  ], patternLab);
 };
 gulp.task(watchTask);
 
