@@ -1,19 +1,21 @@
-<div class="services">
+<div class="services <?= $wrapperClass ?? ''; ?>">
   <?php if (isset($title)) : ?>
     <h5 class="service-header">
       <?= $title; ?>
     </h5>
   <?php endif; ?>
-  <ul class="service-list">
-    <?php foreach ($items as $item) : ?>
-      <li class="service-list-item">
-        <?php if (isset($item['tooltip'])) : ?>
-          <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn', 'btn-link'], 'buttonText' => $item['name'], 'content' => $item['tooltip'], 'position' =>
-          'bottom']); ?>
-        <?php else : ?>
-          <span><?= $item['name']; ?></span>
-        <?php endif; ?>
-      </li>
-    <?php endforeach; ?>
+  <ul class="service-list <?= $listWrapperClass ?? ''; ?>">
+    <?php if (isset($items)) : ?>
+      <?php foreach ($items as $item) : ?>
+        <li class="service-list-item">
+          <?php if (isset($item['tooltip'])) : ?>
+            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn', 'btn-link'], 'buttonText' => $item['name'], 'content' => $item['tooltip'], 'position' =>
+            'bottom']); ?>
+          <?php else : ?>
+            <span><?= $item['name']; ?></span>
+          <?php endif; ?>
+        </li>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </ul>
 </div>

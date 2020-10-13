@@ -1,4 +1,6 @@
 {
+  "wrapperClass": "js-service-list",
+  "listWrapperClass": "js-services",
   "title": "Service List",
   "items": [
     {
