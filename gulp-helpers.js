@@ -17,9 +17,11 @@ const componentsExist = (paths) => {
 
 const symlinksExist = (paths) => {
   return paths.filter((path) => {
-    const stats = fs.lstatSync(path);
-
-    return stats.isSymbolicLink();
+    try {
+      return fs.lstatSync(path).isSymbolicLink();
+    } catch (err) {
+      return false;
+    }
   }).length > 0;
 }
 
@@ -65,8 +67,51 @@ const checkForSymlinks = async () => {
   return false;
 };
 
+const importScripts = async (files) => {
+  try {
+    const cleanPaths = files.map((file) => file.replace('./source/', ''));
+
+    const phpString = `<?php \n${cleanPaths.map((path) => {
+      return `$config['js'][] = '${path}'`
+    }).join(';\n')};`;
+
+    return fs.writeFile(`${themeDirectoryPath}/components.config.php`,
+      phpString, (err) => {
+        if (err) {
+          throw err;
+        }
+
+        return;
+      })
+  } catch (error) {
+    return error;
+  }
+};
+
+const importLess = (files) => {
+  try {
+    const cleanPaths = files.map((file) => file.replace('./source/', ''));
+
+    const lessString = `${cleanPaths.map((path) => {
+      return `@import "${path}"`
+    }).join(';\n')};`
+
+    return fs.writeFile(`${themeDirectoryPath}/less/components.less`, lessString, (err) => {
+      if (err) {
+        throw err;
+      }
+
+      return;
+    })
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   cleanDir,
   checkForComponents,
-  checkForSymlinks
+  checkForSymlinks,
+  importScripts,
+  importLess
 }
