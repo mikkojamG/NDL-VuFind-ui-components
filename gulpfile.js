@@ -72,27 +72,6 @@ const styles = () => {
 };
 gulp.task(styles);
 
-const importScripts = async (files) => {
-  try {
-    const cleanPaths = files.map((file) => file.replace('./source/', ''));
-
-    const phpString = `<?php \n${cleanPaths.map((path) => {
-      return `$config['js'][] = '${path}'`
-    }).join(';\n')};`;
-
-    return fs.writeFile(`${themeDirectoryPath}/components.config.php`,
-      phpString, (err) => {
-        if (err) {
-          throw err;
-        }
-
-        return;
-      })
-  } catch (error) {
-    return error;
-  }
-};
-
 const themeScriptImports = async () => {
   try {
     const source = `${config.paths.source.root}/components/**/*.js`
@@ -102,7 +81,7 @@ const themeScriptImports = async () => {
         throw err;
       }
 
-      await importScripts(files);
+      await helpers.importScripts(files);
     });
 
 
@@ -169,26 +148,6 @@ const watchTask = () => {
 };
 gulp.task(watchTask);
 
-const importLess = (files) => {
-  try {
-    const cleanPaths = files.map((file) => file.replace('./source/', ''));
-
-    const lessString = `${cleanPaths.map((path) => {
-      return `@import "${path}"`
-    }).join(';\n')};`
-
-    return fs.writeFile(`${themeDirectoryPath}/less/components.less`, lessString, (err) => {
-      if (err) {
-        throw err;
-      }
-
-      return;
-    })
-  } catch (error) {
-    return error;
-  }
-};
-
 const themeLessImports = async () => {
   try {
     const source = `${config.paths.source.root}/components/**/*.less`
@@ -198,7 +157,7 @@ const themeLessImports = async () => {
         throw err;
       }
 
-      await importLess(files);
+      await helpers.importLess(files);
     })
   } catch (error) {
     throw error;
@@ -206,32 +165,35 @@ const themeLessImports = async () => {
 };
 gulp.task(themeLessImports);
 
-const unlinkPatterns = () => {
-  return exec(`rm -rf ${themeDirectoryPath}/templates/components`, (err) => {
+const unlinkPatterns = () => new Promise((resolve, reject) => {
+  exec(`rm -rf ${themeDirectoryPath}/templates/components`, (err) => {
     if (err) {
-      throw err;
+      reject(err);
     }
-  });
-};
-gulp.task(unlinkPatterns);
 
-const unlinkStyles = () => {
-  return exec(`rm -rf ${themeDirectoryPath}/less/components`, (err) => {
-    if (err) {
-      throw err;
-    }
+    resolve();
   });
-};
-gulp.task(unlinkStyles);
+});
 
-const unlinkScripts = () => {
-  return exec(`rm -rf ${themeDirectoryPath}/js/components`, (err) => {
+const unlinkStyles = () => new Promise((resolve, reject) => {
+  exec(`rm -rf ${themeDirectoryPath}/less/components`, (err) => {
     if (err) {
-      throw err;
+      reject(err);
     }
+
+    resolve();
   });
-};
-gulp.task(unlinkScripts);
+});
+
+const unlinkScripts = () => new Promise((resolve, reject) => {
+  exec(`rm -rf ${themeDirectoryPath}/js/components`, (err) => {
+    if (err) {
+      reject(err);
+    }
+
+    resolve();
+  });
+});
 
 const unlinkTheme = gulp.series(unlinkPatterns, unlinkStyles, unlinkScripts);
 
@@ -268,19 +230,19 @@ const symLinkScripts = () => {
 };
 gulp.task(symLinkScripts);
 
-const shouldRemoveComponents = async (callback) => {
+const preSymlinkTheme = async () => {
   const shouldRemove = await helpers.checkForComponents();
 
   if (shouldRemove) {
-    return unlinkTheme();
+    await Promise.all([unlinkPatterns(), unlinkStyles(), unlinkScripts()]);
   }
 
-  return callback();
+  Promise.resolve();
 };
-gulp.task(shouldRemoveComponents);
+gulp.task(preSymlinkTheme);
 
 const symLinkTheme = gulp.series(
-  shouldRemoveComponents,
+  preSymlinkTheme,
   symLinkPatterns,
   symLinkStyles,
   symLinkScripts,
@@ -315,19 +277,20 @@ const copyScripts = () => {
 };
 gulp.task(copyScripts);
 
-const shouldUnlinkTheme = async (callback) => {
+const preCopyTheme = async () => {
   const shouldUnlink = await helpers.checkForSymlinks();
 
   if (shouldUnlink) {
-    return unlinkTheme();
+    await Promise.all([unlinkPatterns(), unlinkStyles(), unlinkScripts()]);
+
   }
 
-  return callback();
+  Promise.resolve();
 };
-gulp.task(shouldUnlinkTheme);
+gulp.task(preCopyTheme);
 
 const copyTheme = gulp.series(
-  shouldUnlinkTheme,
+  preCopyTheme,
   copyPatterns,
   copyStyles,
   copyScripts,
@@ -361,7 +324,7 @@ themeLessImports.description = "Inject component Less imports to dedicated files
 
 themeScriptImports.description = "Inject component JS imports to working theme config";
 
-shouldUnlinkTheme.description = "Ask if linked components should be unlinked";
+preSymlinkTheme.description = "Check if existing components in working theme should be removed";
 
 symLinkPatterns.description = "Create patterns symbolic link";
 
@@ -369,13 +332,7 @@ symLinkStyles.description = "Create styles symbolic link";
 
 symLinkScripts.description = "Create scripts symbolic link";
 
-unlinkPatterns.description = "Remove symbolic link from working patterns";
-
-unlinkStyles.description = "Remove symbolic link from working styles";
-
-unlinkScripts.description = "Remove symbolic link from working scripts";
-
-shouldRemoveComponents.description = "Ask if existing components in theme directory should be removed";
+preCopyTheme.description = "Check if existing symlinks in working theme should be removed";
 
 copyPatterns.description = "Create patterns copy";
 
