@@ -4,7 +4,7 @@ state: inprogress
 
 #### Description
 
-List component for static and dynamically generated services.
+List component for static and dynamically generated organisation services content.
 
 #### Properties
 
@@ -17,4 +17,4 @@ List component for static and dynamically generated services.
 
 #### Child components
 
-- `molecules/tooltips/tooltip/tooltip.phtml`
+- `atoms/tooltips/tooltip/tooltip.phtml`
