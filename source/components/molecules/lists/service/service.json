@@ -4,35 +4,16 @@
   "title": "Service List",
   "items": [
     {
-      "name": "3D-tulostin",
-      "tooltip": "<h4>3D-tulostin</h4><p>3D-tulostinta voi käyttää uutistorilla. Ajanvaraus <a href='https://varaamo.turku.fi' rel='nofollow noreferrer noopener' target='_blank'>Varaamosta</a></p>"
+      "name": "Item 1",
+      "tooltip": "<h4>Item 1</h4><p>Item 1 tooltip</p>"
     },
     {
-      "name": "Digitointilaite",
-      "tooltip": "<h4>Digitointilaite</h4>Musiikkiosastolla on mahdollista digitoida VHS-kasetteja, LP-levyjä, C-kasetteja, dioja ja kuvia."
+      "name": "Item 2",
+      "tooltip": "<h4>Item 2</h4><p>Item 2 tooltip</p>"
     },
     {
-      "name": "Elektroninen suurennuslaite",
-      "tooltip": "<h4>Elektroninen suurennuslaite</h4>Uutistorilla"
-    },
-    {
-      "name": "Kirkasvalolamppu"
-    },
-    {
-      "name": "Kopiokone, tulostin ja skanneri",
-      "tooltip": "<h4>Kopiokone, tulostin ja skanneri</h4>Uutistorilla on väritulostin, kopiokone ja skanneri. Tieto-osastolla on mustavalkotulostin"
-    },
-    {
-      "name": "Mikrokortin/-filmin lukulaite",
-      "tooltip": "<h4>Mikrokortin/-filmin lukulaite</h4><p>Tieto-osastolla. Lukulaitteen ajanvaraus <a href='https://varaamo.turku.fi' rel='nofollow noreferrer noopener' target='_blank'>Varaamosta</a></p>"
-    },
-    {
-      "name": "Mobiililaitteiden lataus",
-      "tooltip": "<h4>Mobiililaitteiden lataus</h4>Uutistorilla ja tieto-osastolla"
-    },
-    {
-      "name": "Tietokoneet",
-      "tooltip": "<h4>Tietokoneet</h4><p><a href='http://www.eb2.dpg.fi/vaski/' rel='nofollow noreferrer noopener' target='_blank'>eBooking</a></p>"
+      "name": "Item 3",
+      "tooltip": "<h4>Item 3</h4><p>Item 3 tooltip</p>"
     }
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "title": "Laitteisto",
+  "listWrapperClass": "js-hardware",
+  "staticItems": [
+    {
+      "name": "3D-tulostin",
+      "tooltip": "<p>3D-tulostinta voi käyttää uutistorilla. Ajanvaraus <a href='https://varaamo.turku.fi' rel='nofollow noreferrer noopener' target='_blank'>Varaamosta</a></p>"
+    },
+    { "name": "Kirkasvalolamppu" }
+  ]
+}
