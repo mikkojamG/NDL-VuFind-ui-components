@@ -32,6 +32,7 @@
     "chalk": "^4.1.0",
     "cli-progress": "^3.8.2",
     "dotenv": "^8.2.0",
+    "front-matter": "^4.0.2",
     "pa11y": "^5.3.0"
   },
   "devDependencies": {
@@ -43,6 +44,7 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-exec": "^5.0.0",
+    "gulp-filter": "^6.0.0",
     "gulp-less": "^4.0.1",
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
@@ -50,7 +52,8 @@
     "gulp-uglify": "^3.0.2",
     "husky": "^4.2.5",
     "less-plugin-glob": "^3.0.0",
-    "prompts": "^2.3.2"
+    "prompts": "^2.3.2",
+    "through2": "^4.0.2"
   },
   "husky": {
     "hooks": {

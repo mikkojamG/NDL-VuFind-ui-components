@@ -8,6 +8,7 @@ const fs = require('fs');
 const exec = require('child_process').exec;
 const glob = require('glob');
 const path = require('path');
+const frontmatter = require('front-matter');
 
 const pipeExec = require('gulp-exec');
 const less = require('gulp-less');
@@ -19,6 +20,7 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const replace = require('gulp-replace');
+const through = require('through2');
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
 const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
@@ -257,31 +259,132 @@ const symLinkTheme = gulp.series(
   themeScriptImports
 );
 
-const copyPatterns = () => {
+// const copyPatterns = () => {
+//   const source = config.paths.source.patterns;
+
+//   return gulp
+//     .src(`${source}**/*.phtml`)
+//     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
+// };
+// gulp.task(copyPatterns);
+
+const copyPatterns = async () => {
   const source = config.paths.source.patterns;
 
   return gulp
     .src(`${source}**/*.phtml`)
+    .pipe(through.obj((file, _, callback) => {
+      const filedir = path.parse(file.path).dir;
+      const filename = path.parse(file.path).name;
+      const markdownFile = `${filedir}/${filename}.md`;
+
+      if (fs.existsSync(markdownFile)) {
+        fs.readFile(markdownFile, 'utf8', (err, data) => {
+          if (err) {
+            console.log(error);
+            callback(null, null);
+          }
+
+          const attributes = frontmatter(data).attributes;
+
+          if (attributes.state !== 'done') {
+            file = null;
+          }
+
+          callback(null, file);
+        });
+      } else {
+        callback(null, null);
+      }
+    }))
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
-};
+}
 gulp.task(copyPatterns);
 
-const copyStyles = () => {
+// const copyStyles = () => {
+//   const source = config.paths.source.patterns;
+
+//   return gulp
+//     .src(`${source}**/*.less`)
+//     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
+// };
+// gulp.task(copyStyles);
+
+const copyStyles = async () => {
   const source = config.paths.source.patterns;
 
   return gulp
     .src(`${source}**/*.less`)
+    .pipe(through.obj((file, _, callback) => {
+
+      const filedir = path.parse(file.path).dir;
+      const filename = path.parse(file.path).name;
+      const markdownFile = `${filedir}/${filename}.md`;
+
+      if (fs.existsSync(markdownFile)) {
+        fs.readFile(markdownFile, 'utf8', (err, data) => {
+          if (err) {
+            console.log(error);
+            file = null;
+          }
+
+          const attributes = frontmatter(data).attributes;
+
+          if (attributes.state !== 'done') {
+            file = null;
+          }
+
+          callback(null, file);
+        });
+      } else {
+        callback(null, null);
+      }
+    }))
     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
-};
+}
 gulp.task(copyStyles);
 
-const copyScripts = () => {
+// const copyScripts = () => {
+//   const source = config.paths.source.patterns;
+
+//   return gulp
+//     .src(`${source}**/*.js`)
+//     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
+// };
+// gulp.task(copyScripts);
+
+const copyScripts = async () => {
   const source = config.paths.source.patterns;
 
   return gulp
     .src(`${source}**/*.js`)
+    .pipe(through.obj((file, _, callback) => {
+
+      const filedir = path.parse(file.path).dir;
+      const filename = path.parse(file.path).name;
+      const markdownFile = `${filedir}/${filename}.md`;
+
+      if (fs.existsSync(markdownFile)) {
+        fs.readFile(markdownFile, 'utf8', (err, data) => {
+          if (err) {
+            console.log(error);
+            file = null;
+          }
+
+          const attributes = frontmatter(data).attributes;
+
+          if (attributes.state !== 'done') {
+            file = null;
+          }
+
+          callback(null, file);
+        });
+      } else {
+        callback(null, null);
+      }
+    }))
     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
-};
+}
 gulp.task(copyScripts);
 
 const preCopyTheme = async () => {
@@ -289,12 +392,27 @@ const preCopyTheme = async () => {
 
   if (shouldUnlink) {
     await Promise.all([unlinkPatterns(), unlinkStyles(), unlinkScripts()]);
-
   }
 
   Promise.resolve();
 };
 gulp.task(preCopyTheme);
+
+const getProdComponents = (file) => new Promise((resolve, reject) => {
+  fs.readFile(file, 'utf8', (err, data) => {
+    if (err) {
+      reject();
+    }
+
+    var content = frontmatter(data);
+
+    if (content.attributes.state && content.attributes.state === 'done') {
+      resolve(file);
+    }
+
+    resolve();
+  });
+});
 
 const copyTheme = gulp.series(
   preCopyTheme,

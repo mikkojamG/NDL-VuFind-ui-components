@@ -1,6 +1,6 @@
 ---
 title: Tabs Main
-state: inprogress
+state: done
 ---
 
 #### Description
