@@ -108,10 +108,17 @@ const importLess = (files) => {
   }
 };
 
+const patternStates = [
+  'inprogress',
+  'inreview',
+  'complete'
+];
+
 module.exports = {
   cleanDir,
   checkForComponents,
   checkForSymlinks,
   importScripts,
-  importLess
+  importLess,
+  patternStates
 }

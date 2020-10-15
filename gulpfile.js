@@ -10,6 +10,7 @@ const glob = require('glob');
 const path = require('path');
 const through = require('through2').obj;
 const frontmatter = require('front-matter');
+const { argv } = require('yargs');
 
 const pipeExec = require('gulp-exec');
 const less = require('gulp-less');
@@ -261,6 +262,11 @@ const symLinkTheme = gulp.series(
 
 const copyPatterns = () => {
   const source = config.paths.source.patterns;
+  let state = 'complete';
+
+  if (argv.state && helpers.patternStates.includes(argv.state)) {
+    state = argv.state;
+  }
 
   return gulp
     .src(`${source}**/*.phtml`)
@@ -277,7 +283,7 @@ const copyPatterns = () => {
 
           const attributes = frontmatter(data).attributes;
 
-          if (attributes.state !== 'complete') {
+          if (attributes.state !== state) {
             file = null;
           }
 
@@ -293,6 +299,11 @@ gulp.task(copyPatterns);
 
 const copyStyles = () => {
   const source = config.paths.source.patterns;
+  let state = 'complete';
+
+  if (argv.state && helpers.patternStates.includes(argv.state)) {
+    state = argv.state;
+  }
 
   return gulp
     .src(`${source}**/*.less`)
@@ -309,7 +320,7 @@ const copyStyles = () => {
 
           const attributes = frontmatter(data).attributes;
 
-          if (attributes.state !== 'complete') {
+          if (attributes.state !== state) {
             file = null;
           }
 
@@ -337,6 +348,11 @@ gulp.task(copyStyles);
 
 const copyScripts = () => {
   const source = config.paths.source.patterns;
+  let state = 'complete';
+
+  if (argv.state && helpers.patternStates.includes(argv.state)) {
+    state = argv.state;
+  }
 
   return gulp
     .src(`${source}**/*.js`)
@@ -353,7 +369,7 @@ const copyScripts = () => {
 
           const attributes = frontmatter(data).attributes;
 
-          if (attributes.state !== 'complete') {
+          if (attributes.state !== state) {
             file = null;
           }
 
@@ -466,6 +482,9 @@ symLinkTheme.description = "Create symbolic links to working theme";
 unlinkTheme.description = "Unlink/remove components from working theme";
 
 copyTheme.description = "Copy components to working theme";
+copyTheme.flags = {
+  '--state': 'Copy components with given state. Defaults to complete'
+}
 
 // Exports
 exports.default = defaultTask;
