@@ -9,7 +9,6 @@ const exec = require('child_process').exec;
 const glob = require('glob');
 const path = require('path');
 const through = require('through2').obj;
-const frontmatter = require('front-matter');
 const { argv } = require('yargs');
 
 const pipeExec = require('gulp-exec');
