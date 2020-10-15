@@ -21,7 +21,6 @@ const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const replace = require('gulp-replace');
 const through = require('through2');
-const through2 = require('through2');
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
 const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
@@ -260,15 +259,6 @@ const symLinkTheme = gulp.series(
   themeScriptImports
 );
 
-// const copyPatterns = () => {
-//   const source = config.paths.source.patterns;
-
-//   return gulp
-//     .src(`${source}**/*.phtml`)
-//     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
-// };
-// gulp.task(copyPatterns);
-
 const copyPatterns = () => {
   const source = config.paths.source.patterns;
 
@@ -302,15 +292,6 @@ const copyPatterns = () => {
 }
 gulp.task(copyPatterns);
 
-// const copyStyles = () => {
-//   const source = config.paths.source.patterns;
-
-//   return gulp
-//     .src(`${source}**/*.less`)
-//     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
-// };
-// gulp.task(copyStyles);
-
 const copyStyles = () => {
   const source = config.paths.source.patterns;
 
@@ -341,7 +322,7 @@ const copyStyles = () => {
       }
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`))
-    .pipe(through2.obj((file, _, callback) => {
+    .pipe(through.obj((file, _, callback) => {
       const importPath = path.relative(`${themeDirectoryPath}/less`, file.path)
       const importString = `@import "${importPath}";\n`
 
@@ -356,15 +337,6 @@ const copyStyles = () => {
     }));
 }
 gulp.task(copyStyles);
-
-// const copyScripts = () => {
-//   const source = config.paths.source.patterns;
-
-//   return gulp
-//     .src(`${source}**/*.js`)
-//     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
-// };
-// gulp.task(copyScripts);
 
 const copyScripts = () => {
   const source = config.paths.source.patterns;
@@ -396,7 +368,7 @@ const copyScripts = () => {
       }
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`))
-    .pipe(through2.obj((file, _, callback) => {
+    .pipe(through.obj((file, _, callback) => {
       const importPath = path.relative(`${themeDirectoryPath}/js`, file.path);
       const importString = `$config['js'][] = '${importPath}';\n`
 
@@ -482,7 +454,7 @@ symLinkStyles.description = "Create styles symbolic link";
 
 symLinkScripts.description = "Create scripts symbolic link";
 
-preCopyTheme.description = "Check if existing symlinks in working theme should be removed";
+preCopyTheme.description = "Check for existing symlinks, clear component imports.";
 
 copyPatterns.description = "Create patterns copy";
 
