@@ -271,27 +271,7 @@ const copyPatterns = () => {
   return gulp
     .src(`${source}**/*.phtml`)
     .pipe(through((file, _, callback) => {
-      const filedir = path.parse(file.path).dir;
-      const filename = path.parse(file.path).name;
-      const markdownFile = `${filedir}/${filename}.md`;
-
-      if (fs.existsSync(markdownFile)) {
-        fs.readFile(markdownFile, 'utf8', (err, data) => {
-          if (err) {
-            callback(err);
-          }
-
-          const attributes = frontmatter(data).attributes;
-
-          if (attributes.state !== state) {
-            file = null;
-          }
-
-          callback(null, file);
-        });
-      } else {
-        callback(null);
-      }
+      return helpers.filterPatternState(file, state, callback)
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
 };
@@ -308,27 +288,7 @@ const copyStyles = () => {
   return gulp
     .src(`${source}**/*.less`)
     .pipe(through((file, _, callback) => {
-      const filedir = path.parse(file.path).dir;
-      const filename = path.parse(file.path).name;
-      const markdownFile = `${filedir}/${filename}.md`;
-
-      if (fs.existsSync(markdownFile)) {
-        fs.readFile(markdownFile, 'utf8', (err, data) => {
-          if (err) {
-            callback(err);
-          }
-
-          const attributes = frontmatter(data).attributes;
-
-          if (attributes.state !== state) {
-            file = null;
-          }
-
-          callback(null, file);
-        });
-      } else {
-        callback(null);
-      }
+      return helpers.filterPatternState(file, state, callback)
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`))
     .pipe(through((file, _, callback) => {
@@ -357,27 +317,7 @@ const copyScripts = () => {
   return gulp
     .src(`${source}**/*.js`)
     .pipe(through((file, _, callback) => {
-      const filedir = path.parse(file.path).dir;
-      const filename = path.parse(file.path).name;
-      const markdownFile = `${filedir}/${filename}.md`;
-
-      if (fs.existsSync(markdownFile)) {
-        fs.readFile(markdownFile, 'utf8', (err, data) => {
-          if (err) {
-            callback(err);
-          }
-
-          const attributes = frontmatter(data).attributes;
-
-          if (attributes.state !== state) {
-            file = null;
-          }
-
-          callback(null, file);
-        });
-      } else {
-        callback(null);
-      }
+      return helpers.filterPatternState(file, state, callback)
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`))
     .pipe(through((file, _, callback) => {
