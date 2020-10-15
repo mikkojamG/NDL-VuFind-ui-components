@@ -115,7 +115,7 @@ const patternStates = [
   'complete'
 ];
 
-const filterPatternState = (file, state, callback) => {
+const filterPatternByState = (file, state, callback) => {
   const filedir = path.parse(file.path).dir;
   const filename = path.parse(file.path).name;
   const markdownFile = `${filedir}/${filename}.md`;
@@ -146,5 +146,5 @@ module.exports = {
   importScripts,
   importLess,
   patternStates,
-  filterPatternState
+  filterPatternByState
 }

@@ -270,7 +270,7 @@ const copyPatterns = () => {
   return gulp
     .src(`${source}**/*.phtml`)
     .pipe(through((file, _, callback) => {
-      return helpers.filterPatternState(file, state, callback)
+      return helpers.filterPatternByState(file, state, callback)
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
 };
@@ -287,7 +287,7 @@ const copyStyles = () => {
   return gulp
     .src(`${source}**/*.less`)
     .pipe(through((file, _, callback) => {
-      return helpers.filterPatternState(file, state, callback)
+      return helpers.filterPatternByState(file, state, callback)
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`))
     .pipe(through((file, _, callback) => {
@@ -316,7 +316,7 @@ const copyScripts = () => {
   return gulp
     .src(`${source}**/*.js`)
     .pipe(through((file, _, callback) => {
-      return helpers.filterPatternState(file, state, callback)
+      return helpers.filterPatternByState(file, state, callback)
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`))
     .pipe(through((file, _, callback) => {
