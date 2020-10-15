@@ -20,7 +20,7 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const replace = require('gulp-replace');
-const through = require('through2');
+const through = require('through2').obj;
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
 const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
@@ -264,7 +264,7 @@ const copyPatterns = () => {
 
   return gulp
     .src(`${source}**/*.phtml`)
-    .pipe(through.obj((file, _, callback) => {
+    .pipe(through((file, _, callback) => {
       const filedir = path.parse(file.path).dir;
       const filename = path.parse(file.path).name;
       const markdownFile = `${filedir}/${filename}.md`;
@@ -289,7 +289,7 @@ const copyPatterns = () => {
       }
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
-}
+};
 gulp.task(copyPatterns);
 
 const copyStyles = () => {
@@ -297,7 +297,7 @@ const copyStyles = () => {
 
   return gulp
     .src(`${source}**/*.less`)
-    .pipe(through.obj((file, _, callback) => {
+    .pipe(through((file, _, callback) => {
       const filedir = path.parse(file.path).dir;
       const filename = path.parse(file.path).name;
       const markdownFile = `${filedir}/${filename}.md`;
@@ -335,7 +335,7 @@ const copyStyles = () => {
         callback(null, file);
       });
     }));
-}
+};
 gulp.task(copyStyles);
 
 const copyScripts = () => {
@@ -343,7 +343,7 @@ const copyScripts = () => {
 
   return gulp
     .src(`${source}**/*.js`)
-    .pipe(through.obj((file, _, callback) => {
+    .pipe(through((file, _, callback) => {
       const filedir = path.parse(file.path).dir;
       const filename = path.parse(file.path).name;
       const markdownFile = `${filedir}/${filename}.md`;
@@ -381,7 +381,7 @@ const copyScripts = () => {
         callback(null, file);
       });
     }));
-}
+};
 gulp.task(copyScripts);
 
 const preCopyTheme = async () => {
@@ -407,7 +407,7 @@ const preCopyTheme = async () => {
     }
 
     return;
-  })
+  });
 
   Promise.resolve();
 };
