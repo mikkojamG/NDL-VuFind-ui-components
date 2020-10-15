@@ -277,7 +277,7 @@ const copyPatterns = () => {
 
           const attributes = frontmatter(data).attributes;
 
-          if (attributes.state !== 'done') {
+          if (attributes.state !== 'complete') {
             file = null;
           }
 
@@ -309,7 +309,7 @@ const copyStyles = () => {
 
           const attributes = frontmatter(data).attributes;
 
-          if (attributes.state !== 'done') {
+          if (attributes.state !== 'complete') {
             file = null;
           }
 
@@ -353,7 +353,7 @@ const copyScripts = () => {
 
           const attributes = frontmatter(data).attributes;
 
-          if (attributes.state !== 'done') {
+          if (attributes.state !== 'complete') {
             file = null;
           }
 
