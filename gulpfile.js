@@ -272,8 +272,7 @@ const copyPatterns = () => {
       if (fs.existsSync(markdownFile)) {
         fs.readFile(markdownFile, 'utf8', (err, data) => {
           if (err) {
-            console.log(error);
-            callback(null, null);
+            callback(err);
           }
 
           const attributes = frontmatter(data).attributes;
@@ -285,7 +284,7 @@ const copyPatterns = () => {
           callback(null, file);
         });
       } else {
-        callback(null, null);
+        callback(null);
       }
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
@@ -305,8 +304,7 @@ const copyStyles = () => {
       if (fs.existsSync(markdownFile)) {
         fs.readFile(markdownFile, 'utf8', (err, data) => {
           if (err) {
-            console.log(error);
-            callback(null, null);
+            callback(err);
           }
 
           const attributes = frontmatter(data).attributes;
@@ -318,21 +316,20 @@ const copyStyles = () => {
           callback(null, file);
         });
       } else {
-        callback(null, null);
+        callback(null);
       }
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/less/components`))
-    .pipe(through.obj((file, _, callback) => {
+    .pipe(through((file, _, callback) => {
       const importPath = path.relative(`${themeDirectoryPath}/less`, file.path)
       const importString = `@import "${importPath}";\n`
 
       fs.appendFile(`${themeDirectoryPath}/less/components.less`, importString, (err) => {
         if (err) {
-          console.log(err);
-          callback(null, null);
+          callback(err);
         }
 
-        callback(null, file);
+        callback(null);
       });
     }));
 };
@@ -351,8 +348,7 @@ const copyScripts = () => {
       if (fs.existsSync(markdownFile)) {
         fs.readFile(markdownFile, 'utf8', (err, data) => {
           if (err) {
-            console.log(error);
-            callback(null, null);
+            callback(err);
           }
 
           const attributes = frontmatter(data).attributes;
@@ -364,21 +360,20 @@ const copyScripts = () => {
           callback(null, file);
         });
       } else {
-        callback(null, null);
+        callback(null);
       }
     }))
     .pipe(gulp.dest(`${themeDirectoryPath}/js/components`))
-    .pipe(through.obj((file, _, callback) => {
+    .pipe(through((file, _, callback) => {
       const importPath = path.relative(`${themeDirectoryPath}/js`, file.path);
       const importString = `$config['js'][] = '${importPath}';\n`
 
       fs.appendFile(`${themeDirectoryPath}/components.config.php`, importString, (err) => {
         if (err) {
-          console.log(err);
-          callback(null, null);
+          callback(err);
         }
 
-        callback(null, file);
+        callback(null);
       });
     }));
 };
