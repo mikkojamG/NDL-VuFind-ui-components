@@ -8,6 +8,7 @@ const fs = require('fs');
 const exec = require('child_process').exec;
 const glob = require('glob');
 const path = require('path');
+const through = require('through2').obj;
 const frontmatter = require('front-matter');
 
 const pipeExec = require('gulp-exec');
@@ -20,7 +21,6 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const replace = require('gulp-replace');
-const through = require('through2').obj;
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
 const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
