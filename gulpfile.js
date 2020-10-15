@@ -21,6 +21,7 @@ const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const replace = require('gulp-replace');
 const through = require('through2');
+const through2 = require('through2');
 
 const themesRootPath = path.resolve(process.env.THEMES_ROOT);
 const themeDirectoryPath = path.resolve(process.env.THEME_DIRECTORY);
@@ -268,7 +269,7 @@ const symLinkTheme = gulp.series(
 // };
 // gulp.task(copyPatterns);
 
-const copyPatterns = async () => {
+const copyPatterns = () => {
   const source = config.paths.source.patterns;
 
   return gulp
@@ -310,13 +311,12 @@ gulp.task(copyPatterns);
 // };
 // gulp.task(copyStyles);
 
-const copyStyles = async () => {
+const copyStyles = () => {
   const source = config.paths.source.patterns;
 
   return gulp
     .src(`${source}**/*.less`)
     .pipe(through.obj((file, _, callback) => {
-
       const filedir = path.parse(file.path).dir;
       const filename = path.parse(file.path).name;
       const markdownFile = `${filedir}/${filename}.md`;
@@ -325,7 +325,7 @@ const copyStyles = async () => {
         fs.readFile(markdownFile, 'utf8', (err, data) => {
           if (err) {
             console.log(error);
-            file = null;
+            callback(null, null);
           }
 
           const attributes = frontmatter(data).attributes;
@@ -340,7 +340,20 @@ const copyStyles = async () => {
         callback(null, null);
       }
     }))
-    .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
+    .pipe(gulp.dest(`${themeDirectoryPath}/less/components`))
+    .pipe(through2.obj((file, _, callback) => {
+      const importPath = path.relative(`${themeDirectoryPath}/less`, file.path)
+      const importString = `@import "${importPath}";\n`
+
+      fs.appendFile(`${themeDirectoryPath}/less/components.less`, importString, (err) => {
+        if (err) {
+          console.log(err);
+          callback(null, null);
+        }
+
+        callback(null, file);
+      });
+    }));
 }
 gulp.task(copyStyles);
 
@@ -353,13 +366,12 @@ gulp.task(copyStyles);
 // };
 // gulp.task(copyScripts);
 
-const copyScripts = async () => {
+const copyScripts = () => {
   const source = config.paths.source.patterns;
 
   return gulp
     .src(`${source}**/*.js`)
     .pipe(through.obj((file, _, callback) => {
-
       const filedir = path.parse(file.path).dir;
       const filename = path.parse(file.path).name;
       const markdownFile = `${filedir}/${filename}.md`;
@@ -368,7 +380,7 @@ const copyScripts = async () => {
         fs.readFile(markdownFile, 'utf8', (err, data) => {
           if (err) {
             console.log(error);
-            file = null;
+            callback(null, null);
           }
 
           const attributes = frontmatter(data).attributes;
@@ -383,7 +395,20 @@ const copyScripts = async () => {
         callback(null, null);
       }
     }))
-    .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
+    .pipe(gulp.dest(`${themeDirectoryPath}/js/components`))
+    .pipe(through2.obj((file, _, callback) => {
+      const importPath = path.relative(`${themeDirectoryPath}/js`, file.path);
+      const importString = `$config['js'][] = '${importPath}';\n`
+
+      fs.appendFile(`${themeDirectoryPath}/components.config.php`, importString, (err) => {
+        if (err) {
+          console.log(err);
+          callback(null, null);
+        }
+
+        callback(null, file);
+      });
+    }));
 }
 gulp.task(copyScripts);
 
@@ -394,33 +419,33 @@ const preCopyTheme = async () => {
     await Promise.all([unlinkPatterns(), unlinkStyles(), unlinkScripts()]);
   }
 
+  // Clear Less imports
+  fs.writeFile(`${themeDirectoryPath}/less/components.less`, '', (err) => {
+    if (err) {
+      throw err;
+    }
+
+    return;
+  });
+
+  // Clear JS imports
+  fs.writeFile(`${themeDirectoryPath}/components.config.php`, '<?php \n', (err) => {
+    if (err) {
+      throw err;
+    }
+
+    return;
+  })
+
   Promise.resolve();
 };
 gulp.task(preCopyTheme);
-
-const getProdComponents = (file) => new Promise((resolve, reject) => {
-  fs.readFile(file, 'utf8', (err, data) => {
-    if (err) {
-      reject();
-    }
-
-    var content = frontmatter(data);
-
-    if (content.attributes.state && content.attributes.state === 'done') {
-      resolve(file);
-    }
-
-    resolve();
-  });
-});
 
 const copyTheme = gulp.series(
   preCopyTheme,
   copyPatterns,
   copyStyles,
-  copyScripts,
-  themeLessImports,
-  themeScriptImports
+  copyScripts
 );
 
 const defaultTask = gulp.series(
