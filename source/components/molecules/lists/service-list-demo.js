@@ -1,26 +1,36 @@
+/*global finna */
+
 // eslint-disable-next-line
 var initServiceListDemo = function initServiceListDemo($holder, data) {
   data.forEach(function forEachService(service) {
     var $li = $('<li/>').addClass('service-list-item');
 
-    var serviceTitle = '<span>' + service['0'] + '</span>';
-    var serviceText, serviceDescription, serviceTooltip;
+    var titleString = '<span>' + service['0'] + '</span>';
+    var $serviceLink, descriptionString, tooltipString;
 
     if (service.shortDesc) {
-      serviceText = $('<button/>')
+      $serviceLink = $('<button/>')
         .addClass('btn btn-link')
-        .data('toggle', 'tooltip')
-        .data('placement', 'bottom')
-        .data('html', true)
-        .html(serviceTitle);
+        .html(titleString);
 
-      serviceDescription = service.shortDesc;
+      $serviceLink
+        .attr('data-toggle', 'tooltip')
+        .attr('data-placement', 'bottom')
+        .attr('data-html', true);
 
-      serviceTooltip = '<h4>' + service['0'] + '</h4>' + serviceDescription;
-      serviceText.attr('original-title', serviceTooltip);
+      descriptionString = service.shortDesc;
+
+      tooltipString = '<h4>' + service['0'] + '</h4>' + descriptionString;
+      $serviceLink.attr('data-original-title', tooltipString);
     }
 
-    $li.append(serviceText);
+    $li.append($serviceLink);
     $li.appendTo($holder);
   });
+
+  if (!finna.layout.initTooltips) {
+    return;
+  }
+
+  finna.layout.initTooltips($holder);
 };
