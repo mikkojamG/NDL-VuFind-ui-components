@@ -6,7 +6,7 @@ var initServiceListDemo = function initServiceListDemo($holder, data) {
     var $li = $('<li/>').addClass('service-list-item');
 
     var titleString = '<span>' + service['0'] + '</span>';
-    var $serviceLink, descriptionString, tooltipString;
+    var $serviceLink, tooltipString;
 
     if (service.shortDesc) {
       $serviceLink = $('<button/>')
@@ -18,9 +18,7 @@ var initServiceListDemo = function initServiceListDemo($holder, data) {
         .attr('data-placement', 'bottom')
         .attr('data-html', true);
 
-      descriptionString = service.shortDesc;
-
-      tooltipString = '<h4>' + service['0'] + '</h4>' + descriptionString;
+      tooltipString = '<h4>' + service['0'] + '</h4>' + service.shortDesc;
       $serviceLink.attr('data-original-title', tooltipString);
     }
 
