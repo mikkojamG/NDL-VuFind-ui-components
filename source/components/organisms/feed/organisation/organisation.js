@@ -30,18 +30,20 @@ finna.organisationFeed = (function organisationFeed() {
 
     $.ajax({
       url: url,
-      method: 'POST',
+      method: 'GET',
       data: params,
       headers: {
         'Content-Type': 'application/json'
       }
     })
       .done(function onRequestDone(res) {
-        if (res.data) {
-          $spinner.addClass('hide');
-          $holder.html(res.data.html);
+        var response = JSON.parse(res);
 
-          var settings = res.data.settings;
+        if (response.data) {
+          $spinner.addClass('hide');
+          $holder.html(response.data.html);
+
+          var settings = response.data.settings;
 
           if (!settings.height) {
             settings.height = 300;
