@@ -1,15 +1,25 @@
-<div class="organisation-feed <?= $wrapperClass; ?>">
+<div class="organisation-feed <?= $wrapperClass; ?>" data-feed-id="<?= $feedId; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']) ?>
 </div>
 
 <?php
 $js = <<<JS
 $(document).ready(function() {
-  if(!finna.organisationFeed) {
+  var initOrganisationFeed = function initOrganisationFeed() {
+    var params = {
+      id: '{$feedId}'
+    };
+
+    finna.organisationFeed.init($('.{$wrapperClass}'), finna.organisationInfo);
+
+    finna.organisationFeed.loadFeed(params);
+  };
+  
+  if(!finna.organisationFeed || !finna.organisationInfo) {
     return;
   }
 
-  finna.organisationFeed.init($('.{$wrapperClass}'), { id: '{$feedId}'})
+  initOrganisationFeed();
 });
 JS;
 

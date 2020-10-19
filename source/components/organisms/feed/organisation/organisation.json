@@ -1,4 +1,6 @@
 {
   "wrapperClass": "js-organisation-feed",
-  "feedId": "events"
+  "feedId": "events",
+  "organisationId": 85141,
+  "parent": "Vaski"
 }

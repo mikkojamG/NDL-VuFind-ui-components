@@ -1,5 +1,7 @@
 {
   "wrapperClass": "js-feed-demo-with-modal",
-  "feedId": "events-with-modal",
-  "loadingText": "Loading"
+  "feedId": "events",
+  "loadingText": "Loading",
+  "organisationId": 85141,
+  "parent": "Vaski"
 }
