@@ -31,8 +31,7 @@ finna.organisationFeed = (function organisationFeed() {
           }
         }
       })
-      .fail(function onRequestFail(err) {
-        console.log(err);
+      .fail(function onRequestFail() {
       })
   };
 
