@@ -1,0 +1,41 @@
+<div id="modal" class="modal fade hidden-print" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-body">
+        Loading...
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="organisation-feed js-organisation-feed">
+  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']) ?>
+</div>
+
+<template class="js-organisation-feed-item">
+  <div class="feed-item">
+    <a class="feed-item-link">
+      <div class="feed-item-image-wrapper">
+        <img class="feed-item-image" src="">
+      </div>
+      <div class="feed-item-text-wrapper">
+        <span class="feed-item-text"></span>
+      </div>
+    </a>
+  </div>
+</template>
+
+<?php
+$js = <<<JS
+$(document).ready(function() {
+  if(!finna.organisationFeed) {
+    return;
+  }
+
+  finna.organisationFeed.init($('.js-organisation-feed'), { method: 'getOrganisationPageFeed', id: 'events', url: 'https://tapahtumat.vaskikirjastot.fi/?post_type=tribe_events&kunta=turku-fi&lang=fi&order=asc&feed=rss2' })
+});
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>
