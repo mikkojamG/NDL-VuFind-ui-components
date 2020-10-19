@@ -1,3 +1,4 @@
 {
-  "wrapperClass": "js-organisation-feed"
+  "wrapperClass": "js-organisation-feed",
+  "feedId": "events"
 }

@@ -9,7 +9,7 @@ $(document).ready(function() {
     return;
   }
 
-  finna.organisationFeed.init($('.{$wrapperClass}'), { method: 'getOrganisationPageFeed', id: 'events', url: 'https://tapahtumat.vaskikirjastot.fi/?post_type=tribe_events&kunta=turku-fi&lang=fi&order=asc&feed=rss2' })
+  finna.organisationFeed.init($('.{$wrapperClass}'), { id: '{$feedId}'})
 });
 JS;
 

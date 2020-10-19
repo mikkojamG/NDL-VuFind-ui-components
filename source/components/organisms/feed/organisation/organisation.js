@@ -3,6 +3,9 @@ finna.organisationFeed = (function organisationFeed() {
   var $holder, $spinner;
 
   var loadFeed = function loadFeed(params) {
+    params.method = 'getOrganisationPageFeed';
+    params.url = 'https://tapahtumat.vaskikirjastot.fi/?post_type=tribe_events&kunta=turku-fi&lang=fi&order=asc&feed=rss2';
+
     params['touch-device'] = (finna.layout.isTouchDevice() ? 1 : 0);
 
     var url = VuFind.path + '/AJAX/JSON';

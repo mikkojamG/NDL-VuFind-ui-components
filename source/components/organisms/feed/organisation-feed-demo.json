@@ -1,4 +1,5 @@
 {
   "wrapperClass": "js-feed-demo-with-modal",
+  "feedId": "events-with-modal",
   "loadingText": "Loading"
 }
