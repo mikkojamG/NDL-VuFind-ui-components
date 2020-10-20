@@ -1,5 +1,9 @@
-<div class="organisation-feed <?= $wrapperClass; ?>" data-feed-id="<?= $feedId; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
-  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']) ?>
+<div class="organisation-feed-wrapper <?= $wrapperClass; ?>">
+  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => 'Something went wrong! Please try again later.', 'alertClass' => 'js-feed-error alert-danger hide']); ?>
+  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']); ?>
+
+  <div class="organisation-feed js-feed-grid" data-feed-id="<?= $feedId; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
+  </div>
 </div>
 
 <?php
