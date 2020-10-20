@@ -1,3 +1,7 @@
+---
+state: demo
+---
+
 #### Description
 
 A map component for displaying organisation service point locations and information.
