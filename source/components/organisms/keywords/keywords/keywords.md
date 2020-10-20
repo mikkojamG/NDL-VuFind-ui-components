@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 A keywords component, used for both displaying and editing keywords/tags related to a list of items. The list of items can be a general purpose list for all the users or a customisable list owned by a single user.
