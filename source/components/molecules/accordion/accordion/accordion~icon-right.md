@@ -1,5 +1,6 @@
 ---
 title: Icon Right
+state: inprogress
 ---
 
 #### Description

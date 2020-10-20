@@ -1,5 +1,6 @@
 ---
 title: Custom Icon
+state: inprogress
 ---
 
 #### Description

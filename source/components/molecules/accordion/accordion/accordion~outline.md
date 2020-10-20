@@ -1,5 +1,6 @@
 ---
 title: Outline
+state: inprogress
 ---
 
 #### Description

@@ -1,5 +1,6 @@
 ---
 title: Default
+state: inprogress
 ---
 
 #### Description
