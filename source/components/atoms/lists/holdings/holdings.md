@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 Holding list component. Used for displaying record availability in different locations.
