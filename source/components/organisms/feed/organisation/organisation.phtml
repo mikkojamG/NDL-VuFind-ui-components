@@ -3,11 +3,14 @@
 </div>
 
 <?php
+$url = isset($feedUrl) ? $feedUrl : '';
+
 $js = <<<JS
 $(document).ready(function() {
   var initOrganisationFeed = function initOrganisationFeed() {
     var params = {
-      id: '{$feedId}'
+      id: '{$feedId}',
+      url: '{$url}'
     };
 
     var feed = finna.organisationFeed();
