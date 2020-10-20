@@ -108,3 +108,21 @@ $widget = $target == 'widget';
     </span>
   </div>
 </template>
+<?php
+$js = <<<JS
+$(document).ready(function onDocumentReady() {
+    var initSchedulingWidget = function initSchedulingWidget() {
+      finna.scheduleWidget.init($('.{$wrapperClass}'), finna.organisationInfo);
+      finna.scheduleWidget.loadOrganisationList();
+    };
+
+    if(!finna.scheduleWidget || !finna.organisationInfo) {
+      return;
+    }
+
+    initSchedulingWidget();
+  });
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>
