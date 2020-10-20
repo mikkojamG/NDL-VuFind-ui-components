@@ -1,3 +1,6 @@
+---
+state: inprogress
+---
 #### Description
 
 Tabs component with content loaded dynamically from feed.

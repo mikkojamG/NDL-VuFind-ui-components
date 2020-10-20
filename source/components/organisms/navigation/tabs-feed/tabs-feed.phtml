@@ -27,8 +27,12 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
+<?php
+$js = <<<JS
   $(document).ready(function() {
-    finna.feedTabs.init("feed-tabs-<?= $tablistId; ?>");
+    finna.feedTabs.init("feed-tabs-{$tablistId}");
   });
-</script>
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>
