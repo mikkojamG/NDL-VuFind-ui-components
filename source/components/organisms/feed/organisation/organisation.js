@@ -3,7 +3,7 @@ finna.organisationFeed = (function organisationFeed() {
   var $holder, $grid, $spinner, $error;
   var service;
 
-  var getFeedUrl = function getFeedUrl() {
+  var getRssUrl = function getRssUrl() {
     var deferred = $.Deferred();
 
     var parent = $grid.data('parent');
@@ -17,7 +17,11 @@ finna.organisationFeed = (function organisationFeed() {
               return item.id === $grid.data('feed-id');
             })[0];
 
-            deferred.resolve(rss.url);
+            if (rss && rss.url) {
+              deferred.resolve(rss.url);
+            }
+
+            deferred.reject();
           });
       });
 
@@ -75,10 +79,13 @@ finna.organisationFeed = (function organisationFeed() {
     params.method = 'getOrganisationPageFeed';
 
     if (!params.url) {
-      getFeedUrl().then(function onResolve(res) {
+      getRssUrl().then(function onResolve(res) {
         params.url = res;
 
         ajaxRequest(params);
+      }).catch(function onRejected() {
+        $spinner.addClass('hide');
+        $error.removeClass('hide');
       });
     } else {
       ajaxRequest(params);
