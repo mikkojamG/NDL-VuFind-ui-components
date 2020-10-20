@@ -1,7 +1,6 @@
 <div class="organisation-feed-wrapper <?= $wrapperClass; ?>">
-  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => 'Something went wrong! Please try again later.', 'alertClass' => 'js-feed-error alert-danger hide']); ?>
+  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $generalErrorText, 'alertClass' => 'js-feed-error alert-danger hide']); ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']); ?>
-
   <div class="organisation-feed js-feed-grid" data-feed-id="<?= $feedId; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
   </div>
 </div>
@@ -10,25 +9,25 @@
 $url = isset($feedUrl) ? $feedUrl : '';
 
 $js = <<<JS
-$(document).ready(function() {
-  var initOrganisationFeed = function initOrganisationFeed() {
-    var params = {
-      id: '{$feedId}',
-      url: '{$url}'
+  $(document).ready(function() {
+    var initOrganisationFeed = function initOrganisationFeed() {
+      var params = {
+        id: '{$feedId}',
+        url: '{$url}'
+      };
+
+      var feed = finna.organisationFeed();
+
+      feed.init($('.{$wrapperClass}'), finna.organisationInfo);
+      feed.loadFeed(params);
     };
+    
+    if(!finna.organisationFeed || !finna.organisationInfo) {
+      return;
+    }
 
-    var feed = finna.organisationFeed();
-
-    feed.init($('.{$wrapperClass}'), finna.organisationInfo);
-    feed.loadFeed(params);
-  };
-  
-  if(!finna.organisationFeed || !finna.organisationInfo) {
-    return;
-  }
-
-  initOrganisationFeed();
-});
+    initOrganisationFeed();
+  });
 JS;
 
 echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');

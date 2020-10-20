@@ -2,5 +2,6 @@
   "wrapperClass": "js-organisation-feed",
   "feedId": "events",
   "organisationId": 85141,
-  "parent": "Vaski"
+  "parent": "Vaski",
+  "generalErrorText": "Something went wrong! Please try again later."
 }
