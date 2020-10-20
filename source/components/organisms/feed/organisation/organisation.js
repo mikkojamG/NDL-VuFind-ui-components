@@ -14,7 +14,7 @@ finna.organisationFeed = (function organisationFeed() {
         service.getSchedules('page', parent, id, null, null, true, true,
           function onSchedulesLoaded(res) {
             var rss = res.rss.filter(function findFeedRss(item) {
-              return item.id === $grid.data('feed-id');
+              return item.id === $grid.data('rss-id');
             })[0];
 
             if (rss && rss.url) {

@@ -1,16 +1,16 @@
 <div class="organisation-feed-wrapper <?= $wrapperClass; ?>">
   <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $generalErrorText, 'alertClass' => 'js-feed-error alert-danger hide']); ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']); ?>
-  <div class="organisation-feed js-feed-grid" data-feed-id="<?= $feedId; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
+  <div class="organisation-feed js-feed-grid" data-rss-id="<?= $rssId; ?>" data-organisation-id="<?= $organisationId; ?>" data-parent="<?= $parent; ?>">
   </div>
 </div>
 <?php
-$url = isset($feedUrl) ? $feedUrl : '';
+$url = isset($rssUrl) ? $rssUrl : '';
 $js = <<<JS
   $(document).ready(function() {
     var initOrganisationFeed = function initOrganisationFeed() {
       var params = {
-        id: '{$feedId}',
+        id: '{$rssId}',
         url: '{$url}'
       };
 
