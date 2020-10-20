@@ -41,6 +41,7 @@ finna.organisationFeed = (function organisationFeed() {
 
         if (response.data) {
           $spinner.addClass('hide');
+
           $holder.html(response.data.html);
 
           var settings = response.data.settings;
@@ -50,6 +51,10 @@ finna.organisationFeed = (function organisationFeed() {
           }
 
           if (settings.modal) {
+            $holder.find('a').on('click', function onClickModal() {
+              $('#modal').addClass('feed-content');
+            });
+
             VuFind.lightbox.bind($holder);
           }
         }
@@ -82,4 +87,4 @@ finna.organisationFeed = (function organisationFeed() {
       service = _service;
     }
   }
-})();
+});
