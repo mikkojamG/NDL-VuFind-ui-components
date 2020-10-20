@@ -1,6 +1,6 @@
 {
   "wrapperClass": "js-organisation-feed",
-  "feedId": "events",
+  "rssId": "events",
   "organisationId": 85141,
   "parent": "Vaski",
   "generalErrorText": "Something went wrong! Please try again later."
