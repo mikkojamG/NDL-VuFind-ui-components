@@ -61,7 +61,7 @@ finna.organisationFeed = (function organisationFeed() {
         }
       }
 
-      if ($grid.find('grid-item.truncate').length) {
+      if ($grid.find('.grid-item.truncate').length) {
         $grid.find('.show-more-feeds').removeClass('hidden');
       }
 
