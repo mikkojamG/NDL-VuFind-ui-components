@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 Record tabs component, with the last tab aligned to right. Tab contents are dynamically loaded from a feed. Used on record landing pages.
