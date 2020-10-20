@@ -4,10 +4,8 @@
   <div class="organisation-feed js-feed-grid" data-feed-id="<?= $feedId; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
   </div>
 </div>
-
 <?php
 $url = isset($feedUrl) ? $feedUrl : '';
-
 $js = <<<JS
   $(document).ready(function() {
     var initOrganisationFeed = function initOrganisationFeed() {
