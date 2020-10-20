@@ -340,3 +340,16 @@
   position: absolute;
   width: 1px;
 }
+
+.pl-c-pattern-state {
+  height: 0.6em;
+  width: 0.6em;
+}
+
+.pl-c-pattern-state--demo {
+  background-color: #81358a !important;
+}
+
+.pl-c-pattern__header .pl-c-pattern__title {
+  font-size: 1.1rem !important;
+}

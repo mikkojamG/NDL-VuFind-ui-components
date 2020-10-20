@@ -1,3 +1,7 @@
+---
+state: demo
+---
+
 #### Description
 
 A general select input element.

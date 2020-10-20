@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 Component for adding new keywords to a list of items. Requires Ajax for requests.
