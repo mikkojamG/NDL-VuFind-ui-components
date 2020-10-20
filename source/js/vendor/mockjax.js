@@ -93,6 +93,14 @@ $.mockjax([{
   }
 },
 {
+  url: '/FeedContent/organisation-info-events/*',
+  type: 'GET',
+  responseTime: 1000,
+  response: function (settings) {
+    this.responseText = '<div>Mock popup</div>'
+  }
+},
+{
   url: VuFind.path + '/AJAX/JSON',
   data: { method: 'getOrganisationInfo', params: { action: 'details' } },
   type: 'GET',
