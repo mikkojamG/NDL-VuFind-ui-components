@@ -59,5 +59,5 @@ $.mockjax([
     response: function () {
       this.responseText = "<div><p>Tab Record</p><div>";
     }
-  },
+  }
 ]);
