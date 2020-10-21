@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 Pager component. Generally used for pagination, but also works for controlling dynamically loaded content (e.g. scheduling widget).
