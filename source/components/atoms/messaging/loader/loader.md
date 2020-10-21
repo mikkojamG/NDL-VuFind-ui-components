@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 Loader component, used for indicating ongoing processes for the user.
