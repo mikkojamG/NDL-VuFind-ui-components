@@ -4,7 +4,7 @@ state: demo
 
 #### Description
 
-List component for static and dynamically generated organisation data.
+List component for static and dynamically generated organisation service data.
 
 #### Properties
 
