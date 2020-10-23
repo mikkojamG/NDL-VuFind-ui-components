@@ -1,5 +1,7 @@
 {
   "wrapperClass": "js-pl-contact-list",
+  "parent": "Vaski",
+  "organisationId": 85141,
   "items": [
     {
       "title": "Address",
@@ -23,7 +25,8 @@
     },
     {
       "title": "Phone",
-      "content": ""
+      "class": "js-contact-phone",
+      "dynamicKey": "phone"
     }
   ]
 }

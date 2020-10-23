@@ -1,27 +1,65 @@
-<ul class="contact-list <?= $wrapperClass ?? ''; ?>">
-  <?php foreach ($items as $item) : ?>
-    <li class="contact <?= $item['class'] ?? ''; ?>">
-      <span class="contact-title"><?= $item['title']; ?></span>
-      <div class="contact-content">
-        <?php if (isset($item['content'])) : ?>
-          <?php if (is_array($item['content'])) : ?>
-            <ul>
-              <?php foreach ($item['content'] as $contentItem) : ?>
-                <li>
-                  <p>
-                    <?php if (isset($contentItem['icon'])) : ?>
-                      <i class="<?= $contentItem['icon']; ?>" aria-hidden="true"></i>
-                    <?php endif; ?>
-                    <?= $contentItem['text'] ?? ''; ?>
-                  </p>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-          <?php else : ?>
-            <p><?= $item['content']; ?></p>
+<div class="<?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>">
+  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader text-center']); ?>
+  <ul class="contact-list js-contact-list hide">
+    <?php foreach ($items as $item) : ?>
+      <li class="contact <?= $item['class'] ?? ''; ?>" data-dynamic-item="<?= (isset($item['dynamicKey']) && $item['dynamicKey']) ? 'true' : 'false'; ?>">
+        <span class="contact-title"><?= $item['title']; ?></span>
+        <div class="contact-content">
+          <?php if (isset($item['content'])) : ?>
+            <?php if (is_array($item['content'])) : ?>
+              <ul>
+                <?php foreach ($item['content'] as $contentItem) : ?>
+                  <li>
+                    <p>
+                      <?php if (isset($contentItem['icon'])) : ?>
+                        <i class="<?= $contentItem['icon']; ?>" aria-hidden="true"></i>
+                      <?php endif; ?>
+                      <?= $contentItem['text'] ?? ''; ?>
+                    </p>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            <?php else : ?>
+              <p><?= $item['content']; ?></p>
+            <?php endif; ?>
           <?php endif; ?>
-        <?php endif; ?>
-      </div>
-    </li>
-  <?php endforeach; ?>
-</ul>
+        </div>
+      </li>
+    <?php endforeach; ?>
+  </ul>
+</div>
+<?php
+
+$itemsJson = json_encode($items);
+$js = <<<JS
+  $(document).ready(function onDocumentReady() {
+
+    var initContactList = function initContactList() {
+      var items = {$itemsJson};
+
+      if (items.length) {
+        var dynamicItems = items.filter(function filterItem(item) {
+          return item.dynamicKey;
+        });
+
+        if (dynamicItems.length) {
+          finna.organisationContactList.init($('.{$wrapperClass}'), finna.organisationInfo, dynamicItems);
+
+          finna.organisationContactList.getContactItems();
+        }
+      } else {
+        $('.{$wrapperClass}').find('.js-loader').addClass('hide');
+        $('.{$wrapperClass}').find('.js-contact-list').removeClass('hide');
+      }
+    };
+
+    if (!finna.organisationContactList || !finna.organisationInfo) {
+      return;
+    }
+
+    initContactList();
+  });
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>
