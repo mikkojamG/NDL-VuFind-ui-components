@@ -23,9 +23,9 @@ A map component for displaying organisation service point locations and informat
 | searchFormLabel          | `String`   | `Office search`                                       | Yes      |
 | showAllMarkersButton     | `String`   | `Show all service points`                             | Yes      |
 | showMapButton            | `String`   | `Show map`                                            | Yes      |
+| wrapperClass             | `String`   | `js-widget-wrapper`                                   | Yes      |
 | buildings                | `String[]` | `["85141", "85968"]`                                  | No       |
 | mapHeading               | `String`   | `Demo Heading`                                        | No       |
 | preselectOrganisationId  | `Number`   | `85141`                                               | No       |
 | searchFormPlaceholder    | `String`   | `Search service points ({0})`                         | No       |
 | showSearchForm           | `Boolean`  | `true`                                                | No       |
-| wrapperClass             | `String`   | `js-widget-wrapper`                                   | No       |
