@@ -16,8 +16,8 @@ Schedule widget component, used for displaying schedules and other information f
 | previousWeekLabel        | `String`  | `Previous week`                       | Yes      |
 | selfServiceText          | `String`  | `(self service)`                      | Yes      |
 | staffAvailableText       | `String`  | `Staff available`                     | Yes      |
-| target                   | `String`  | `page`                                | Yes      |
 | weekText                 | `String`  | `Week`                                | Yes      |
+| wrapperClass             | `String`  | `js-widget-schedule-wrapper`          | Yes      |
 | closedText               | `String`  | `Closed`                              | No       |
 | dropdownFallbackLabel    | `String`  | `Select library`                      | No       |
 | directionsText           | `String`  | `Directions`                          | No       |
@@ -29,12 +29,12 @@ Schedule widget component, used for displaying schedules and other information f
 | openText                 | `String`  | `Open`                                | No       |
 | phoneText                | `String`  | `Phone`                               | No       |
 | printText                | `String`  | `Print`                               | No       |
+| target                   | `String`  | `page`                                | No       |
 | servicePointInfoText     | `String`  | `Service point information`           | No       |
 | showControls             | `Boolean` | `true`                                | No       |
 | showDetails              | `Boolean` | `true`                                | No       |
 | wifiText                 | `String`  | `Wifi`                                | No       |
 | widgetHeading            | `String`  | `Widget Heading`                      | No       |
-| wrapperClass             | `String`  | `js-widget-schedule-wrapper`          | No       |
 
 #### Child components
 
