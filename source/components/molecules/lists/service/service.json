@@ -1,19 +1,9 @@
 {
-  "wrapperClass": "js-service-list",
-  "listWrapperClass": "js-services",
+  "wrapperClass": "js-service-list-hardware",
+  "listWrapperClass": "js-services-hardware",
+  "listDataKey": "hardware",
   "title": "Service List",
-  "items": [
-    {
-      "name": "Item 1",
-      "tooltip": "<h4>Item 1</h4><p>Item 1 tooltip</p>"
-    },
-    {
-      "name": "Item 2",
-      "tooltip": "<h4>Item 2</h4><p>Item 2 tooltip</p>"
-    },
-    {
-      "name": "Item 3",
-      "tooltip": "<h4>Item 3</h4><p>Item 3 tooltip</p>"
-    }
-  ]
+  "parent": "Vaski",
+  "organisationId": 85141,
+  "items": []
 }

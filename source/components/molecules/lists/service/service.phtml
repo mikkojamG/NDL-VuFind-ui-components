@@ -1,10 +1,11 @@
-<div class="services <?= $wrapperClass ?? ''; ?>">
+<div class="services <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>">
   <?php if (isset($title)) : ?>
     <h5 class="service-header">
       <?= $title; ?>
     </h5>
   <?php endif; ?>
-  <ul class="service-list <?= $listWrapperClass ?? ''; ?>">
+  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'services-loader js-loader']); ?>
+  <ul class="service-list hide <?= $listWrapperClass ?? ''; ?>" data-list-key="<?= $listDataKey; ?>">
     <?php if (isset($items)) : ?>
       <?php foreach ($items as $item) : ?>
         <li class="service-list-item">
@@ -19,3 +20,23 @@
     <?php endif; ?>
   </ul>
 </div>
+<?php
+$js = <<<JS
+  $(document).ready(function onDocumentReady() {
+    var initServicesList = function initServicesList() {
+      var servicesList = finna.organisationServicesList();
+
+      servicesList.init($('.{$wrapperClass}'), $('.{$listWrapperClass}'), finna.organisationInfo);
+      servicesList.getServices();
+    };
+
+    if (!finna.organisationServicesList || !finna.organisationInfo || !finna.layout.initTooltips) {
+      return;
+    }
+
+    initServicesList();
+  });
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>
