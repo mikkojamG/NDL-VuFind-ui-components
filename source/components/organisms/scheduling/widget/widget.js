@@ -313,51 +313,12 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
   var getSchedules = function getSchedules(id, allServices) {
     $holder.find('.js-hide-onload').addClass('hide');
     $holder.find('.js-is-open').addClass('hide');
+    $holder.data('id', id);
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
     $scheduleHolder.empty();
 
     var parent = $holder.data('parent');
-    var data = service.getDetails(id);
-
-    if (!data) {
-      detailsLoaded(id, null);
-      return;
-    }
-
-    $holder.data('id', id);
-
-    if ('openNow' in data && data.openTimes && data.openTimes.schedules.length
-    ) {
-      $holder.find('.js-is-open ' + (data.openNow ? '.js-open' : '.js-closed')).removeClass('hide');
-    }
-
-    $holder.find('.js-is-open').removeClass('hide');
-
-    if (data.email) {
-      $holder.find('.js-email').removeClass('hide');
-    }
-
-    var $detailsLinkHolder = $holder.find('.js-details-link');
-    $detailsLinkHolder.removeClass('hide');
-
-    var $detailsLink = $detailsLinkHolder.find('a');
-
-    $detailsLink.attr('href', $detailsLink.data('href') + ('#' + id));
-
-    if (data.routeUrl) {
-      $holder.find('.js-route')
-        .attr('href', data.routeUrl)
-        .removeClass('hide');
-    }
-
-    if (data.mapUrl && data.address) {
-      var $map = $holder.find('.js-map');
-
-      $map.find('> a').attr('href', data.mapUrl);
-      $map.find('.js-map-address').text(data.address);
-      $map.removeClass('hide');
-    }
 
     service.getSchedules($holder.data('target'), parent, id, $holder.data('period-start'), null, true, allServices,
       function handleResponse(response) {
@@ -369,6 +330,40 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
         if (!$('.js-inital-loader').hasClass('hide')) {
           $('.js-inital-loader').addClass('hide');
+        }
+
+        var data = service.getDetails(id);
+
+        if ('openNow' in data && data.openTimes && data.openTimes.schedules.length
+        ) {
+          $holder.find('.js-is-open ' + (data.openNow ? '.js-open' : '.js-closed')).removeClass('hide');
+        }
+
+        $holder.find('.js-is-open').removeClass('hide');
+
+        if (data.email) {
+          $holder.find('.js-email').removeClass('hide');
+        }
+
+        var $detailsLinkHolder = $holder.find('.js-details-link');
+        $detailsLinkHolder.removeClass('hide');
+
+        var $detailsLink = $detailsLinkHolder.find('a');
+
+        $detailsLink.attr('href', $detailsLink.data('href') + ('#' + id));
+
+        if (data.routeUrl) {
+          $holder.find('.js-route')
+            .attr('href', data.routeUrl)
+            .removeClass('hide');
+        }
+
+        if (data.mapUrl && data.address) {
+          var $map = $holder.find('.js-map');
+
+          $map.find('> a').attr('href', data.mapUrl);
+          $map.find('.js-map-address').text(data.address);
+          $map.removeClass('hide');
         }
       }
     );
