@@ -2,7 +2,7 @@
 $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
-<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $preselectOrganisationId ?? ''; ?>">
+<div class="service-points <?= $wrapperClass ?? ''; ?>" data-organisation-id="<?= $preselectOrganisationId ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>">
   <?php if (isset($mapHeading)) : ?>
     <h2><?= $mapHeading; ?></h2>
   <?php endif; ?>
@@ -25,9 +25,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <div id="<?= $mapWrapperClass; ?>" class="map-widget <?= $mapWrapperClass; ?>"></div>
     <div class="js-marker-tooltip hide"></div>
   </div>
-  <div class="service-point-info">
-    <!-- Service point info goes here -->
-  </div>
+  <!-- Service Point Info goes here -->
 </div>
 <template class="js-map-bubble">
   <div>
@@ -50,3 +48,28 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <?= $collapseMapText; ?>
   </span>
 </template>
+<?php
+$buildingsArray = json_encode($buildings);
+$js = <<<JS
+  $(document).ready(function onDocumentReady() {
+    var initServicePointMap = function initServicePointMap() {
+      var settings = {
+        parent: '{$parent}',
+        buildings: {$buildingsArray}
+      }
+
+      var url = '{$mapApiUrl}';
+
+      finna.mapWidget.init($('.{$wrapperClass}'), $('.{$mapWrapperClass}'), url, settings);
+    };
+
+    if(!finna.mapWidget) {
+      return;
+    }
+
+    initServicePointMap();
+  });
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>

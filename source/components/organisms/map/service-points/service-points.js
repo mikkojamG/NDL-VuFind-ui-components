@@ -7,6 +7,7 @@ finna.mapWidget = (function finnaMapWidget() {
   var organisationList = {};
   var markers = [];
   var $selectedMarker = null;
+  var service;
 
   var $widget,
     $map,
@@ -369,26 +370,54 @@ finna.mapWidget = (function finnaMapWidget() {
     });
   };
 
+  var getOrganisationsData = function getOrganisationsData(settings) {
+    var deferred = $.Deferred();
+
+    service.getOrganisations('page', settings.parent, settings.buildings, {}, function onOrganisationsLoaded(response) {
+      deferred.resolve(response.list);
+    });
+
+    return deferred.promise();
+  };
+
+  var initMapWidget = function initMapWidget() {
+    initMapControls();
+
+    if (Object.keys(organisationList).length > 1) {
+      initAutoComplete();
+    }
+
+    if (organisationList.consortium && organisationList.consortium.finna.notification) {
+      $holder.find('.js-consortium-notification').html(organisationList.consortium.finna.notification).removeClass('hide');
+    }
+  };
+
   return {
     hideMarker: hideMarker,
     selectMarker: selectMarker,
     resize: resize,
     reset: reset,
     draw: draw,
-    init: function init(holder, widget, url, organisations) {
+    init: function init(holder, widget, url, settings, organisations) {
       $holder = holder;
       $widget = widget;
       mapTileUrl = url;
-      organisationList = organisations;
 
-      $mapControls = $holder.find('.js-map-controls')
+      $mapControls = $holder.find('.js-map-controls');
       $searchInput = $holder.find('.js-service-points-form input');
       $mapHolder = $holder.find('.js-map-holder');
 
-      initMapControls();
+      service = finna.organisationInfo;
 
-      if (Object.keys(organisationList).length > 1) {
-        initAutoComplete();
+      if (!organisations) {
+        getOrganisationsData(settings).then(function onOrganisationsLoaded(res) {
+          organisationList = res;
+
+          initMapWidget();
+        })
+      } else {
+        organisationList = organisations;
+        initMapWidget();
       }
     }
   };
