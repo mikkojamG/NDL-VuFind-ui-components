@@ -421,4 +421,4 @@ finna.mapWidget = (function finnaMapWidget() {
       }
     }
   };
-})();
+});
