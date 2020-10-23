@@ -1,4 +1,4 @@
-<div class="<?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>">
+<div class="<?= $wrapperClass; ?>" data-parent="<?= $parent; ?>" data-organisation-id="<?= $organisationId; ?>">
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader text-center']); ?>
   <ul class="contact-list js-contact-list hide">
     <?php foreach ($items as $item) : ?>

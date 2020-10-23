@@ -11,6 +11,6 @@ Contact list component for static and dynamically generated content. For dynamic
 | Prop           | Type       | Value (example)                                                                                                 | Required |
 | -------------- | ---------- | --------------------------------------------------------------------------------------------------------------- | -------- |
 | items          | `Object[]` | `[{"title": "Address", "class": "js-contact-address", "content": "Linnankatu 2, 20100 Keskusta (Turku)"},...}]` | Yes      |
-| organisationId | `Number`   | `85141`                                                                                                         | No       |
-| parent         | `Object[]` | `Vaski`                                                                                                         | No       |
-| wrapperClass   | `String`   | `js-pl-contact-list`                                                                                            | No       |
+| organisationId | `Number`   | `85141`                                                                                                         | Yes      |
+| parent         | `Object[]` | `Vaski`                                                                                                         | Yes      |
+| wrapperClass   | `String`   | `js-pl-contact-list`                                                                                            | Yes      |
