@@ -1,5 +1,4 @@
 ---
-hidden: true
 state: inprogress
 ---
 
@@ -17,7 +16,7 @@ Schedule widget component, used for displaying schedules and other information f
 | previousWeekLabel        | `String`  | `Previous week`                       | Yes      |
 | selfServiceText          | `String`  | `(self service)`                      | Yes      |
 | staffAvailableText       | `String`  | `Staff available`                     | Yes      |
-| target                   | `String`  | `widget`                              | Yes      |
+| target                   | `String`  | `page`                                | Yes      |
 | weekText                 | `String`  | `Week`                                | Yes      |
 | closedText               | `String`  | `Closed`                              | No       |
 | dropdownFallbackLabel    | `String`  | `Select library`                      | No       |
@@ -26,11 +25,12 @@ Schedule widget component, used for displaying schedules and other information f
 | facebookText             | `String`  | `Facebook`                            | No       |
 | facilityLink             | `String`  | `https://finna.fi/`                   | No       |
 | facilityPlaceholderImage | `String`  | `https://via.placeholder.com/149x100` | No       |
-| id                       | `String`  | `86154`                               | No       |
+| id                       | `String`  | `85141`                               | No       |
 | openText                 | `String`  | `Open`                                | No       |
 | phoneText                | `String`  | `Phone`                               | No       |
 | printText                | `String`  | `Print`                               | No       |
 | servicePointInfoText     | `String`  | `Service point information`           | No       |
+| showControls             | `Boolean` | `true`                                | No       |
 | showDetails              | `Boolean` | `true`                                | No       |
 | wifiText                 | `String`  | `Wifi`                                | No       |
 | widgetHeading            | `String`  | `Widget Heading`                      | No       |
@@ -39,6 +39,6 @@ Schedule widget component, used for displaying schedules and other information f
 #### Child components
 
 - `atoms/messaging/loader/loader.phtml`
+- `atoms/tooltips/tooltip/tooltip.phtml`
 - `molecules/navigation/dropdowns/sort.phtml`
 - `molecules/navigation/pagination/pager-with-label.phtml`
-- `molecules/tooltips/tooltip/tooltip.phtml`
