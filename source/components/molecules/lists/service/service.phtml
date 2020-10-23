@@ -1,11 +1,11 @@
-<div class="services <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent ?? ''; ?>" data-organisation-id="<?= $organisationId ?? ''; ?>">
+<div class="services <?= $wrapperClass; ?>" data-parent="<?= $parent; ?>" data-organisation-id="<?= $organisationId; ?>">
   <?php if (isset($title)) : ?>
     <h5 class="service-header">
       <?= $title; ?>
     </h5>
   <?php endif; ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'services-loader js-loader']); ?>
-  <ul class="service-list hide <?= $listWrapperClass ?? ''; ?>" data-list-key="<?= $listDataKey; ?>">
+  <ul class="service-list hide <?= $listWrapperClass; ?>" data-list-key="<?= $listDataKey; ?>">
     <?php if (isset($items)) : ?>
       <?php foreach ($items as $item) : ?>
         <li class="service-list-item">

@@ -8,12 +8,15 @@ List component for static and dynamically generated organisation service data.
 
 #### Properties
 
-| Prop             | Type       | Value (example)                                                            | Required |
-| ---------------- | ---------- | -------------------------------------------------------------------------- | -------- |
-| items            | `Object[]` | `[{"name": "3D-tulostin", "tooltip": "<h4>3D-tulostin</h4><p>3D-tulos...]` | No       |
-| listWrapperClass | `String`   | `js-hardware`                                                              | No       |
-| title            | `String`   | `Hardware`                                                                 | No       |
-| wrapperClass     | `String`   | -                                                                          | No       |
+| Prop             | Type       | Value (example)            | Required |
+| ---------------- | ---------- | -------------------------- | -------- |
+| listDataKey      | `String`   | `hardware`                 | Yes      |
+| listWrapperClass | `String`   | `js-services-hardware`     | Yes      |
+| organisationId   | `Number`   | `85141`                    | Yes      |
+| parent           | `String`   | `Vaski`                    | Yes      |
+| wrapperClass     | `String`   | `js-service-list-hardware` | Yes      |
+| items            | `Object[]` | -                          | No       |
+| title            | `String`   | `Hardware`                 | No       |
 
 #### Child components
 
