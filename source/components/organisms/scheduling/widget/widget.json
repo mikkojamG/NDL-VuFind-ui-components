@@ -1,8 +1,9 @@
 {
-  "target": "widget",
+  "target": "page",
+  "showControls": true,
   "showDetails": true,
   "parent": "NLF",
-  "id": "86154",
+  "id": 85141,
   "widgetHeading": "Widget Heading",
   "openText": "Open",
   "closedText": "Closed",
@@ -22,5 +23,5 @@
   "dropdownFallbackLabel": "Select library",
   "emailText": "Email",
   "phoneText": "Phone",
-  "wrapperClass": "js-widget-schedule-wrapper"
+  "wrapperClass": "js-pl-widget-demo"
 }

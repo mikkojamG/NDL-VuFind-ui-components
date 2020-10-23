@@ -1,14 +1,11 @@
-<?php
-$widget = $target == 'widget';
-?>
-
 <div class="schedule-widget organisation-info <?= $wrapperClass ?? ''; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id ?? ''; ?>">
-  <?php if ($widget) : ?>
-    <?php if (isset($widgetHeading)) : ?>
-      <h2><?= $widgetHeading; ?></h2>
-    <?php endif; ?>
-    <div class="js-hidden-initally hide">
-      <div class="<?= (isset($showDetails) && $showDetails) ? 'info-col ' : ''; ?>info">
+  <?php if (isset($widgetHeading)) : ?>
+    <h2><?= $widgetHeading; ?></h2>
+  <?php endif; ?>
+  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-inital-loader']); ?>
+  <div class="js-hidden-initally hide">
+    <div class="<?= (isset($showDetails) && $showDetails) ? 'info-col ' : ''; ?>info">
+      <?php if (isset($showControls) && $showControls) : ?>
         <div class="organisation-dropdown-wrapper">
           <div class="organisation-dropdown-holder">
             <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['dropdownClass' => 'organisation js-organisation-menu', 'items' => [], 'label' => $dropdownFallbackLabel ?? '', 'fallbackLabel' => $dropdownFallbackLabel ?? '']) ?>
@@ -32,17 +29,18 @@ $widget = $target == 'widget';
         </div>
         <ul class="js-mobile-schedules mobile-schedules js-hide-onload hide"></ul>
       </div>
-      <div class="js-schedules-info schedules-info js-hide-onload hide"></div>
-      <?php if ($widget && (isset($showDetails) && $showDetails)) : ?>
+      <div class="js-schedules-info schedules-info js-hide-onload hide">
       </div>
+    </div>
+    <?php if (isset($showDetails) && $showDetails) : ?>
       <div class="details-col">
         <a href="" data-href="<?= $facilityLink ?? ''; ?>">
           <img src="<?= $facilityPlaceholderImage ?? ''; ?>" alt="" class="js-facility-image facility-image" />
         </a>
         <div class="details-wrapper">
           <div class="details-item">
-            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
-            <?= $this->render('components/molecules/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
+            <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
+            <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
             <a href="" target="_blank" class="js-route js-hide-onload hide btn">
               <i class="fa fa-bus" aria-hidden="true"></i>
               <span class="sr-only"><?= $directionsText ?? ''; ?></span>
@@ -77,8 +75,8 @@ $widget = $target == 'widget';
           </div>
         </div>
       </div>
-    </div>
-  <?php endif; ?>
+    <?php endif; ?>
+  </div>
 </div>
 <template class="js-time-row-template">
   <div class="time-row">
@@ -112,8 +110,10 @@ $widget = $target == 'widget';
 $js = <<<JS
 $(document).ready(function onDocumentReady() {
     var initSchedulingWidget = function initSchedulingWidget() {
-      finna.scheduleWidget.init($('.{$wrapperClass}'), finna.organisationInfo);
-      finna.scheduleWidget.loadOrganisationList();
+      var widget = finna.scheduleWidget();
+
+      widget.init($('.{$wrapperClass}'), finna.organisationInfo);
+      widget.loadOrganisationList();
     };
 
     if(!finna.scheduleWidget || !finna.organisationInfo) {

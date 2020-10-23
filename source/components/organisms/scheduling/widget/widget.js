@@ -7,9 +7,9 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
   var toggleSpinner = function toggleSpinner(hide) {
     if (hide) {
-      $spinner.fadeTo(100, 0);
+      $spinner.addClass('hide');
     } else {
-      $spinner.fadeTo(100, 1)
+      $spinner.removeClass('hide');
     }
   };
 
@@ -366,6 +366,10 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
           schedulesLoaded(id, response);
           detailsLoaded(id, response);
         }
+
+        if (!$('.js-inital-loader').hasClass('hide')) {
+          $('.js-inital-loader').addClass('hide');
+        }
       }
     );
   };
@@ -485,6 +489,7 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
     var buildings = $holder.data('buildings');
 
     service.getOrganisations($holder.data('target'), parent, buildings, {}, function handleResponse(response) {
+
       if (response) {
         organisationListLoaded(response);
       }
@@ -507,4 +512,4 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
       timeTemplate = $('.js-time-template');
     }
   };
-})();
+});
