@@ -43,4 +43,4 @@ finna.organisationContactList = (function organisationContactList() {
       dynamicItems = _items;
     }
   }
-})();
+});

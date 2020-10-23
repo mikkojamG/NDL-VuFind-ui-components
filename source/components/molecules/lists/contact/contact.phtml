@@ -43,9 +43,11 @@ $js = <<<JS
         });
 
         if (dynamicItems.length) {
-          finna.organisationContactList.init($('.{$wrapperClass}'), finna.organisationInfo, dynamicItems);
+          var organisationContactList = finna.organisationContactList();
 
-          finna.organisationContactList.getContactItems();
+          organisationContactList.init($('.{$wrapperClass}'), finna.organisationInfo, dynamicItems);
+
+          organisationContactList.getContactItems();
         }
       } else {
         $('.{$wrapperClass}').find('.js-loader').addClass('hide');
