@@ -39,10 +39,40 @@ finna.organisationServicesList = (function organisationServicesList() {
       $li.appendTo($list);
     });
 
-    finna.layout.initTooltips($list);
+    if (finna.layout && finna.layout.initTooltips) {
+      finna.layout.initTooltips($list);
+    }
 
     $loader.addClass('hide');
     $list.removeClass('hide');
+  };
+
+  var getOrganisations = function getOrganisations(parent) {
+    var deferred = $.Deferred();
+
+    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
+  var getSchedules = function getSchedules(parent, id) {
+    var deferred = $.Deferred();
+
+    service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
   };
 
   var getServices = function getServices() {
@@ -50,15 +80,17 @@ finna.organisationServicesList = (function organisationServicesList() {
     var id = $holder.data('organisation-id');
     var dataKey = $list.data('list-key');
 
-    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded() {
-      service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded() {
-        var data = service.getDetails(id);
+    getOrganisations(parent)
+      .then(function onOrganisationsResolve() {
+        getSchedules(parent, id)
+          .then(function onSchedulesResolve() {
+            var data = service.getDetails(id);
 
-        var services = data.details.allServices[dataKey];
+            var services = data.details.allServices[dataKey];
 
-        appendServiceItems(services);
-      })
-    })
+            appendServiceItems(services);
+          });
+      });
   };
 
   return {
