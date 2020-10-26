@@ -14,23 +14,62 @@ finna.organisationContactList = (function organisationContactList() {
     $list.removeClass('hide');
   };
 
+  var getOrganisations = function getOrganisations(parent) {
+    var deferred = $.Deferred();
+
+    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
+  var getSchedules = function getSchedules(parent, id) {
+    var deferred = $.Deferred();
+
+    service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
   var getContactItems = function getContactItems() {
     var parent = $holder.data('parent');
     var id = $holder.data('organisation-id');
 
-    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded() {
-      service.getSchedules('page', parent, id, null, null, false, false, function onSchedulesLoaded(res) {
-        var contactData = dynamicItems.filter(function filterItem(item) {
-          if (res[item.dynamicKey]) {
-            var contactDataObject = Object.assign(item, { content: res[item.dynamicKey] });
+    getOrganisations(parent)
+      .then(function onOrganisationsResolve() {
+        getSchedules(parent, id)
+          .then(function onSchedulesResolve() {
+            var data = service.getDetails(id);
 
-            return contactDataObject;
-          }
-        });
+            var contactData = dynamicItems.filter(function filterItem(item) {
+              if (data[item.dynamicKey] || data.details[item.dynamicKey]) {
 
-        appendContactItems(contactData);
+                var contactDataObject
+
+                if (data[item.dynamicKey]) {
+                  contactDataObject = Object.assign(item, { content: data[item.dynamicKey] });
+                } else {
+                  contactDataObject = Object.assign(item, { content: data.details[item.dynamicKey] });
+                }
+
+                return contactDataObject;
+              }
+            });
+
+            appendContactItems(contactData);
+          });
       });
-    });
   };
 
   return {
