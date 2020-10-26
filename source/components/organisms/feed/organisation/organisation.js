@@ -3,16 +3,44 @@ finna.organisationFeed = (function organisationFeed() {
   var $holder, $grid, $spinner, $error;
   var service;
 
+  var getOrganisations = function getOrganisations(parent) {
+    var deferred = $.Deferred();
+
+    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
+  var getSchedules = function getSchedules(parent, id) {
+    var deferred = $.Deferred();
+
+    service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
   var getRssUrl = function getRssUrl() {
     var deferred = $.Deferred();
 
     var parent = $grid.data('parent');
     var id = $grid.data('organisation-id');
 
-    service.getOrganisations('page', parent, {}, {},
-      function onOrganisationsLoaded() {
-        service.getSchedules('page', parent, id, null, null, true, true,
-          function onSchedulesLoaded(res) {
+    getOrganisations(parent)
+      .then(function onOrganisationsResolve() {
+        getSchedules(parent, id)
+          .then(function onSchedulesResolve(res) {
             var rss = res.rss.filter(function findFeedRss(item) {
               return item.id === $grid.data('rss-id');
             })[0];
