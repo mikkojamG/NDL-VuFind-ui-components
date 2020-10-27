@@ -3,5 +3,5 @@
   "rssId": "events",
   "organisationId": 85141,
   "parent": "Vaski",
-  "generalErrorText": "Something went wrong! Please try again later."
+  "informationNotAvailableText": "Information not available at the moment."
 }

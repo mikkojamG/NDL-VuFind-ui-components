@@ -1,5 +1,5 @@
 <div class="organisation-feed-wrapper <?= $wrapperClass; ?>">
-  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $generalErrorText, 'alertClass' => 'js-feed-error alert-danger hide']); ?>
+  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $informationNotAvailableText, 'alertClass' => 'finna-info-alert js-feed-alert hide']); ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']); ?>
   <div class="organisation-feed js-feed-grid" data-rss-id="<?= $rssId; ?>" data-organisation-id="<?= $organisationId; ?>" data-parent="<?= $parent; ?>">
   </div>

@@ -8,14 +8,14 @@ Organisation feed component, which displays organisation RSS data in a grid layo
 
 #### Properties
 
-| Prop             | Type     | Value (example)                                 | Required |
-| ---------------- | -------- | ----------------------------------------------- | -------- |
-| generalErrorText | `String` | `Something went wrong! Please try again later.` | Yes      |
-| organisationId   | `Number` | `85141`                                         | Yes      |
-| parent           | `String` | `Vaski`                                         | Yes      |
-| rssId            | `String` | `events`                                        | Yes      |
-| wrapperClass     | `String` | `js-organisation-feed`                          | Yes      |
-| rssUrl           | `String` | -                                               | No       |
+| Prop                        | Type     | Value (example)                            | Required |
+| --------------------------- | -------- | ------------------------------------------ | -------- |
+| informationNotAvailableText | `String` | `Information not available at the moment.` | Yes      |
+| organisationId              | `Number` | `85141`                                    | Yes      |
+| parent                      | `String` | `Vaski`                                    | Yes      |
+| rssId                       | `String` | `events`                                   | Yes      |
+| wrapperClass                | `String` | `js-organisation-feed`                     | Yes      |
+| rssUrl                      | `String` | -                                          | No       |
 
 #### Child components
 

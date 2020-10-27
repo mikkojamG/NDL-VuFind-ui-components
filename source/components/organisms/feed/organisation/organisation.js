@@ -1,6 +1,6 @@
 /* global VuFind, finna */
 finna.organisationFeed = (function organisationFeed(root) {
-  var $holder, $grid, $spinner, $error;
+  var $holder, $grid, $spinner, $alert;
   var service;
 
   var getOrganisations = function getOrganisations(parent) {
@@ -110,16 +110,20 @@ finna.organisationFeed = (function organisationFeed(root) {
       $spinner.addClass('hide');
 
       if (err.responseJSON) {
-        $error.html(err.responseJSON.data);
+        $alert.html(err.responseJSON.data);
+        $alert.removeClass('finna-info-alert');
+        $alert.addClass('alert-danger');
       }
 
-      $error.removeClass('hide');
+      $alert.removeClass('hide');
     });
   };
 
   var loadFeed = function loadFeed(params) {
     $spinner.removeClass('hide');
-    $error.addClass('hide');
+    $alert.addClass('hide');
+    $alert.removeClass('alert-danger');
+    $alert.addClass('finna-info-alert');
 
     params['touch-device'] = (finna.layout.isTouchDevice() ? 1 : 0);
     params.method = 'getOrganisationPageFeed';
@@ -131,7 +135,7 @@ finna.organisationFeed = (function organisationFeed(root) {
         ajaxRequest(params);
       }).catch(function onRejected() {
         $spinner.addClass('hide');
-        $error.removeClass('hide');
+        $alert.removeClass('hide');
       });
     } else {
       ajaxRequest(params);
@@ -144,7 +148,7 @@ finna.organisationFeed = (function organisationFeed(root) {
       $holder = holder;
       $grid = $holder.find('.js-feed-grid');
       $spinner = $holder.find('.js-loader');
-      $error = $holder.find('.js-feed-error');
+      $alert = $holder.find('.js-feed-alert');
 
       service = _service;
 
