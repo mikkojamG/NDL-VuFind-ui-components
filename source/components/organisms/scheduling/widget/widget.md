@@ -40,5 +40,6 @@ Schedule widget component, used for displaying schedules and other information f
 
 - `atoms/messaging/loader/loader.phtml`
 - `atoms/tooltips/tooltip/tooltip.phtml`
+- `molecules/messaging/alert/alert.phtml`
 - `molecules/navigation/dropdowns/sort.phtml`
 - `molecules/navigation/pagination/pager-with-label.phtml`
