@@ -4,5 +4,6 @@
   "listDataKey": "hardware",
   "title": "Service List",
   "parent": "Vaski",
-  "organisationId": 85141
+  "organisationId": 85141,
+  "servicesNotFoundText": "Information not available at the moment."
 }

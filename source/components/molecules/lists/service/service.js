@@ -1,6 +1,6 @@
 /*global finna */
 finna.organisationServicesList = (function organisationServicesList(root) {
-  var $holder, $list, $loader;
+  var $holder, $list, $loader, $alert;
   var service;
 
   var appendServiceItems = function appendServiceItems(data) {
@@ -76,7 +76,7 @@ finna.organisationServicesList = (function organisationServicesList(root) {
   };
 
   var getServices = function getServices() {
-    $holder.removeClass('hide');
+    $alert.addClass('hide');
     $loader.removeClass('hide');
     $list.addClass('hide');
 
@@ -96,7 +96,7 @@ finna.organisationServicesList = (function organisationServicesList(root) {
               appendServiceItems(services);
             } else {
               $loader.addClass('hide');
-              $holder.addClass('hide');
+              $alert.removeClass('hide');
             }
           });
       });
@@ -108,6 +108,7 @@ finna.organisationServicesList = (function organisationServicesList(root) {
       $holder = _holder;
       $list = _list;
       $loader = $holder.find('.js-loader');
+      $alert = $holder.find('.js-services-alert');
 
       service = _service;
 
