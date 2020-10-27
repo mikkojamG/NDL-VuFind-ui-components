@@ -76,36 +76,43 @@ finna.organisationFeed = (function organisationFeed(root) {
 
         $grid.html(response.data.html);
 
-        var settings = response.data.settings;
+        var hasItems = $grid.find('.feed-grid .grid-item').length;
 
-        if (!settings.height) {
-          settings.height = 300;
-        }
+        if (hasItems) {
+          var settings = response.data.settings;
 
-        if (settings.modal) {
-          $grid.find('a').on('click', function onClickModal() {
-            $('#modal').addClass('feed-content');
+          if (!settings.height) {
+            settings.height = 300;
+          }
+
+          if (settings.modal) {
+            $grid.find('a').on('click', function onClickModal() {
+              $('#modal').addClass('feed-content');
+            });
+
+            VuFind.lightbox.bind($grid);
+          }
+
+          if ($grid.find('.grid-item.truncate').length) {
+            $grid.find('.show-more-feeds').removeClass('hidden');
+          }
+
+          $grid.find('.show-more-feeds').on('click', function showMoreFeeds() {
+            $grid.find('.grid-item.truncate').removeClass('hidden');
+            $grid.find('.show-less-feeds').removeClass('hidden');
+            $(this).addClass('hidden');
           });
 
-          VuFind.lightbox.bind($grid);
+          $grid.find('.show-less-feeds').click(function showLessButton() {
+            $grid.find('.grid-item.truncate').addClass('hidden');
+            $grid.find('.show-more-feeds').removeClass('hidden');
+            $(this).addClass('hidden');
+          });
+        } else {
+          $alert.removeClass('hide');
         }
       }
 
-      if ($grid.find('.grid-item.truncate').length) {
-        $grid.find('.show-more-feeds').removeClass('hidden');
-      }
-
-      $grid.find('.show-more-feeds').on('click', function showMoreFeeds() {
-        $grid.find('.grid-item.truncate').removeClass('hidden');
-        $grid.find('.show-less-feeds').removeClass('hidden');
-        $(this).addClass('hidden');
-      });
-
-      $grid.find('.show-less-feeds').click(function showLessButton() {
-        $grid.find('.grid-item.truncate').addClass('hidden');
-        $grid.find('.show-more-feeds').removeClass('hidden');
-        $(this).addClass('hidden');
-      });
     }).fail(function onRequestFail(err) {
       $spinner.addClass('hide');
 
