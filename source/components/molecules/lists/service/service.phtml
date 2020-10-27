@@ -24,7 +24,7 @@
 $js = <<<JS
   $(document).ready(function onDocumentReady() {
     var initServicesList = function initServicesList() {
-      var servicesList = finna.organisationServicesList();
+      var servicesList = finna.organisationServicesList(this.document);
 
       servicesList.init($('.{$wrapperClass}'), $('.{$listWrapperClass}'), finna.organisationInfo);
       servicesList.getServices();

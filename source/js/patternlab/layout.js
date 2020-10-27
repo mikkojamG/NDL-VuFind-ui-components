@@ -1,6 +1,6 @@
 /*global finna */
 finna.layout = (function finnaLayout(_holder) {
-  var initTooltips = function initTooltips() {
+  var initToolTips = function initToolTips() {
     var $holder = _holder ? _holder : $(document);
 
     var currentOpenTooltips = [];
@@ -35,9 +35,9 @@ finna.layout = (function finnaLayout(_holder) {
   };
 
   return {
-    initTooltips: initTooltips,
+    initToolTips: initToolTips,
     init: function init() {
-      initTooltips();
+      initToolTips();
     }
   }
 })();

@@ -1,5 +1,5 @@
 /*global finna */
-finna.organisationServicesList = (function organisationServicesList() {
+finna.organisationServicesList = (function organisationServicesList(root) {
   var $holder, $list, $loader;
   var service;
 
@@ -39,8 +39,8 @@ finna.organisationServicesList = (function organisationServicesList() {
       $li.appendTo($list);
     });
 
-    if (finna.layout && finna.layout.initTooltips) {
-      finna.layout.initTooltips($list);
+    if (finna.layout && finna.layout.initToolTips) {
+      finna.layout.initToolTips($list);
     }
 
     $loader.addClass('hide');
@@ -76,6 +76,10 @@ finna.organisationServicesList = (function organisationServicesList() {
   };
 
   var getServices = function getServices() {
+    $holder.removeClass('hide');
+    $loader.removeClass('hide');
+    $list.addClass('hide');
+
     var parent = $holder.data('parent');
     var id = $holder.data('organisation-id');
     var dataKey = $list.data('list-key');
@@ -86,9 +90,14 @@ finna.organisationServicesList = (function organisationServicesList() {
           .then(function onSchedulesResolve() {
             var data = service.getDetails(id);
 
-            var services = data.details.allServices[dataKey];
+            if (data.details.allServices && data.details.allServices[dataKey]) {
+              var services = data.details.allServices[dataKey];
 
-            appendServiceItems(services);
+              appendServiceItems(services);
+            } else {
+              $loader.addClass('hide');
+              $holder.addClass('hide');
+            }
           });
       });
   };
@@ -101,6 +110,13 @@ finna.organisationServicesList = (function organisationServicesList() {
       $loader = $holder.find('.js-loader');
 
       service = _service;
+
+      $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
+        $holder.data('organisation-id', data);
+        $list.empty();
+
+        getServices();
+      });
     }
   }
 });
