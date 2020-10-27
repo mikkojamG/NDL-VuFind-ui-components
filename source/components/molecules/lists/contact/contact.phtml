@@ -43,7 +43,7 @@ $js = <<<JS
         });
 
         if (dynamicItems.length) {
-          var organisationContactList = finna.organisationContactList();
+          var organisationContactList = finna.organisationContactList(this.document);
 
           organisationContactList.init($('.{$wrapperClass}'), finna.organisationInfo, dynamicItems);
 

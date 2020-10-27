@@ -1,5 +1,5 @@
 /*global finna */
-finna.organisationContactList = (function organisationContactList() {
+finna.organisationContactList = (function organisationContactList(root) {
   var $holder, $list;
   var dynamicItems, service;
 
@@ -43,6 +43,9 @@ finna.organisationContactList = (function organisationContactList() {
   };
 
   var getContactItems = function getContactItems() {
+    $holder.find('.js-loader').removeClass('hide');
+    $list.addClass('hide');
+
     var parent = $holder.data('parent');
     var id = $holder.data('organisation-id');
 
@@ -80,6 +83,12 @@ finna.organisationContactList = (function organisationContactList() {
 
       service = _service;
       dynamicItems = _items;
+
+      $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
+        $holder.data('organisation-id', data);
+
+        getContactItems();
+      });
     }
   }
 });
