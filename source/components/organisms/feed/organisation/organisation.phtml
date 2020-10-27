@@ -14,7 +14,7 @@ $js = <<<JS
         url: '{$url}'
       };
 
-      var feed = finna.organisationFeed();
+      var feed = finna.organisationFeed(this.document);
 
       feed.init($('.{$wrapperClass}'), finna.organisationInfo);
       feed.loadFeed(params);

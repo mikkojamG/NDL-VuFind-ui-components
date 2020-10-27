@@ -1,5 +1,5 @@
 /* global VuFind, finna */
-finna.organisationFeed = (function organisationFeed() {
+finna.organisationFeed = (function organisationFeed(root) {
   var $holder, $grid, $spinner, $error;
   var service;
 
@@ -41,12 +41,14 @@ finna.organisationFeed = (function organisationFeed() {
       .then(function onOrganisationsResolve() {
         getSchedules(parent, id)
           .then(function onSchedulesResolve(res) {
-            var rss = res.rss.filter(function findFeedRss(item) {
-              return item.id === $grid.data('rss-id');
-            })[0];
+            if (res.rss) {
+              var rss = res.rss.filter(function findFeedRss(item) {
+                return item.id === $grid.data('rss-id');
+              })[0];
 
-            if (rss && rss.url) {
-              deferred.resolve(rss.url);
+              if (rss && rss.url) {
+                deferred.resolve(rss.url);
+              }
             }
 
             deferred.reject();
@@ -145,6 +147,17 @@ finna.organisationFeed = (function organisationFeed() {
       $error = $holder.find('.js-feed-error');
 
       service = _service;
+
+      $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
+        $grid.data('organisation-id', data);
+        $grid.empty();
+
+        var params = {
+          id: $grid.data('rss-id')
+        };
+
+        loadFeed(params);
+      });
     }
   }
 });
