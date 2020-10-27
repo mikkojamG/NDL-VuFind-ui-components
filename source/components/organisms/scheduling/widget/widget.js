@@ -1,5 +1,5 @@
 /*global finna */
-finna.scheduleWidget = (function finnaWeekSchedule() {
+finna.scheduleWidget = (function finnaWeekSchedule(root) {
   var $holder, service, $spinner, $prevButton, $nextButton, $weekNumber;
   var timeRowTemplate, timeTemplate;
   var schedulesLoading = false;
@@ -220,6 +220,8 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
       handleSchedules(response.openTimes.schedules, $scheduleHolder);
     } else {
+      $holder.find('.js-week-navigation').addClass('hide');
+
       var $linkHolder = $holder.find('.js-mobile-schedules');
 
       $linkHolder.empty();
@@ -365,6 +367,10 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
           $map.find('.js-map-address').text(data.address);
           $map.removeClass('hide');
         }
+
+        if (!$('.js-inital-loader').hasClass('hide')) {
+          $('.js-inital-loader').addClass('hide');
+        }
       }
     );
   };
@@ -505,6 +511,10 @@ finna.scheduleWidget = (function finnaWeekSchedule() {
 
       timeRowTemplate = $('.js-time-row-template');
       timeTemplate = $('.js-time-template');
+
+      $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
+        getSchedules(data, false);
+      });
     }
   };
 });

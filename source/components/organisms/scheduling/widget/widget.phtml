@@ -110,7 +110,7 @@
 $js = <<<JS
 $(document).ready(function onDocumentReady() {
     var initSchedulingWidget = function initSchedulingWidget() {
-      var widget = finna.scheduleWidget();
+      var widget = finna.scheduleWidget(this.document);
 
       widget.init($('.{$wrapperClass}'), finna.organisationInfo);
       widget.loadOrganisationList();
