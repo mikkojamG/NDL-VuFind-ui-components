@@ -118,8 +118,6 @@ finna.organisationFeed = (function organisationFeed(root) {
 
       if (err.responseJSON) {
         $alert.html(err.responseJSON.data);
-        $alert.removeClass('finna-info-alert');
-        $alert.addClass('alert-danger');
       }
 
       $alert.removeClass('hide');
@@ -129,8 +127,6 @@ finna.organisationFeed = (function organisationFeed(root) {
   var loadFeed = function loadFeed(params) {
     $spinner.removeClass('hide');
     $alert.addClass('hide');
-    $alert.removeClass('alert-danger');
-    $alert.addClass('finna-info-alert');
 
     params['touch-device'] = (finna.layout.isTouchDevice() ? 1 : 0);
     params.method = 'getOrganisationPageFeed';
