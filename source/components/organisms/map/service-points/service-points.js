@@ -1,5 +1,5 @@
 /*global VuFind, finna, L */
-finna.mapWidget = (function finnaMapWidget() {
+finna.mapWidget = (function finnaMapWidget(root) {
   var zoomLevel = { initial: 27, far: 5, close: 14 };
   var mapTileUrl;
 
@@ -81,6 +81,8 @@ finna.mapWidget = (function finnaMapWidget() {
 
     $marker.on('click', function onMarkerClick() {
       $ref.trigger('marker-click', organisation.id);
+
+      $(root).trigger('mapWidget:selectServicePoint', organisation.id);
     });
   };
 
@@ -326,6 +328,8 @@ finna.mapWidget = (function finnaMapWidget() {
             $holder.find('.js-location-not-available').removeClass('hide');
           }
         }
+
+        $(root).trigger('mapWidget:selectServicePoint', ui.item.value);
 
         return false;
       },

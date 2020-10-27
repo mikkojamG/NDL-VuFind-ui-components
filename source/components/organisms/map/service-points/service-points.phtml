@@ -59,7 +59,7 @@ $js = <<<JS
       }
 
       var url = '{$mapApiUrl}';
-      var mapWidget = finna.mapWidget();
+      var mapWidget = finna.mapWidget(this.document);
 
       mapWidget.init($('.{$wrapperClass}'), $('.{$mapWrapperClass}'), url, settings);
     };
