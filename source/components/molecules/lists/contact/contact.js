@@ -85,7 +85,7 @@ finna.organisationContactList = (function organisationContactList(root) {
       dynamicItems = _items;
 
       $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
-        $holder.data('organisation-id', data);
+        $holder.data('service-point-id', data);
 
         getContactItems();
       });
