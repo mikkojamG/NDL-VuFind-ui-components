@@ -47,7 +47,7 @@ finna.organisationServicesList = (function organisationServicesList(root) {
     $list.removeClass('hide');
   };
 
-  var getOrganisations = function getOrganisations(organisation) {
+  var getOrganisationData = function getOrganisationData(organisation) {
     var deferred = $.Deferred();
 
     service.getOrganisations('page', organisation, [], {}, function onOrganisationsLoaded(res) {
@@ -84,8 +84,8 @@ finna.organisationServicesList = (function organisationServicesList(root) {
     var id = $holder.data('service-point-id');
     var dataKey = $list.data('list-key');
 
-    getOrganisations(organisation)
-      .then(function onOrganisationsResolve() {
+    getOrganisationData(organisation)
+      .then(function onOrganisationResolve() {
         getSchedules(organisation, id)
           .then(function onSchedulesResolve() {
             var data = service.getDetails(id);
