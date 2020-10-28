@@ -4,7 +4,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
   var mapTileUrl;
 
   var mapMarkers = {};
-  var organisationList = {};
+  var servicePointList = {};
   var markers = [];
   var $selectedMarker = null;
   var service;
@@ -60,7 +60,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
     $map.scrollWheelZoom.disable();
   };
 
-  var setMarkerEventListeners = function setMarkerEventListeners($marker, $ref, organisation) {
+  var setMarkerEventListeners = function setMarkerEventListeners($marker, $ref, servicePoint) {
     $marker.on('mouseover', function onMarkerMouseOver(event) {
       if ($marker === $selectedMarker) {
         return;
@@ -72,7 +72,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
       var x = offset.left - holderOffset.left;
       var y = offset.top - holderOffset.top;
 
-      $ref.trigger('marker-mouseover', { id: organisation.id, x: x, y: y })
+      $ref.trigger('marker-mouseover', { id: servicePoint.id, x: x, y: y })
     });
 
     $marker.on('mouseout', function onMarkerMouseOut() {
@@ -80,9 +80,9 @@ finna.mapWidget = (function finnaMapWidget(root) {
     });
 
     $marker.on('click', function onMarkerClick() {
-      $ref.trigger('marker-click', organisation.id);
+      $ref.trigger('marker-click', servicePoint.id);
 
-      $(root).trigger('mapWidget:selectServicePoint', organisation.id);
+      $(root).trigger('mapWidget:selectServicePoint', servicePoint.id);
     });
   };
 
@@ -102,11 +102,11 @@ finna.mapWidget = (function finnaMapWidget(root) {
     return $bubble.parent().html();
   };
 
-  var handleOrganisation = function handleOrganisation(organisation, $ref, icons) {
-    if (organisation.address && organisation.address.coordinates) {
-      var point = organisation.address.coordinates;
+  var handleServicePoint = function handleServicePoint(servicePoint, $ref, icons) {
+    if (servicePoint.address && servicePoint.address.coordinates) {
+      var point = servicePoint.address.coordinates;
       var icon = icons['no-schedule'];
-      var openTimes = finna.common.getField(organisation, 'openTimes');
+      var openTimes = finna.common.getField(servicePoint, 'openTimes');
 
       if (openTimes) {
         var schedules = finna.common.getField(openTimes, 'schedules');
@@ -117,17 +117,17 @@ finna.mapWidget = (function finnaMapWidget(root) {
 
       var $marker = L.marker([point.lat, point.lon], { icon: icon }).addTo($map);
 
-      setMarkerEventListeners($marker, $ref, organisation)
+      setMarkerEventListeners($marker, $ref, servicePoint)
 
-      var bubble = getMarkerBubbleHtml(organisation);
+      var bubble = getMarkerBubbleHtml(servicePoint);
 
-      organisation.map = { info: bubble };
+      servicePoint.map = { info: bubble };
 
-      $marker.bindPopup(organisation.map.info,
+      $marker.bindPopup(servicePoint.map.info,
         { zoomAnimation: true, autoPan: false }
       ).addTo($map);
 
-      mapMarkers[organisation.id] = $marker;
+      mapMarkers[servicePoint.id] = $marker;
       markers.push($marker);
     } else {
       return;
@@ -198,25 +198,25 @@ finna.mapWidget = (function finnaMapWidget(root) {
       });
     });
 
-    Object.keys(organisationList).forEach(function forEachOrganisation(key) {
-      handleOrganisation(organisationList[key], $ref, icons);
+    Object.keys(servicePointList).forEach(function forEachServicePoint(key) {
+      handleServicePoint(servicePointList[key], $ref, icons);
     });
   };
 
-  var getOrganisationById = function getOrganisationById(id) {
-    return organisationList.filter(function findOrganisation(item) {
+  var getServicePoint = function getServicePoint(id) {
+    return servicePointList.filter(function findServicePoint(item) {
       return item.id === id;
     })[0];
   };
 
   var setControllerEventListeners = function setControllerEventListeners() {
     $holder.find('.js-center').on('click', function onCenter() {
-      var id = $holder.data('organisation-id');
+      var id = $holder.data('service-point-id');
 
-      var organisation = getOrganisationById(id);
+      var servicePoint = getServicePoint(id);
 
-      if (organisation) {
-        if (organisation.address && organisation.address.coordinates) {
+      if (servicePoint) {
+        if (servicePoint.address && servicePoint.address.coordinates) {
           reset();
           selectMarker(id);
 
@@ -227,7 +227,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
       }
     });
 
-    if (Object.keys(organisationList).length > 1) {
+    if (Object.keys(servicePointList).length > 1) {
       $holder.find('.js-show-all').removeClass('hide');
 
       $holder.find('.js-show-all').on('click', function onShowAll() {
@@ -253,7 +253,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
 
   var initMapControls = function initMapControls() {
     $holder.find('.js-show-map').on('click', function onShowMap() {
-      var id = $holder.data('organisation-id');
+      var id = $holder.data('service-point-id');
 
       if ($mapHolder.hasClass('hide')) {
         $mapHolder.removeClass('hide');
@@ -267,10 +267,10 @@ finna.mapWidget = (function finnaMapWidget(root) {
         resize();
         reset();
 
-        var organisation = getOrganisationById(id);
+        var servicePoint = getServicePoint(id);
 
-        if (organisation) {
-          if (organisation.address && organisation.address.coordinates) {
+        if (servicePoint) {
+          if (servicePoint.address && servicePoint.address.coordinates) {
             selectMarker(id);
 
             $holder.find('.js-location-not-available').addClass('hide');
@@ -289,8 +289,8 @@ finna.mapWidget = (function finnaMapWidget(root) {
   };
 
   var initAutoComplete = function initAutoComplete() {
-    var organisationsAmount = Object.keys(organisationList).length;
-    var placeholderString = $searchInput.attr('placeholder').replace('{0}', organisationsAmount);
+    var servicePointsAmount = Object.keys(servicePointList).length;
+    var placeholderString = $searchInput.attr('placeholder').replace('{0}', servicePointsAmount);
 
     $searchInput
       .attr('placeholder', placeholderString)
@@ -299,12 +299,12 @@ finna.mapWidget = (function finnaMapWidget(root) {
     $searchInput.autocomplete({
       source: function autocompleteSource(request, response) {
         var term = request.term.toLowerCase();
-        var result = Object.keys(organisationList).filter(function filterOrganisation(key) {
-          return organisationList[key].name.toLowerCase().indexOf(term) !== -1;
-        }).map(function mapOrganisation(key) {
+        var result = Object.keys(servicePointList).filter(function filterServicePoint(key) {
+          return servicePointList[key].name.toLowerCase().indexOf(term) !== -1;
+        }).map(function mapServicePoint(key) {
           return {
-            value: organisationList[key].id,
-            label: organisationList[key].name
+            value: servicePointList[key].id,
+            label: servicePointList[key].name
           }
         });
 
@@ -317,12 +317,12 @@ finna.mapWidget = (function finnaMapWidget(root) {
       select: function onSelect(_, ui) {
         $searchInput.val(ui.item.label);
 
-        var organisation = getOrganisationById(ui.item.value);
+        var servicePoint = getServicePoint(ui.item.value);
 
-        if (organisation) {
-          if (organisation.address && organisation.address.coordinates) {
+        if (servicePoint) {
+          if (servicePoint.address && servicePoint.address.coordinates) {
             selectMarker(ui.item.value);
-            $holder.data('organisation-id', ui.item.value);
+            $holder.data('service-point-id', ui.item.value);
             $holder.find('.js-location-not-available').addClass('hide');
           } else {
             $holder.find('.js-location-not-available').removeClass('hide');
@@ -377,7 +377,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
   var getOrganisationsData = function getOrganisationsData(settings) {
     var deferred = $.Deferred();
 
-    service.getOrganisations('page', settings.parent, settings.buildings, {}, function onOrganisationsLoaded(response) {
+    service.getOrganisations('page', settings.organisation, settings.buildings, {}, function onOrganisationsLoaded(response) {
       deferred.resolve(response.list);
     });
 
@@ -387,12 +387,12 @@ finna.mapWidget = (function finnaMapWidget(root) {
   var initMapWidget = function initMapWidget() {
     initMapControls();
 
-    if (Object.keys(organisationList).length > 1) {
+    if (Object.keys(servicePointList).length > 1) {
       initAutoComplete();
     }
 
-    if (organisationList.consortium && organisationList.consortium.finna.notification) {
-      $holder.find('.js-consortium-notification').html(organisationList.consortium.finna.notification).removeClass('hide');
+    if (servicePointList.consortium && servicePointList.consortium.finna.notification) {
+      $holder.find('.js-consortium-notification').html(servicePointList.consortium.finna.notification).removeClass('hide');
     }
   };
 
@@ -402,7 +402,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
     resize: resize,
     reset: reset,
     draw: draw,
-    init: function init(holder, widget, url, settings, organisations) {
+    init: function init(holder, widget, url, settings, servicePoints) {
       $holder = holder;
       $widget = widget;
       mapTileUrl = url;
@@ -413,14 +413,14 @@ finna.mapWidget = (function finnaMapWidget(root) {
 
       service = finna.organisationInfo;
 
-      if (!organisations) {
+      if (!servicePoints) {
         getOrganisationsData(settings).then(function onOrganisationsLoaded(res) {
-          organisationList = res;
+          servicePointList = res;
 
           initMapWidget();
         })
       } else {
-        organisationList = organisations;
+        servicePointList = servicePoints;
         initMapWidget();
       }
     }

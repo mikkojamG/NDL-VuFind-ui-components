@@ -9,13 +9,13 @@
   "mapWrapperClass": "js-map-widget",
   "wrapperClass": "js-widget-wrapper",
   "showSearchForm": true,
-  "preselectOrganisationId": 85141,
+  "servicePointId": 85141,
   "openText": "Open",
   "closedText": "Closed",
   "notAvailableText": "Not available",
   "expandMapText": "Expand",
   "collapseMapText": "Collapse",
-  "parent": "Vaski",
+  "organisation": "Vaski",
   "buildings": ["85141", "85968"],
   "mapApiUrl": "http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png"
 }

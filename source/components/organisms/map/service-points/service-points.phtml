@@ -2,7 +2,7 @@
 $showForm = isset($showSearchForm) && $showSearchForm;
 ?>
 
-<div class="service-points <?= $wrapperClass; ?>" data-organisation-id="<?= $preselectOrganisationId ?? ''; ?>" data-parent="<?= $parent; ?>">
+<div class="service-points <?= $wrapperClass; ?>" data-service-point-id="<?= $servicePointId ?? ''; ?>" data-organisation="<?= $organisation; ?>">
   <?php if (isset($mapHeading)) : ?>
     <h2><?= $mapHeading; ?></h2>
   <?php endif; ?>
@@ -54,7 +54,7 @@ $js = <<<JS
   $(document).ready(function onDocumentReady() {
     var initServicePointMap = function initServicePointMap() {
       var settings = {
-        parent: '{$parent}',
+        organisation: '{$organisation}',
         buildings: {$buildingsArray}
       }
 

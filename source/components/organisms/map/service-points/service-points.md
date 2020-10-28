@@ -4,7 +4,7 @@ state: inprogress
 
 #### Description
 
-A map component for displaying organisation service point locations and information.
+A map component for displaying organisation service point locations.
 
 #### Properties
 
@@ -19,13 +19,13 @@ A map component for displaying organisation service point locations and informat
 | mapWrapperClass          | `String`   | `js-map-widget`                                       | Yes      |
 | notAvailableText         | `String`   | `Not available`                                       | Yes      |
 | openText                 | `String`   | `Open`                                                | Yes      |
-| parent                   | `String`   | `Vaski`                                               | Yes      |
+| organisation             | `String`   | `Vaski`                                               | Yes      |
 | searchFormLabel          | `String`   | `Office search`                                       | Yes      |
 | showAllMarkersButton     | `String`   | `Show all service points`                             | Yes      |
 | showMapButton            | `String`   | `Show map`                                            | Yes      |
 | wrapperClass             | `String`   | `js-widget-wrapper`                                   | Yes      |
 | buildings                | `String[]` | `["85141", "85968"]`                                  | No       |
 | mapHeading               | `String`   | `Demo Heading`                                        | No       |
-| preselectOrganisationId  | `Number`   | `85141`                                               | No       |
 | searchFormPlaceholder    | `String`   | `Search service points ({0})`                         | No       |
+| servicePointId           | `Number`   | `85141`                                               | No       |
 | showSearchForm           | `Boolean`  | `true`                                                | No       |
