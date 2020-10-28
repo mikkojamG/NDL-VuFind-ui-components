@@ -4,7 +4,7 @@ state: inprogress
 
 #### Description
 
-Schedule widget component, used for displaying schedules and other information for one or multiple organisations.
+Schedule widget component, for displaying service point weekly schedules.
 
 #### Properties
 
