@@ -4,18 +4,18 @@ state: inprogress
 
 #### Description
 
-Organisation feed component, which displays organisation RSS data in a grid layout.
+Feed component for displaying organisation RSS data in a grid layout.
 
 #### Properties
 
-| Prop                        | Type     | Value (example)                            | Required |
-| --------------------------- | -------- | ------------------------------------------ | -------- |
-| informationNotAvailableText | `String` | `Information not available at the moment.` | Yes      |
-| organisationId              | `Number` | `85141`                                    | Yes      |
-| parent                      | `String` | `Vaski`                                    | Yes      |
-| rssId                       | `String` | `events`                                   | Yes      |
-| wrapperClass                | `String` | `js-organisation-feed`                     | Yes      |
-| rssUrl                      | `String` | -                                          | No       |
+| Prop                        | Type     | Value (example)                 | Required |
+| --------------------------- | -------- | ------------------------------- | -------- |
+| informationNotAvailableText | `String` | `Information is not available.` | Yes      |
+| organisation                | `String` | `Vaski`                         | Yes      |
+| rssId                       | `String` | `events`                        | Yes      |
+| servicePointId              | `Number` | `85141`                         | Yes      |
+| wrapperClass                | `String` | `js-organisation-feed`          | Yes      |
+| rssUrl                      | `String` | -                               | No       |
 
 #### Child components
 

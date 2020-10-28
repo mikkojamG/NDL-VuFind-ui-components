@@ -3,10 +3,10 @@ finna.organisationFeed = (function organisationFeed(root) {
   var $holder, $grid, $spinner, $alert;
   var service;
 
-  var getOrganisations = function getOrganisations(parent) {
+  var getOrganisations = function getOrganisations(organisation) {
     var deferred = $.Deferred();
 
-    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded(res) {
+    service.getOrganisations('page', organisation, [], {}, function onOrganisationsLoaded(res) {
       if (res) {
         deferred.resolve(res);
       } else {
@@ -17,10 +17,10 @@ finna.organisationFeed = (function organisationFeed(root) {
     return deferred.promise();
   };
 
-  var getSchedules = function getSchedules(parent, id) {
+  var getSchedules = function getSchedules(organisation, id) {
     var deferred = $.Deferred();
 
-    service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded(res) {
+    service.getSchedules('page', organisation, id, null, null, true, true, function onSchedulesLoaded(res) {
       if (res) {
         deferred.resolve(res);
       } else {
@@ -34,12 +34,12 @@ finna.organisationFeed = (function organisationFeed(root) {
   var getRssUrl = function getRssUrl() {
     var deferred = $.Deferred();
 
-    var parent = $grid.data('parent');
-    var id = $grid.data('organisation-id');
+    var organisation = $grid.data('organisation');
+    var id = $grid.data('service-point-id');
 
-    getOrganisations(parent)
+    getOrganisations(organisation)
       .then(function onOrganisationsResolve() {
-        getSchedules(parent, id)
+        getSchedules(organisation, id)
           .then(function onSchedulesResolve(res) {
             if (res.rss) {
               var rss = res.rss.filter(function findFeedRss(item) {
@@ -156,7 +156,7 @@ finna.organisationFeed = (function organisationFeed(root) {
       service = _service;
 
       $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
-        $grid.data('organisation-id', data);
+        $grid.data('service-point-id', data);
         $grid.empty();
 
         var params = {
