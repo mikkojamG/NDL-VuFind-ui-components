@@ -3,7 +3,7 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
   var $holder, service, $spinner, $prevButton, $nextButton, $weekNumber;
   var timeRowTemplate, timeTemplate;
   var schedulesLoading = false;
-  var organisationList = {};
+  var servicePointsList = {};
 
   var toggleSpinner = function toggleSpinner(hide) {
     if (hide) {
@@ -195,30 +195,30 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
     }
   };
 
-  var schedulesLoaded = function schedulesLoaded(id, response) {
+  var schedulesLoaded = function schedulesLoaded(id, data) {
     schedulesLoading = false;
 
-    if (response.periodStart) {
-      $holder.data('period-start', response.periodStart);
+    if (data.periodStart) {
+      $holder.data('period-start', data.periodStart);
     }
 
-    if (response.weekNum) {
-      updateWeekNumber(parseInt(response.weekNum));
+    if (data.weekNum) {
+      updateWeekNumber(parseInt(data.weekNum));
     }
 
-    updatePreviousButton(response);
-    updateNextButton(response);
+    updatePreviousButton(data);
+    updateNextButton(data);
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
 
-    var organisation = organisationList[id];
+    var servicePoint = servicePointsList[id];
 
-    var hasSchedules = response.openTimes && response.openTimes.schedules && response.openTimes.schedules.length;
+    var hasSchedules = data.openTimes && data.openTimes.schedules && data.openTimes.schedules.length;
 
     if (hasSchedules) {
       $holder.find('.js-week-navigation').removeClass('hide');
 
-      handleSchedules(response.openTimes.schedules, $scheduleHolder);
+      handleSchedules(data.openTimes.schedules, $scheduleHolder);
     } else {
       $holder.find('.js-week-navigation').addClass('hide');
 
@@ -226,48 +226,48 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
 
       $linkHolder.empty();
 
-      if (organisation.mobile) {
+      if (servicePoint.mobile) {
         $linkHolder.removeClass('hide');
 
-        if (organisation.details.links) {
-          handleLinks(organisation.details.links, $linkHolder);
+        if (servicePoint.details.links) {
+          handleLinks(servicePoint.details.links, $linkHolder);
         }
       }
 
-      if (!organisation.details.links) {
+      if (!servicePoint.details.links) {
         $holder.find('.js-no-schedules').removeClass('hide');
       }
     }
 
-    handleDescriptions(organisation);
+    handleDescriptions(servicePoint);
   };
 
-  var detailsLoaded = function detailsLoaded(id, response) {
-    if (!response) {
+  var detailsLoaded = function detailsLoaded(id, data) {
+    if (!data) {
       return;
     }
 
-    if (response.periodStart) {
-      $holder.data('period-start', response.periodStart);
+    if (data.periodStart) {
+      $holder.data('period-start', data.periodStart);
     }
 
-    updatePreviousButton(response);
-    updateNextButton(response);
+    updatePreviousButton(data);
+    updateNextButton(data);
 
-    if (response.phone) {
+    if (data.phone) {
       $holder.find('.js-phone')
-        .attr('data-original-title', response.phone)
+        .attr('data-original-title', data.phone)
         .removeClass('hide');
     }
 
-    if (response.emails) {
+    if (data.emails) {
       $holder.find('.js-email')
-        .attr('data-original-title', response.emails)
+        .attr('data-original-title', data.emails)
         .removeClass('hide');
     }
 
-    if (response.links) {
-      var facebookLink = response.links.filter(function findFacebookLink(link) {
+    if (data.links) {
+      var facebookLink = data.links.filter(function findFacebookLink(link) {
         return link.name.indexOf('Facebook') !== -1;
       });
 
@@ -280,12 +280,12 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
 
     var $img = $holder.find('.js-facility-image');
 
-    if (response.pictures) {
+    if (data.pictures) {
       var $imgLink = $img.parent('a');
 
       $imgLink.attr('href', ($imgLink.data('href') + '#' + id));
 
-      var src = response.pictures[0].url;
+      var src = data.pictures[0].url;
 
       if ($img.attr('src') !== src) {
         $img.fadeTo(0, 0);
@@ -305,8 +305,8 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
       $img.parent('a').addClass('hide');
     }
 
-    if (response.services) {
-      response.services.forEach(function forEachService(serviceName) {
+    if (data.services) {
+      data.services.forEach(function forEachService(serviceName) {
         $holder.find('.js-services .js-service-' + serviceName).removeClass('hide');
       });
     }
@@ -315,14 +315,14 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
   var getSchedules = function getSchedules(id, allServices) {
     $holder.find('.js-hide-onload').addClass('hide');
     $holder.find('.js-is-open').addClass('hide');
-    $holder.data('id', id);
+    $holder.data('service-point-id', id);
 
     var $scheduleHolder = $holder.find('.js-opening-times-week');
     $scheduleHolder.empty();
 
-    var parent = $holder.data('parent');
+    var organisation = $holder.data('organisation');
 
-    service.getSchedules($holder.data('target'), parent, id, $holder.data('period-start'), null, true, allServices,
+    service.getSchedules($holder.data('target'), organisation, id, $holder.data('period-start'), null, true, allServices,
       function handleResponse(response) {
 
         if (response) {
@@ -392,8 +392,8 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
         var $scheduleHolder = $holder.find('.js-opening-times-week');
         $scheduleHolder.empty();
 
-        var parent = $holder.data('parent');
-        var id = $holder.data('id');
+        var organisation = $holder.data('organisation');
+        var id = $holder.data('service-point-id');
 
         var dir = parseInt($(this).data('dir'));
         var currentWeek = parseInt($weekNumber.text());
@@ -401,7 +401,7 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
         $weekNumber.text(currentWeek + dir);
 
         service.getSchedules(
-          $holder.data('target'), parent, id, $holder.data('period-start'), dir, false, false,
+          $holder.data('target'), organisation, id, $holder.data('period-start'), dir, false, false,
           function handleResponse(response) {
             schedulesLoaded(id, response);
             toggleSpinner(true);
@@ -410,28 +410,28 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
       });
   };
 
-  var organisationListLoaded = function organisationListLoaded(data) {
-    var organisations = data.list;
+  var servicePointsLoaded = function servicePointsLoaded(data) {
+    var servicePoints = data.list;
     var id;
 
-    if ($holder.data('id')) {
-      id = $holder.data('id');
+    if ($holder.data('service-point-id')) {
+      id = $holder.data('service-point-id');
     } else {
       id = data.id;
     }
 
-    organisations.forEach(function forEachOrganisation(obj) {
-      organisationList[obj.id] = obj;
+    servicePoints.forEach(function forEachServicePoint(obj) {
+      servicePointsList[obj.id] = obj;
     });
 
-    var $menu = $holder.find('.js-organisation-menu .dropdown-menu');
+    var $menu = $holder.find('.js-service-point-menu .dropdown-menu');
 
     if ($menu.length) {
-      organisations.forEach(function forEachOrganisation(obj) {
+      servicePoints.forEach(function forEachServicePoint(obj) {
         $menu.append($('<li role="menuitem"><button data-id="' + obj.id + '">' + obj.name + '</button></li>'));
       });
 
-      var $toggleText = $holder.find('.js-organisation-menu .dropdown-toggle span');
+      var $toggleText = $holder.find('.js-service-point-menu .dropdown-toggle span');
       var $menuItem = $menu.find('li button');
 
       $menuItem.on('click', function onClickMenuItem() {
@@ -442,34 +442,31 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
         $holder.find('.js-facility-image').attr('alt', $(this).text());
 
         getSchedules($(this).data('id'), false);
-
         toggleSpinner(true);
       });
 
-      var preselected = organisations.filter(function findPreselectedOrganisation(organisation) {
-        return organisation.id.toString() === id.toString();
+      var preselected = servicePoints.filter(function findPreselectedServicePoint(servicePoint) {
+        return servicePoint.id.toString() === id.toString();
       });
 
       if (preselected.length) {
-        var organisation = preselected[0];
+        var servicePoint = preselected[0];
 
-        $menu.find('button[data-id="' + organisation.id + '"]').click();
+        $menu.find('button[data-id="' + servicePoint.id + '"]').click();
       } else {
         id = finna.common.getField(data.consortium.finna, 'service_point');
 
         if (!id) {
           id = $menu.find('li button')
             .first()
-            .data('id');
+            .data('service-point-id');
         }
 
         $menu.find('button[data-id="' + id + '"]').click();
       }
     } else {
       toggleSpinner(false);
-
       getSchedules(id, false);
-
       toggleSpinner(true);
     }
 
@@ -481,24 +478,24 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
     $holder.find('.js-hidden-initally').removeClass('hide');
   };
 
-  var loadOrganisationList = function loadOrganisationList() {
-    var parent = $holder.data('parent');
+  var getServicePoint = function getServicePoint() {
+    var organisation = $holder.data('organisation');
 
-    if (typeof parent == 'undefined') {
+    if (typeof organisation == 'undefined') {
       return;
     }
     var buildings = $holder.data('buildings');
 
-    service.getOrganisations($holder.data('target'), parent, buildings, {}, function handleResponse(response) {
+    service.getOrganisations($holder.data('target'), organisation, buildings, {}, function handleResponse(response) {
 
       if (response) {
-        organisationListLoaded(response);
+        servicePointsLoaded(response);
       }
     });
   };
 
   return {
-    loadOrganisationList: loadOrganisationList,
+    getServicePoint: getServicePoint,
     getSchedules: getSchedules,
     init: function init(holder, _service) {
       $holder = holder;

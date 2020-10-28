@@ -1,4 +1,4 @@
-<div class="schedule-widget organisation-info <?= $wrapperClass; ?>" data-parent="<?= $parent; ?>" data-target="<?= $target ?? 'page'; ?>" data-id="<?= $id ?? ''; ?>">
+<div class="schedule-widget organisation-info <?= $wrapperClass; ?>" data-organisation="<?= $organisation; ?>" data-target="<?= $target ?? 'page'; ?>" data-service-point-id="<?= $servicePointId ?? ''; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>
@@ -8,7 +8,7 @@
       <?php if (isset($showControls) && $showControls) : ?>
         <div class="organisation-dropdown-wrapper">
           <div class="organisation-dropdown-holder">
-            <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['dropdownClass' => 'organisation js-organisation-menu', 'items' => [], 'label' => $dropdownFallbackLabel ?? '', 'fallbackLabel' => $dropdownFallbackLabel ?? '']) ?>
+            <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['dropdownClass' => 'organisation js-service-point-menu', 'items' => [], 'label' => $dropdownFallbackLabel ?? '', 'fallbackLabel' => $dropdownFallbackLabel ?? '']) ?>
           </div>
           <div class="js-is-open">
             <span class="js-open is-open open js-hide-onload hide">
@@ -24,7 +24,7 @@
         <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder hide', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
         <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
         <div class="js-opening-times-week opening-times-week"></div>
-        <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $noSchedulesAvailableText, 'alertClass' => 'finna-info-alert js-no-schedules js-hide-onload hide']); ?>
+        <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $informationNotAvailableText, 'alertClass' => 'finna-info-alert js-no-schedules js-hide-onload hide']); ?>
         <ul class="js-mobile-schedules mobile-schedules js-hide-onload hide"></ul>
       </div>
       <div class="js-schedules-info schedules-info js-hide-onload hide">
@@ -111,7 +111,7 @@ $(document).ready(function onDocumentReady() {
       var widget = finna.scheduleWidget(this.document);
 
       widget.init($('.{$wrapperClass}'), finna.organisationInfo);
-      widget.loadOrganisationList();
+      widget.getServicePoint();
     };
 
     if(!finna.scheduleWidget || !finna.organisationInfo) {
