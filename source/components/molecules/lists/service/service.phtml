@@ -1,10 +1,10 @@
-<div class="services <?= $wrapperClass; ?>" data-parent="<?= $parent; ?>" data-organisation-id="<?= $organisationId; ?>">
+<div class="services <?= $wrapperClass; ?>" data-organisation="<?= $organisation; ?>" data-service-point-id="<?= $servicePointId; ?>">
   <?php if (isset($title)) : ?>
     <h5 class="service-header">
       <?= $title; ?>
     </h5>
   <?php endif; ?>
-  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $servicesNotFoundText, 'alertClass' => 'finna-info-alert js-services-alert hide']); ?>
+  <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $informationNotAvailableText, 'alertClass' => 'finna-info-alert js-services-alert hide']); ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'services-loader js-loader']); ?>
   <ul class="service-list hide <?= $listWrapperClass; ?>" data-list-key="<?= $listDataKey; ?>">
     <?php if (isset($items)) : ?>

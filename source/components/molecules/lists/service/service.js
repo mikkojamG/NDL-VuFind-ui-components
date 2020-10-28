@@ -47,10 +47,10 @@ finna.organisationServicesList = (function organisationServicesList(root) {
     $list.removeClass('hide');
   };
 
-  var getOrganisations = function getOrganisations(parent) {
+  var getOrganisations = function getOrganisations(organisation) {
     var deferred = $.Deferred();
 
-    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded(res) {
+    service.getOrganisations('page', organisation, [], {}, function onOrganisationsLoaded(res) {
       if (res) {
         deferred.resolve(res);
       } else {
@@ -61,10 +61,10 @@ finna.organisationServicesList = (function organisationServicesList(root) {
     return deferred.promise();
   };
 
-  var getSchedules = function getSchedules(parent, id) {
+  var getSchedules = function getSchedules(organisation, id) {
     var deferred = $.Deferred();
 
-    service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded(res) {
+    service.getSchedules('page', organisation, id, null, null, true, true, function onSchedulesLoaded(res) {
       if (res) {
         deferred.resolve(res);
       } else {
@@ -80,13 +80,13 @@ finna.organisationServicesList = (function organisationServicesList(root) {
     $loader.removeClass('hide');
     $list.addClass('hide');
 
-    var parent = $holder.data('parent');
-    var id = $holder.data('organisation-id');
+    var organisation = $holder.data('organisation');
+    var id = $holder.data('service-point-id');
     var dataKey = $list.data('list-key');
 
-    getOrganisations(parent)
+    getOrganisations(organisation)
       .then(function onOrganisationsResolve() {
-        getSchedules(parent, id)
+        getSchedules(organisation, id)
           .then(function onSchedulesResolve() {
             var data = service.getDetails(id);
 
@@ -113,7 +113,7 @@ finna.organisationServicesList = (function organisationServicesList(root) {
       service = _service;
 
       $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
-        $holder.data('organisation-id', data);
+        $holder.data('service-point-id', data);
         $list.empty();
 
         getServices();
