@@ -1,0 +1,34 @@
+<div class="service-point-building <?= $wrapperClass ?? ''; ?>" data-organisation="<?= $organisation; ?>" data-service-point-id="<?= $servicePointId; ?>">
+  <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'js-loader']); ?>
+
+  <div class="building-image-wrapper js-building-image-primary">
+    <?= $this->render('components/molecules/media/figure-with-caption/figure-with-caption.phtml', ['imgSrc' => '', 'caption' => '']); ?>
+    <p class="building-built-year js-building-year hide">Rakennettu: <span></span>
+  </div>
+  <div class="building-image-wrapper js-building-image-secondary hide">
+  </div>
+  <div class="building-description js-building-description">
+  </div>
+</div>
+
+<?php
+$js = <<<JS
+  $(document).ready(function onDocumentReady() {
+    var initServicePointBuilding = function initServicePointBuilding() {
+      var servicePointBuilding = finna.servicePointBuilding();
+
+      servicePointBuilding.init($('.{$wrapperClass}'), finna.organisationInfo);
+      servicePointBuilding.getServicePoint({$servicePointId});
+    };
+
+    if (!finna.servicePointBuilding || !finna.organisationInfo) {
+      return;
+    }
+
+    initServicePointBuilding();
+
+  });
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>
