@@ -14,10 +14,10 @@ finna.organisationContactList = (function organisationContactList(root) {
     $list.removeClass('hide');
   };
 
-  var getOrganisations = function getOrganisations(parent) {
+  var getOrganisationData = function getOrganisationData(organisation) {
     var deferred = $.Deferred();
 
-    service.getOrganisations('page', parent, [], {}, function onOrganisationsLoaded(res) {
+    service.getOrganisations('page', organisation, [], {}, function onOrganisationsLoaded(res) {
       if (res) {
         deferred.resolve(res);
       } else {
@@ -28,10 +28,10 @@ finna.organisationContactList = (function organisationContactList(root) {
     return deferred.promise();
   };
 
-  var getSchedules = function getSchedules(parent, id) {
+  var getSchedules = function getSchedules(organisation, id) {
     var deferred = $.Deferred();
 
-    service.getSchedules('page', parent, id, null, null, true, true, function onSchedulesLoaded(res) {
+    service.getSchedules('page', organisation, id, null, null, true, true, function onSchedulesLoaded(res) {
       if (res) {
         deferred.resolve(res);
       } else {
@@ -46,24 +46,24 @@ finna.organisationContactList = (function organisationContactList(root) {
     $holder.find('.js-loader').removeClass('hide');
     $list.addClass('hide');
 
-    var parent = $holder.data('parent');
-    var id = $holder.data('organisation-id');
+    var organisation = $holder.data('organisation');
+    var id = $holder.data('service-point-id');
 
-    getOrganisations(parent)
+    getOrganisationData(organisation)
       .then(function onOrganisationsResolve() {
-        getSchedules(parent, id)
+        getSchedules(organisation, id)
           .then(function onSchedulesResolve() {
             var data = service.getDetails(id);
 
             var contactData = dynamicItems.filter(function filterItem(item) {
-              if (data[item.dynamicKey] || data.details[item.dynamicKey]) {
+              if (data[item.dataKey] || data.details[item.dataKey]) {
 
                 var contactDataObject
 
-                if (data[item.dynamicKey]) {
-                  contactDataObject = Object.assign(item, { content: data[item.dynamicKey] });
+                if (data[item.dataKey]) {
+                  contactDataObject = Object.assign(item, { content: data[item.dataKey] });
                 } else {
-                  contactDataObject = Object.assign(item, { content: data.details[item.dynamicKey] });
+                  contactDataObject = Object.assign(item, { content: data.details[item.dataKey] });
                 }
 
                 return contactDataObject;

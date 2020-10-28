@@ -1,7 +1,7 @@
 {
   "wrapperClass": "js-pl-contact-list",
-  "parent": "Vaski",
-  "organisationId": 85141,
+  "organisation": "Vaski",
+  "servicePointId": 85141,
   "items": [
     {
       "title": "Address",
@@ -26,7 +26,7 @@
     {
       "title": "Phone",
       "class": "js-contact-phone",
-      "dynamicKey": "phone"
+      "dataKey": "phone"
     }
   ]
 }
