@@ -3,7 +3,7 @@ finna.organisationFeed = (function organisationFeed(root) {
   var $holder, $grid, $spinner, $alert;
   var service;
 
-  var getOrganisations = function getOrganisations(organisation) {
+  var getOrganisationData = function getOrganisationData(organisation) {
     var deferred = $.Deferred();
 
     service.getOrganisations('page', organisation, [], {}, function onOrganisationsLoaded(res) {
@@ -37,7 +37,7 @@ finna.organisationFeed = (function organisationFeed(root) {
     var organisation = $grid.data('organisation');
     var id = $grid.data('service-point-id');
 
-    getOrganisations(organisation)
+    getOrganisationData(organisation)
       .then(function onOrganisationsResolve() {
         getSchedules(organisation, id)
           .then(function onSchedulesResolve(res) {
@@ -124,7 +124,7 @@ finna.organisationFeed = (function organisationFeed(root) {
     });
   };
 
-  var loadFeed = function loadFeed(params) {
+  var getFeed = function getFeed(params) {
     $spinner.removeClass('hide');
     $alert.addClass('hide');
 
@@ -146,7 +146,7 @@ finna.organisationFeed = (function organisationFeed(root) {
   };
 
   return {
-    loadFeed: loadFeed,
+    getFeed: getFeed,
     init: function init(holder, _service) {
       $holder = holder;
       $grid = $holder.find('.js-feed-grid');
@@ -163,7 +163,7 @@ finna.organisationFeed = (function organisationFeed(root) {
           id: $grid.data('rss-id')
         };
 
-        loadFeed(params);
+        getFeed(params);
       });
     }
   }

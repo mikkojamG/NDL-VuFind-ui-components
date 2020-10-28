@@ -17,7 +17,7 @@ $js = <<<JS
       var feed = finna.organisationFeed(this.document);
 
       feed.init($('.{$wrapperClass}'), finna.organisationInfo);
-      feed.loadFeed(params);
+      feed.getFeed(params);
     };
     
     if(!finna.organisationFeed || !finna.organisationInfo) {
