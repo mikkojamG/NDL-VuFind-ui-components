@@ -1,6 +1,6 @@
 /* global finna */
 finna.servicePointBuilding = (function servicePointBuilding(root) {
-  var $holder, $loader;
+  var $holder, $loader, $content;
   var service;
 
   var getOrganisationData = function getOrganisationData(organisation) {
@@ -32,35 +32,42 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
   };
 
   var updateBuilding = function updateBuilding(data) {
-    var imgSrc = data.details.pictures[0].url;
+    $content.find('.figure-caption').text(data.name);
 
-    $holder.find('.js-building-image-primary .figure-image').attr('src', imgSrc);
-
-    $holder.find('.figure-caption').text(data.name);
-    $holder.find('.js-building-description').html(data.details.description);
+    if (data.details.description) {
+      $content.find('.js-building-description').html(data.details.description);
+      $content.find('.js-building-description').removeClass('hide');
+    }
 
     var yearBuilt = data.details.buildingYear;
 
     if (yearBuilt) {
-      $holder.find('.js-building-year span').text(yearBuilt);
-      $holder.find('.js-building-year').removeClass('hide');
+      $content.find('.js-building-year span').text(yearBuilt);
+      $content.find('.js-building-year').removeClass('hide');
     }
 
-    var hasExtraImages = data.details.museum;
+    if (data.details.pictures) {
+      var imgSrc = data.details.pictures[0].url;
 
-    if (hasExtraImages) {
-      var extraImages = [data.details.pictures[1], data.details.pictures[2]].map(function mapExtraImages(image) {
-        return $('<img />').attr('src', image.url);
-      });
+      $content.find('.js-building-image-primary .figure-image').attr('src', imgSrc);
 
-      extraImages.forEach(function forEachExtraImage($image) {
-        $holder.find('.js-building-image-secondary').append($image);
-      })
+      var hasExtraImages = data.details.museum;
 
-      $holder.find('.js-building-image-secondary').removeClass('hide');
+      if (hasExtraImages) {
+        var extraImages = [data.details.pictures[1], data.details.pictures[2]].map(function mapExtraImages(image) {
+          return $('<img />').attr('src', image.url);
+        });
+
+        extraImages.forEach(function forEachExtraImage($image) {
+          $content.find('.js-building-image-secondary').append($image);
+        })
+
+        $content.find('.js-building-image-secondary').removeClass('hide');
+      }
     }
 
     $loader.addClass('hide');
+    $content.removeClass('hide');
   };
 
   var getServicePoint = function getServicePoint(id) {
@@ -70,7 +77,9 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
       getSchedules(organisation, id).then(function onSchedulesResolve() {
         var data = service.getDetails(id);
 
-        updateBuilding(data);
+        if (data.details) {
+          updateBuilding(data);
+        }
       });
     });
   };
@@ -82,9 +91,15 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
       service = _service;
 
       $loader = $holder.find('.js-loader');
+      $content = $holder.find('.js-content');
 
       $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
         $holder.data('service-point-id', data);
+
+        $content.addClass('hide');
+        $content.find('.js-hide-onload').addClass('hide');
+
+        $loader.removeClass('hide');
 
         getServicePoint(data)
       })
