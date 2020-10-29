@@ -1,3 +1,5 @@
-var VuFind = {
-  path: '/vufind'
-};
+var VuFind = (function VuFind() {
+  return {
+    path: '/vufind'
+  }
+})();
