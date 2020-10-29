@@ -4,7 +4,7 @@ state: inprogress
 
 #### Description
 
-Service point building component. Displays an image and information of given service point.
+Service point building component. Displays an image and relevant information of given service point.
 
 #### Properties
 
@@ -13,3 +13,4 @@ Service point building component. Displays an image and information of given ser
 | organisation   | `String` | `Vaski`                        | Yes      |
 | servicePointId | `Number` | `85141`                        | Yes      |
 | wrapperClass   | `String` | `js-pl-service-point-building` | Yes      |
+| yearBuiltText  | `String` | `Rakennettu: `                 | No       |

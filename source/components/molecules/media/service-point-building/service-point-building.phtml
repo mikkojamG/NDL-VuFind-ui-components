@@ -3,7 +3,7 @@
   <div class="js-content hide">
     <div class="building-image-wrapper js-building-image-primary">
       <?= $this->render('components/molecules/media/figure-with-caption/figure-with-caption.phtml', ['imgSrc' => '', 'caption' => '']); ?>
-      <p class="building-built-year js-building-year js-hide-onload hide">Rakennettu: <span></span>
+      <p class="building-year-built js-year-built js-hide-onload hide"><?= $yearBuiltText ?? ''; ?><span></span>
     </div>
     <div class="building-image-wrapper js-building-image-secondary js-hide-onload hide">
     </div>

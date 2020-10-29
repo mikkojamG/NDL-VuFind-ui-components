@@ -31,7 +31,7 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
     return deferred.promise();
   };
 
-  var updateBuilding = function updateBuilding(data) {
+  var appendBuildingData = function appendBuildingData(data) {
     $content.find('.figure-caption').text(data.name);
 
     if (data.details.description) {
@@ -39,22 +39,21 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
       $content.find('.js-building-description').removeClass('hide');
     }
 
-    var yearBuilt = data.details.buildingYear;
-
-    if (yearBuilt) {
-      $content.find('.js-building-year span').text(yearBuilt);
-      $content.find('.js-building-year').removeClass('hide');
+    if (data.details.buildingYear) {
+      $content.find('.js-year-built span').text(data.details.buildingYear);
+      $content.find('.js-year-built').removeClass('hide');
     }
 
     if (data.details.pictures) {
-      var imgSrc = data.details.pictures[0].url;
+      var images = data.details.pictures;
+      var imgSrc = images[0].url;
 
       $content.find('.js-building-image-primary .figure-image').attr('src', imgSrc);
 
       var hasExtraImages = data.details.museum;
 
       if (hasExtraImages) {
-        var extraImages = [data.details.pictures[1], data.details.pictures[2]].map(function mapExtraImages(image) {
+        var extraImages = [images[1], images[2]].map(function mapExtraImages(image) {
           return $('<img />').attr('src', image.url);
         });
 
@@ -77,8 +76,8 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
       getSchedules(organisation, id).then(function onSchedulesResolve() {
         var data = service.getDetails(id);
 
-        if (data.details) {
-          updateBuilding(data);
+        if (data && data.details) {
+          appendBuildingData(data);
         }
       });
     });
