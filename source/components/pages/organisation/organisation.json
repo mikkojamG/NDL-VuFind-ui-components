@@ -30,9 +30,125 @@
   },
   "introduction": {
     "accordion": {
-      "title": "Esittely"
+      "title": "Esittely",
+      "titleId": "accordionIntroductionTitle",
+      "contentId": "accordionIntroductionContent"
     },
     "wrapperClass": "js-pl-service-point-building",
     "yearBuiltText": "Rakennettu: "
+  },
+  "schedule": {
+    "accordion": {
+      "title": "Aukioloajat",
+      "titleId": "accordionOpeningTimesTitle",
+      "contentId": "accordionOpeningTimesContent"
+    },
+    "showControls": true,
+    "showDetails": true,
+    "widgetHeading": "Widget Heading",
+    "openText": "Open",
+    "closedText": "Closed",
+    "previousWeekLabel": "Previous week",
+    "nextWeekLabel": "Next week",
+    "weekText": "Week",
+    "informationNotAvailableText": "No schedules available",
+    "facilityLink": "https://finna.fi/",
+    "facilityPlaceholderImage": "https://via.placeholder.com/149x100",
+    "directionsText": "Directions",
+    "facebookText": "Facebook",
+    "servicePointInfoText": "Service point information",
+    "wifiText": "Wifi",
+    "printText": "Print",
+    "staffAvailableText": "Staff available",
+    "selfServiceText": "(self service)",
+    "dropdownFallbackLabel": "Select library",
+    "emailText": "Email",
+    "phoneText": "Phone",
+    "wrapperClass": "js-pl-widget-demo"
+  },
+  "contact": {
+    "accordion": {
+      "title": "Yhteystiedot",
+      "titleId": "accordionContactTitle",
+      "contentId": "accordionContactContent"
+    },
+    "wrapperClass": "js-pl-contact-list",
+    "items": [
+      {
+        "title": "Email",
+        "class": "js-contact-email",
+        "dataKey": "emails"
+      },
+      {
+        "title": "Address",
+        "class": "js-contact-address",
+        "dataKey": "address"
+      },
+      {
+        "title": "Postal Address",
+        "class": "js-contact-postal-address",
+        "dataKey": "mailAddress"
+      },
+      {
+        "title": "Phone",
+        "class": "js-contact-phone",
+        "dataKey": "phone"
+      }
+    ]
+  },
+  "services": {
+    "accordion": {
+      "title": "Palvelut",
+      "titleId": "servicesAccordionTitle",
+      "contentId": "servicesAccordionContent"
+    },
+    "hardware": {
+      "wrapperClass": "js-service-list-hardware",
+      "listWrapperClass": "js-services-hardware",
+      "listDataKey": "hardware",
+      "title": "Laitteisto",
+      "informationNotAvailableText": "Laitteistoa ei ole saatavilla"
+    },
+    "room": {
+      "wrapperClass": "js-service-list-room",
+      "listWrapperClass": "js-services-room",
+      "listDataKey": "room",
+      "title": "Tilat",
+      "informationNotAvailableText": "Tiloja ei ole saatavilla"
+    },
+    "service": {
+      "wrapperClass": "js-service-list-service",
+      "listWrapperClass": "js-services-service",
+      "listDataKey": "service",
+      "title": "Palvelut",
+      "informationNotAvailableText": "Palveluita ei ole saatavilla"
+    },
+    "collection": {
+      "wrapperClass": "js-service-list-collection",
+      "listWrapperClass": "js-services-collection",
+      "listDataKey": "collection",
+      "title": "Kokoelmat",
+      "informationNotAvailableText": "Kokoelmia ei ole saatavilla ei ole saatavilla"
+    }
+  },
+  "events": {
+    "accordion": {
+      "title": "Tapahtumat",
+      "titleId": "accordionEventsTitle",
+      "contentId": "accordionEventsContent"
+    },
+    "wrapperClass": "js-organisation-events-feed",
+    "rssId": "events",
+    "informationNotAvailableText": "Information is not available."
+  },
+  "news": {
+    "accordion": {
+      "title": "Uutiset",
+      "titleId": "accordionEventsTitle",
+      "contentId": "accordionEventsContent"
+    },
+    "wrapperClass": "js-organisation-news-feed",
+    "rssId": "news",
+    "informationNotAvailableText": "Information is not available."
   }
 }
