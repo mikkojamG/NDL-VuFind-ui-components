@@ -106,8 +106,18 @@ $.mockjax([{
   type: 'GET',
   responseTime: 1000,
   response: function (settings) {
-    var week = getWeekForDate(new Date);
-    var weekNumber = getWeekNumber(new Date);
+    var params = settings.data.params;
+
+    if (params.dir && params.dir > 0) {
+      var dateWeekFromNow = new Date;
+      dateWeekFromNow.setDate(dateWeekFromNow.getDate() + 7);
+
+      var week = getWeekForDate(dateWeekFromNow);
+      var weekNumber = getWeekNumber(new Date) + 1;
+    } else {
+      var week = getWeekForDate(new Date);
+      var weekNumber = getWeekNumber(new Date);
+    }
 
     this.responseText = {
       data: {
@@ -151,7 +161,7 @@ $.mockjax([{
             }
           ],
           openToday: mockOpeningTimes,
-          currentWeek: true,
+          currentWeek: weekNumber == getWeekNumber(new Date),
           openNow: 1
         },
         phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0625\">02 262 0625</a> / Lasten Saaga</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0626\">02 262 0626</a> / Nuorten Stoori</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:040&#x20;632&#x20;3207\">040 632 3207</a> / Musiikkiosasto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0629\">02 262 0629</a> / Mikrofilmilukulaitteiden varaukset</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:044&#x20;9075&#x20;272\">044 9075 272</a> / Kaukopalvelu</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0621\">02 262 0621</a> / Uutistori</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:040&#x20;160&#x20;3615\">040 160 3615</a> / Tilavaraukset (Uutistori)</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0624\">02 262 0624</a> / Vastaanotto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0630\">02 262 0630</a> / Tieto-osasto</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;262&#x20;0623\">02 262 0623</a> / Kirjallisuus ja taiteet</p></li>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:044&#x20;907&#x20;2942\">044 907 2942</a> / Vahtimestarit</p></li>\n</ul>\n",
@@ -176,6 +186,74 @@ $.mockjax([{
           }
         ],
         services: ["wifi", "print"],
+        allServices: {
+          room: [
+            ["Esiintymislava"],
+            {
+              0: "Kokoustila ja opetustila",
+              shortDesc: "<p>Tarkista kotisivuilta <a href=\"https://www.turku.fi/turun-kaupunginkirjasto/palvelut/vuokrattavat-tilat-paakirjastossa\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">vuokrattavat tilat</a></p>"
+            },
+            ["Lukusali"],
+            ["N\u00e4yttelytila"],
+            {
+              0: "Ryhm\u00e4ty\u00f6tila",
+              shortDesc: "<p>Peli- ja ryhm\u00e4ty\u00f6huone 13-19 -vuotiaille. Ryhm\u00e4ty\u00f6tilan ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
+            },
+            {
+              0: "Soittohuone",
+              shortDesc: "<p>Soittohuoneen ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
+            }
+          ],
+          service: [
+            ["Caf\u00e9 Sirius"],
+            {
+              0: "Kotipalvelu",
+              shortDesc: "<p>Lis\u00e4tietoa <a href=\"https://www.turku.fi/turun-kaupunginkirjasto/palvelut/omakirjasto\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Omakirjasto-palvelusta</a></p>"
+            },
+            {
+              0: "Langaton verkko (Wi-Fi)",
+              shortDesc: "Turku-Open. Verkkoon p\u00e4\u00e4see kirjautumaan kuukausittain vaihtuvilla yleistunnuksilla (esill\u00e4 asiakaspalvelutiskeill\u00e4)."
+            },
+            ["Musiikin kuuntelumahdollisuus"],
+            {
+              0: "Palautusluukku",
+              desc: "Aineiston palauttaminen palautusluukun kautta on omalla vastuullasi. Palautusluukun kautta palautetuista lainoista et saa kuittia, koska lainat eiv\u00e4t t\u00e4t\u00e4 kautta kirjaudu palautuneiksi   kirjastoj\u00e4rjestelm\u00e4\u00e4n. Lainat kirjataan palautuneiksi vasta seuraavana kirjaston aukiolop\u00e4iv\u00e4n\u00e4. Aineistosta kertyy my\u00f6h\u00e4stymismaksuja palautusten kirjaamiseen saakka."
+            },
+            {
+              0: "Varausten itsepalvelunouto",
+              shortDesc: "Varaukset voi noutaa ja lainata omatoimisesti varausnumerolla p\u00e4\u00e4kirjaston vastaanotosta."
+            }
+          ],
+          hardware: [
+            {
+              0: "3D-tulostin",
+              shortDesc: "<p>\u2022  3D-tulostinta voi k\u00e4ytt\u00e4\u00e4 uutistorilla. Ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
+            },
+            {
+              0: "Digitointilaite",
+              shortDesc: "Musiikkiosastolla on mahdollista digitoida VHS-kasetteja, LP-levyj\u00e4, C-kasetteja, dioja ja kuvia."
+            },
+            { 0: "Elektroninen suurennuslaite", shortDesc: "Uutistorilla" },
+            ["Kirkasvalolamppu"],
+            {
+              0: "Kopiokone, tulostin ja skanneri",
+              shortDesc: "Uutistorilla on v\u00e4ritulostin, kopiokone ja skanneri. Tieto-osastolla on mustavalkotulostin"
+            },
+            {
+              0: "Mikrokortin/-filmin lukulaite",
+              shortDesc: "<p>Tieto-osastolla. Lukulaitteen ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
+            },
+            {
+              0: "Mobiililaitteiden lataus",
+              shortDesc: "Uutistorilla ja tieto-osastolla"
+            },
+            {
+              0: "Tietokoneet",
+              shortDesc: "<p><a href=\"http://www.eb2.dpg.fi/vaski/\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">eBooking</a></p>",
+              desc: "<p><a href=\"http://www.eb2.dpg.fi/vaski/\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">eBooking</a></p>"
+            }
+          ]
+        },
         rss: [
           {
             id: "events",
