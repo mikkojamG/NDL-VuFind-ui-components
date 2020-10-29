@@ -83,137 +83,95 @@ $.mockjax([{
   data: { method: 'getOrganisationInfo', params: { action: 'details' } },
   type: 'GET',
   responseTime: 1000,
-  response: function () {
-    var week = getWeekForDate(new Date);
-    var weekNumber = getWeekNumber(new Date);
+  response: function (settings) {
+    var params = settings.data.params;
 
-    this.responseText = {
-      data: {
-        phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;9412&#x20;3196\">02 9412 3196</a> / Asiakaspalvelu</p></li>\n</ul>\n",
-        emails: "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kk-palvelu&#x40;helsinki.fi\">kk-palvelu@helsinki.fi</a></p></li>\n</ul>\n",
-        pictures: [
-          {
-            url: "https://kirkanta.kirjastot.fi/files/photos/medium/paakirjasto-57f346b5380ff.jpg",
-            size: 254909,
-            resolution: "1500x1000"
+    if (params.dir) {
+      if (params.dir > 0) {
+        var dateWeekFromNow = new Date;
+        dateWeekFromNow.setDate(dateWeekFromNow.getDate() + 7);
+
+        var week = getWeekForDate(dateWeekFromNow);
+        var weekNumber = getWeekNumber(new Date) + 1;
+      } else {
+        var week = getWeekForDate(new Date);
+        var weekNumber = getWeekNumber(new Date);
+      }
+      this.responseText = {
+        data: {
+          openTimes: {
+            schedules: [
+              {
+                date: week[0],
+                times: mockOpeningTimes,
+                day: "Ma",
+                today: true
+              },
+              {
+                date: week[1],
+                times: mockOpeningTimes,
+                day: "Ti"
+              },
+              {
+                date: week[2],
+                times: mockOpeningTimes,
+                day: "Ke"
+              },
+              {
+                date: week[3],
+                times: mockOpeningTimes,
+                day: "To"
+              },
+              {
+                date: week[4],
+                times: mockOpeningTimes,
+                day: "Pe"
+              },
+              { date: week[5], times: [], day: "La", closed: true },
+              { date: week[6], times: [], day: "Su", closed: true }
+            ],
+            currentWeek: weekNumber == getWeekNumber(new Date),
           },
-          {
-            url: "https://kirkanta.kirjastot.fi/files/photos/medium/viljami-schleutker-(2)-51768bfe.jpg",
-            size: 1373315,
-            resolution: "1571x1000"
-          },
-          {
-            url: "https://kirkanta.kirjastot.fi/files/photos/medium/a-dsc6961-57f20f6b02f3f.jpg",
-            size: 1639538,
-            resolution: "1503x1000"
-          },
-          {
-            url: "https://kirkanta.kirjastot.fi/files/photos/medium/p\u00e4\u00e4kirjasto-linnankatu-57f37fbf9a3ed.jpg",
-            size: 164448,
-            resolution: "1000x1027"
-          }
-        ],
-        links: [
-          { name: "Twitter", url: "https://twitter.com/NatLibFi" },
-          {
-            name: "Instagram",
-            url: "https://www.instagram.com/kansalliskirjasto/"
-          },
-          {
-            name: "Facebook",
-            url: "https://www.facebook.com/Kansalliskirjasto/"
-          },
-          {
-            name: "Kirjaston kotisivut",
-            url: "http://www.kansalliskirjasto.fi/"
-          }
-        ],
-        services: [
-          'wifi',
-          'print'
-        ],
-        allServices: {
-          room: [
-            ["Esiintymislava"],
+          id: "86154",
+          periodStart: "2020-09-28",
+          weekNum: weekNumber
+        }
+      }
+    } else {
+      this.responseText = {
+        data: {
+          phone: "<ul>\n  <li><p><i class=\"fa fa-phone-square\"></i><a href=\"tel:02&#x20;9412&#x20;3196\">02 9412 3196</a> / Asiakaspalvelu</p></li>\n</ul>\n",
+          emails: "<ul>\n  <li><p><i class=\"fa fa-envelope\"></i><a href=\"mailto:kk-palvelu&#x40;helsinki.fi\">kk-palvelu@helsinki.fi</a></p></li>\n</ul>\n",
+          pictures: [
             {
-              0: "Kokoustila ja opetustila",
-              shortDesc: "<p>Tarkista kotisivuilta <a href=\"https://www.turku.fi/turun-kaupunginkirjasto/palvelut/vuokrattavat-tilat-paakirjastossa\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">vuokrattavat tilat</a></p>"
-            },
-            ["Lukusali"],
-            ["N\u00e4yttelytila"],
-            {
-              0: "Ryhm\u00e4ty\u00f6tila",
-              shortDesc: "<p>Peli- ja ryhm\u00e4ty\u00f6huone 13-19 -vuotiaille. Ryhm\u00e4ty\u00f6tilan ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
-            },
-            {
-              0: "Soittohuone",
-              shortDesc: "<p>Soittohuoneen ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
+              url: "https://kirkanta.kirjastot.fi/files/photos/medium/kanki-k-590867ab71c76.jpg",
+              size: 643166,
+              resolution: "1543x1000"
             }
           ],
-          service: [
-            ["Caf\u00e9 Sirius"],
+          links: [
+            { name: "Twitter", url: "https://twitter.com/NatLibFi" },
             {
-              0: "Kotipalvelu",
-              shortDesc: "<p>Lis\u00e4tietoa <a href=\"https://www.turku.fi/turun-kaupunginkirjasto/palvelut/omakirjasto\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Omakirjasto-palvelusta</a></p>"
+              name: "Instagram",
+              url: "https://www.instagram.com/kansalliskirjasto/"
             },
             {
-              0: "Langaton verkko (Wi-Fi)",
-              shortDesc: "Turku-Open. Verkkoon p\u00e4\u00e4see kirjautumaan kuukausittain vaihtuvilla yleistunnuksilla (esill\u00e4 asiakaspalvelutiskeill\u00e4)."
-            },
-            ["Musiikin kuuntelumahdollisuus"],
-            {
-              0: "Palautusluukku",
-              desc: "Aineiston palauttaminen palautusluukun kautta on omalla vastuullasi. Palautusluukun kautta palautetuista lainoista et saa kuittia, koska lainat eiv\u00e4t t\u00e4t\u00e4 kautta kirjaudu palautuneiksi   kirjastoj\u00e4rjestelm\u00e4\u00e4n. Lainat kirjataan palautuneiksi vasta seuraavana kirjaston aukiolop\u00e4iv\u00e4n\u00e4. Aineistosta kertyy my\u00f6h\u00e4stymismaksuja palautusten kirjaamiseen saakka."
+              name: "Facebook",
+              url: "https://www.facebook.com/Kansalliskirjasto/"
             },
             {
-              0: "Varausten itsepalvelunouto",
-              shortDesc: "Varaukset voi noutaa ja lainata omatoimisesti varausnumerolla p\u00e4\u00e4kirjaston vastaanotosta."
+              name: "Kirjaston kotisivut",
+              url: "http://www.kansalliskirjasto.fi/"
             }
           ],
-          hardware: [
-            {
-              0: "3D-tulostin",
-              shortDesc: "<p>\u2022  3D-tulostinta voi k\u00e4ytt\u00e4\u00e4 uutistorilla. Ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
-            },
-            {
-              0: "Digitointilaite",
-              shortDesc: "Musiikkiosastolla on mahdollista digitoida VHS-kasetteja, LP-levyj\u00e4, C-kasetteja, dioja ja kuvia."
-            },
-            { 0: "Elektroninen suurennuslaite", shortDesc: "Uutistorilla" },
-            ["Kirkasvalolamppu"],
-            {
-              0: "Kopiokone, tulostin ja skanneri",
-              shortDesc: "Uutistorilla on v\u00e4ritulostin, kopiokone ja skanneri. Tieto-osastolla on mustavalkotulostin"
-            },
-            {
-              0: "Mikrokortin/-filmin lukulaite",
-              shortDesc: "<p>Tieto-osastolla. Lukulaitteen ajanvaraus <a href=\"https://varaamo.turku.fi\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">Varaamosta</a></p>"
-            },
-            {
-              0: "Mobiililaitteiden lataus",
-              shortDesc: "Uutistorilla ja tieto-osastolla"
-            },
-            {
-              0: "Tietokoneet",
-              shortDesc: "<p><a href=\"http://www.eb2.dpg.fi/vaski/\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">eBooking</a></p>",
-              desc: "<p><a href=\"http://www.eb2.dpg.fi/vaski/\" rel=\"nofollow noreferrer noopener\" target=\"_blank\">eBooking</a></p>"
-            }
-          ]
-        },
-        description: "<p>Rakennettu 1903, uudisosa 2007.</p>",
-        rss: [
-          {
-            id: "events",
-            url: "https://tapahtumat.vaskikirjastot.fi/?post_type=tribe_events&kunta=turku-fi&lang=fi&order=asc&feed=rss2"
-          },
-          {
-            id: "news",
-            url: "https://tapahtumat.vaskikirjastot.fi/?post_type=uutinen&kunta=turku-fi&lang=fi&order=asc&feed=rss2"
-          }
-        ],
-        id: "86154",
-        periodStart: "2020-09-14",
-        weekNum: weekNumber
+          services: [
+            'wifi',
+            'print'
+          ],
+          id: "86154",
+          periodStart: "2020-09-14",
+          weekNum: weekNumber
+        }
       }
     }
   }
@@ -231,24 +189,23 @@ $.mockjax([{
       data: {
         consortium: {
           finna: {
-            service_point: 85141
+            service_point: 86154
           },
         },
         list: [
           {
-            id: 85968,
-            name: "Askaisten kirjasto",
+            id: 86154,
+            name: "Kansalliskirjasto",
             mobile: 0,
-            email: "askaisten.kirjasto@masku.fi",
-            homepage: "https://www.masku.fi/vapaa-aika/kirjastopalvelut/",
+            email: "kk-palvelu@helsinki.fi",
             address: {
-              street: "Vesil\u00e4ntie 3",
-              zipcode: "21240",
-              city: "Masku",
-              coordinates: { lat: 60.5724247, lon: 21.8653932 }
+              street: "Unioninkatu 36",
+              zipcode: "00170",
+              city: "Helsinki",
+              coordinates: { "lat": 60.17037, "lon": 24.95034 }
             },
-            routeUrl: "https://opas.matka.fi/?to=Vesil%C3%A4ntie%203,%20Masku",
-            mapUrl: "http://maps.google.com/?q=Vesil%C3%A4ntie%203%20Masku",
+            routeUrl: "https://opas.matka.fi/?to=Unioninkatu%2036,%20Helsinki",
+            mapUrl: "http://maps.google.com/?q=Unioninkatu%2036%20Helsinki",
             openTimes: {
               schedules: [
                 {
@@ -270,91 +227,22 @@ $.mockjax([{
                 {
                   date: week[3],
                   times: mockOpeningTimes,
-                  day: "To"
+                  day: "To",
                 },
                 {
                   date: week[4],
                   times: mockOpeningTimes,
                   day: "Pe"
                 },
-                {
-                  date: week[5],
-                  times: mockOpeningTimes,
-                  day: "La"
-                },
-                {
-                  date: week[6],
-                  times: mockOpeningTimes,
-                  day: "Su"
-                }
+                { date: week[5], times: [], day: "La", "closed": true },
+                { date: week[6], times: [], day: "Su", "closed": true }
               ],
-              openToday: mockOpeningTimes,
               currentWeek: true,
-              openNow: 2
-            },
-            openNow: true
-          },
-          {
-            id: 85141,
-            name: "Turun p\u00e4\u00e4kirjasto",
-            mobile: 0,
-            email: "kaupunginkirjasto@turku.fi",
-            homepage: "http://www.turku.fi/turun-kaupunginkirjasto",
-            address: {
-              street: "Linnankatu 2",
-              zipcode: "20100",
-              city: "Keskusta (Turku)",
-              coordinates: { lat: 60.4504634, lon: 22.2708644 }
-            },
-            routeUrl: "https://opas.matka.fi/?to=Linnankatu%202,%20Turku",
-            mapUrl: "http://maps.google.com/?q=Linnankatu%202%20Turku",
-            openTimes: {
-              schedules: [
-                {
-                  date: week[0],
-                  times: mockOpeningTimes,
-                  day: "Ma",
-                  today: true
-                },
-                {
-                  date: week[1],
-                  times: mockOpeningTimes,
-                  day: "Ti"
-                },
-                {
-                  date: week[2],
-                  times: mockOpeningTimes,
-                  day: "Ke"
-                },
-                {
-                  date: week[3],
-                  times: mockOpeningTimes,
-                  day: "To"
-                },
-                {
-                  date: week[4],
-                  times: mockOpeningTimes,
-                  day: "Pe"
-                },
-                {
-                  date: week[5],
-                  times: mockOpeningTimes,
-                  day: "La"
-                },
-                {
-                  date: week[6],
-                  times: mockOpeningTimes,
-                  day: "Su"
-                }
-              ],
-              openToday: mockOpeningTimes,
-              currentWeek: true,
-              openNow: 1
             },
             openNow: true
           }
         ],
-        id: "85141",
+        id: "86154",
         weekNum: weekNumber
       }
     }
