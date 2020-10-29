@@ -4,5 +4,8 @@
   "closedText": "Closed",
   "openText": "Open",
   "openTodayText": "Open today",
-  "staffAvailableText": "Staff available"
+  "staffAvailableText": "Staff available",
+  "servicePointId": 85141,
+  "parent": "Vaski",
+  "wrapperClass": "js-service-point-demo"
 }

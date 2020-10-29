@@ -1,4 +1,4 @@
-<div class="service-point-info <?= $wrapperClass ?? ''; ?>">
+<div class="service-point-info <?= $wrapperClass ?? ''; ?>" data-organisation="<?= $organisation ?? ''; ?>" data-service-point-id="<?= $servicePointId ?? ''; ?>">
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'service-point-loader js-loader']); ?>
   <div class="service-point-info-wrapper hide js-service-point-info">
     <div class="service-point">
@@ -41,3 +41,24 @@
     </div>
   </div>
 </div>
+<?php
+$js = <<<JS
+ $(document).ready(function onDocumentReady() {
+    var initServicePointInfo = function initServicePointInfo() {
+      var id = '{$servicePointId}';
+
+      var servicePointInfo = finna.servicePointInfo();
+
+      servicePointInfo.init($('.{$wrapperClass}'), finna.organisationInfo, id);
+    };
+
+    if (!finna.servicePointInfo || !finna.organisationInfo) {
+      return;
+    }
+
+    initServicePointInfo();
+  });
+JS;
+
+echo $this->inlineScript(\Laminas\View\Helper\HeadScript::SCRIPT, $js, 'SET');
+?>

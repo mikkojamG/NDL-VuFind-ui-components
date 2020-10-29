@@ -1,7 +1,7 @@
 /*global finna */
 finna.servicePointInfo = (function finnaServicePointInfo() {
   var $wrapper, $holder;
-  var service, settings;
+  var service;
 
   var handleOpeningTimes = function handleOpeningTimes(schedules) {
     schedules.forEach(function forEachSchedule(schedule) {
@@ -69,45 +69,78 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
     }
   }
 
+  var getOrganisationsData = function getOrganisationsData(organisation) {
+    var deferred = $.Deferred();
+
+    service.getOrganisations('page', organisation, [], {}, function onOrganisationsLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
+  var getSchedules = function getSchedules(organisation, id) {
+    var deferred = $.Deferred();
+
+    service.getSchedules('page', organisation, id, null, null, true, true, function onSchedulesLoaded(res) {
+      if (res) {
+        deferred.resolve(res);
+      } else {
+        deferred.reject();
+      }
+    });
+
+    return deferred.promise();
+  };
+
   var getServicePoint = function getServicePoint(id) {
     $wrapper.find('.js-loader').removeClass('hide');
     $holder.addClass('hide');
     $holder.find('.js-hide-on-load').addClass('hide');
 
-    service.getSchedules(settings.target, settings.parent, id, null, null, true, true, function onSchedulesLoaded() {
-      var data = service.getDetails(id);
+    var organisation = $wrapper.data('organisation');
 
-      handleServicePointData(data);
+    getOrganisationsData(organisation)
+      .then(function onOrganisationsResolve() {
+        getSchedules(organisation, id)
+          .then(function onSchedulesResolve() {
+            var data = service.getDetails(id);
 
-      var hasSchedules = data.openTimes.schedules && data.openTimes.schedules.length;
+            handleServicePointData(data);
 
-      if (hasSchedules) {
-        handleOpeningTimes(data.openTimes.schedules);
+            var hasSchedules = data.openTimes.schedules && data.openTimes.schedules.length;
 
-        if (data.openNow) {
-          $holder.find('.js-open-today .open').removeClass('hide');
-        } else {
-          $holder.find('.js-open-today .closed').removeClass('hide');
-        }
-      }
+            if (hasSchedules) {
+              handleOpeningTimes(data.openTimes.schedules);
 
-      $wrapper.find('.js-loader').addClass('hide');
-      $holder.removeClass('hide');
-    });
-  }
+              if (data.openNow) {
+                $holder.find('.js-open-today .open').removeClass('hide');
+              } else {
+                $holder.find('.js-open-today .closed').removeClass('hide');
+              }
+            }
+
+            $wrapper.find('.js-loader').addClass('hide');
+            $holder.removeClass('hide');
+          });
+      });
+  };
 
   return {
     getServicePoint: getServicePoint,
-    init: function init(wrapper, _settings, _service, servicePointId) {
+    init: function init(wrapper, _service, servicePointId) {
       $wrapper = wrapper;
       $holder = $wrapper.find('.js-service-point-info');
 
       service = _service;
-      settings = _settings;
 
       if (servicePointId) {
         getServicePoint(servicePointId);
       }
     }
   }
-})();
+});
