@@ -99,6 +99,7 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
         $content.find('.js-hide-onload').addClass('hide');
 
         $loader.removeClass('hide');
+        $content.find('.js-building-image-secondary').empty();
 
         getServicePoint(data)
       })
