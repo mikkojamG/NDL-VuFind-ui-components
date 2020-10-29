@@ -47,7 +47,7 @@ $js = <<<JS
     var initServicePointInfo = function initServicePointInfo() {
       var id = '{$servicePointId}';
 
-      var servicePointInfo = finna.servicePointInfo();
+      var servicePointInfo = finna.servicePointInfo(this.document);
 
       servicePointInfo.init($('.{$wrapperClass}'), finna.organisationInfo, id);
     };

@@ -6,6 +6,6 @@
   "openTodayText": "Open today",
   "staffAvailableText": "Staff available",
   "servicePointId": 85141,
-  "parent": "Vaski",
+  "organisation": "Vaski",
   "wrapperClass": "js-service-point-demo"
 }

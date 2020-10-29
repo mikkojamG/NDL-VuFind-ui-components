@@ -1,5 +1,5 @@
 /*global finna */
-finna.servicePointInfo = (function finnaServicePointInfo() {
+finna.servicePointInfo = (function finnaServicePointInfo(root) {
   var $wrapper, $holder;
   var service;
 
@@ -141,6 +141,10 @@ finna.servicePointInfo = (function finnaServicePointInfo() {
       if (servicePointId) {
         getServicePoint(servicePointId);
       }
+
+      $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
+        getServicePoint(data);
+      });
     }
   }
 });
