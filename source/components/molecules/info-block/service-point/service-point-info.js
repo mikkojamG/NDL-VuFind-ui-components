@@ -132,15 +132,11 @@ finna.servicePointInfo = (function finnaServicePointInfo(root) {
 
   return {
     getServicePoint: getServicePoint,
-    init: function init(wrapper, _service, servicePointId) {
+    init: function init(wrapper, _service) {
       $wrapper = wrapper;
       $holder = $wrapper.find('.js-service-point-info');
 
       service = _service;
-
-      if (servicePointId) {
-        getServicePoint(servicePointId);
-      }
 
       $(root).on('mapWidget:selectServicePoint', function onMapWidgetSelect(_, data) {
         getServicePoint(data);

@@ -49,7 +49,8 @@ $js = <<<JS
 
       var servicePointInfo = finna.servicePointInfo(this.document);
 
-      servicePointInfo.init($('.{$wrapperClass}'), finna.organisationInfo, id);
+      servicePointInfo.init($('.{$wrapperClass}'), finna.organisationInfo);
+      servicePointInfo.getServicePoint(id);
     };
 
     if (!finna.servicePointInfo || !finna.organisationInfo) {
