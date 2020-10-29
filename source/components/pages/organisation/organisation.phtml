@@ -1,0 +1,63 @@
+<div>
+  <div class="container organisation-info-page loading organisation-page-information-wrapper">
+    <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['wrapperClass' => $map['wrapperClass'], 'organisation' => $organisation, 'searchFormLabel' => $map['searchFormLabel'], 'locationNotAvailableText' => $map['locationNotAvailableText'], 'showMapButton' => $map['showMapButton'], 'centerMapButton' => $map['centerMapButton'], 'showAllMarkersButton' => $map['showAllMarkersButton'], 'mapWrapperClass' => $map['mapWrapperClass'], 'directionsText' => $map['directionsText'], 'homepageText' => $map['homepageText'], 'openText' => $map['openText'], 'closedText' => $map['closedText'], 'openTodayText' => $map['openTodayText'], 'staffAvailableText' => $map['staffAvailableText'], 'servicePointId' => $servicePointId, 'notAvailableText' => $map['notAvailableText'], 'expandMapText' => $map['expandMapText'], 'collapseMapText' => $map['collapseMapText'], 'mapApiUrl' => $map['mapApiUrl'], 'infoWrapperClass' => $map['infoWrapperClass'], 'showSearchForm' => true, 'searchFormPlaceholder' => $map['searchFormPlaceholder'], 'mapHeading' => $heading]); ?>
+
+    <section class="office-information" style="display: block;">
+      <div class="office-row-general">
+        <div class="office-col">
+          <?php
+          $introductionContent = $this->render('components/molecules/media/service-point-building/service-point-building.phtml', ['caption' => '', 'imgSrc' => '', 'wrapperClass' => $introduction['wrapperClass'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'yearBuiltText' => $introduction['yearBuiltText']]); ?>
+
+          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $introduction['accordion']['title'], 'titleId' => 'accordionIntroductionTitle', 'contentId' => 'accordionIntroductionContent', 'content' => $introductionContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+        </div>
+        <div class="office-col">
+          <?php
+          $openingTimesContent = $this->render('components/organisms/scheduling/widget/widget.phtml', ["target" => 'page', "nextWeekLabel" => 'Seuraava viikko', "informationNotAvailableText" => $this->translate('organisation_info_no_schedule'), "organisation" => $organisation, "previousWeekLabel" => 'Edellinen viikko', "selfServiceText" => $this->translate('organisation_info_only_selfservice'), "staffAvailableText" => $this->translate('organisation_info_schedule_staff'), "weekText" => $this->translate('organisation_info_schedule_week'), "closedText" => $this->translate('organisation_info_is_closed'), "dropdownFallbackLabel" => 'Valitse palvelupiste', "directionsText" => $this->transEsc('organisation_info_route'), "emailText" => $this->transEsc('organisation_info_email'), "facebookText" => $this->transEsc('organisation_info_facebook'), "facilityLink" => $this->escapeHtmlAttr($this->url('organisationinfo-home')), "id" => $servicePointId, "openText" => $this->translate('organisation_info_is_open'), "phoneText" => $this->transEsc('organisation_phone_numbers'), "printText" => $this->translate('organisation_info_service_print'), "servicePointInfoText" => $this->translate('organisation_info_more_info'), "showDetails" => false, 'showControls' => false, "wifiText" => $this->translate('organisation_info_service_wifi'), "wrapperClass" => 'js-service-points-info-wrapper']); ?>
+
+          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $this->translate('organisation_info_schedules'), 'titleId' => 'accordionOpeningTimesTitle', 'contentId' => 'accordionOpeningTimesContent', 'content' => $openingTimesContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+        </div>
+        <div class="office-col">
+          <?php
+          $contactItems = [["title" => $this->translate('organisation_info_email'), "class" => "js-contact-email", "dataKey" => "emails"], ["title" => $this->translate('organisation_info_address'), "class" => "js-contact-address", "dataKey" => "address"], ["title" => $this->translate('organisation_info_address_mail'), "class" => "js-contact-postal-address", "dataKey" => "mailAddress"], ["title" => $this->translate('organisation_info_phone_numbers'), "class" => "js-contact-phone", "dataKey" => "phone"]];
+
+          $contactContent = $this->render('components/molecules/lists/contact/contact.phtml', ['items' => $contactItems, 'wrapperClass' => 'js-service-points-contacts-wrapper', 'organisation' => $organisation, 'servicePointId' => $servicePointId]);
+          ?>
+
+          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $this->translate('organisation_info_contact'), 'titleId' => 'accordionContactTitle', 'contentId' => 'accordionContactContent', 'content' => $contactContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="office-row-general">
+        <?php
+        $servicesHardwareContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $this->transEsc('kirkanta_hardware'), 'wrapperClass' => 'js-hardware-list-wrapper', 'listWrapperClass' => 'js-hardware-list', 'organisation' => 'Vaski', 'servicePointId' => $servicePointId, 'listDataKey' => 'hardware', 'informationNotAvailableText' => 'Palveluita ei ole saatavilla']);
+
+        $servicesRoomsContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $this->transEsc('kirkanta_rooms'), 'wrapperClass' => 'js-rooms-list-wrapper', 'listWrapperClass' => 'js-rooms-list', 'organisation' => 'Vaski', 'servicePointId' => $servicePointId, 'listDataKey' => 'room', 'informationNotAvailableText' => 'Palveluita ei ole saatavilla']);
+
+        $servicesServiceContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $this->transEsc('kirkanta_services'), 'wrapperClass' => 'js-services-list-wrapper', 'listWrapperClass' => 'js-services-list', 'organisation' => 'Vaski', 'servicePointId' => $servicePointId, 'listDataKey' => 'service', 'informationNotAvailableText' => 'Palveluita ei ole saatavilla']);
+
+        $servicesCollectionContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $this->transEsc('Collections'), 'wrapperClass' => 'js-collection-list-wrapper', 'listWrapperClass' => 'js-collection-list', 'organisation' => 'Vaski', 'servicePointId' => $servicePointId, 'listDataKey' => 'collection', 'informationNotAvailableText' => 'Palveluita ei ole saatavilla']);
+
+        $servicesContent = $servicesHardwareContent . '' . $servicesRoomsContent . '' . $servicesServiceContent .
+          '' . $servicesCollectionContent;
+        ?>
+
+        <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $this->translate('organisation_info_services'), 'titleId' => 'servicesAccordionTitle', 'contentId' => 'servicesAccordionContent', 'content' => $servicesContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+      </div>
+      <div class="office-row-general">
+        <?php
+        $newsContent = $this->render('components/organisms/feed/organisation/organisation.phtml', ['wrapperClass' => 'js-service-point-feed-news', 'rssId' => 'news', 'servicePointId' => $servicePointId, 'organisation' => 'Vaski', 'informationNotAvailableText' => 'Tietoja ei ole saatavilla tällä hetkellä.']);
+        ?>
+
+        <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $this->translate('organisation_info_rss_news'), 'titleId' => 'accordionNewsTitle', 'contentId' => 'accordionNewsContent', 'content' => $newsContent, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+      </div>
+      <div class="office-row-general">
+        <?php
+        $eventsContent = $this->render('components/organisms/feed/organisation/organisation.phtml', ['wrapperClass' => 'js-service-point-feed-events', 'rssId' => 'events', 'servicePointId' => $servicePointId, 'organisation' => 'Vaski', 'informationNotAvailableText' => 'Tietoja ei ole saatavilla tällä hetkellä.']);
+        ?>
+
+        <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $this->translate('organisation_info_rss_events'), 'titleId' => 'accordionEventsTitle', 'contentId' => 'accordionEventsContent', 'content' => $eventsContent, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+      </div>
+    </section>
+  </div>
+</div>

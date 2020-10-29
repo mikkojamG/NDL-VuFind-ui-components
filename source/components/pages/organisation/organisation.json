@@ -1,0 +1,38 @@
+{
+  "heading": "Organisation",
+  "organisation": "Vaski",
+  "servicePointId": 85141,
+  "map": {
+    "mapHeading": "Demo Heading",
+    "searchFormLabel": "Office search",
+    "searchFormPlaceholder": "Search service points ({0})",
+    "locationNotAvailableText": "Organisation location not available",
+    "showMapButton": "Show map",
+    "centerMapButton": "Center",
+    "showAllMarkersButton": "Show all service points",
+    "mapWrapperClass": "js-map-widget",
+    "wrapperClass": "js-widget-wrapper",
+    "showSearchForm": true,
+    "openText": "Open",
+    "closedText": "Closed",
+    "notAvailableText": "Not available",
+    "expandMapText": "Expand",
+    "collapseMapText": "Collapse",
+    "buildings": ["85141", "85968"],
+    "mapApiUrl": "http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png",
+    "directionsText": "Directions",
+    "homepageText": "Homepage",
+    "openTodayText": "Open today",
+    "staffAvailableText": "Staff available",
+    "servicePointId": 85141,
+    "organisation": "Vaski",
+    "infoWrapperClass": "js-service-point-demo"
+  },
+  "introduction": {
+    "accordion": {
+      "title": "Esittely"
+    },
+    "wrapperClass": "js-pl-service-point-building",
+    "yearBuiltText": "Rakennettu: "
+  }
+}
