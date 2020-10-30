@@ -10,8 +10,8 @@
     "showMapButton": "Show map",
     "centerMapButton": "Center",
     "showAllMarkersButton": "Show all service points",
-    "mapWrapperClass": "js-map-widget",
-    "wrapperClass": "js-widget-wrapper",
+    "mapWrapperClass": "js-organisation-map-widget",
+    "wrapperClass": "js-organisation-widget-wrapper",
     "showSearchForm": true,
     "openText": "Open",
     "closedText": "Closed",
@@ -26,7 +26,7 @@
     "staffAvailableText": "Staff available",
     "servicePointId": 85141,
     "organisation": "Vaski",
-    "infoWrapperClass": "js-service-point-demo"
+    "infoWrapperClass": "js-organisation-service-point-demo"
   },
   "introduction": {
     "accordion": {
@@ -34,7 +34,7 @@
       "titleId": "accordionIntroductionTitle",
       "contentId": "accordionIntroductionContent"
     },
-    "wrapperClass": "js-pl-service-point-building",
+    "wrapperClass": "js-organisation-service-point-building",
     "yearBuiltText": "Rakennettu: "
   },
   "schedule": {
@@ -64,7 +64,7 @@
     "dropdownFallbackLabel": "Select library",
     "emailText": "Email",
     "phoneText": "Phone",
-    "wrapperClass": "js-pl-widget-demo"
+    "wrapperClass": "js-organisation-widget-demo"
   },
   "contact": {
     "accordion": {
@@ -72,26 +72,26 @@
       "titleId": "accordionContactTitle",
       "contentId": "accordionContactContent"
     },
-    "wrapperClass": "js-pl-contact-list",
+    "wrapperClass": "js-organisation-contact-list",
     "items": [
       {
         "title": "Email",
-        "class": "js-contact-email",
+        "class": "js-organisation-contact-email",
         "dataKey": "emails"
       },
       {
         "title": "Address",
-        "class": "js-contact-address",
+        "class": "js-organisation-contact-address",
         "dataKey": "address"
       },
       {
         "title": "Postal Address",
-        "class": "js-contact-postal-address",
+        "class": "js-organisation-contact-postal-address",
         "dataKey": "mailAddress"
       },
       {
         "title": "Phone",
-        "class": "js-contact-phone",
+        "class": "js-organisation-contact-phone",
         "dataKey": "phone"
       }
     ]
@@ -103,29 +103,29 @@
       "contentId": "servicesAccordionContent"
     },
     "hardware": {
-      "wrapperClass": "js-service-list-hardware",
-      "listWrapperClass": "js-services-hardware",
+      "wrapperClass": "js-organisation-service-list-hardware",
+      "listWrapperClass": "js-organisation-services-hardware",
       "listDataKey": "hardware",
       "title": "Laitteisto",
       "informationNotAvailableText": "Laitteistoa ei ole saatavilla"
     },
     "room": {
-      "wrapperClass": "js-service-list-room",
-      "listWrapperClass": "js-services-room",
+      "wrapperClass": "js-organisation-service-list-room",
+      "listWrapperClass": "js-organisation-services-room",
       "listDataKey": "room",
       "title": "Tilat",
       "informationNotAvailableText": "Tiloja ei ole saatavilla"
     },
     "service": {
-      "wrapperClass": "js-service-list-service",
-      "listWrapperClass": "js-services-service",
+      "wrapperClass": "js-organisation-service-list-service",
+      "listWrapperClass": "js-organisation-services-service",
       "listDataKey": "service",
       "title": "Palvelut",
       "informationNotAvailableText": "Palveluita ei ole saatavilla"
     },
     "collection": {
-      "wrapperClass": "js-service-list-collection",
-      "listWrapperClass": "js-services-collection",
+      "wrapperClass": "js-organisation-service-list-collection",
+      "listWrapperClass": "js-organisation-services-collection",
       "listDataKey": "collection",
       "title": "Kokoelmat",
       "informationNotAvailableText": "Kokoelmia ei ole saatavilla ei ole saatavilla"
