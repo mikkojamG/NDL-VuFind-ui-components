@@ -1,5 +1,5 @@
 {
-  "heading": "Organisation",
+  "heading": "Palvelupisteet ja aukioloajat",
   "organisation": "Vaski",
   "servicePointId": 85141,
   "map": {
@@ -43,8 +43,8 @@
       "titleId": "accordionOpeningTimesTitle",
       "contentId": "accordionOpeningTimesContent"
     },
-    "showControls": true,
-    "showDetails": true,
+    "showControls": false,
+    "showDetails": false,
     "widgetHeading": "Widget Heading",
     "openText": "Open",
     "closedText": "Closed",

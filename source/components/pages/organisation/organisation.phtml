@@ -1,79 +1,84 @@
-<div>
-  <div class="container organisation-info-page loading organisation-page-information-wrapper">
-    <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['wrapperClass' => $map['wrapperClass'], 'organisation' => $organisation, 'searchFormLabel' => $map['searchFormLabel'], 'locationNotAvailableText' => $map['locationNotAvailableText'], 'showMapButton' => $map['showMapButton'], 'centerMapButton' => $map['centerMapButton'], 'showAllMarkersButton' => $map['showAllMarkersButton'], 'mapWrapperClass' => $map['mapWrapperClass'], 'directionsText' => $map['directionsText'], 'homepageText' => $map['homepageText'], 'openText' => $map['openText'], 'closedText' => $map['closedText'], 'openTodayText' => $map['openTodayText'], 'staffAvailableText' => $map['staffAvailableText'], 'servicePointId' => $servicePointId, 'notAvailableText' => $map['notAvailableText'], 'expandMapText' => $map['expandMapText'], 'collapseMapText' => $map['collapseMapText'], 'mapApiUrl' => $map['mapApiUrl'], 'infoWrapperClass' => $map['infoWrapperClass'], 'showSearchForm' => true, 'searchFormPlaceholder' => $map['searchFormPlaceholder'], 'mapHeading' => $heading]); ?>
+<?= $this->render('components/organisms/global/header/header.phtml') ?>
+<!-- <section role="search" class="searchContent">
+  Search Bar
+</section> -->
+<section role="main" class="main">
+  <div class="container main-content">
+    <div class="organisation-page">
+      <?= $this->render('components/organisms/map/service-points/service-points.phtml', ['wrapperClass' => $map['wrapperClass'], 'organisation' => $organisation, 'searchFormLabel' => $map['searchFormLabel'], 'locationNotAvailableText' => $map['locationNotAvailableText'], 'showMapButton' => $map['showMapButton'], 'centerMapButton' => $map['centerMapButton'], 'showAllMarkersButton' => $map['showAllMarkersButton'], 'mapWrapperClass' => $map['mapWrapperClass'], 'directionsText' => $map['directionsText'], 'homepageText' => $map['homepageText'], 'openText' => $map['openText'], 'closedText' => $map['closedText'], 'openTodayText' => $map['openTodayText'], 'staffAvailableText' => $map['staffAvailableText'], 'servicePointId' => $servicePointId, 'notAvailableText' => $map['notAvailableText'], 'expandMapText' => $map['expandMapText'], 'collapseMapText' => $map['collapseMapText'], 'mapApiUrl' => $map['mapApiUrl'], 'infoWrapperClass' => $map['infoWrapperClass'], 'showSearchForm' => true, 'searchFormPlaceholder' => $map['searchFormPlaceholder'], 'mapHeading' => $heading]); ?>
 
-    <section class="office-information" style="display: block;">
-      <div class="office-row-general">
-        <div class="office-col">
-          <?php
-          $introductionContent = $this->render('components/molecules/media/service-point-building/service-point-building.phtml', ['caption' => '', 'imgSrc' => '', 'wrapperClass' => $introduction['wrapperClass'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'yearBuiltText' => $introduction['yearBuiltText']]); ?>
+      <section>
+        <div class="column-row">
+          <div class="column">
+            <?php
+            $introductionContent = $this->render('components/molecules/media/service-point-building/service-point-building.phtml', ['caption' => '', 'imgSrc' => '', 'wrapperClass' => $introduction['wrapperClass'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'yearBuiltText' => $introduction['yearBuiltText']]); ?>
 
-          <?php $accordion =  $introduction['accordion'] ?>
+            <?php $accordion =  $introduction['accordion'] ?>
 
-          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], $accordion['contentId'], 'content' => $introductionContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+            <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $introductionContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+          </div>
+          <div class="column">
+            <?php
+            $openingTimesContent = $this->render('components/organisms/scheduling/widget/widget.phtml', ["nextWeekLabel" => $schedule['nextWeekLabel'], "informationNotAvailableText" => $schedule['informationNotAvailableText'], "organisation" => $organisation, "previousWeekLabel" =>  $schedule['previousWeekLabel'], "selfServiceText" => $schedule['selfServiceText'], "staffAvailableText" => $schedule['staffAvailableText'], "weekText" => $schedule['weekText'], "closedText" => $schedule['closedText'], "dropdownFallbackLabel" => $schedule['dropdownFallbackLabel'], "directionsText" => $schedule['directionsText'], "emailText" => $schedule['emailText'], "facebookText" => $schedule['facebookText'], "facilityLink" => $schedule['facilityLink'], "id" => $servicePointId, "openText" => $schedule['openText'], "phoneText" => $schedule['phoneText'], "printText" => $schedule['printText'], "servicePointInfoText" => $schedule['servicePointInfoText'], "showDetails" => $schedule['showDetails'], 'showControls' => $schedule['showControls'], "wifiText" => $schedule['wifiText'], "wrapperClass" => $schedule['wrapperClass']]); ?>
+
+            <?php $accordion =  $schedule['accordion'] ?>
+
+            <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $openingTimesContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+          </div>
+          <div class="column">
+            <?php
+            $contactContent = $this->render('components/molecules/lists/contact/contact.phtml', ['items' => $contact['items'], 'wrapperClass' => $contact['wrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId]);
+            ?>
+
+            <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $contactContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+          </div>
         </div>
-        <div class="office-col">
-          <?php
-          $openingTimesContent = $this->render('components/organisms/scheduling/widget/widget.phtml', ["nextWeekLabel" => $schedule['nextWeekLabel'], "informationNotAvailableText" => $schedule['informationNotAvailableText'], "organisation" => $organisation, "previousWeekLabel" =>  $schedule['previousWeekLabel'], "selfServiceText" => $schedule['selfServiceText'], "staffAvailableText" => $schedule['staffAvailableText'], "weekText" => $schedule['weekText'], "closedText" => $schedule['closedText'], "dropdownFallbackLabel" => $schedule['dropdownFallbackLabel'], "directionsText" => $schedule['directionsText'], "emailText" => $schedule['emailText'], "facebookText" => $schedule['facebookText'], "facilityLink" => $schedule['facilityLink'], "id" => $servicePointId, "openText" => $schedule['openText'], "phoneText" => $schedule['phoneText'], "printText" => $schedule['printText'], "servicePointInfoText" => $schedule['servicePointInfoText'], "showDetails" => $schedule['showDetails'], 'showControls' => $schedule['showControls'], "wifiText" => $schedule['wifiText'], "wrapperClass" => $schedule['wrapperClass']]); ?>
 
-          <?php $accordion =  $schedule['accordion'] ?>
-
-          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], $accordion['contentId'], 'content' => $openingTimesContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
-        </div>
-        <div class="office-col">
+        <div class="column-row">
           <?php
-          $contactContent = $this->render('components/molecules/lists/contact/contact.phtml', ['items' => $contact['items'], 'wrapperClass' => $contact['wrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId]);
+          $hardware = $services['hardware'];
+
+          $servicesHardwareContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $hardware['title'], 'wrapperClass' => $hardware['wrapperClass'], 'listWrapperClass' => $hardware['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $hardware['listDataKey'], 'informationNotAvailableText' => $hardware['informationNotAvailableText']]);
+
+          $room = $services['room'];
+
+          $servicesRoomsContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $room['title'], 'wrapperClass' => $room['wrapperClass'], 'listWrapperClass' => $room['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $room['listDataKey'], 'informationNotAvailableText' => $room['informationNotAvailableText']]);
+
+          $service = $services['service'];
+
+          $servicesServiceContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $service['title'], 'wrapperClass' => $service['wrapperClass'], 'listWrapperClass' => $service['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $service['listDataKey'], 'informationNotAvailableText' => $service['informationNotAvailableText']]);
+
+          $collection = $services['collection'];
+
+          $servicesCollectionContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $collection['title'], 'wrapperClass' => $collection['wrapperClass'], 'listWrapperClass' => $collection['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $collection['listDataKey'], 'informationNotAvailableText' => $collection['informationNotAvailableText']]);
+
+          $servicesContent = $servicesHardwareContent . '' . $servicesRoomsContent . '' . $servicesServiceContent .
+            '' . $servicesCollectionContent;
           ?>
 
-          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], $accordion['contentId'], 'content' => $contactContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+          <?php $accordion =  $services['accordion'] ?>
+
+          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $servicesContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
         </div>
-      </div>
-    </section>
-    <section>
-      <div class="office-row-general">
-        <?php
-        $hardware = $services['hardware'];
+        <div class="office-row-general">
+          <?php
+          $newsContent = $this->render('components/organisms/feed/organisation/organisation.phtml', ['wrapperClass' => $news['wrapperClass'], 'rssId' => $news['rssId'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'informationNotAvailableText' => $news['informationNotAvailableText']]);
+          ?>
 
-        $servicesHardwareContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $hardware['title'], 'wrapperClass' => $hardware['wrapperClass'], 'listWrapperClass' => $hardware['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $hardware['listDataKey'], 'informationNotAvailableText' => $hardware['informationNotAvailableText']]);
+          <?php $accordion =  $news['accordion'] ?>
 
-        $room = $services['room'];
+          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $newsContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+        </div>
+        <div class="office-row-general">
+          <?php
+          $eventsContent = $this->render('components/organisms/feed/organisation/organisation.phtml', ['wrapperClass' => $events['wrapperClass'], 'rssId' => $events['rssId'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'informationNotAvailableText' => $events['informationNotAvailableText']]);
+          ?>
 
-        $servicesRoomsContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $room['title'], 'wrapperClass' => $room['wrapperClass'], 'listWrapperClass' => $room['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $room['listDataKey'], 'informationNotAvailableText' => $room['informationNotAvailableText']]);
+          <?php $accordion =  $events['accordion'] ?>
 
-        $service = $services['service'];
-
-        $servicesServiceContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $service['title'], 'wrapperClass' => $service['wrapperClass'], 'listWrapperClass' => $service['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $service['listDataKey'], 'informationNotAvailableText' => $service['informationNotAvailableText']]);
-
-        $collection = $services['collection'];
-
-        $servicesCollectionContent = $this->render('components/molecules/lists/service/service.phtml', ['title' => $collection['title'], 'wrapperClass' => $collection['wrapperClass'], 'listWrapperClass' => $collection['listWrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId, 'listDataKey' => $collection['listDataKey'], 'informationNotAvailableText' => $collection['informationNotAvailableText']]);
-
-        $servicesContent = $servicesHardwareContent . '' . $servicesRoomsContent . '' . $servicesServiceContent .
-          '' . $servicesCollectionContent;
-        ?>
-
-        <?php $accordion =  $services['accordion'] ?>
-
-        <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], $accordion['contentId'], 'content' => $servicesContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
-      </div>
-      <div class="office-row-general">
-        <?php
-        $newsContent = $this->render('components/organisms/feed/organisation/organisation.phtml', ['wrapperClass' => $news['wrapperClass'], 'rssId' => $news['rssId'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'informationNotAvailableText' => $news['informationNotAvailableText']]);
-        ?>
-
-        <?php $accordion =  $news['accordion'] ?>
-
-        <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], $accordion['contentId'], 'content' => $newsContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
-      </div>
-      <div class="office-row-general">
-        <?php
-        $eventsContent = $this->render('components/organisms/feed/organisation/organisation.phtml', ['wrapperClass' => $events['wrapperClass'], 'rssId' => $events['rssId'], 'servicePointId' => $servicePointId, 'organisation' => $organisation, 'informationNotAvailableText' => $events['informationNotAvailableText']]);
-        ?>
-
-        <?php $accordion =  $events['accordion'] ?>
-
-        <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], $accordion['contentId'], 'content' => $eventsContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
-      </div>
-    </section>
+          <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $eventsContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
+        </div>
+      </section>
+    </div>
   </div>
-</div>
+</section>

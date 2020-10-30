@@ -353,3 +353,7 @@
 .pl-c-pattern__header .pl-c-pattern__title {
   font-size: 1.1rem !important;
 }
+
+.pl-c-pattern__extra {
+  margin-bottom: 0 !important;
+}
