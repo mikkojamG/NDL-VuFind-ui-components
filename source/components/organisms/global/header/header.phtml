@@ -2,77 +2,67 @@
   <div class="container-fluid navbar">
     <div>
       <span class="sr-only">
-        <a class="sr-only" href="#searchForm_lookfor">Siirry hakuun</a>
+        <a class="sr-only" href="#searchForm_lookfor"><?= $$header['skipToSearchText']; ?></a>
       </span>
     </div>
-    <a class="sr-only" href="#content">Siirry sisältöön</a>
+    <a class="sr-only" href="#content"><?= $header['skipToContentText']; ?></a>
     <div role="navigation" class="finna-navbar">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-collapse" aria-label="Päänavigaatio" aria-expanded="false">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-collapse" aria-label="<?= $header['toggleNaviLabel']; ?>" aria-expanded="false">
           <i class="fa fa-bars" aria-hidden="true"></i>
           <i class="fa fa-times" aria-hidden="true"></i>
         </button>
         <a class="navbar-brand" href="/">
-          <span class="sr-only">Koti</span>
-          <img src="/images/finna-logo.png" alt="Koti" class="navbar-logo" aria-hidden="true">
+          <span class="sr-only"><?= $header['naviLogoLabel']; ?></span>
+          <img src="/images/finna-logo.png" alt="<?= $header['naviLogoLabel']; ?>" class="navbar-logo" aria-hidden="true">
         </a>
       </div>
       <div class="navbar-collapse collapse" id="header-collapse" aria-expanded="false">
         <ul role="menubar" class="nav navbar-nav navbar-main">
           <li class="dropdown" id="menu_search">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-nav-menu_search" aria-hidden="true"></i>Hakutoiminnot <b class="caret" aria-hidden="true"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-nav-menu_search" aria-hidden="true"></i><?= $header['searchNavi']['name'] ?> <b class="caret" aria-hidden="true"></b></a>
             <ul role="group" class="dropdown-menu" aria-labelledby="menu_search">
-              <li>
-                <a role="menuitem" href="#">
-                  <div>Tarkennettu haku</div>
-                  <div class="description" role="note">Tarkemmat hakuehdot. </div>
-                </a>
-              </li>
-              <li>
-                <a role="menuitem" href="#">
-                  <div>Hakuhistoria</div>
-                  <div class="description" role="note">Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi.</div>
-                </a>
-              </li>
+              <?php foreach ($header['searchNavi']['items'] as $item) : ?>
+                <li>
+                  <a role="menuitem" href="#">
+                    <div><?= $item['name']; ?></div>
+                    <div class="description" role="note"><?= $item['text']; ?></div>
+                  </a>
+                </li>
+              <?php endforeach; ?>
             </ul>
           </li>
           <li class="dropdown" id="menu_about_us">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-nav-menu_about_us" aria-hidden="true"></i>Tietoa Finnasta <b class="caret" aria-hidden="true"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-nav-menu_about_us" aria-hidden="true"></i><?= $header['aboutNavi']['name']; ?><b class="caret" aria-hidden="true"></b></a>
             <ul role="group" class="dropdown-menu" aria-labelledby="menu_about_us">
-              <li>
-                <a role="menuitem" href="#">
-                  <div>Ketkä ovat mukana?</div>
-                  <div class="description" role="note">Osallistuvat organisaatiot. Voinko käyttää aineistoja? Aiheesta muualla. </div>
-                </a>
-              </li>
-              <li>
-                <a role="menuitem" href="#">
-                  <div>Mikä Finna on?</div>
-                  <div class="description" role="note">Finna.fi. Muut Finna-hakupalvelut. Tietoa Finnasta.</div>
-                </a>
-              </li>
+              <?php foreach ($header['aboutNavi']['items'] as $item) : ?>
+                <li>
+                  <a role="menuitem" href="#">
+                    <div><?= $item['name']; ?></div>
+                    <div class="description" role="note"><?= $item['text']; ?></div>
+                  </a>
+                </li>
+              <?php endforeach; ?>
             </ul>
           </li>
-          <li><a role="menuitem" href="#"><i class="fa fa-nav-menu_help" aria-hidden="true"></i>Ohje</a></li>
+          <li><a role="menuitem" href="#"><i class="fa fa-nav-menu_help" aria-hidden="true"></i><?= $header['helpNavi']['name'] ?></a></li>
           <li class="custom">
-            <a href="#" target="_blank"><i class="fa fa-facebook-button"></i><span class="sr-only visible-md visible-lg">Facebook-sivut</span></a>
-            <a href="#" target="_blank"><i class="fa fa-instagram"></i><span class="sr-only visible-md visible-lg">Finna Instagram</span></a>
-            <a href="#" target="_blank"><i class="fa fa-youtube-play"></i><span class="sr-only visible-md visible-lg">Finna Instagram</span></a>
-            <a href="#" target="_blank"><i class="fa fa-twitter"></i><span class="sr-only visible-md visible-lg">Finna Twitter</span></a>
+            <?php foreach ($header['linksNavi'] as $item) : ?>
+              <a href="#" target="_blank"><i class="fa <?= $item['icon']; ?>"></i><span class="sr-only visible-md visible-lg"><?= $item['name']; ?></span></a>
+            <?php endforeach; ?>
           </li>
         </ul>
-        <ul role="menubar" class="nav navbar-nav lang" aria-label="Valitse sivuston kieli">
-          <li class="lang">
-            <a role="menuitem" class="preserve-anchor" href="#">Sv</a>
-          </li>
-          <li class="lang">
-            <a role="menuitem" class="preserve-anchor" href="#">En</a>
-          </li>
+        <ul role="menubar" class="nav navbar-nav lang" aria-label="<?= $selectLanguageText; ?>">
+          <?php foreach ($header['languages'] as $item) : ?>
+            <li class="lang">
+              <a role="menuitem" class="preserve-anchor" href="#"><?= $item; ?></a>
+            </li>
+          <?php endforeach; ?>
         </ul>
         <ul role="menubar" class="nav navbar-nav nav-login">
           <li class="nav-login" id="loginOptions-navi">
             <div>
-              <a role="menuitem" href="#" class="btn btn-primary btn-uppercase" data-lightbox="" data-lightbox-onclose="window.location.href='#'"><i class="fa fa-user fa-lg" aria-hidden="true"></i><span class="login-text">Kirjaudu</span></a>
+              <a role="menuitem" href="#" class="btn btn-primary btn-uppercase" data-lightbox="" data-lightbox-onclose="window.location.href='#'"><i class="fa fa-user fa-lg" aria-hidden="true"></i><span class="login-text"><?= $header['loginText']; ?></span></a>
             </div>
           </li>
         </ul>
@@ -80,7 +70,7 @@
       <ul role="menubar" class="nav navbar-nav nav-absolute">
         <li id="loginOptions">
           <div>
-            <a role="menuitem" href="#" class="btn btn-primary btn-uppercase" data-lightbox="" data-lightbox-onclose="window.location.href='#'"><i class="fa fa-user fa-lg" aria-hidden="true"></i><span class="login-text">Kirjaudu</span></a>
+            <a role="menuitem" href="#" class="btn btn-primary btn-uppercase" data-lightbox="" data-lightbox-onclose="window.location.href='#'"><i class="fa fa-user fa-lg" aria-hidden="true"></i><span class="login-text"><?= $header['loginText']; ?></span></a>
           </div>
         </li>
       </ul>

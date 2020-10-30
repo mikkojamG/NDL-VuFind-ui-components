@@ -42,5 +42,61 @@
   "inputCheckboxError": "Please check this field",
   "submit": "Submit",
   "error": "This is an error",
-  "more": "More"
+  "more": "More",
+  "header": {
+    "skipToSearchText": "Siirry hakuun",
+    "skipToContentText": "Siirry sisältöön",
+    "toggleNaviLabel": "Päänavigaatio",
+    "naviLogoLabel": "Koti",
+    "searchNavi": {
+      "name": "Hakutoiminnot",
+      "items": [
+        {
+          "name": "Tarkennettu haku",
+          "text": "Tarkemmat hakuehdot."
+        },
+        {
+          "name": "Hakuhistoria",
+          "text": "Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi. "
+        }
+      ]
+    },
+    "aboutNavi": {
+      "name": "Tietoa Finnasta",
+      "items": [
+        {
+          "name": "Ketkä ovat mukana?",
+          "text": "Osallistuvat organisaatiot. Voinko käyttää aineistoja? Aiheesta muualla."
+        },
+        {
+          "name": "Mikä Finna on?",
+          "text": "Finna.fi. Muut Finna-hakupalvelut. Tietoa Finnasta."
+        }
+      ]
+    },
+    "helpNavi": {
+      "name": "Ohje"
+    },
+    "linksNavi": [
+      {
+        "name": "Facebook-sivut",
+        "icon": "fa-facebook-button"
+      },
+      {
+        "name": "Finna Instagram",
+        "icon": "fa-instagram"
+      },
+      {
+        "name": "Finna Youtube",
+        "icon": "fa-youtube-play"
+      },
+      {
+        "name": "Finna Twitter",
+        "icon": "fa-twitter"
+      }
+    ],
+    "selectLanguageText": "Valitse sivuston kieli",
+    "languages": ["Sv", "En"],
+    "loginText": "Kirjaudu"
+  }
 }
