@@ -3,27 +3,26 @@
   "organisation": "Vaski",
   "servicePointId": 85141,
   "map": {
-    "mapHeading": "Demo Heading",
-    "searchFormLabel": "Office search",
-    "searchFormPlaceholder": "Search service points ({0})",
-    "locationNotAvailableText": "Organisation location not available",
-    "showMapButton": "Show map",
-    "centerMapButton": "Center",
-    "showAllMarkersButton": "Show all service points",
+    "searchFormLabel": "Hae palvelupisteitä",
+    "searchFormPlaceholder": "Hae palvelupisteitä: ({0})",
+    "locationNotAvailableText": "Palvelupistettä ei ole saatavilla",
+    "showMapButton": "Näytä kartalla",
+    "centerMapButton": "Keskitä",
+    "showAllMarkersButton": "Näytä kaikki palvelupisteet",
     "mapWrapperClass": "js-organisation-map-widget",
     "wrapperClass": "js-organisation-widget-wrapper",
     "showSearchForm": true,
-    "openText": "Open",
-    "closedText": "Closed",
-    "notAvailableText": "Not available",
-    "expandMapText": "Expand",
-    "collapseMapText": "Collapse",
+    "openText": "Avoinna",
+    "closedText": "Suljettu",
+    "notAvailableText": "Ei saatavilla",
+    "expandMapText": "Suurenna",
+    "collapseMapText": "Pienennä",
     "buildings": ["85141", "85968"],
     "mapApiUrl": "http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png",
-    "directionsText": "Directions",
-    "homepageText": "Homepage",
-    "openTodayText": "Open today",
-    "staffAvailableText": "Staff available",
+    "directionsText": "Reittiohjeet",
+    "homepageText": "Kotisivu",
+    "openTodayText": "Avoinna tänään",
+    "staffAvailableText": "Henkilökunta paikalla",
     "servicePointId": 85141,
     "organisation": "Vaski",
     "infoWrapperClass": "js-organisation-service-point-demo"
@@ -45,25 +44,24 @@
     },
     "showControls": false,
     "showDetails": false,
-    "widgetHeading": "Widget Heading",
-    "openText": "Open",
-    "closedText": "Closed",
-    "previousWeekLabel": "Previous week",
-    "nextWeekLabel": "Next week",
-    "weekText": "Week",
-    "informationNotAvailableText": "No schedules available",
+    "openText": "Avoinna",
+    "closedText": "Suljettu",
+    "previousWeekLabel": "Edellinen viikko",
+    "nextWeekLabel": "Seuraava viikko",
+    "weekText": "Viikko",
+    "informationNotAvailableText": "Tietoja ei ole saatavilla",
     "facilityLink": "https://finna.fi/",
     "facilityPlaceholderImage": "https://via.placeholder.com/149x100",
-    "directionsText": "Directions",
+    "directionsText": "Reittiohjeet",
     "facebookText": "Facebook",
-    "servicePointInfoText": "Service point information",
+    "servicePointInfoText": "Palvelupisteen tiedot",
     "wifiText": "Wifi",
-    "printText": "Print",
-    "staffAvailableText": "Staff available",
-    "selfServiceText": "(self service)",
-    "dropdownFallbackLabel": "Select library",
-    "emailText": "Email",
-    "phoneText": "Phone",
+    "printText": "Tulostus",
+    "staffAvailableText": "Henkilökunta paikalla",
+    "selfServiceText": "(itsepalvelu)",
+    "dropdownFallbackLabel": "Valitse palvelupiste",
+    "emailText": "Sähköposti",
+    "phoneText": "Puhelinnumero",
     "wrapperClass": "js-organisation-widget-demo"
   },
   "contact": {
@@ -75,22 +73,22 @@
     "wrapperClass": "js-organisation-contact-list",
     "items": [
       {
-        "title": "Email",
+        "title": "Sähköposti",
         "class": "js-organisation-contact-email",
         "dataKey": "emails"
       },
       {
-        "title": "Address",
+        "title": "Osoite",
         "class": "js-organisation-contact-address",
         "dataKey": "address"
       },
       {
-        "title": "Postal Address",
+        "title": "Postiosoite",
         "class": "js-organisation-contact-postal-address",
         "dataKey": "mailAddress"
       },
       {
-        "title": "Phone",
+        "title": "Puhelinnumero",
         "class": "js-organisation-contact-phone",
         "dataKey": "phone"
       }
@@ -128,7 +126,7 @@
       "listWrapperClass": "js-organisation-services-collection",
       "listDataKey": "collection",
       "title": "Kokoelmat",
-      "informationNotAvailableText": "Kokoelmia ei ole saatavilla ei ole saatavilla"
+      "informationNotAvailableText": "Kokoelmia ei ole saatavilla"
     }
   },
   "events": {
@@ -139,7 +137,7 @@
     },
     "wrapperClass": "js-organisation-events-feed",
     "rssId": "events",
-    "informationNotAvailableText": "Information is not available."
+    "informationNotAvailableText": "Tietoja ei ole saatavilla."
   },
   "news": {
     "accordion": {
@@ -149,6 +147,6 @@
     },
     "wrapperClass": "js-organisation-news-feed",
     "rssId": "news",
-    "informationNotAvailableText": "Information is not available."
+    "informationNotAvailableText": "Tietoja ei ole saatavilla."
   }
 }
