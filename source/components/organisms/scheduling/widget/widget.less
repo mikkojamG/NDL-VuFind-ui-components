@@ -6,86 +6,6 @@
     margin: 0.5rem auto;
   }
 
-  .week-navigation {
-    &.week-navi-holder {
-      max-width: 100%;
-    }
-
-    &-control {
-      border: none;
-      background-color: transparent;
-    }
-  }
-
-  .schedules {
-    &.info {
-      .opening-times-week {
-        max-width: 100%;
-      }
-    }
-  }
-
-  .organisation-dropdown-holder {
-    .dropdown {
-      max-width: 100%;
-      margin-bottom: 0;
-
-      &.open {
-        .dropdown-togle {
-          background-color: @gray-lighter;
-          color: @gray;
-          border-color: @gray-lighter;
-        }
-      }
-
-      &-toggle {
-        height: auto;
-        width: auto;
-        color: @gray;
-        border: 1px solid @gray-lighter;
-        padding: 0 0.8rem;
-        border-radius: 1rem;
-        white-space: nowrap;
-        font-size: 1.4rem;
-        transition: background 0.1s linear, color 0.2s linear;
-        margin-top: 0;
-        margin-right: 0.2rem;
-        margin-bottom: 0;
-        background: none;
-
-        &:hover,
-        &:focus {
-          background-color: @gray-lighter;
-          color: @gray;
-          border: @gray-lighter;
-        }
-      }
-
-      .dropdown-menu {
-        li {
-          padding: 0;
-
-          button {
-            background: none;
-            border: none;
-            width: 100%;
-            text-align: left;
-            padding: 1.2rem 0.8rem;
-          }
-        }
-      }
-    }
-  }
-
-  .info-col {
-    .organisation-dropdown-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-  }
-
   .details-col {
     display: flex;
     flex-wrap: wrap;
@@ -104,7 +24,7 @@
         .service-item {
           display: inline-block;
           border-radius: 50%;
-          background: @gray-light;
+          background: @gray-mid-light;
           color: white;
           width: 3.5rem;
           line-height: 3.5rem;

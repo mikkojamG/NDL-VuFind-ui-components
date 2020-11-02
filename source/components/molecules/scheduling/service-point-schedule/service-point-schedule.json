@@ -1,0 +1,15 @@
+{
+  "previousWeekLabel": "Previous week",
+  "weekText": "Week",
+  "nextWeekLabel": "Next week",
+  "informationNotAvailableText": "No schedules available",
+  "wrapperClass": "js-pl-service-point-schedule",
+  "organisation": "NLF",
+  "servicePointId": 86154,
+  "staffAvailableText": "Staff available",
+  "selfServiceText": "(self service)",
+  "openText": "Open",
+  "closedText": "Closed",
+  "dropdownFallbackLabel": "Select library",
+  "showControls": true
+}

@@ -1,5 +1,5 @@
 <div class="dropdown <?= $dropdownClass ?? ''; ?>">
-  <button class="btn dropdown-toggle <?= (isset($outline) && $outline) ? 'btn-outline-primary' : 'btn-primary'; ?> <?= $buttonClass ?? ''; ?>" data-toggle="dropdown">
+  <button class="btn dropdown-toggle <?= (isset($outline) && $outline) ? 'btn-outline-primary' : 'btn-primary'; ?> <?= $buttonClass ?? ''; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="<?= $labelClass ?? '' ?>">
       <?= $label; ?>
     </span>
@@ -11,7 +11,7 @@
       <i class="fa fa-arrow-down"></i>
     <?php endif; ?>
   </button>
-  <ul class="dropdown-menu" role="menu">
+  <ul class="dropdown-menu" role="menu" aria-label="<?= $fallbackLabel; ?>">
     <?php foreach ($items as $item) : ?>
       <li role="menuitem">
         <a href="<?= $item['href']; ?>" class="<?= (isset($item['active']) && $item['active']) ? 'active' : ''; ?>"><?= $item['name']; ?></a>
