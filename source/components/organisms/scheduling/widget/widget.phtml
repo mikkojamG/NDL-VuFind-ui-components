@@ -1,109 +1,57 @@
-<div class="schedule-widget organisation-info <?= $wrapperClass; ?>" data-organisation="<?= $organisation; ?>" data-target="<?= $target ?? 'page'; ?>" data-service-point-id="<?= $servicePointId ?? ''; ?>">
+<div class="schedule-widget organisation-info <?= $wrapperClass; ?>" data-organisation="<?= $organisation; ?>" data-target="<?= $target ?? 'page'; ?>" data-service-point-id="<?= $servicePointId; ?>">
   <?php if (isset($widgetHeading)) : ?>
     <h2><?= $widgetHeading; ?></h2>
   <?php endif; ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-inital-loader']); ?>
   <div class="js-hidden-initally hide">
-    <div class="<?= (isset($showDetails) && $showDetails) ? 'info-col ' : ''; ?>info">
-      <?php if (isset($showControls) && $showControls) : ?>
-        <div class="organisation-dropdown-wrapper">
-          <div class="organisation-dropdown-holder">
-            <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['dropdownClass' => 'organisation js-service-point-menu', 'items' => [], 'label' => $dropdownFallbackLabel ?? '', 'fallbackLabel' => $dropdownFallbackLabel ?? '']) ?>
-          </div>
-          <div class="js-is-open">
-            <span class="js-open is-open open js-hide-onload hide">
-              <?= $openText ?? ''; ?>
-            </span>
-            <span class="js-closed is-open closed js-hide-onload hide">
-              <?= $closedText ?? ''; ?>
-            </span>
-          </div>
+    <div class="info-col">
+      <?= $this->render('components/molecules/scheduling/service-point-schedule/service-point-schedule.phtml', ['organisation' => $organisation, 'servicePointId' => $servicePointId, 'previousWeekLabel' => $previousWeekLabel, 'weekText' => $weekText, 'nextWeekLabel' => $nextWeekLabel, 'informationNotAvailableText' => $informationNotAvailableText, 'wrapperClass' => $scheduleWrapperClass, 'staffAvailableText' => $staffAvailableText, 'selfServiceText' => $selfServiceText, 'openText' => $openText, 'closedText' => $closedText, 'dropdownFallbackLabel' => $dropdownFallbackLabel, 'showControls' => true]) ?>
+    </div>
+    <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-details-loader']); ?>
+    <div class="details-col js-details-colum">
+      <a href="" data-href="<?= $facilityLink ?? ''; ?>" aria-label="<?= $moreInfoLabel ?? ''; ?>">
+        <img src="<?= $facilityPlaceholderImage ?? ''; ?>" alt="<?= $moreInfoLabel ?? ''; ?>" class="js-facility-image facility-image" />
+      </a>
+      <div class="details-wrapper">
+        <div class="details-item">
+          <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
+          <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
+          <a href="" target="_blank" class="js-route js-hide-onload hide btn">
+            <i class="fa fa-bus" aria-hidden="true"></i>
+            <span class="sr-only"><?= $directionsText ?? ''; ?></span>
+          </a>
+          <a href="" target="_blank" class="js-facebook js-hide-onload hide btn">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            <span class="sr-only"><?= $facebookText ?? ''; ?></span>
+          </a>
         </div>
-      <?php endif; ?>
-      <div class="schedules info">
-        <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder hide', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
-        <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader']); ?>
-        <div class="js-opening-times-week opening-times-week"></div>
-        <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $informationNotAvailableText, 'alertClass' => 'finna-info-alert js-no-schedules js-hide-onload hide']); ?>
-        <ul class="js-mobile-schedules mobile-schedules js-hide-onload hide"></ul>
-      </div>
-      <div class="js-schedules-info schedules-info js-hide-onload hide">
+        <div class="js-map js-hide-onload hide details-item">
+          <a href="" target="_blank">
+            <i class="fa fa-map-marker" aria-hidden="true">
+            </i>
+            <span class="js-map-address"></span>
+          </a>
+        </div>
+        <div class="js-details-link js-hide-onload hide details-item">
+          <a href="" data-href="<?= $facilityLink ?? ''; ?>">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <?= $servicePointInfoText ?? ''; ?>
+          </a>
+        </div>
+        <div class="js-services details-item">
+          <span class="service-item js-service-wifi js-hide-onload hide">
+            <i class="fa fa-wifi" aria-hidden="true"></i>
+            <span class="sr-only"><?= $wifiText ?? ''; ?></span>
+          </span>
+          <span class="service-item js-service-print js-hide-onload hide">
+            <i class="fa fa-print" aria-hidden="true"></i>
+            <span class="sr-only"><?= $printText ?? ''; ?></span>
+          </span>
+        </div>
       </div>
     </div>
-    <?php if (isset($showDetails) && $showDetails) : ?>
-      <div class="details-col">
-        <a href="" data-href="<?= $facilityLink ?? ''; ?>">
-          <img src="<?= $facilityPlaceholderImage ?? ''; ?>" alt="" class="js-facility-image facility-image" />
-        </a>
-        <div class="details-wrapper">
-          <div class="details-item">
-            <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-email'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-at' aria-hidden='true'></i><span class='sr-only'>" . ($emailText ?? '') . "</span>", 'content' => ""]) ?>
-            <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
-            <a href="" target="_blank" class="js-route js-hide-onload hide btn">
-              <i class="fa fa-bus" aria-hidden="true"></i>
-              <span class="sr-only"><?= $directionsText ?? ''; ?></span>
-            </a>
-            <a href="" target="_blank" class="js-facebook js-hide-onload hide btn">
-              <i class="fa fa-facebook-square" aria-hidden="true"></i>
-              <span class="sr-only"><?= $facebookText ?? ''; ?></span>
-            </a>
-          </div>
-          <div class="js-map js-hide-onload hide details-item">
-            <a href="" target="_blank">
-              <i class="fa fa-map-marker" aria-hidden="true">
-              </i>
-              <span class="js-map-address"></span>
-            </a>
-          </div>
-          <div class="js-details-link js-hide-onload hide details-item">
-            <a href="" data-href="<?= $facilityLink ?? ''; ?>">
-              <i class="fa fa-home" aria-hidden="true"></i>
-              <?= $servicePointInfoText ?? ''; ?>
-            </a>
-          </div>
-          <div class="js-services details-item">
-            <span class="service-item js-service-wifi js-hide-onload hide">
-              <i class="fa fa-wifi" aria-hidden="true"></i>
-              <span class="sr-only"><?= $wifiText ?? ''; ?></span>
-            </span>
-            <span class="service-item js-service-print js-hide-onload hide">
-              <i class="fa fa-print" aria-hidden="true"></i>
-              <span class="sr-only"><?= $printText ?? ''; ?></span>
-            </span>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
   </div>
 </div>
-<template class="js-time-row-template">
-  <div class="time-row">
-    <div class="cell date">
-      <span class="js-date"></span>
-    </div>
-    <div class="cell description">
-      <span class="js-name"></span>
-      <span class="js-staff name-staff">
-        <?= $staffAvailableText; ?>
-      </span>
-      <span class="info js-info"></span>
-      <span class="js-selfservice selfservice-only hide">
-        <?= $selfServiceText; ?>
-      </span>
-    </div>
-    <div class="cell time-container js-time-container"></div>
-  </div>
-</template>
-<template class="js-time-template">
-  <div>
-    <span class="js-period">
-      <span class="js-opens"></span> - <span class="js-closes"></span>
-    </span>
-    <span class="js-closed closed-today hide">
-      <?= $closedText ?? ''; ?>
-    </span>
-  </div>
-</template>
 <?php
 $js = <<<JS
 $(document).ready(function onDocumentReady() {
@@ -111,7 +59,7 @@ $(document).ready(function onDocumentReady() {
       var widget = finna.scheduleWidget(this.document);
 
       widget.init($('.{$wrapperClass}'), finna.organisationInfo);
-      widget.getServicePoint();
+      widget.getServicePointInfo();
     };
 
     if(!finna.scheduleWidget || !finna.organisationInfo) {
