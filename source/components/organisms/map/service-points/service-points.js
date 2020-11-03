@@ -60,6 +60,12 @@ finna.mapWidget = (function finnaMapWidget(root) {
     $map.scrollWheelZoom.disable();
   };
 
+  var updateServicePointStatus = function updateMapStatus(newServicePoint) {
+    var statusText = $holder.find('.js-search-status').data('status-placeholder').replace('{item}', newServicePoint);
+
+    $holder.find('.js-search-status').text(statusText);
+  };
+
   var setMarkerEventListeners = function setMarkerEventListeners($marker, $ref, servicePoint) {
     $marker.on('mouseover', function onMarkerMouseOver(event) {
       if ($marker === $selectedMarker) {
@@ -83,6 +89,8 @@ finna.mapWidget = (function finnaMapWidget(root) {
       $ref.trigger('marker-click', servicePoint.id);
 
       $(root).trigger('mapWidget:selectServicePoint', servicePoint.id);
+
+      updateServicePointStatus(servicePoint.name);
     });
   };
 
@@ -331,9 +339,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
 
         $(root).trigger('mapWidget:selectServicePoint', ui.item.value);
 
-        var statusText = $holder.find('.js-search-status').data('status-placeholder').replace('{item}', ui.item.label);
-
-        $holder.find('.js-search-status').text(statusText);
+        updateServicePointStatus(ui.item.label);
 
         return false;
       },
@@ -348,9 +354,7 @@ finna.mapWidget = (function finnaMapWidget(root) {
           }, 100);
         }
 
-        var statusText = $holder.find('.js-search-status').data('status-placeholder').replace('{item}', ui.item.label);
-
-        $holder.find('.js-search-status').text(statusText);
+        updateServicePointStatus(ui.item.label);
 
         return false;
       },
