@@ -54,7 +54,9 @@
     "openText": "Open",
     "closedText": "Closed",
     "dropdownFallbackLabel": "Select library",
-    "showControls": false
+    "showControls": true,
+    "weekNaviStatusText": "Week number changed to:",
+    "dropdownStatusText": "Selected service point changed to:"
   },
   "contact": {
     "accordion": {

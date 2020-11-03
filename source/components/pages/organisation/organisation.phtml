@@ -16,7 +16,7 @@
           </div>
           <div class="column">
             <?php
-            $openingTimesContent = $this->render('components/molecules/scheduling/service-point-schedule/service-point-schedule.phtml', ["nextWeekLabel" => $schedule['nextWeekLabel'], "informationNotAvailableText" => $schedule['informationNotAvailableText'], "organisation" => $organisation, "previousWeekLabel" =>  $schedule['previousWeekLabel'], "selfServiceText" => $schedule['selfServiceText'], "staffAvailableText" => $schedule['staffAvailableText'], "weekText" => $schedule['weekText'], "closedText" => $schedule['closedText'], "dropdownFallbackLabel" => $schedule['dropdownFallbackLabel'], "servicePointId" => $servicePointId, "openText" => $schedule['openText'], 'showControls' => $schedule['showControls'], "wrapperClass" => $schedule['wrapperClass']]); ?>
+            $openingTimesContent = $this->render('components/molecules/scheduling/service-point-schedule/service-point-schedule.phtml', ["nextWeekLabel" => $schedule['nextWeekLabel'], "informationNotAvailableText" => $schedule['informationNotAvailableText'], "organisation" => $organisation, "previousWeekLabel" =>  $schedule['previousWeekLabel'], "selfServiceText" => $schedule['selfServiceText'], "staffAvailableText" => $schedule['staffAvailableText'], "weekText" => $schedule['weekText'], "closedText" => $schedule['closedText'], "dropdownFallbackLabel" => $schedule['dropdownFallbackLabel'], "servicePointId" => $servicePointId, "openText" => $schedule['openText'], 'showControls' => $schedule['showControls'], "wrapperClass" => $schedule['wrapperClass'], "weekNaviStatusText" => $schedule['weekNaviStatusText'], "dropdownStatusText" => $schedule['dropdownStatusText']]); ?>
 
             <?php $accordion =  $schedule['accordion'] ?>
 
