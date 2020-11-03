@@ -328,6 +328,7 @@ finna.servicePointSchedule = (function servicePointSchedule(root) {
 
   var attachWeekNaviListener = function attachWeekNaviListener() {
     $holder.find('.js-prev-week, .js-next-week')
+      .unbind('click')
       .on('click', function onNaviClick() {
         if ($(this).hasClass('disabled')) {
           return;
