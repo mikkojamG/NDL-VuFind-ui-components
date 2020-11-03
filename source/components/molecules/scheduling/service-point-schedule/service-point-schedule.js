@@ -280,13 +280,21 @@ finna.servicePointSchedule = (function servicePointSchedule(root) {
     $menuItems.on('click', function onClickMenuItem() {
       $loader.removeClass('hide');
 
-      $toggleText.text($(this).text());
+      var menuText = $(this).text();
+
+      $toggleText.text(menuText);
 
       $scheduleHolder.empty();
 
       var menuId = $(this).data('id');
 
       $(root).trigger('servicePointSchedule:selectServicePoint', id);
+
+      var menuStatusText = $holder.find('.js-dropdown-status')
+        .data('status-placeholder')
+        .replace('{item}', menuText);
+
+      $holder.find('.js-dropdown-status').text(menuStatusText);
 
       getSchedules(
         organisation,
@@ -337,6 +345,12 @@ finna.servicePointSchedule = (function servicePointSchedule(root) {
         var currentWeek = parseInt($weekNumber.text());
 
         $weekNumber.text(currentWeek + dir);
+
+        var weekStatusText = $holder.find('.js-navigation-status')
+          .data('status-placeholder')
+          .replace('{0}', currentWeek + dir);
+
+        $holder.find('.js-navigation-status').text(weekStatusText);
 
         getSchedules(organisation, id, $holder.data('period-start'), dir).then(function onSchedulesResolve(res) {
           appendSchedulesData(res);

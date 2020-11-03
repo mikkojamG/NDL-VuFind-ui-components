@@ -5,7 +5,7 @@
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-inital-loader']); ?>
   <div class="js-hidden-initally hide">
     <div class="info-col">
-      <?= $this->render('components/molecules/scheduling/service-point-schedule/service-point-schedule.phtml', ['organisation' => $organisation, 'servicePointId' => $servicePointId, 'previousWeekLabel' => $previousWeekLabel, 'weekText' => $weekText, 'nextWeekLabel' => $nextWeekLabel, 'informationNotAvailableText' => $informationNotAvailableText, 'wrapperClass' => $scheduleWrapperClass, 'staffAvailableText' => $staffAvailableText, 'selfServiceText' => $selfServiceText, 'openText' => $openText, 'closedText' => $closedText, 'dropdownFallbackLabel' => $dropdownFallbackLabel, 'showControls' => true]) ?>
+      <?= $this->render('components/molecules/scheduling/service-point-schedule/service-point-schedule.phtml', ['organisation' => $organisation, 'servicePointId' => $servicePointId, 'previousWeekLabel' => $previousWeekLabel, 'weekText' => $weekText, 'nextWeekLabel' => $nextWeekLabel, 'informationNotAvailableText' => $informationNotAvailableText, 'wrapperClass' => $scheduleWrapperClass, 'staffAvailableText' => $staffAvailableText, 'selfServiceText' => $selfServiceText, 'openText' => $openText, 'closedText' => $closedText, 'dropdownFallbackLabel' => $dropdownFallbackLabel, 'showControls' => true, 'weekNaviStatusText' => $weekNaviStatusText, 'dropdownStatusText' => $dropdownStatusText]) ?>
     </div>
     <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-details-loader']); ?>
     <div class="details-col js-details-colum">
@@ -18,11 +18,11 @@
           <?= $this->render('components/atoms/tooltips/tooltip/tooltip.phtml', ['buttonClasses' => ['btn js-hide-onload hide js-phone'], 'position' => 'bottom', 'buttonText' => "<i class='fa fa-phone-square' aria-hidden='true'></i><span class='sr-only'>" . ($phoneText ?? '') . "</span>", 'content' => ""]) ?>
           <a href="" target="_blank" class="js-route js-hide-onload hide btn">
             <i class="fa fa-bus" aria-hidden="true"></i>
-            <span class="sr-only"><?= $directionsText ?? ''; ?></span>
+            <span class="sr-only"><?= $directionsText ?? ''; ?> (<?= $externalLinkText ?? ''; ?>)</span>
           </a>
           <a href="" target="_blank" class="js-facebook js-hide-onload hide btn">
             <i class="fa fa-facebook-square" aria-hidden="true"></i>
-            <span class="sr-only"><?= $facebookText ?? ''; ?></span>
+            <span class="sr-only"><?= $facebookText ?? ''; ?> (<?= $externalLinkText ?? ''; ?>)</span>
           </a>
         </div>
         <div class="js-map js-hide-onload hide details-item">
@@ -39,13 +39,11 @@
           </a>
         </div>
         <div class="js-services details-item">
-          <span class="service-item js-service-wifi js-hide-onload hide">
+          <span class="service-item js-service-wifi js-hide-onload hide" aria-label="<?= $wifiText ?? ''; ?>">
             <i class="fa fa-wifi" aria-hidden="true"></i>
-            <span class="sr-only"><?= $wifiText ?? ''; ?></span>
           </span>
-          <span class="service-item js-service-print js-hide-onload hide">
+          <span class="service-item js-service-print js-hide-onload hide" aria-label="<?= $printText ?? ''; ?>">
             <i class="fa fa-print" aria-hidden="true"></i>
-            <span class="sr-only"><?= $printText ?? ''; ?></span>
           </span>
         </div>
       </div>

@@ -21,9 +21,12 @@
   "staffAvailableText": "Staff available",
   "selfServiceText": "(self service)",
   "dropdownFallbackLabel": "Select library",
+  "weekNaviStatusText": "Week number changed to:",
+  "dropdownStatusText": "Selected service point changed to:",
   "emailText": "Email",
   "phoneText": "Phone",
   "wrapperClass": "js-pl-widget-demo",
   "scheduleWrapperClass": "js-pl-widget-schedule",
-  "moreInfoLabel": "Organisation more info"
+  "moreInfoLabel": "Organisation more info",
+  "externalLinkText": "External link"
 }
