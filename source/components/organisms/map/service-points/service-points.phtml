@@ -9,6 +9,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
   <p class="consortium-notification hide"></p>
   <div class="service-points-control-bar">
     <div class="search-form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
+      <span class="sr-only js-search-status" role="status" aria-live="polite" data-status-placeholder="<?= $searchFormStatusText; ?> {item}"></span>
       <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder ?? '']) ?>
       <p class="not-available-notification js-location-not-available hide"><?= $locationNotAvailableText; ?></p>
       <div class="js-autocomplete-container"></div>

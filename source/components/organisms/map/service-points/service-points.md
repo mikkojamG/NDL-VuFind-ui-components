@@ -21,6 +21,7 @@ A map component for displaying organisation service point locations.
 | openText                 | `String`   | `Open`                                                | Yes      |
 | organisation             | `String`   | `Vaski`                                               | Yes      |
 | searchFormLabel          | `String`   | `Office search`                                       | Yes      |
+| searchFormStatusText     | `String`   | `Service point was changed to:`                       | Yes      |
 | showAllMarkersButton     | `String`   | `Show all service points`                             | Yes      |
 | showMapButton            | `String`   | `Show map`                                            | Yes      |
 | wrapperClass             | `String`   | `js-widget-wrapper`                                   | Yes      |
