@@ -10,6 +10,7 @@ Service point schedule widget, for displaying service point weekly schedules and
 
 | Prop                        | Type     | Value (example)                       | Required |
 | --------------------------- | -------- | ------------------------------------- | -------- |
+| dropdownStatusText          | `String` | `Selected service point changed to:`  | Yes      |
 | closedText                  | `String` | `Closed`                              | Yes      |
 | informationNotAvailableText | `String` | `No schedules available`              | Yes      |
 | nextWeekLabel               | `String` | `Next week`                           | Yes      |
@@ -21,10 +22,12 @@ Service point schedule widget, for displaying service point weekly schedules and
 | servicePointId              | `Number` | `85141`                               | Yes      |
 | staffAvailableText          | `String` | `Staff available`                     | Yes      |
 | weekText                    | `String` | `Week`                                | Yes      |
+| weekNaviStatusText          | `String` | `Week number changed to:`             | Yes      |
 | wrapperClass                | `String` | `js-widget-schedule-wrapper`          | Yes      |
 | dropdownFallbackLabel       | `String` | `Select library`                      | No       |
 | directionsText              | `String` | `Directions`                          | No       |
 | emailText                   | `String` | `Email`                               | No       |
+| externalLinkText            | `String` | `External link`                       | No       |
 | facebookText                | `String` | `Facebook`                            | No       |
 | facilityLink                | `String` | `https://finna.fi/`                   | No       |
 | facilityPlaceholderImage    | `String` | `https://via.placeholder.com/149x100` | No       |

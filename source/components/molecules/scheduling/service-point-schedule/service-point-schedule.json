@@ -11,5 +11,7 @@
   "openText": "Open",
   "closedText": "Closed",
   "dropdownFallbackLabel": "Select library",
-  "showControls": true
+  "showControls": true,
+  "weekNaviStatusText": "Week number changed to:",
+  "dropdownStatusText": "Selected service point changed to:"
 }

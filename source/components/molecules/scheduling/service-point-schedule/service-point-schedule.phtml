@@ -1,6 +1,7 @@
 <div class="service-point-schedule <?= $wrapperClass; ?>" data-organisation="<?= $organisation; ?>" data-service-point-id="<?= $servicePointId; ?>">
   <?php if (!isset($showControls) || $showControls) : ?>
     <div class="organisation-dropdown-wrapper">
+      <span class="js-dropdown-status sr-only" role="status" aria-live="polite" data-status-placeholder="<?= $dropdownStatusText; ?> {item}"></span>
       <div class="organisation-dropdown-holder">
         <?= $this->render('components/molecules/navigation/dropdowns/sort.phtml', ['dropdownClass' => 'organisation js-service-point-menu', 'items' => [], 'label' => $dropdownFallbackLabel ?? '', 'fallbackLabel' => $dropdownFallbackLabel ?? '', 'dropdownListLabel' => $dropdownFallbackLabel]) ?>
       </div>
@@ -14,6 +15,7 @@
       </div>
     </div>
   <?php endif; ?>
+  <span class="js-navigation-status sr-only" role="status" aria-live="polite" data-status-placeholder="<?= $weekNaviStatusText; ?> {0}"></span>
   <?= $this->render('components/molecules/navigation/pagination/pager-with-label.phtml', ['wrapperClass' => 'js-week-navigation week-navigation week-navi-holder hide', 'prevButton' => ['class' => 'week-navigation-control js-prev-week', 'text' => $previousWeekLabel], 'label' => $weekText . ' <span class="js-week-number"></span>', 'nextButton' => ['class' => 'week-navigation-control js-next-week', 'text' => $nextWeekLabel]]) ?>
   <?= $this->render('components/atoms/messaging/loader/loader.phtml', ['wrapperClass' => 'loader js-loader text-center']); ?>
   <div class="js-opening-times-week opening-times-week"></div>
