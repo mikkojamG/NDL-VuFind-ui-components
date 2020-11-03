@@ -144,7 +144,6 @@
     margin-top: 1rem;
     border-radius: 1.5rem;
     box-shadow: 0.6rem 0.1rem 2rem -0.5rem #000;
-    padding: 0.1rem;
     max-height: 28.6rem;
     overflow-y: auto;
     z-index: 2000;
@@ -170,27 +169,30 @@
       background-color: rgba(0, 0, 0, 0.3);
     }
 
-    li {
-      padding: 0.7rem 0.5rem;
-      color: @gray;
+    li.ui-menu-item {
+      .ui-menu-item-wrapper {
+        padding: 0.7rem 0.5rem;
+        width: 100%;
+        color: @gray;
+        background: none;
+        text-align: left;
+        border: none;
+        outline: 0;
 
-      &:first-child {
-        border-top-left-radius: 1.5rem;
-        border-top-right-radius: 1.5rem;
-      }
+        &:first-child {
+          border-top-left-radius: 1.5rem;
+          border-top-right-radius: 1.5rem;
+        }
 
-      &:last-child {
-        border-bottom-left-radius: 1.5rem;
-        border-bottom-right-radius: 1.5rem;
-      }
+        &:last-child {
+          border-bottom-left-radius: 1.5rem;
+          border-bottom-right-radius: 1.5rem;
+        }
 
-      &.ui-state-focus {
-        background: @link-color;
-        color: @body-bg;
-      }
-
-      &:hover {
-        cursor: pointer;
+        &.ui-state-active {
+          background: @link-color;
+          color: @body-bg;
+        }
       }
     }
   }

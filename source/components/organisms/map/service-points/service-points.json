@@ -2,6 +2,7 @@
   "mapHeading": "Demo Heading",
   "searchFormLabel": "Office search",
   "searchFormPlaceholder": "Search service points ({0})",
+  "searchFormStatusText": "Service point was changed to:",
   "locationNotAvailableText": "Organisation location not available",
   "showMapButton": "Show map",
   "centerMapButton": "Center",

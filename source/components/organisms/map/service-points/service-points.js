@@ -331,14 +331,27 @@ finna.mapWidget = (function finnaMapWidget(root) {
 
         $(root).trigger('mapWidget:selectServicePoint', ui.item.value);
 
+        var statusText = $holder.find('.js-search-status').data('status-placeholder').replace('{item}', ui.item.label);
+
+        $holder.find('.js-search-status').text(statusText);
+
         return false;
       },
-      focus: function onAutocompleteFocus() {
+      focus: function onAutocompleteFocus(event, ui) {
+        event.preventDefault();
+
+        $searchInput.val(ui.item.label);
+
         if ($(window).width() < 768) {
           $('html, body').animate({
             scrollTop: $searchInput.offset().top - 5
           }, 100);
         }
+
+        var statusText = $holder.find('.js-search-status').data('status-placeholder').replace('{item}', ui.item.label);
+
+        $holder.find('.js-search-status').text(statusText);
+
         return false;
       },
       open: function onOpen() {
@@ -351,10 +364,12 @@ finna.mapWidget = (function finnaMapWidget(root) {
       appendTo: '.js-autocomplete-container',
       autoFocus: false
     }).data('ui-autocomplete')._renderItem = function addLabels(ul, item) {
-      return $('<li>')
-        .attr('aria-label', item.label)
-        .html(item.label)
-        .appendTo(ul);
+      var $button = $('<button />').html(item.label);
+      var $li = $('<li/>').attr('aria-label', item.label)
+
+      $li.append($button);
+
+      return $li.appendTo(ul);
     };
 
     $searchInput.on('click', function onClickSearch() {
