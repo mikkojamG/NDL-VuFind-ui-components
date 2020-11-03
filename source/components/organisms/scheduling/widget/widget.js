@@ -54,7 +54,6 @@ finna.scheduleWidget = (function finnaWeekSchedule(root) {
       if (facebookLink.length) {
         $holder.find('.js-facebook')
           .attr('href', facebookLink[0].url)
-          .attr('aria-label', VuFind.translate('organisation_info_facebook') + ' (' + VuFind.translate('external_link') + ')')
           .removeClass('hide');
       }
     }

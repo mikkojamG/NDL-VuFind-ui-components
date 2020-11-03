@@ -11,7 +11,7 @@
       <i class="fa fa-arrow-down"></i>
     <?php endif; ?>
   </button>
-  <ul class="dropdown-menu" role="menu" aria-label="<?= $fallbackLabel; ?>">
+  <ul class="dropdown-menu" role="menu">
     <?php foreach ($items as $item) : ?>
       <li role="menuitem">
         <a href="<?= $item['href']; ?>" class="<?= (isset($item['active']) && $item['active']) ? 'active' : ''; ?>"><?= $item['name']; ?></a>

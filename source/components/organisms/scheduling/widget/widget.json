@@ -25,5 +25,6 @@
   "phoneText": "Phone",
   "wrapperClass": "js-pl-widget-demo",
   "scheduleWrapperClass": "js-pl-widget-schedule",
-  "moreInfoLabel": "Organisation more info"
+  "moreInfoLabel": "Organisation more info",
+  "externalLink": "External link"
 }
