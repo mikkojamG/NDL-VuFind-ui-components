@@ -2,7 +2,7 @@
   <div class="container-fluid navbar">
     <div>
       <span class="sr-only">
-        <a class="sr-only" href="#searchForm_lookfor"><?= $$header['skipToSearchText']; ?></a>
+        <a class="sr-only" href="#searchForm_lookfor"><?= $header['skipToSearchText']; ?></a>
       </span>
     </div>
     <a class="sr-only" href="#content"><?= $header['skipToContentText']; ?></a>
@@ -52,7 +52,7 @@
             <?php endforeach; ?>
           </li>
         </ul>
-        <ul role="menubar" class="nav navbar-nav lang" aria-label="<?= $selectLanguageText; ?>">
+        <ul role="menubar" class="nav navbar-nav lang" aria-label="<?= $header['selectLanguageText']; ?>">
           <?php foreach ($header['languages'] as $item) : ?>
             <li class="lang">
               <a role="menuitem" class="preserve-anchor" href="#"><?= $item; ?></a>
