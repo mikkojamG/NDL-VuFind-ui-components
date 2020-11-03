@@ -27,6 +27,8 @@
             $contactContent = $this->render('components/molecules/lists/contact/contact.phtml', ['items' => $contact['items'], 'wrapperClass' => $contact['wrapperClass'], 'organisation' => $organisation, 'servicePointId' => $servicePointId]);
             ?>
 
+            <?php $accordion =  $contact['accordion'] ?>
+
             <?= $this->render('components/molecules/accordion/accordion/accordion.phtml', ['title' => $accordion['title'], 'titleId' => $accordion['titleId'], 'contentId' => $accordion['contentId'], 'content' => $contactContent, 'initallyOpen' => true, 'darkTheme' => true, 'iconAlign' => 'right']); ?>
           </div>
         </div>
