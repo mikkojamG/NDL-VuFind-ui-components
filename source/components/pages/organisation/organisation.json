@@ -26,7 +26,7 @@
     "servicePointId": 85141,
     "organisation": "Vaski",
     "infoWrapperClass": "js-organisation-service-point-demo",
-    "searchFormStatusText": "Service point was changed to:",
+    "searchFormStatusText": "Service point was changed to:"
   },
   "introduction": {
     "accordion": {
