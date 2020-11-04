@@ -11,7 +11,7 @@ $showForm = isset($showSearchForm) && $showSearchForm;
     <div class="search-form-wrapper<?= !$showForm ? ' hide' : ''; ?>">
       <span class="sr-only js-search-status" role="status" aria-live="polite" data-status-placeholder="<?= $searchFormStatusText; ?> {item}"></span>
       <?= $this->render('components/molecules/forms/search/search.phtml', ['label' => $searchFormLabel, 'wrapperClass' => 'js-service-points-form', 'placeholder' => $searchFormPlaceholder ?? '']) ?>
-      <p class="not-available-notification js-location-not-available hide"><?= $locationNotAvailableText; ?></p>
+      <?= $this->render('components/molecules/messaging/alert/alert.phtml', ['alert' => $locationNotAvailableText, 'alertClass' => 'alert-danger not-available-notification js-location-not-available hide']) ?>
       <div class="js-autocomplete-container"></div>
     </div>
     <div class="map-controls">
