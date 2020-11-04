@@ -43,6 +43,7 @@ finna.servicePointBuilding = (function servicePointBuilding(root) {
       $content.find('.js-year-built span').text(data.details.buildingYear);
       $content.find('.js-year-built').removeClass('hide');
     }
+    $content.find('.js-building-image-primary .figure-image').attr('src', '');
 
     if (data.details.pictures) {
       var images = data.details.pictures;
