@@ -235,7 +235,7 @@ finna.servicePointSchedule = (function servicePointSchedule(root) {
 
     var hasSchedules = data.openTimes && data.openTimes.schedules && data.openTimes.schedules.length;
 
-    if (!hasSchedules) {
+    if (hasSchedules) {
       $holder.find('.js-week-navigation').removeClass('hide');
       handleSchedules(data.openTimes.schedules);
     } else {
@@ -252,7 +252,7 @@ finna.servicePointSchedule = (function servicePointSchedule(root) {
         }
       }
 
-      if (servicePoint.details.links) {
+      if (!servicePoint.details.links) {
         $holder.find('.js-no-schedules').removeClass('hide');
       }
 
