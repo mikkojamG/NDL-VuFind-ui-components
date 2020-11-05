@@ -18,5 +18,10 @@
   "collapseMapText": "Collapse",
   "organisation": "Vaski",
   "buildings": ["85141", "85968"],
-  "mapApiUrl": "http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png"
+  "mapApiUrl": "http://map-api.finna.fi/v1/rendered/{z}/{x}/{y}.png",
+  "infoWrapperClass": "js-map-widget-information",
+  "directionsText": "Directions",
+  "homepageText": "Homepage",
+  "openTodayText": "Open today",
+  "staffAvailableText": "Staff available"
 }
