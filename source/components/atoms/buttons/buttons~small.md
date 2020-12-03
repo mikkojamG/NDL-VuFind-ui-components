@@ -1,3 +1,4 @@
 ---
 title: Small
+state: inprogress
 ---

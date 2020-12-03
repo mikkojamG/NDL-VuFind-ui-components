@@ -1,3 +1,7 @@
+---
+state: inprogress
+---
+
 #### Description
 
 A keywords component, used for both displaying and editing keywords/tags related to a list of items. The list of items can be a general purpose list for all the users or a customisable list owned by a single user.
@@ -13,5 +17,6 @@ A keywords component, used for both displaying and editing keywords/tags related
 
 #### Child components
 
+- `atoms/messaging/loader/loader.phtml`
 - `molecules/messaging/in-testing-alert/in-testing-alert.phtml`
 - `molecules/forms/add-keyword/add-keyword.phtml`

@@ -76,7 +76,8 @@
   "patternStateCascade": [
     "inprogress",
     "inreview",
-    "complete"
+    "complete",
+    "demo"
   ],
   "patternExportAll": false,
   "patternExportDirectory": "pattern_exports",
