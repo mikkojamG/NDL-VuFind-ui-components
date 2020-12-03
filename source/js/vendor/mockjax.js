@@ -65,4 +65,12 @@ $.mockjax([
       }
     }
   },
+  {
+    url: VuFind.path + '/AjaxTab',
+    type: 'POST',
+    responseTime: 1000,
+    response: function () {
+      this.responseText = "<div><p>Tab Record</p><div>";
+    }
+  }
 ]);
