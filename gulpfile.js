@@ -8,6 +8,8 @@ const fs = require('fs');
 const exec = require('child_process').exec;
 const glob = require('glob');
 const path = require('path');
+const through = require('through2').obj;
+const { argv } = require('yargs');
 
 const pipeExec = require('gulp-exec');
 const less = require('gulp-less');
@@ -259,28 +261,76 @@ const symLinkTheme = gulp.series(
 
 const copyPatterns = () => {
   const source = config.paths.source.patterns;
+  let state = 'complete';
+
+  if (argv.state && helpers.patternStates.includes(argv.state)) {
+    state = argv.state;
+  }
 
   return gulp
     .src(`${source}**/*.phtml`)
+    .pipe(through((file, _, callback) => {
+      return helpers.filterPatternByState(file, state, callback)
+    }))
     .pipe(gulp.dest(`${themeDirectoryPath}/templates/components`));
 };
 gulp.task(copyPatterns);
 
 const copyStyles = () => {
   const source = config.paths.source.patterns;
+  let state = 'complete';
+
+  if (argv.state && helpers.patternStates.includes(argv.state)) {
+    state = argv.state;
+  }
 
   return gulp
     .src(`${source}**/*.less`)
-    .pipe(gulp.dest(`${themeDirectoryPath}/less/components`));
+    .pipe(through((file, _, callback) => {
+      return helpers.filterPatternByState(file, state, callback)
+    }))
+    .pipe(gulp.dest(`${themeDirectoryPath}/less/components`))
+    .pipe(through((file, _, callback) => {
+      const importPath = path.relative(`${themeDirectoryPath}/less`, file.path)
+      const importString = `@import "${importPath}";\n`
+
+      fs.appendFile(`${themeDirectoryPath}/less/components.less`, importString, (err) => {
+        if (err) {
+          callback(err);
+        }
+
+        callback(null);
+      });
+    }));
 };
 gulp.task(copyStyles);
 
 const copyScripts = () => {
   const source = config.paths.source.patterns;
+  let state = 'complete';
+
+  if (argv.state && helpers.patternStates.includes(argv.state)) {
+    state = argv.state;
+  }
 
   return gulp
     .src(`${source}**/*.js`)
-    .pipe(gulp.dest(`${themeDirectoryPath}/js/components`));
+    .pipe(through((file, _, callback) => {
+      return helpers.filterPatternByState(file, state, callback)
+    }))
+    .pipe(gulp.dest(`${themeDirectoryPath}/js/components`))
+    .pipe(through((file, _, callback) => {
+      const importPath = path.relative(`${themeDirectoryPath}/js`, file.path);
+      const importString = `$config['js'][] = '${importPath}';\n`
+
+      fs.appendFile(`${themeDirectoryPath}/components.config.php`, importString, (err) => {
+        if (err) {
+          callback(err);
+        }
+
+        callback(null);
+      });
+    }));
 };
 gulp.task(copyScripts);
 
@@ -289,8 +339,25 @@ const preCopyTheme = async () => {
 
   if (shouldUnlink) {
     await Promise.all([unlinkPatterns(), unlinkStyles(), unlinkScripts()]);
-
   }
+
+  // Clear Less imports
+  fs.writeFile(`${themeDirectoryPath}/less/components.less`, '', (err) => {
+    if (err) {
+      throw err;
+    }
+
+    return;
+  });
+
+  // Clear JS imports
+  fs.writeFile(`${themeDirectoryPath}/components.config.php`, '<?php\n', (err) => {
+    if (err) {
+      throw err;
+    }
+
+    return;
+  });
 
   Promise.resolve();
 };
@@ -300,9 +367,7 @@ const copyTheme = gulp.series(
   preCopyTheme,
   copyPatterns,
   copyStyles,
-  copyScripts,
-  themeLessImports,
-  themeScriptImports
+  copyScripts
 );
 
 const defaultTask = gulp.series(
@@ -339,7 +404,7 @@ symLinkStyles.description = "Create styles symbolic link";
 
 symLinkScripts.description = "Create scripts symbolic link";
 
-preCopyTheme.description = "Check if existing symlinks in working theme should be removed";
+preCopyTheme.description = "Check for existing symlinks, clear component imports.";
 
 copyPatterns.description = "Create patterns copy";
 
@@ -356,6 +421,9 @@ symLinkTheme.description = "Create symbolic links to working theme";
 unlinkTheme.description = "Unlink/remove components from working theme";
 
 copyTheme.description = "Copy components to working theme";
+copyTheme.flags = {
+  '--state': 'Copy components with given state. Defaults to complete'
+}
 
 // Exports
 exports.default = defaultTask;

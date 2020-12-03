@@ -1,0 +1,6 @@
+{
+  "icon": false,
+  "titleId": "toggleNoIconTitle",
+  "contentId": "toggleNoIconContent",
+  "initallyOpen": false
+}

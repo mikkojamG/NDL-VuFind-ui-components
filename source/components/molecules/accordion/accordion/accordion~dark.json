@@ -1,0 +1,6 @@
+{
+  "darkTheme": true,
+  "titleId": "toggleDarkTitle",
+  "contentId": "toggleDarkContent",
+  "initallyOpen": false
+}

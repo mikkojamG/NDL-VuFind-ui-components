@@ -1,6 +1,8 @@
-var VuFind = {
-  path: '/vufind',
-  translate: function (string) {
-    return string;
+VuFind = (function VuFind() {
+  return {
+    path: '/vufind',
+    translate: function (string) {
+      return string;
+    }
   }
-};
+})();

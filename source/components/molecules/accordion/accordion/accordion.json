@@ -1,0 +1,7 @@
+{
+  "title": "Toggle",
+  "titleId": "toggleTitle",
+  "content": "<p>Paragraph 1</p><p>Paragraph 2</p>",
+  "contentId": "toggleContent",
+  "initallyOpen": true
+}
