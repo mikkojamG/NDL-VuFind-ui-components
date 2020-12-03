@@ -22,12 +22,25 @@
   <script src="../../js/vendor/global-vufind-mock.min.js"></script>
   <script src="../../js/vendor/mockjax.min.js"></script>
 
-  <script src="../../js/main.min.js"></script>
+  <script type="text/javascript" src="../../js/vendor/mockjax.min.js"></script>
+  <script type="text/javascript" src="../../js/main.min.js"></script>
   <!-- Begin Pattern Lab (Required for Pattern Lab to run properly) -->
   <?= $patternLabHead ?>
   <!-- End Pattern Lab -->
 </head>
 
-<body class="<?= $bodyClass ?? '' ?>"></body>
+<body class="<?= $bodyClass ?? '' ?>">
+  <!-- Basic modal -->
+  <div id="modal" class="modal fade hidden-print" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body">
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 
 </html>
