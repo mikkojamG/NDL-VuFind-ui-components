@@ -53,6 +53,19 @@ $.mockjax([
     }
   },
   {
+    url: VuFind.path + '/AJAX/JSON?method=getFeed&id=*&touch-device=*',
+    type: 'GET',
+    responseTime: 1000,
+    response: function () {
+      this.responseText = {
+        data: {
+          html: "<div><p>Feed Content</p><div>",
+          settings: { type: "grid", modal: false }
+        }
+      }
+    }
+  },
+  {
     url: VuFind.path + '/AjaxTab',
     type: 'POST',
     responseTime: 1000,
