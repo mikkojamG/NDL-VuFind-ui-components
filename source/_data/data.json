@@ -42,5 +42,92 @@
   "inputCheckboxError": "Please check this field",
   "submit": "Submit",
   "error": "This is an error",
-  "more": "More"
+  "more": "More",
+  "header": {
+    "skipToSearchText": "Siirry hakuun",
+    "skipToContentText": "Siirry sisältöön",
+    "toggleNaviLabel": "Päänavigaatio",
+    "naviLogoLabel": "Koti",
+    "searchNavi": {
+      "name": "Hakutoiminnot",
+      "items": [
+        {
+          "name": "Tarkennettu haku",
+          "text": "Tarkemmat hakuehdot."
+        },
+        {
+          "name": "Hakuhistoria",
+          "text": "Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi. "
+        }
+      ]
+    },
+    "aboutNavi": {
+      "name": "Tietoa Finnasta",
+      "items": [
+        {
+          "name": "Ketkä ovat mukana?",
+          "text": "Osallistuvat organisaatiot. Voinko käyttää aineistoja? Aiheesta muualla."
+        },
+        {
+          "name": "Mikä Finna on?",
+          "text": "Finna.fi. Muut Finna-hakupalvelut. Tietoa Finnasta."
+        }
+      ]
+    },
+    "helpNavi": {
+      "name": "Ohje"
+    },
+    "linksNavi": [
+      {
+        "name": "Facebook-sivut",
+        "icon": "fa-facebook-button"
+      },
+      {
+        "name": "Finna Instagram",
+        "icon": "fa-instagram"
+      },
+      {
+        "name": "Finna Youtube",
+        "icon": "fa-youtube-play"
+      },
+      {
+        "name": "Finna Twitter",
+        "icon": "fa-twitter"
+      }
+    ],
+    "selectLanguageText": "Valitse sivuston kieli",
+    "languages": ["Sv", "En"],
+    "loginText": "Kirjaudu"
+  },
+  "footer": {
+    "columns": [
+      {
+        "name": "Tietoa",
+        "items": [
+          "Tietoa meistä",
+          "Mikä Finna on?",
+          "Käyttöehdot",
+          "Tietosuoja"
+        ]
+      },
+      {
+        "name": "Hae lisää",
+        "items": ["Hakuhistoria", "Tarkennettu haku", "Selaa luetteloa"]
+      },
+      {
+        "name": "Tarvitsetko apua?",
+        "items": ["Ohje", "Palaute"]
+      }
+    ],
+    "links": [
+      {
+        "name": "Tietoa Finnasta",
+        "image": "/vufind2/themes/finna2/images/powered-by-finna_fi-black.png?_=1594205713"
+      },
+      {
+        "name": "About VuFind",
+        "image": "/vufind2/themes/finna2/images/vufind-logo-black.png?_=1594205713"
+      }
+    ]
+  }
 }
