@@ -1,5 +1,5 @@
-<div class="dropdown">
-  <button class="btn dropdown-toggle <?= (isset($outline) && $outline) ? 'btn-outline-primary' : 'btn-primary'; ?> <?= $dropdownClass ?? ''; ?>" data-toggle="dropdown">
+<div class="dropdown <?= $dropdownClass ?? ''; ?>">
+  <button class="btn dropdown-toggle <?= (isset($outline) && $outline) ? 'btn-outline-primary' : 'btn-primary'; ?> <?= $buttonClass ?? ''; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="<?= $labelClass ?? '' ?>">
       <?= $label; ?>
     </span>
