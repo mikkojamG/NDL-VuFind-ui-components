@@ -1,6 +1,7 @@
 const fs = require('fs');
 const prompts = require('prompts');
 const path = require('path');
+const frontmatter = require('front-matter');
 
 const gulp = require('gulp');
 const clean = require('gulp-clean');
@@ -71,7 +72,7 @@ const importScripts = async (files) => {
   try {
     const cleanPaths = files.map((file) => file.replace('./source/', ''));
 
-    const phpString = `<?php \n${cleanPaths.map((path) => {
+    const phpString = `<?php\n${cleanPaths.map((path) => {
       return `$config['js'][] = '${path}'`
     }).join(';\n')};`;
 
@@ -108,10 +109,42 @@ const importLess = (files) => {
   }
 };
 
+const patternStates = [
+  'inprogress',
+  'inreview',
+  'complete'
+];
+
+const filterPatternByState = (file, state, callback) => {
+  const filedir = path.parse(file.path).dir;
+  const filename = path.parse(file.path).name;
+  const markdownFile = `${filedir}/${filename}.md`;
+
+  if (fs.existsSync(markdownFile)) {
+    fs.readFile(markdownFile, 'utf8', (err, data) => {
+      if (err) {
+        callback(err);
+      }
+
+      const attributes = frontmatter(data).attributes;
+
+      if (attributes.state !== state) {
+        file = null;
+      }
+
+      callback(null, file);
+    });
+  } else {
+    callback(null);
+  }
+};
+
 module.exports = {
   cleanDir,
   checkForComponents,
   checkForSymlinks,
   importScripts,
-  importLess
+  importLess,
+  patternStates,
+  filterPatternByState
 }
