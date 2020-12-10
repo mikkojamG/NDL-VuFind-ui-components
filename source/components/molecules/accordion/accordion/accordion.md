@@ -1,6 +1,6 @@
 ---
 title: Default
-state: inprogress
+state: complete
 ---
 
 #### Description
